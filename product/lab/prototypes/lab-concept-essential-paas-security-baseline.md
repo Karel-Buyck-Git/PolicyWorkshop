@@ -1,8 +1,22 @@
-Here's the **Minimal: Foundational Governance & Security** initiative scoped to 12 common PaaS services, all verified via [AzAdvertizer](https://www.azadvertizer.net):
+# Essential
 
+**_Foundational Governance & Security_**
+  This tier serves as the entry-level baseline, establishing a secure, cost-efficient baseline using automated Azure Policy and Management Group hierarchies. It enforces essential governance "guardrails" such as naming convention and mandatory resource tagging to ensure environment consistency and accurate cost tracking. While optimized for low overhead, it applies the same rigorous Role-Based Access Control (RBAC) and identity standards as higher tiers to maintain a unified security posture. Enforcing standardized protocols, embedded resilience, and hardened cryptography across all resources.
+
+
+* Secure Baseline Enforcement
+* CAF Architecture Alignment,
+      Standardized Resource Naming,
+      Resource Hierarchy
+* Identity & Access
+* FinOps,
+      SKU Governance,
+      Quota & Capacity Planning
+* Automated Software Delivery, (CI/CD pipeline)
+* Resiliency & data protection
 ---
 
-### 🟢 Minimal — Foundational Governance & Security
+##  Foundational Governance & Security
 
 | #   | PaaS Service           | Policy Name                                         | Policy ID                              | Effect     |
 | --- | ---------------------- | --------------------------------------------------- | -------------------------------------- | ---------- |
