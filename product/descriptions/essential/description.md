@@ -46,6 +46,9 @@ Essential is the foundational governance and security tier. It establishes a con
     - Accounts with owner permissions should be MFA enabled (`e3e008c3-56b9-4133-8fd7-d3347377402a`)
     - Deprecated accounts should be removed from your subscription (`8d7e1fde-fe26-4b5f-8108-f8e432cbc2be`)
     - App Service apps should use managed identity (`2b9ad585-36bc-4615-b300-fd4435808332`)
+    - App Service app slots should use managed identity (`4a15c15f-90d5-4a1f-8b63-2903944963fd`)
+    - Function apps should use managed identity (`0da106f2-4ca3-48e8-bc85-c638fe6aea8f`)
+    - Stream Analytics job should use managed identity to authenticate endpoints (`ea6c4923-510a-4346-be26-1894919a5b97`)
 
 - **_FinOps_**: Implements guardrails that improve cost transparency and prevent common cost overruns without slowing down delivery.
   - SKU Governance: Restricts service SKUs and tiers to an approved set to keep spend predictable and ensure supportable, production-appropriate choices.
