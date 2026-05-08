@@ -32,11 +32,14 @@ Essential is the foundational governance and security tier. It establishes a con
 - **_CAF Architecture Alignment_**: Standardizes how resources are organized and governed to support consistent operations, delegation, and reporting.
   - Standardized Resource Naming: Enforces naming conventions (deny where feasible; otherwise audit) to improve discoverability, operational handoffs, and automated reporting.
     - Examples (AzAdvertizer):
+      - ..Resource Name policy..
       - Require a tag and its value on resources (`1e30110a-5ceb-460c-a204-c1c3969c6d62`)
       - Inherit a tag from the resource group (`cd3aa116-8754-49c9-a813-ad46512ece54`)
+    
 
   - Resource Hierarchy: Applies a consistent Management Group / subscription / resource group hierarchy and placement rules (for example, allowed locations and resource types) to keep governance predictable at scale.
     - Examples (AzAdvertizer):
+      - ..mgmt group policy..?
       - Allowed locations (`e56962a6-4747-49cd-b67b-bf8b01975c4c`)
       - Allowed resource types (`a08ec900-254a-4555-9bf5-e42af04b5c5c`)
 
@@ -59,7 +62,7 @@ Essential is the foundational governance and security tier. It establishes a con
   - Quota & Capacity Planning: Surfaces quota and capacity risks early through governance checks and standard request/exemption processes, reducing deployment friction and last-minute escalations.
     - Examples (AzAdvertizer):
       - Azure Cosmos DB — Throughput should be limited (`0b7ef78e-a035-4f23-b9bd-aff122a1b1cf`)
-      - Storage SAS tokens should adhere to 7 day maximum validity (`7aa1c9d5-3d7e-4579-8117-d85e99211757`)
+      - ? .. needs own section..Storage SAS tokens should adhere to 7 day maximum validity (`7aa1c9d5-3d7e-4579-8117-d85e99211757`)
 
 - **_Automated Software Delivery (CI/CD pipeline)_**: Establishes policy-as-code practices using EPAC (Enterprise Policy as Code), where policy definitions, initiatives, and assignments are stored as a Git-tracked desired state. Changes flow through pull requests for review and produce a clear version history; pipelines promote the same artifacts across environments and reconcile assignments to detect and correct drift.
 
@@ -69,4 +72,5 @@ Essential is the foundational governance and security tier. It establishes a con
     - Key Vault should have purge (deletion) protection enabled (`0b60c0b2-2dc2-4e1c-b5c9-abbed971de53`)
     - Key Vault secrets should have an expiration date (`98728c90-32c7-4049-8429-847dc0f4fe37`)
     - Auditing on SQL server should be enabled (`a6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9`)
+    - Storage policy soft delete...
 
