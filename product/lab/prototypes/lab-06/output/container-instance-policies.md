@@ -1,7 +1,0 @@
-# Container Instance Policies
-
-| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Configure diagnostic settings for container groups to Log Analytics workspace |  | Deploys the diagnostic settings for Container Instance to stream resource logs to a Log Analytics workspace when any container instance which is missing this diagnostic settings is created or updated. | DeployIfNotExists, AuditIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | Container Instance | 1.0.0 | BuiltIn | Enterprise |
-| 2 | Azure Container Instance container group should use customer-managed key for encryption |  | Secure your containers with greater flexibility using customer-managed keys. When you specify a customer-managed key, that key is used to protect and control access to the key that encrypts your data. Using customer-managed keys provides additional capabilities to control rotation of the key encryption key or cryptographically erase data. | Audit, Disabled, Deny | Audit | Deny | Container Instance | 1.0.0 | BuiltIn | Essential |
-| 3 | Azure Container Instance container group should deploy into a virtual network |  | Secure communication between your containers with Azure Virtual Networks. When you specify a virtual network, resources within the virtual network can securely and privately communicate with each other. | Audit, Disabled, Deny | Audit | Deny | Container Instance | 2.0.0 | BuiltIn | Professional |

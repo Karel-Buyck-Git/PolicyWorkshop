@@ -1,0 +1,6 @@
+# Health Data Services workspace Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure Health Data Services workspace should use private link | 64528841-2f92-43f6-a137-d52e5c3dbeac |  | Health Data Services workspace should have at least one approved private endpoint connection. Clients in a virtual network can securely access resources that have private endpoint connections through private links. For more information, visit: https://aka.ms/healthcareapisprivatelink. | Audit, Disabled | Audit | Audit | Health Data Services workspace | 1.0.0 | BuiltIn | Enterprise |
+| 2 | Azure Health Data Services workspace should use private link | 64528841-2f92-43f6-a137-d52e5c3dbeac |  | Health Data Services workspace should have at least one approved private endpoint connection. Clients in a virtual network can securely access resources that have private endpoint connections through private links. For more information, visit: https://aka.ms/healthcareapisprivatelink. | Audit, Disabled | Audit | Audit | Health Data Services workspace | 1.0.0 | BuiltIn | Enterprise |

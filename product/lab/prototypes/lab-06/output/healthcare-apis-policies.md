@@ -1,7 +1,0 @@
-# Healthcare APIs Policies
-
-| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | DICOM Service should use a customer-managed key to encrypt data at rest |  | Use a customer-managed key to control the encryption at rest of the data stored in Azure Health Data Services DICOM Service when this is a regulatory or compliance requirement. Customer-managed keys also deliver double encryption by adding a second layer of encryption on top of the default one done with service-managed keys. | Audit, Disabled | Audit | Audit | Healthcare APIs | 1.0.0 | BuiltIn | Essential |
-| 2 | FHIR Service should use a customer-managed key to encrypt data at rest |  | Use a customer-managed key to control the encryption at rest of the data stored in Azure Health Data Services FHIR Service when this is a regulatory or compliance requirement. Customer-managed keys also deliver double encryption by adding a second layer of encryption on top of the default one done with service-managed keys. | Audit, Disabled | Audit | Audit | Healthcare APIs | 1.0.0 | BuiltIn | Essential |
-| 3 | CORS should not allow every domain to access your FHIR Service |  | Cross-Origin Resource Sharing (CORS) should not allow all domains to access your FHIR Service. To protect your FHIR Service, remove access for all domains and explicitly define the domains allowed to connect. | audit, Audit, disabled, Disabled | Audit | audit | Healthcare APIs | 1.1.0 | BuiltIn | Professional |
