@@ -1,7 +1,0 @@
-# API for FHIR Policies
-
-| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Azure API for FHIR should use private link |  | Azure API for FHIR should have at least one approved private endpoint connection. Clients in a virtual network can securely access resources that have private endpoint connections through private links. For more information, visit: https://aka.ms/fhir-privatelink. | Audit, Disabled | Audit | Audit | API for FHIR | 1.0.0 | BuiltIn | Enterprise |
-| 2 | Azure API for FHIR should use a customer-managed key to encrypt data at rest |  | Use a customer-managed key to control the encryption at rest of the data stored in Azure API for FHIR when this is a regulatory or compliance requirement. Customer-managed keys also deliver double encryption by adding a second layer of encryption on top of the default one done with service-managed keys. | audit, Audit, disabled, Disabled | Audit | audit | API for FHIR | 1.1.0 | BuiltIn | Essential |
-| 3 | CORS should not allow every domain to access your API for FHIR |  | Cross-Origin Resource Sharing (CORS) should not allow all domains to access your API for FHIR. To protect your API for FHIR, remove access for all domains and explicitly define the domains allowed to connect. | audit, Audit, disabled, Disabled | Audit | audit | API for FHIR | 1.1.0 | BuiltIn | Professional |

@@ -1,7 +1,0 @@
-# ElasticSan Policies
-
-| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | ElasticSan Volume Group should use private endpoints |  | Private endpoints lets administrator connect virtual networks to Azure services without a public IP address at the source or destination. By mapping private endpoints to volume group, administrator can reduce data leakage risks | Audit, Disabled | Audit | Audit | ElasticSan | 1.0.0 | BuiltIn | Enterprise |
-| 2 | ElasticSan Volume Group should use customer-managed keys to encrypt data at rest |  | Use customer-managed keys to manage the encryption at rest of your VolumeGroup. By default, customer data is encrypted with platform-managed keys, but CMKs are commonly required to meet regulatory compliance standards. Customer-managed keys enable the data to be encrypted with an Azure Key Vault key created and owned by you, with full control and responsibility, including rotation and management. | Audit, Disabled | Audit | Audit | ElasticSan | 1.0.0 | BuiltIn | Essential |
-| 3 | ElasticSan should disable public network access |  | Disable public network access for your ElasticSan so that it's not accessible over the public internet. This can reduce data leakage risks. | Audit, Deny, Disabled | Audit | Deny | ElasticSan | 1.0.0 | BuiltIn | Professional |

@@ -50,7 +50,7 @@ def mvp_value(allowed: list[str]) -> str:
 # Tier classification
 # ---------------------------------------------------------------------------
 
-ENTERPRISE_KEYWORDS  = {"audit", "log", "logging", "private endpoint", "private link", "diagnostic"}
+ENTERPRISE_KEYWORDS  = {"audit", "log", "logging", "private endpoint", "private link", "diagnostic", "customer-managed key"}
 PROFESSIONAL_KEYWORDS = {"public", "vnet", "virtual network", "cors", "resilience", "recovery", "pim", "zone"}
 ESSENTIAL_KEYWORDS   = {"identity", "managed identity", "crypto", "tls", "https", "backup",
                         "tag", "sas", "mfa", "rbac", "sku", "key", "certificate", "encryption"}
@@ -112,6 +112,7 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
 
     record = {
         "name":        clean_name,
+        "policy_id":   raw.get("name", ""),
         "tag":         tag,
         "description": props.get("description", ""),
         "policyType":  props.get("policyType", ""),
@@ -130,8 +131,8 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
 # Markdown rendering
 # ---------------------------------------------------------------------------
 
-HEADER = "| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |"
-SEP    = "|---|---|---|---|---|---|---|---|---|---|---|"
+HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |"
+SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
 def md_row(p: dict, n: int) -> str:
@@ -139,14 +140,16 @@ def md_row(p: dict, n: int) -> str:
     desc    = p["description"].replace("|", "\\|").replace("\n", " ")
     name    = p["name"].replace("|", "\\|")
     return (
-        f"| {n} | {name} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['mvp']}"
+        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['mvp']}"
         f" | {p['category']} | {p['version']} | {p['policyType']} | {p['tier']} |"
     )
 
 
 def write_category_file(category: str, items: list[dict], out_dir: Path) -> Path:
-    slug     = "".join(c if c.isalnum() else "-" for c in category.lower()).strip("-")
-    out_file = out_dir / f"{slug}-policies.md"
+    slug    = "".join(c if c.isalnum() else "-" for c in category.lower()).strip("-")
+    cat_dir = out_dir / slug
+    cat_dir.mkdir(exist_ok=True)
+    out_file = cat_dir / "policies.md"
 
     sorted_items = sorted(items, key=lambda x: (x["tier"], x["name"]))
 
@@ -221,7 +224,7 @@ def main() -> None:
         print(f"\nWriting {len(by_category)} category file(s) to {out_dir}\n")
         for category, items in sorted(by_category.items()):
             out_file = write_category_file(category, items, out_dir)
-            print(f"  {len(items):>3} policies  ->  {out_file.name}")
+            print(f"  {len(items):>3} policies  ->  {out_file.relative_to(out_dir)}")
 
     print("\nDone.")
 

@@ -1,8 +1,0 @@
-# Stream Analytics Policies
-
-| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Resource logs in Azure Stream Analytics should be enabled |  | Audit enabling of resource logs. This enables you to recreate activity trails to use for investigation purposes; when a security incident occurs or when your network is compromised | AuditIfNotExists, Disabled | AuditIfNotExists | AuditIfNotExists | Stream Analytics | 5.0.0 | BuiltIn | Enterprise |
-| 2 | Azure Stream Analytics jobs should use customer-managed keys to encrypt data |  | Use customer-managed keys when you want to securely store any metadata and private data assets of your Stream Analytics jobs in your storage account. This gives you total control over how your Stream Analytics data is encrypted. | audit, Audit, deny, Deny, disabled, Disabled | Audit | deny | Stream Analytics | 1.1.0 | BuiltIn | Essential |
-| 3 | Stream Analytics job should connect to trusted inputs and outputs |  | Ensure that Stream Analytics jobs do not have arbitrary Input or Output connections that are not defined in the allow-list. This checks that Stream Analytics jobs don't exfiltrate data by connecting to arbitrary sinks outside your organization. | Deny, Disabled, Audit | Audit | Deny | Stream Analytics | 1.1.0 | BuiltIn | Essential |
-| 4 | Stream Analytics job should use managed identity to authenticate endpoints |  | Ensure that Stream Analytics jobs only connect to endpoints using managed identity authentication. | Deny, Disabled, Audit | Audit | Deny | Stream Analytics | 1.0.0 | BuiltIn | Essential |
