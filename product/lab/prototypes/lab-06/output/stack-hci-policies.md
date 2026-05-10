@@ -1,0 +1,8 @@
+# Stack HCI Policies
+
+| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure Stack HCI servers should have consistently enforced application control policies | Preview | At a minimum, apply the Microsoft WDAC base policy in enforced mode on all Azure Stack HCI servers. Applied Windows Defender Application Control (WDAC) policies must be consistent across servers in the same cluster. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Stack HCI | 1.0.0-preview | BuiltIn | Essential |
+| 2 | Azure Stack HCI servers should meet Secured-core requirements | Preview | Ensure that all Azure Stack HCI servers meet the Secured-core requirements. To enable the Secured-core server requirements: 1. From the Azure Stack HCI clusters page, go to Windows Admin Center and select Connect. 2. Go to the Security extension and select Secured-core. 3. Select any setting that is not enabled and click Enable. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Stack HCI | 1.0.0-preview | BuiltIn | Essential |
+| 3 | Azure Stack HCI systems should have encrypted volumes | Preview | Use BitLocker to encrypt the OS and data volumes on Azure Stack HCI systems. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Stack HCI | 1.0.0-preview | BuiltIn | Essential |
+| 4 | Host and VM networking should be protected on Azure Stack HCI systems | Preview | Protect data on the Azure Stack HCI hosts network and on virtual machine network connections. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Stack HCI | 1.0.0-preview | BuiltIn | Essential |
