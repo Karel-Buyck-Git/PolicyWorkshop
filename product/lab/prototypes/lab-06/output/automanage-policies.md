@@ -1,0 +1,10 @@
+# Automanage Policies
+
+| # | Policy | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Boot Diagnostics should be enabled on virtual machines | Preview | Azure virtual machines should have boot diagniostics enabled. | Audit, Disabled | Audit | Audit | Automanage | 1.0.0-preview | BuiltIn | Enterprise |
+| 2 | A managed identity should be enabled on your machines | Preview | Resources managed by Automanage should have a managed identity. | Audit, Disabled | Audit | Audit | Automanage | 1.0.0-preview | BuiltIn | Essential |
+| 3 | Automanage Configuration Profile Assignment should be Conformant | Preview | Resources managed by Automanage should have a status of Conformant or ConformantCorrected. | AuditIfNotExists, Disabled | AuditIfNotExists | AuditIfNotExists | Automanage | 1.0.0-preview | BuiltIn | Essential |
+| 4 | Configure virtual machines to be onboarded to Azure Automanage |  | Azure Automanage enrolls, configures, and monitors virtual machines with best practice as defined in the Microsoft Cloud Adoption Framework for Azure. Use this policy to apply Automanage to your selected scope. | AuditIfNotExists, DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | Automanage | 2.4.0 | BuiltIn | Essential |
+| 5 | Configure virtual machines to be onboarded to Azure Automanage with Custom Configuration Profile |  | Azure Automanage enrolls, configures, and monitors virtual machines with best practice as defined in the Microsoft Cloud Adoption Framework for Azure. Use this policy to apply Automanage with your own customized Configuration Profile to your selected scope. | AuditIfNotExists, DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | Automanage | 1.4.0 | BuiltIn | Essential |
+| 6 | Hotpatch should be enabled for Windows Server Azure Edition VMs |  | Minimize reboots and install updates quickly with hotpatch. Learn more at https://docs.microsoft.com/azure/automanage/automanage-hotpatch | Audit, Deny, Disabled | Audit | Deny | Automanage | 1.0.0 | BuiltIn | Essential |

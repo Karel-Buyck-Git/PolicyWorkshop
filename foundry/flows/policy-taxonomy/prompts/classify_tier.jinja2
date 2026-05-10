@@ -1,0 +1,29 @@
+You are classifying Azure Policy definitions into commercial tiers.
+
+# Tier rules (authoritative)
+
+{{ tier_rules }}
+
+# Tiers in scope for this run
+
+Only assign one of these tiers: {{ tier_set | join(", ") }}.
+If a policy fits **none** of the in-scope tiers, set tier to the closest one
+in the rules and put "out-of-scope: <reason>" in the rationale — the caller
+will drop it.
+
+# Policies to classify
+
+For each policy below, return a JSON object with:
+  - policy_id     (string, copy from input)
+  - tier          (one of: {{ tier_set | join(", ") }})
+  - rationale     (one short sentence explaining the rule that matched, ≤ 200 chars)
+
+Reply with valid JSON only, matching the response schema.
+
+Policies:
+{% for p in policies %}
+- policy_id: {{ p.policy_id }}
+  display_name: {{ p.display_name }}
+  description: {{ p.description }}
+  effect: {{ p.effect }}
+{% endfor %}
