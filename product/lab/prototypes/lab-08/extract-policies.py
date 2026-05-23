@@ -15,7 +15,7 @@ Modes:
 
 Defaults:
     --source  C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions
-    --out     C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-07\\output
+    --out     C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-08\\output
 """
 
 import argparse
@@ -41,7 +41,7 @@ _EFFECT_RANK: dict[str, int] = {
 }
 
 
-def mvp_value(allowed: list[str]) -> str:
+def hardened_value(allowed: list[str]) -> str:
     """Return the most hardened (highest-ranked) effect from allowed values."""
     return max(allowed, key=lambda v: _EFFECT_RANK.get(v.lower(), -1), default="")
 
@@ -205,7 +205,7 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
         "version":     (props.get("metadata") or {}).get("version", ""),
         "effect":      effect,
         "allowed":     allowed,
-        "mvp":         mvp_value(allowed),
+        "hardened":         hardened_value(allowed),
     }
     if include_tier:
         record["tier"] = classify_tier(clean_name, props.get("description", ""))
@@ -216,7 +216,7 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
 # Markdown rendering
 # ---------------------------------------------------------------------------
 
-HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | MVP Value | Category | Version | Type | Tier |"
+HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Hardened Value | Category | Version | Type | Tier |"
 SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
@@ -225,7 +225,7 @@ def md_row(p: dict, n: int) -> str:
     desc    = p["description"].replace("|", "\\|").replace("\n", " ")
     name    = p["name"].replace("|", "\\|")
     return (
-        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['mvp']}"
+        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['hardened']}"
         f" | {p['category']} | {p['version']} | {p['policyType']} | {p['tier']} |"
     )
 
@@ -260,7 +260,7 @@ DEFAULT_SOURCE = (
 )
 DEFAULT_OUT = (
     r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-07\output"
+    r"\product\lab\prototypes\lab-08\output"
 )
 
 
