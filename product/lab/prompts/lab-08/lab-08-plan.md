@@ -35,7 +35,7 @@ infrastructure investment or map directly to regulatory frameworks.
 ## Phase 1 — Run the extraction script
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-07\extract-policies.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-08\extract-policies.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the output folder it reports and proceed to Phase 2.
@@ -44,7 +44,7 @@ Run the following script:
 
 The script writes one `policies.md` per Azure resource category to the output folder.
 Each file contains a markdown table with columns: Policy, Policy ID, Tag,
-Description, Allowed Values, Default Value, MVP Value, Category, Version, Type, Tier.
+Description, Allowed Values, Default Value, Hardened Value, Category, Version, Type, Tier.
 
 The Tier column was assigned by keyword matching and is a first pass only —
 use the tier definitions above to validate and correct it.
