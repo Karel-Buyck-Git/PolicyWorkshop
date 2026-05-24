@@ -1,0 +1,23 @@
+{
+  "skill_name": "web-dev-best-practices",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Write a React component that fetches a list of users from /api/users and displays them in a table.",
+      "expected_output": "A React component that separates data fetching from rendering, handles loading and error states explicitly, uses semantic HTML (table), has clear naming, and keeps the component focused on a single responsibility.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "Build a Node/Express route handler for POST /orders that validates the request body (needs customerId and items array), saves the order to a database, and returns the created order.",
+      "expected_output": "Code that follows a layered architecture: a thin route/controller layer that delegates to a service, with input validation before any business logic, consistent error handling, and no database logic leaking into the controller.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write a custom React hook that manages form state for a login form with email and password fields, including basic validation.",
+      "expected_output": "A focused custom hook with a clear name (e.g. useLoginForm), single responsibility (form state + validation only), clean return shape, and validation logic that is explicit and readable.",
+      "files": []
+    }
+  ]
+}

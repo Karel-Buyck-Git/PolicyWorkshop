@@ -1,0 +1,33 @@
+{
+  "run_id": "eval-2-login-hook-with_skill",
+  "expectations": [
+    {
+      "text": "The hook handles form state and validation only — no network calls, no rendering, no side effects beyond state",
+      "passed": true,
+      "evidence": "Hook manages values/errors/touched/isSubmitting. No fetch, no DOM refs, no useEffect. onSubmit callback is caller-provided."
+    },
+    {
+      "text": "The hook has a descriptive name starting with 'use' that makes its purpose clear (e.g. useLoginForm, not useForm)",
+      "passed": true,
+      "evidence": "Named useLoginForm — specific to the login domain"
+    },
+    {
+      "text": "Both email and password fields have validation with clear rules (email format, password length/requirements)",
+      "passed": true,
+      "evidence": "validateEmail checks required + regex pattern; validatePassword checks required + min 8 chars"
+    },
+    {
+      "text": "The hook returns a clear, usable object with values, errors, and handler functions",
+      "passed": true,
+      "evidence": "Returns { values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit, resetForm }"
+    },
+    {
+      "text": "Validation errors are shown in a UX-aware way — errors don't appear before the user has interacted (touched state or similar)",
+      "passed": true,
+      "evidence": "touched state tracked; handleBlur marks fields touched; errors only validated on blur and on subsequent changes"
+    }
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0
+}

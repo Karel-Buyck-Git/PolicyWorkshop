@@ -1,0 +1,33 @@
+{
+  "run_id": "eval-0-user-table-with_skill",
+  "expectations": [
+    {
+      "text": "Data fetching is separated from rendering — either via a custom hook or a separate function, not inline in the component body",
+      "passed": true,
+      "evidence": "useUsers() custom hook fully isolates fetch logic; UserTable only calls the hook and renders"
+    },
+    {
+      "text": "A loading state is explicitly handled and rendered (not just undefined/null)",
+      "passed": true,
+      "evidence": "isLoading state renders <p role=\"status\">Loading users…</p>"
+    },
+    {
+      "text": "An error state is explicitly handled and rendered",
+      "passed": true,
+      "evidence": "error state renders <p role=\"alert\"> with the error message"
+    },
+    {
+      "text": "Uses semantic HTML table elements (<table>, <thead>, <tbody>, <th>, <tr>, <td>)",
+      "passed": true,
+      "evidence": "Uses <table aria-label>, <thead>, <tbody>, <th scope=\"col\">, <tr>, <td>"
+    },
+    {
+      "text": "Variables and functions have descriptive names that make their purpose clear without comments",
+      "passed": true,
+      "evidence": "useUsers, fetchUsers, isLoading, UserTableRow, UserTableBody — all self-describing"
+    }
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0
+}
