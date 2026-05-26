@@ -6,7 +6,7 @@ and either writes one Markdown table file per category (default) or emits a flat
 JSONL extraction file for downstream agent consumption (--jsonl mode).
 
 Usage:
-    python extract-policies.py [--source <folder>] [--out <folder>] [--jsonl]
+    python extract-policies.py [--source <folder>] [--out <folder>] [--hierarchy <file>] [--jsonl]
 
 Modes:
     default   Groups policies by metadata.category and writes one .md per category.
@@ -14,8 +14,9 @@ Modes:
               included — the consuming agent performs tier classification itself.
 
 Defaults:
-    --source  C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions
-    --out     C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-09\\output
+    --source     C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions
+    --out        C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-09\\output
+    --hierarchy  C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-09\\docs\\azure-domain-hierachy.md
 """
 
 import argparse
@@ -216,8 +217,8 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
 # Markdown rendering
 # ---------------------------------------------------------------------------
 
-HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Hardened Value | Category | Version | Type | Tier |"
-SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|"
+HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Hardened Value | Category | Domain | Version | Type | Tier |"
+SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
 def md_row(p: dict, n: int) -> str:
@@ -226,7 +227,7 @@ def md_row(p: dict, n: int) -> str:
     name    = p["name"].replace("|", "\\|")
     return (
         f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['hardened']}"
-        f" | {p['category']} | {p['version']} | {p['policyType']} | {p['tier']} |"
+        f" | {p['category']} | {p['domain']} | {p['version']} | {p['policyType']} | {p['tier']} |"
     )
 
 
@@ -262,6 +263,28 @@ DEFAULT_OUT = (
     r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
     r"\product\lab\prototypes\lab-09\output"
 )
+DEFAULT_HIERARCHY = (
+    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
+    r"\product\lab\prototypes\lab-09\docs\azure-domain-hierachy.md"
+)
+
+
+def load_domain_map(hierarchy_path: Path) -> dict[str, str]:
+    """Parse the domain-hierarchy markdown into a {category: domain} map.
+
+    Top-level domains are bullets at column 0 ('- Domain'); their child
+    categories are indented bullets ('  - Category').
+    """
+    mapping: dict[str, str] = {}
+    current_domain: str | None = None
+    for raw in hierarchy_path.read_text(encoding="utf-8").splitlines():
+        if raw.startswith("- "):
+            current_domain = raw[2:].strip()
+        elif raw.startswith("  - ") and current_domain:
+            category = raw[4:].strip()
+            if category:
+                mapping[category] = current_domain
+    return mapping
 
 
 def write_jsonl(policies: list[dict], source_dir: Path, out_dir: Path) -> Path:
@@ -274,9 +297,10 @@ def write_jsonl(policies: list[dict], source_dir: Path, out_dir: Path) -> Path:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extract Azure Policy definitions to Markdown tables or JSONL.")
-    parser.add_argument("--source", default=DEFAULT_SOURCE, help="Scoped policy source folder")
-    parser.add_argument("--out",    default=DEFAULT_OUT,    help="Output folder")
-    parser.add_argument("--jsonl",  action="store_true",    help="Emit a flat JSONL file for agent consumption (no tier, no MD)")
+    parser.add_argument("--source",    default=DEFAULT_SOURCE,    help="Scoped policy source folder")
+    parser.add_argument("--out",       default=DEFAULT_OUT,       help="Output folder")
+    parser.add_argument("--hierarchy", default=DEFAULT_HIERARCHY, help="Domain-hierarchy markdown file")
+    parser.add_argument("--jsonl",     action="store_true",       help="Emit a flat JSONL file for agent consumption (no tier, no MD)")
     args = parser.parse_args()
 
     source_dir = Path(args.source)
@@ -306,6 +330,16 @@ def main() -> None:
         print(f"\nWrote {len(policies)} records -> {out_file}")
     else:
         # --- MD mode: one file per category ---
+        hierarchy_path = Path(args.hierarchy)
+        if not hierarchy_path.exists():
+            print(f"ERROR: hierarchy file not found: {hierarchy_path}")
+            raise SystemExit(1)
+        domain_map = load_domain_map(hierarchy_path)
+        print(f"Loaded domain map: {len(domain_map)} categories from {hierarchy_path.name}")
+
+        for p in policies:
+            p["domain"] = domain_map.get(p["category"], "undefined")
+
         by_category: dict[str, list] = defaultdict(list)
         for p in policies:
             by_category[p["category"]].append(p)

@@ -12,7 +12,7 @@ The script is idempotent: re-running it produces the same output for the same
 input. Run after extract-policies.py.
 
 Usage:
-    python enrich-policies.py [--out <folder>]
+    python enrich-policies.py [--out <folder>] [--hierarchy <file>]
 """
 
 import argparse
@@ -23,6 +23,28 @@ DEFAULT_OUT = (
     r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
     r"\product\lab\prototypes\lab-09\output"
 )
+DEFAULT_HIERARCHY = (
+    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
+    r"\product\lab\prototypes\lab-09\docs\azure-domain-hierachy.md"
+)
+
+
+def load_domain_map(hierarchy_path: Path) -> dict[str, str]:
+    """Parse the domain-hierarchy markdown into a {category: domain} map.
+
+    Top-level domains are bullets at column 0 ('- Domain'); their child
+    categories are indented bullets ('  - Category').
+    """
+    mapping: dict[str, str] = {}
+    current_domain: str | None = None
+    for raw in hierarchy_path.read_text(encoding="utf-8").splitlines():
+        if raw.startswith("- "):
+            current_domain = raw[2:].strip()
+        elif raw.startswith("  - ") and current_domain:
+            category = raw[4:].strip()
+            if category:
+                mapping[category] = current_domain
+    return mapping
 
 TIER_ORDER = {"Essential": 0, "Professional": 1, "Enterprise": 2}
 
@@ -401,22 +423,28 @@ def build_rationale_section(
 COLUMNS = [
     "#", "Policy", "Policy ID", "Tag", "Description",
     "Allowed Values", "Default Value", "Hardened Value",
-    "Category", "Version", "Type", "Tier",
+    "Category", "Domain", "Version", "Type", "Tier",
 ]
 
 HEADER_LINE = (
     "| # | Policy | Policy ID | Tag | Description | Allowed Values | "
-    "Default Value | Hardened Value | Category | Version | Type | Tier |"
+    "Default Value | Hardened Value | Category | Domain | Version | Type | Tier |"
 )
-SEP_LINE = "|---|---|---|---|---|---|---|---|---|---|---|---|"
+SEP_LINE = "|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
 def parse_table(path: Path) -> tuple[str, list[dict]]:
-    """Return (title, list of row dicts). Skip header + separator lines."""
+    """Return (title, list of row dicts). Skip header + separator lines.
+
+    Tolerates both the legacy 12-column layout (no Domain) and the current
+    13-column layout. For legacy files, Domain is left empty and will be
+    re-derived from Category in process_file.
+    """
     lines = path.read_text(encoding="utf-8").splitlines()
     title = ""
     rows: list[dict] = []
 
+    header_cells: list[str] | None = None
     in_table = False
     for line in lines:
         stripped = line.strip()
@@ -424,16 +452,20 @@ def parse_table(path: Path) -> tuple[str, list[dict]]:
             title = stripped[2:].strip()
             continue
         if stripped.startswith("|") and "Policy ID" in stripped:
+            header_cells = [c.strip() for c in stripped.strip("|").split("|")]
             in_table = True
             continue
         if in_table and re.match(r"^\|[-: |]+\|$", stripped):
             continue
         if in_table and stripped.startswith("|"):
             cells = [c.strip() for c in stripped.strip("|").split("|")]
-            if len(cells) < len(COLUMNS):
-                # malformed row — pad
-                cells.extend([""] * (len(COLUMNS) - len(cells)))
-            row = dict(zip(COLUMNS, cells[: len(COLUMNS)]))
+            # Map cells to their header names (legacy vs current), then re-key
+            # onto the canonical COLUMNS list so downstream code stays uniform.
+            schema = header_cells if header_cells else COLUMNS
+            if len(cells) < len(schema):
+                cells.extend([""] * (len(schema) - len(cells)))
+            raw_row = dict(zip(schema, cells[: len(schema)]))
+            row = {col: raw_row.get(col, "") for col in COLUMNS}
             rows.append(row)
 
     return title, rows
@@ -443,7 +475,7 @@ def md_row(row: dict, n: int) -> str:
     return (
         f"| {n} | {row['Policy']} | {row['Policy ID']} | {row['Tag']} | "
         f"{row['Description']} | {row['Allowed Values']} | {row['Default Value']} | "
-        f"{row['Hardened Value']} | {row['Category']} | {row['Version']} | "
+        f"{row['Hardened Value']} | {row['Category']} | {row['Domain']} | {row['Version']} | "
         f"{row['Type']} | {row['Tier']} |"
     )
 
@@ -465,18 +497,19 @@ def write_enriched(path: Path, title: str, rows: list[dict], rationale: str) -> 
 # Main
 # ---------------------------------------------------------------------------
 
-def process_file(path: Path) -> dict:
+def process_file(path: Path, domain_map: dict[str, str]) -> dict:
     title, rows = parse_table(path)
     slug = path.parent.name
     force_enterprise = slug in ENTERPRISE_ONLY_CATEGORIES
 
-    # Re-classify
+    # Re-classify tier + (re-)derive Domain from Category
     changed = 0
     for r in rows:
         new_tier = "Enterprise" if force_enterprise else classify(r["Policy"], r["Description"])
         if new_tier != r["Tier"]:
             changed += 1
             r["Tier"] = new_tier
+        r["Domain"] = domain_map.get(r["Category"], "undefined")
 
     # Group by tier for rationale
     by_tier: dict[str, list[dict]] = {"Essential": [], "Professional": [], "Enterprise": []}
@@ -505,17 +538,25 @@ def process_file(path: Path) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Enrich lab-09 policies.md files.")
-    parser.add_argument("--out", default=DEFAULT_OUT, help="Output folder")
+    parser.add_argument("--out",       default=DEFAULT_OUT,       help="Output folder")
+    parser.add_argument("--hierarchy", default=DEFAULT_HIERARCHY, help="Domain-hierarchy markdown file")
     args = parser.parse_args()
 
     out_dir = Path(args.out)
+    hierarchy_path = Path(args.hierarchy)
+    if not hierarchy_path.exists():
+        print(f"ERROR: hierarchy file not found: {hierarchy_path}")
+        raise SystemExit(1)
+    domain_map = load_domain_map(hierarchy_path)
+    print(f"Loaded domain map: {len(domain_map)} categories from {hierarchy_path.name}")
+
     files = sorted(out_dir.rglob("policies.md"))
     print(f"Found {len(files)} policies.md files under {out_dir}")
 
     total_rows = 0
     total_changes = 0
     for f in files:
-        result = process_file(f)
+        result = process_file(f, domain_map)
         total_rows += result["row_count"]
         total_changes += result["tier_changes"]
         rel = f.relative_to(out_dir)
