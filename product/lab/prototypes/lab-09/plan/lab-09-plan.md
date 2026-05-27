@@ -77,7 +77,32 @@ explaining what the policies in that tier protect against, grounded in the
 context of that specific Azure resource. Reference relevant compliance frameworks
 where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 
+## Phase 3 — Create initiatives by domain
+
+Run the following script:
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-09\flows\create-initiatives.py"
+
+- If the script exits with an error, report the error message and stop.
+- If it completes successfully, note how many initiative files were written and proceed.
+
+The script reads all enriched `policies.md` files from the `output/` folder, groups every
+policy row by its **Domain** column value, and writes one consolidated initiative file per
+domain to `initiatives/<domain-slug>/initiative.md` (directly under the lab root).
+
+Each initiative file is divided into one section per Category (alphabetically ordered). Each
+section heading is the category name followed by a Markdown table with the standard columns.
+The `#` column restarts at 1 for each category section.
+
+Review the generated initiative files and verify:
+- Every policy from the source files appears in exactly one initiative.
+- The row counts in the script's stdout summary match the number of rows in each file.
+- Policies with Domain `undefined` are collected into `initiatives/undefined/initiative.md`
+  and flagged for manual domain assignment in a follow-up task.
+
 ## Done when
 
 All resource category files have been processed — duplicates removed, tier
 corrections applied, and rationale sections added.
+
+All initiative files have been generated under `initiatives/` — one per domain, divided into
+per-category sections — and verified for completeness and correctness.
