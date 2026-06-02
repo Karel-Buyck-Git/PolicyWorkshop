@@ -186,6 +186,25 @@ def extract_tag(display_name: str) -> tuple[str, str]:
     return "", display_name
 
 
+_IDENTITY_EFFECTS = {"deployifnotexists", "modify"}
+
+
+def requires_managed_identity(allowed: list[str], effect: str) -> str:
+    """Return 'Yes' if any allowed effect (or the fixed effect) requires a managed identity."""
+    candidates = [v.lower() for v in allowed] if allowed else [effect.lower()]
+    return "Yes" if any(v in _IDENTITY_EFFECTS for v in candidates) else "No"
+
+
+def requires_assignment_params(props: dict) -> str:
+    """Return 'Yes' if any non-effect parameter has no defaultValue, else 'No'."""
+    for name, param in (props.get("parameters") or {}).items():
+        if name.lower() == "effect":
+            continue
+        if "defaultValue" not in param:
+            return "Yes"
+    return "No"
+
+
 def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
     try:
         raw = json.loads(path.read_text(encoding="utf-8"))
@@ -222,7 +241,9 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
         "effect":      effect,
         "allowed":     allowed,
         "soft":        soft_value(allowed),
-        "hardened":    hardened_value(allowed),
+        "hardened":       hardened_value(allowed),
+        "requires_params":   requires_assignment_params(props),
+        "requires_identity": requires_managed_identity(allowed, effect),
     }
     if include_tier:
         record["tier"] = classify_tier(clean_name, props.get("description", ""))
@@ -233,8 +254,8 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
 # Markdown rendering
 # ---------------------------------------------------------------------------
 
-HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |"
-SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
+HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |"
+SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
 def md_row(p: dict, n: int) -> str:
@@ -243,7 +264,7 @@ def md_row(p: dict, n: int) -> str:
     name    = p["name"].replace("|", "\\|")
     return (
         f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['soft']} | {p['hardened']}"
-        f" | {p['category']} | {p['domain']} | {p['version']} | {p['policyType']} | {p['tier']} |"
+        f" | {p['category']} | {p['domain']} | {p['version']} | {p['policyType']} | {p['tier']} | {p['requires_params']} | {p['requires_identity']} |"
     )
 
 

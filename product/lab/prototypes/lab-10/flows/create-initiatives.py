@@ -31,14 +31,14 @@ INITIATIVES_DIR = LAB_ROOT / "initiatives"
 COLUMNS = [
     "#", "Policy", "Policy ID", "Tag", "Description",
     "Allowed Values", "Default Value", "Soft Value", "Hardened Value",
-    "Category", "Domain", "Version", "Type", "Tier",
+    "Category", "Domain", "Version", "Type", "Tier", "Requires Parameters", "Requires Managed Identity",
 ]
 
 HEADER_LINE = (
     "| # | Policy | Policy ID | Tag | Description | Allowed Values | "
-    "Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |"
+    "Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |"
 )
-SEP_LINE = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
+SEP_LINE = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 _SEP_RE = re.compile(r"^\|[-:\s|]+\|$")
 
@@ -103,7 +103,8 @@ def md_row(row: dict, n: int) -> str:
         f"| {n} | {row['Policy']} | {row['Policy ID']} | {row['Tag']} | "
         f"{row['Description']} | {row['Allowed Values']} | {row['Default Value']} | "
         f"{row['Soft Value']} | {row['Hardened Value']} | {row['Category']} | "
-        f"{row['Domain']} | {row['Version']} | {row['Type']} | {row['Tier']} |"
+        f"{row['Domain']} | {row['Version']} | {row['Type']} | {row['Tier']} | "
+        f"{row['Requires Parameters']} | {row['Requires Managed Identity']} |"
     )
 
 
