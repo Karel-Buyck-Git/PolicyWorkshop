@@ -1,0 +1,34 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+    "name": "deny-public-ip",
+    "properties": {
+        "displayName": "Deny creation of Public IP addresses",
+        "policyType": "Custom",
+        "mode": "All",
+        "description": "Prevents the creation of Public IP address resources to reduce internet-facing exposure.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Security"
+        },
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "allowedValues": [ "Audit", "Deny", "Disabled" ],
+                "defaultValue": "Deny",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "Audit, Deny, or Disable the policy."
+                }
+            }
+        },
+        "policyRule": {
+            "if": {
+                "field": "type",
+                "equals": "Microsoft.Network/publicIPAddresses"
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}

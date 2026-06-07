@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/web/professional/app-platform/",
+  "assignment": {
+    "name": "company-web-professional-app-platform",
+    "displayName": "Company Web Professional — App Platform",
+    "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-web-professional-app-platform",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

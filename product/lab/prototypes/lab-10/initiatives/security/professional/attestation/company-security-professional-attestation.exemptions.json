@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/security/professional/attestation/exemptions/",
+  "exemptions": [
+    {
+      "name": "company-security-professional-attestation-example-exemption",
+      "displayName": "Example exemption — replace or remove",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/company-security-professional-attestation",
+      "policyDefinitionReferenceIds": [
+        "<policy-reference-id>"
+      ],
+      "scope": "/subscriptions/<sub-id>"
+    }
+  ]
+}

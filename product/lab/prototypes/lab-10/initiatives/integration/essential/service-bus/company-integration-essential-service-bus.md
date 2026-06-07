@@ -1,0 +1,14 @@
+# Company Integration Essential — Service Bus
+
+## Tier rationale
+
+**Essential** — Baseline hygiene for Service Bus: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials, TLS / HTTPS enforcement preventing in-transit interception, and encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | All authorization rules except RootManageSharedAccessKey should be removed from Service Bus namespace | a1817ec0-a368-432a-8057-8371e17ac6ee |  | Service Bus clients should not use a namespace level access policy that provides access to all queues and topics in a namespace. To align with the least privilege security model, you should create access policies at the entity level for queues and topics to provide access to only the specific entity | Audit, Deny, Disabled | Audit | Audit | Deny | Service Bus | Integration | 1.0.1 | BuiltIn | Essential | No | No |
+| 2 | Azure Service Bus namespaces should have local authentication methods disabled | cfb11c26-f069-4c14-8e36-56c394dae5af |  | Disabling local authentication methods improves security by ensuring that Azure Service Bus namespaces exclusively require Microsoft Entra ID identities for authentication. Learn more at: https://aka.ms/disablelocalauth-sb. | Audit, Deny, Disabled | Audit | Audit | Deny | Service Bus | Integration | 1.0.1 | BuiltIn | Essential | No | No |
+| 3 | Configure Azure Service Bus namespaces to disable local authentication | 910711a6-8aa2-4f15-ae62-1e5b2ed3ef9e |  | Disable local authentication methods so that your Azure ServiceBus namespaces exclusively require Microsoft Entra ID identities for authentication. Learn more at: https://aka.ms/disablelocalauth-sb. | Modify, Disabled | Modify | Modify | Modify | Service Bus | Integration | 1.0.1 | BuiltIn | Essential | No | Yes |
+| 4 | Service Bus namespaces should have double encryption enabled | ebaf4f25-a4e8-415f-86a8-42d9155bef0b |  | Enabling double encryption helps protect and safeguard your data to meet your organizational security and compliance commitments. When double encryption has been enabled, data in the storage account is encrypted twice, once at the service level and once at the infrastructure level, using two different encryption algorithms and two different keys. | Audit, Deny, Disabled | Audit | Audit | Deny | Service Bus | Integration | 1.0.0 | BuiltIn | Essential | No | No |

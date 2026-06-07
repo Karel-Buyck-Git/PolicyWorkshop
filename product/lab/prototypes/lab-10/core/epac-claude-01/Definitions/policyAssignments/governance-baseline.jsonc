@@ -1,0 +1,34 @@
+{
+    // Assigns the custom "org-governance-baseline" initiative.
+    // Same file targets the dev MG in epac-dev and the real MG in tenant via the scope block.
+    // Docs: https://azure.github.io/enterprise-azure-policy-as-code/policy-assignments/
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/governance-baseline",
+    "definitionEntry": {
+        "policySetName": "org-governance-baseline",          // reference a CUSTOM initiative by name
+        "displayName": "Org Governance Baseline"
+    },
+    "assignment": {
+        "name": "gov-baseline",                              // <= 24 chars (concatenated)
+        "displayName": "Org Governance Baseline",
+        "description": "Baseline governance controls: allowed locations, managed disks audit, required RG tag."
+    },
+    "metadata": {
+        "category": "Governance"
+    },
+    "enforcementMode": "Default",
+    "parameters": {
+        "allowedLocationsListOfAllowedLocations": [ "westeurope", "northeurope" ],
+        "allowedLocationsEffect": "Deny",
+        "requireRgTagName": "CostCenter",
+        "requireRgTagEffect": "Audit"
+    },
+    "scope": {
+        "epac-dev": [
+            "/providers/Microsoft.Management/managementGroups/epac-contoso"
+        ],
+        "tenant": [
+            "/providers/Microsoft.Management/managementGroups/contoso"
+        ]
+    }
+}

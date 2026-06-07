@@ -1,0 +1,45 @@
+# GitHub Actions — builds the cloud-adoption-framework .skill and attaches it to a Release on a version tag.
+#
+# NOTE ON LOCATION: GitHub Actions only runs workflows from `.github/workflows/` at the REPO ROOT.
+# This file lives next to the skill for convenience; to activate it, copy it to
+# <repo-root>/.github/workflows/ and keep `working-directory` pointing at this skill folder.
+#
+# Tag a release to trigger:  git tag caf-v1.0.0 && git push --tags
+
+name: build-cloud-adoption-framework-skill
+
+on:
+  push:
+    tags:
+      - "caf-v*"
+
+permissions:
+  contents: write
+
+env:
+  # Path from the repo root to this skill folder. Adjust if the repo layout changes.
+  SKILL_DIR: product/lab/prototypes/lab-10/skills/azure-cloud-solutions/cloud-adoption-framework
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build cloud-adoption-framework.skill
+        working-directory: ${{ env.SKILL_DIR }}
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
+          ls -l dist
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloud-adoption-framework-skill
+          path: ${{ env.SKILL_DIR }}/dist/cloud-adoption-framework.skill
+
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.SKILL_DIR }}/dist/cloud-adoption-framework.skill

@@ -1,0 +1,26 @@
+{
+  "nodeName": "/company/integration/professional/event-grid/",
+  "assignment": {
+    "name": "company-integration-professional-event-grid",
+    "displayName": "Company Integration Professional — Event Grid",
+    "description": "Deployment scaffold for 9 policies. 4 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId, configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId, deployConfigureAzureEventGridDomainsPrivateEndpointSubnetId, deployConfigureAzureEventGridTopicsPrivateEndpointSubnetId. A managed identity is required: 6 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-integration-professional-event-grid",
+  "parameters": {
+    "configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId": "<REPLACE: configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId>",
+    "configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId>",
+    "deployConfigureAzureEventGridDomainsPrivateEndpointSubnetId": "<REPLACE: deployConfigureAzureEventGridDomainsPrivateEndpointSubnetId>",
+    "deployConfigureAzureEventGridTopicsPrivateEndpointSubnetId": "<REPLACE: deployConfigureAzureEventGridTopicsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

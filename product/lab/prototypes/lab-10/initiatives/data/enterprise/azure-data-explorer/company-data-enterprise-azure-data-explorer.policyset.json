@@ -1,0 +1,96 @@
+{
+  "name": "company-data-enterprise-azure-data-explorer",
+  "properties": {
+    "displayName": "Company Data Enterprise — Azure Data Explorer",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Azure Data Explorer: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers private endpoints and private link removing the public attack surface and customer-managed keys (CMK / BYOK) for cryptographic sovereignty. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Azure Data Explorer",
+      "domain": "Data",
+      "tier": "Enterprise"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "f7735886-8927-431f-b201-c953922512b8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f7735886-8927-431f-b201-c953922512b8",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Data Explorer cluster should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "81e74cea-30fd-40d5-802f-d72103c2aaaa",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/81e74cea-30fd-40d5-802f-d72103c2aaaa",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Data Explorer encryption at rest should use a customer-managed key"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1fec9658-933f-4b3e-bc95-913ed22d012b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1fec9658-933f-4b3e-bc95-913ed22d012b",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Data Explorer should use a SKU that supports private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7b32f193-cb28-4e15-9a98-b9556db0bafa",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7b32f193-cb28-4e15-9a98-b9556db0bafa",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Data Explorer to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "43bc7be6-5e69-4b0d-a2bb-e815557ca673",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/43bc7be6-5e69-4b0d-a2bb-e815557ca673",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Public network access on Azure Data Explorer should be disabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

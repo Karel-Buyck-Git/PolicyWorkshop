@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/undefined/enterprise/healthcare-apis/",
+  "assignment": {
+    "name": "company-undefined-enterprise-healthcare-apis",
+    "displayName": "Company undefined Enterprise — Healthcare APIs",
+    "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-enterprise-healthcare-apis",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

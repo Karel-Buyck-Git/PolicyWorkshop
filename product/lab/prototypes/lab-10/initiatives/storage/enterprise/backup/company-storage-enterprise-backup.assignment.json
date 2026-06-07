@@ -1,0 +1,27 @@
+{
+  "nodeName": "/company/storage/enterprise/backup/",
+  "assignment": {
+    "name": "company-storage-enterprise-backup",
+    "displayName": "Company Storage Enterprise — Backup",
+    "description": "Deployment scaffold for 7 policies. 5 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup, configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob, configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneQueue, configureRecoveryServicesVaultsPrivateEndpointsPrivateEndpointSubnetId, deployDiagnosticSettingsRecoveryServicesVaultLogAnalytics. A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-storage-enterprise-backup",
+  "parameters": {
+    "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup": "<REPLACE: configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup>",
+    "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob": "<REPLACE: configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob>",
+    "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneQueue": "<REPLACE: configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneQueue>",
+    "configureRecoveryServicesVaultsPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureRecoveryServicesVaultsPrivateEndpointsPrivateEndpointSubnetId>",
+    "deployDiagnosticSettingsRecoveryServicesVaultLogAnalytics": "<REPLACE: deployDiagnosticSettingsRecoveryServicesVaultLogAnalytics>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

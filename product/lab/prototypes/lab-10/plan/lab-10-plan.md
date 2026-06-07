@@ -89,26 +89,36 @@ explaining what the policies in that tier protect against, grounded in the
 context of that specific Azure resource. Reference relevant compliance frameworks
 where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 
-## Phase 3 — Create initiatives by domain
+## Phase 3 — Create per-tier EPAC-ready initiatives
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-09\flows\create-initiatives.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-10\flows\create-initiatives.py"
 
 - If the script exits with an error, report the error message and stop.
-- If it completes successfully, note how many initiative files were written and proceed.
+- If it completes successfully, note how many groups/files were written and proceed.
 
-The script reads all enriched `policies.md` files from the `output/` folder, groups every
-policy row by its **Domain** column value, and writes one consolidated initiative file per
-domain to `initiatives/<domain-slug>/initiative.md` (directly under the lab root).
+The script reads all enriched `policies.md` files from the `output/` folder and joins each policy
+(on its **Policy ID**) against a parameter index built from the official policy repo. It groups
+every policy row by `(Domain, Tier, Category)` — tiers are **exclusive**, so each policy lands in
+exactly one group — and writes four EPAC-ready artifacts per group to
+`initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*` (default prefix `company`):
 
-Each initiative file is divided into one section per Category (alphabetically ordered). Each
-section heading is the category name followed by a Markdown table with the standard columns.
-The `#` column restarts at 1 for each category section.
+- `.md` — the matching tier's rationale paragraph plus the full 16-column policy table (`#` restarts at 1).
+- `.policyset.json` — an EPAC `policySetDefinition` (initiative). Each member entry carries
+  `metadata.policyName` (display name) for readability beside the GUID. `effect` is the hardened literal;
+  parameters with a repo default are emitted inline; required (no-default) parameters are bubbled up
+  to top-level initiative parameters (readable camelCase, letters only) that must be supplied at assignment.
+- `.assignment.json` — an EPAC assignment scaffold with mock tenant references (`<REPLACE: ...>`,
+  `<root-mg-id>`, `<pac-environment-selector>`). `managedIdentityLocations` is emitted only when the
+  group contains a Modify/DeployIfNotExists policy.
+- `.exemptions.json` — an EPAC exemptions template stub (one `Waiver` example with placeholders).
 
-Review the generated initiative files and verify:
-- Every policy from the source files appears in exactly one initiative.
-- The row counts in the script's stdout summary match the number of rows in each file.
-- Policies with Domain `undefined` are collected into `initiatives/undefined/initiative.md`
+The EPAC shapes follow `docs/azure-policy-assignment-requirements.html` (§9.3, §10.2.1, §12.3–12.4).
+
+Review the generated files and verify:
+- Every policy from the source files appears in exactly one `(domain, tier, category)` group.
+- Each `policyDefinitionId` resolves to a real repo GUID and each JSON file parses.
+- Policies with Domain `undefined` are collected under `initiatives/undefined/<tier>/...`
   and flagged for manual domain assignment in a follow-up task.
 
 ## Done when
@@ -116,5 +126,6 @@ Review the generated initiative files and verify:
 All resource category files have been processed — duplicates removed, tier
 corrections applied, and rationale sections added.
 
-All initiative files have been generated under `initiatives/` — one per domain, divided into
-per-category sections — and verified for completeness and correctness.
+All EPAC-ready initiative artifacts have been generated under `initiatives/` — one markdown spec
+plus policyset, assignment, and exemptions JSON per `(domain, tier, category)` group — and verified
+for completeness and correctness.

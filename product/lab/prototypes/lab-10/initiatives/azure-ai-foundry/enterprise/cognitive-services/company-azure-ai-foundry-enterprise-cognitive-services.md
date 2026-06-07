@@ -1,0 +1,13 @@
+# Company Azure AI Foundry Enterprise — Cognitive Services
+
+## Tier rationale
+
+**Enterprise** — Zero-trust and regulatory alignment for Cognitive Services: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers private endpoints and private link removing the public attack surface and customer-managed keys (CMK / BYOK) for cryptographic sovereignty. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure AI Services resources should encrypt data at rest with a customer-managed key (CMK) | 67121cc7-ff39-4ab8-b7e3-95b84dab487d |  | Using customer-managed keys to encrypt data at rest provides more control over the key lifecycle, including rotation and management. This is particularly relevant for organizations with related compliance requirements. This is not assessed by default and should only be applied when required by compliance or restrictive policy requirements. If not enabled, the data will be encrypted using platform-managed keys. To implement this, update the 'Effect' parameter in the Security Policy for the applicable scope. | Audit, Deny, Disabled | Audit | Audit | Deny | Cognitive Services | Azure AI Foundry | 2.2.0 | BuiltIn | Enterprise | No | No |
+| 2 | Cognitive Services accounts should use customer owned storage | 46aa9b05-0e60-4eae-a88b-1e9d374fa515 |  | Use customer owned storage to control the data stored at rest in Cognitive Services. To learn more about customer owned storage, visit https://aka.ms/cogsvc-cmk. | Audit, Deny, Disabled | Audit | Audit | Deny | Cognitive Services | Azure AI Foundry | 2.0.0 | BuiltIn | Enterprise | No | No |
+| 3 | Configure Cognitive Services accounts to use private DNS zones | c4bc6f10-cb41-49eb-b000-d5ab82e2a091 |  | Use private DNS zones to override the DNS resolution for a private endpoint. A private DNS zone links to your virtual network to resolve to Cognitive Services accounts. Learn more at: https://go.microsoft.com/fwlink/?linkid=2110097. | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | Cognitive Services | Azure AI Foundry | 1.0.0 | BuiltIn | Enterprise | Yes | Yes |

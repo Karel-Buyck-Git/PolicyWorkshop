@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/storage/enterprise/backup/exemptions/",
+  "exemptions": [
+    {
+      "name": "company-storage-enterprise-backup-example-exemption",
+      "displayName": "Example exemption — replace or remove",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/company-storage-enterprise-backup",
+      "policyDefinitionReferenceIds": [
+        "<policy-reference-id>"
+      ],
+      "scope": "/subscriptions/<sub-id>"
+    }
+  ]
+}
