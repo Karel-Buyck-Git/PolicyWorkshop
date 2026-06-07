@@ -1,9 +1,9 @@
 """
 enrich-policies.py
 
-Phase 2 enrichment for lab-09:
+Phase 2 enrichment for lab-10:
   - Re-validates the Tier column in every category's policies.md using refined
-    rules (encoding the corrections from the lab-09 plan).
+    rules (encoding the corrections from the lab plan).
   - Generates a rationale section above the table, grounded in the policies
     actually present in each tier for that resource category.
   - Re-sorts rows by (tier, name) and rewrites the file.
@@ -19,14 +19,11 @@ import argparse
 import re
 from pathlib import Path
 
-DEFAULT_OUT = (
-    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-09\output"
-)
-DEFAULT_HIERARCHY = (
-    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-09\docs\azure-domain-hierachy.md"
-)
+# Defaults derive from this script's location (the lab root is two levels up),
+# so the pipeline targets its own lab with no flags.
+LAB_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_OUT = str(LAB_ROOT / "output")
+DEFAULT_HIERARCHY = str(LAB_ROOT / "docs" / "azure-domain-hierachy.md")
 
 
 def load_domain_map(hierarchy_path: Path) -> dict[str, str]:

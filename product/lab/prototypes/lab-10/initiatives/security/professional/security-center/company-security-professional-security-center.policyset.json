@@ -1,0 +1,1860 @@
+{
+  "name": "company-security-professional-security-center",
+  "properties": {
+    "displayName": "Company Security Professional — Security Center",
+    "description": "**Professional** — Active security posture for Defender for Cloud: controls that produce signals an operations team must act on. This tier delivers Microsoft Defender plans surfacing threat signals, vulnerability assessment scanning, network hardening (public access disabled, VNet integration, firewall rules), privileged identity management and just-in-time access, audit-log and monitoring controls that produce signals for ops teams, and auto-remediation deployments. Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Security Center",
+      "domain": "Security",
+      "tier": "Professional"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureArcEnabledSqlServersDataWorkspaceRegion": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Workspace region",
+          "description": "Region of the Log Analytics workspace destination for the Data Collection Rule.",
+          "strongType": "location"
+        }
+      },
+      "deployExportEventHubTrustedServiceResourceGroupName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group name",
+          "description": "The resource group name where the export to Event Hub configuration is created. If you enter a name for a resource group that doesn't exist, it'll be created in the subscription. Note that each resource group can only have one export to Event Hub configured."
+        }
+      },
+      "deployExportEventHubTrustedServiceResourceGroupLocation": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group location",
+          "description": "The location where the resource group and the export to Event Hub configuration are created.",
+          "strongType": "location"
+        }
+      },
+      "deployExportEventHubTrustedServiceEventHubDetails": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Event Hub details",
+          "description": "The Event Hub details of where the data should be exported to: Subscription, Event Hub Namespace, Event Hub.",
+          "strongType": "Microsoft.EventHub/namespaces/eventhubs",
+          "assignPermissions": true
+        }
+      },
+      "deployExportEventHubMicrosoftDefenderResourceGroupName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group name",
+          "description": "The resource group name where the export to Event Hub configuration is created. If you enter a name for a resource group that doesn't exist, it'll be created in the subscription. Note that each resource group can only have one export to Event Hub configured."
+        }
+      },
+      "deployExportEventHubMicrosoftDefenderResourceGroupLocation": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group location",
+          "description": "The location where the resource group and the export to Event Hub configuration are created.",
+          "strongType": "location"
+        }
+      },
+      "deployExportEventHubMicrosoftDefenderEventHubDetails": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Event Hub details",
+          "description": "The Event Hub details of where the data should be exported to: Subscription, Event Hub Namespace, Event Hub, and Authorizations rules with 'Send' claim.",
+          "strongType": "Microsoft.EventHub/namespaces/eventhubs/authorizationrules",
+          "assignPermissions": true
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudAutomationName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Automation name",
+          "description": "This is the automation name."
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group name",
+          "description": "The resource group name where the workflow automation is created. If you enter a name for a resource group that doesn't exist, it'll be created in the subscription."
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupLocation": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group location",
+          "description": "The location where the resource group and the workflow automation are created.",
+          "strongType": "location"
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudLogicAppResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Logic App",
+          "description": "The Logic App that is triggered.",
+          "strongType": "Microsoft.Logic/workflows",
+          "assignPermissions": true
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudLogicAppTrigger": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Logic app trigger",
+          "description": "The trigger connector of the logic app that is triggered. Possible values: 'Manual (Incoming HTTP request)', 'When an Azure Security Center Alert is created or triggered'."
+        },
+        "allowedValues": [
+          "Manual (Incoming HTTP request)",
+          "When an Azure Security Center Alert is created or triggered"
+        ]
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudAutomationNameA": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Automation name",
+          "description": "This is the automation name."
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupNameA": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group name",
+          "description": "The resource group name where the workflow automation is created. If you enter a name for a resource group that doesn't exist, it'll be created in the subscription."
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupLocationA": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource group location",
+          "description": "The location where the resource group and the workflow automation are created.",
+          "strongType": "location"
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudLogicAppResourceIdA": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Logic App",
+          "description": "The Logic App that is triggered.",
+          "strongType": "Microsoft.Logic/workflows",
+          "assignPermissions": true
+        }
+      },
+      "deployWorkflowAutomationMicrosoftDefenderCloudLogicAppTriggerA": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Logic app trigger",
+          "description": "The trigger connector of the logic app that is triggered. Possible values: 'Manual (Incoming HTTP request)', 'When an Azure Security Center Recommendation is created or triggered'."
+        },
+        "allowedValues": [
+          "Manual (Incoming HTTP request)",
+          "When an Azure Security Center Recommendation is created or triggered"
+        ]
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "501541f7-f7e7-4cd6-868c-4190fdad3ac9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/501541f7-f7e7-4cd6-868c-4190fdad3ac9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "A vulnerability assessment solution should be enabled on your virtual machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a7aca53f-2ed4-4466-a25e-0b45ade68efd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a7aca53f-2ed4-4466-a25e-0b45ade68efd",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure DDoS Protection should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2913021d-f2fd-4f3d-b958-22354e2bdbcb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2913021d-f2fd-4f3d-b958-22354e2bdbcb",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for App Service should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7fe3b40f-802b-4cdd-8bd4-fd799c948cc2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7fe3b40f-802b-4cdd-8bd4-fd799c948cc2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for Azure SQL Database servers should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0e6763cc-5078-4e64-889d-ff4d9a839047",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0e6763cc-5078-4e64-889d-ff4d9a839047",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for Key Vault should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0a9fbe0d-c5c4-4da8-87d8-f4fd77338835",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0a9fbe0d-c5c4-4da8-87d8-f4fd77338835",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for open-source relational databases should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c3d20c29-b36d-48fe-808b-99a87530ad99",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c3d20c29-b36d-48fe-808b-99a87530ad99",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for Resource Manager should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4da35fc9-c9e7-4960-aec9-797fe7d9051d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4da35fc9-c9e7-4960-aec9-797fe7d9051d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for servers should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6581d072-105e-4418-827f-bd446d56421b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6581d072-105e-4418-827f-bd446d56421b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for SQL servers on machines should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3bc8a0d5-38e0-4a3d-a657-2cb64468fc34",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3bc8a0d5-38e0-4a3d-a657-2cb64468fc34",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for SQL should be enabled for unprotected MySQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d38668f5-d155-42c7-ab3d-9b57b50f8fbf",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d38668f5-d155-42c7-ab3d-9b57b50f8fbf",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Defender for SQL should be enabled for unprotected PostgreSQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "090c7b07-b4ed-4561-ad20-e9075f3ccaff",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/090c7b07-b4ed-4561-ad20-e9075f3ccaff",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure registry container images should have vulnerabilities resolved (powered by Microsoft Defender Vulnerability Management)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "17f4b1cc-c55c-4d94-b1f9-2978f6ac2957",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/17f4b1cc-c55c-4d94-b1f9-2978f6ac2957",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure running container images should have vulnerabilities resolved (powered by Microsoft Defender Vulnerability Management)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fc47609f-4d9b-4aed-806b-446816cc63a3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fc47609f-4d9b-4aed-806b-446816cc63a3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "ChangeTracking extension should be installed on your Linux Arc machine"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiasoutheast",
+              "australiaeast",
+              "brazilsouth",
+              "canadacentral",
+              "centralindia",
+              "centralus",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "japaneast",
+              "koreacentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "southcentralus",
+              "southeastasia",
+              "switzerlandnorth",
+              "uaenorth",
+              "uksouth",
+              "westcentralus",
+              "westeurope",
+              "westus",
+              "westus2"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8893442c-e7cb-4637-bab8-299a5d4ed96a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8893442c-e7cb-4637-bab8-299a5d4ed96a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "ChangeTracking extension should be installed on your Linux virtual machine"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiasoutheast",
+              "australiaeast",
+              "brazilsouth",
+              "canadacentral",
+              "centralindia",
+              "centralus",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "japaneast",
+              "koreacentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "southcentralus",
+              "southeastasia",
+              "switzerlandnorth",
+              "uaenorth",
+              "uksouth",
+              "westcentralus",
+              "westeurope",
+              "westus",
+              "westus2"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e71c1e29-9c76-4532-8c4b-cb0573b0014c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e71c1e29-9c76-4532-8c4b-cb0573b0014c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "ChangeTracking extension should be installed on your Linux virtual machine scale sets"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiasoutheast",
+              "australiaeast",
+              "brazilsouth",
+              "canadacentral",
+              "centralindia",
+              "centralus",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "japaneast",
+              "koreacentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "southcentralus",
+              "southeastasia",
+              "switzerlandnorth",
+              "uaenorth",
+              "uksouth",
+              "westcentralus",
+              "westeurope",
+              "westus",
+              "westus2"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a7f5e735-d212-4c32-9229-d12bffbc7e00",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a7f5e735-d212-4c32-9229-d12bffbc7e00",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "ChangeTracking extension should be installed on your Windows Arc machine"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiasoutheast",
+              "australiaeast",
+              "brazilsouth",
+              "canadacentral",
+              "centralindia",
+              "centralus",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "japaneast",
+              "koreacentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "southcentralus",
+              "southeastasia",
+              "switzerlandnorth",
+              "uaenorth",
+              "uksouth",
+              "westcentralus",
+              "westeurope",
+              "westus",
+              "westus2"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "221aac80-54d8-484b-83d7-24f4feac2ce0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/221aac80-54d8-484b-83d7-24f4feac2ce0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "ChangeTracking extension should be installed on your Windows virtual machine"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiasoutheast",
+              "australiaeast",
+              "brazilsouth",
+              "canadacentral",
+              "centralindia",
+              "centralus",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "japaneast",
+              "koreacentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "southcentralus",
+              "southeastasia",
+              "switzerlandnorth",
+              "uaenorth",
+              "uksouth",
+              "westcentralus",
+              "westeurope",
+              "westus",
+              "westus2"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4bb303db-d051-4099-95d2-e3e1428a4d00",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4bb303db-d051-4099-95d2-e3e1428a4d00",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "ChangeTracking extension should be installed on your Windows virtual machine scale sets"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiasoutheast",
+              "australiaeast",
+              "brazilsouth",
+              "canadacentral",
+              "centralindia",
+              "centralus",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "japaneast",
+              "koreacentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "southcentralus",
+              "southeastasia",
+              "switzerlandnorth",
+              "uaenorth",
+              "uksouth",
+              "westcentralus",
+              "westeurope",
+              "westus",
+              "westus2"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3d5ed4c2-5e50-4c76-932b-8982691b68ae",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3d5ed4c2-5e50-4c76-932b-8982691b68ae",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Advanced Threat Protection to be enabled on Azure database for MySQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2a6ae02f-7590-40d7-88ba-b18e205a32fd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a6ae02f-7590-40d7-88ba-b18e205a32fd",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Advanced Threat Protection to be enabled on Azure database for PostgreSQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "65503269-6a54-4553-8a28-0065a8e6d929",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/65503269-6a54-4553-8a28-0065a8e6d929",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Arc-enabled SQL Servers to automatically install Microsoft Defender for SQL"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cbdd12e1-193a-445c-9926-560118c6daaa",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cbdd12e1-193a-445c-9926-560118c6daaa",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Arc-enabled SQL Servers with Data Collection Rule Association to Microsoft Defender for SQL DCR"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2227e1f1-23dd-4c3a-85a9-7024a401d8b2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2227e1f1-23dd-4c3a-85a9-7024a401d8b2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Arc-enabled SQL Servers with Data Collection Rule Association to Microsoft Defender for SQL user-defined DCR"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "workspaceRegion": {
+            "value": "[parameters('configureArcEnabledSqlServersDataWorkspaceRegion')]"
+          },
+          "userWorkspaceId": {
+            "value": ""
+          },
+          "bringYourOwnDcr": {
+            "value": false
+          },
+          "dcrResourceId": {
+            "value": ""
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b40e7bcd-a1e5-47fe-b9cf-2f534d0bfb7d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b40e7bcd-a1e5-47fe-b9cf-2f534d0bfb7d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Defender for App Service to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b99b73e7-074b-4089-9395-b7236f094491",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b99b73e7-074b-4089-9395-b7236f094491",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Defender for Azure SQL database to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "44433aa3-7ec2-4002-93ea-65c65ff0310a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/44433aa3-7ec2-4002-93ea-65c65ff0310a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Defender for open-source relational databases to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b7021b2b-08fd-4dc0-9de7-3c6ece09faf9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b7021b2b-08fd-4dc0-9de7-3c6ece09faf9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Defender for Resource Manager to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "subPlan": {
+            "value": "PerApiCall"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8e86a5b6-b9bd-49d1-8e21-4bb8a0862222",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8e86a5b6-b9bd-49d1-8e21-4bb8a0862222",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Defender for servers to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "50ea7265-7d8c-429e-9a7d-ca1f410191c3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/50ea7265-7d8c-429e-9a7d-ca1f410191c3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Defender for SQL servers on machines to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "17bc14a7-92e1-4551-8b8c-80f36953e166",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/17bc14a7-92e1-4551-8b8c-80f36953e166",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure basic Microsoft Defender for Storage to be enabled (Activity Monitoring only)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "subPlan": {
+            "value": "DefenderForStorageV2"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "13ce0167-8ca6-4048-8e6b-f996402e3c1b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/13ce0167-8ca6-4048-8e6b-f996402e3c1b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure machines to receive a vulnerability assessment provider"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "vaType": {
+            "value": "default"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "72f8cee7-2937-403d-84a1-a4e3e57f3c21",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/72f8cee7-2937-403d-84a1-a4e3e57f3c21",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender CSPM plan"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "isSensitiveDataDiscoveryEnabled": {
+            "value": "true"
+          },
+          "isContainerRegistriesVulnerabilityAssessmentsEnabled": {
+            "value": "true"
+          },
+          "isAgentlessDiscoveryForKubernetesEnabled": {
+            "value": "true"
+          },
+          "isAgentlessVmScanningEnabled": {
+            "value": "true"
+          },
+          "isEntraPermissionsManagementEnabled": {
+            "value": "true"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "689f7782-ef2c-4270-a6d0-7664869076bd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/689f7782-ef2c-4270-a6d0-7664869076bd",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender CSPM to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "82bf5b87-728b-4a74-ba4d-6123845cf542",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/82bf5b87-728b-4a74-ba4d-6123845cf542",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Azure Cosmos DB to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "efd4031d-b232-4595-babf-ae817348e91b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/efd4031d-b232-4595-babf-ae817348e91b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Containers plan"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "isContainerRegistriesVulnerabilityAssessmentsEnabled": {
+            "value": "true"
+          },
+          "isAgentlessDiscoveryForKubernetesEnabled": {
+            "value": "true"
+          },
+          "isAgentlessVmScanningEnabled": {
+            "value": "true"
+          },
+          "isContainerSensorEnabled": {
+            "value": "true"
+          },
+          "isSecurityGatingEnabled": {
+            "value": "True"
+          },
+          "isContainerIntegrityContributionEnabled": {
+            "value": "true"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c9ddb292-b203-4738-aead-18e2716e858f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c9ddb292-b203-4738-aead-18e2716e858f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Containers to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "da56d295-2889-41ce-a4cd-6f50fb93aa68",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/da56d295-2889-41ce-a4cd-6f50fb93aa68",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Endpoint integration settings with Microsoft Defender for Cloud (WDATP)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f9e2bd2f-47c7-4059-8265-c5292aa62c8a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f9e2bd2f-47c7-4059-8265-c5292aa62c8a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Endpoint integration settings with Microsoft Defender for Cloud (WDATP_EXCLUDE_LINUX...)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "48666c5d-cec1-4043-ab6b-1be05abb24f2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/48666c5d-cec1-4043-ab6b-1be05abb24f2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Endpoint integration settings with Microsoft Defender for Cloud (WDATP_UNIFIED_SOLUTION)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1f725891-01c0-420a-9059-4fa46cb770b7",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f725891-01c0-420a-9059-4fa46cb770b7",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Key Vault plan"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "subPlan": {
+            "value": "PerTransaction"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5eb6d64a-4086-4d7a-92da-ec51aed0332d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5eb6d64a-4086-4d7a-92da-ec51aed0332d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Servers plan"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "subPlan": {
+            "value": "P2"
+          },
+          "isAgentlessVmScanningEnabled": {
+            "value": "true"
+          },
+          "isMdeDesignatedSubscriptionEnabled": {
+            "value": "false"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5f57b753-04b4-4e5e-aa31-c8888984497a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5f57b753-04b4-4e5e-aa31-c8888984497a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Servers plan (P1 OR P2)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "subPlan": {
+            "value": "P2"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "951c1558-50a5-4ca3-abb6-a93e3e2367a6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/951c1558-50a5-4ca3-abb6-a93e3e2367a6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for SQL to be enabled on Synapse workspaces"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "74c30959-af11-47b3-9ed2-a26e03f427a3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/74c30959-af11-47b3-9ed2-a26e03f427a3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Storage (Classic) to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cfdc5972-75b3-4418-8ae1-7f5c36839390",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cfdc5972-75b3-4418-8ae1-7f5c36839390",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender for Storage to be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "isOnUploadMalwareScanningEnabled": {
+            "value": "true"
+          },
+          "capGBPerMonthPerStorageAccount": {
+            "value": 10000
+          },
+          "isSensitiveDataDiscoveryEnabled": {
+            "value": "true"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "359a48a3-351a-4618-bb32-f1628645694b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/359a48a3-351a-4618-bb32-f1628645694b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Microsoft Defender threat protection for AI Services"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "isAIPromptEvidenceEnabled": {
+            "value": "true"
+          },
+          "isAIPromptSharingWithPurviewEnabled": {
+            "value": "true"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ddca0ddc-4e9d-4bbb-92a1-f7c4dd7ef7ce",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ddca0ddc-4e9d-4bbb-92a1-f7c4dd7ef7ce",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure SQL Virtual Machines to automatically install Microsoft Defender for SQL"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "workspaceRegion": {
+            "value": ""
+          },
+          "userWorkspaceId": {
+            "value": ""
+          },
+          "bringYourOwnDcr": {
+            "value": false
+          },
+          "dcrResourceId": {
+            "value": ""
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9345b7fb-67c5-496c-9f12-eaa74f676875",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9345b7fb-67c5-496c-9f12-eaa74f676875",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure SQL Virtual Machines to automatically install Microsoft Defender for SQL extension"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "af9f6c70-eb74-4189-8d15-e4f11a7ebfd4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/af9f6c70-eb74-4189-8d15-e4f11a7ebfd4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy export to Event Hub as a trusted service for Microsoft Defender for Cloud data"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "resourceGroupName": {
+            "value": "[parameters('deployExportEventHubTrustedServiceResourceGroupName')]"
+          },
+          "resourceGroupLocation": {
+            "value": "[parameters('deployExportEventHubTrustedServiceResourceGroupLocation')]"
+          },
+          "createResourceGroup": {
+            "value": true
+          },
+          "exportedDataTypes": {
+            "value": [
+              "Security recommendations",
+              "Security alerts",
+              "Overall secure score",
+              "Secure score controls",
+              "Regulatory compliance",
+              "Overall secure score - snapshot",
+              "Secure score controls - snapshot",
+              "Regulatory compliance - snapshot",
+              "Security recommendations - snapshot",
+              "Security findings - snapshot"
+            ]
+          },
+          "recommendationNames": {
+            "value": []
+          },
+          "recommendationSeverities": {
+            "value": [
+              "High",
+              "Medium",
+              "Low"
+            ]
+          },
+          "isSecurityFindingsEnabled": {
+            "value": true
+          },
+          "secureScoreControlsNames": {
+            "value": []
+          },
+          "alertSeverities": {
+            "value": [
+              "High",
+              "Medium",
+              "Low"
+            ]
+          },
+          "regulatoryComplianceStandardsNames": {
+            "value": []
+          },
+          "eventHubDetails": {
+            "value": "[parameters('deployExportEventHubTrustedServiceEventHubDetails')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cdfcce10-4578-4ecd-9703-530938e4abcb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cdfcce10-4578-4ecd-9703-530938e4abcb",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy export to Event Hub for Microsoft Defender for Cloud data"
+        },
+        "parameters": {
+          "resourceGroupName": {
+            "value": "[parameters('deployExportEventHubMicrosoftDefenderResourceGroupName')]"
+          },
+          "resourceGroupLocation": {
+            "value": "[parameters('deployExportEventHubMicrosoftDefenderResourceGroupLocation')]"
+          },
+          "createResourceGroup": {
+            "value": true
+          },
+          "exportedDataTypes": {
+            "value": [
+              "Security recommendations",
+              "Security alerts",
+              "Overall secure score",
+              "Secure score controls",
+              "Regulatory compliance",
+              "Overall secure score - snapshot",
+              "Secure score controls - snapshot",
+              "Regulatory compliance - snapshot",
+              "Security recommendations - snapshot",
+              "Security findings - snapshot"
+            ]
+          },
+          "recommendationNames": {
+            "value": []
+          },
+          "recommendationSeverities": {
+            "value": [
+              "High",
+              "Medium",
+              "Low"
+            ]
+          },
+          "isSecurityFindingsEnabled": {
+            "value": true
+          },
+          "secureScoreControlsNames": {
+            "value": []
+          },
+          "alertSeverities": {
+            "value": [
+              "High",
+              "Medium",
+              "Low"
+            ]
+          },
+          "regulatoryComplianceStandardsNames": {
+            "value": []
+          },
+          "eventHubDetails": {
+            "value": "[parameters('deployExportEventHubMicrosoftDefenderEventHubDetails')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4eb909e7-6d64-656d-6465-2eeb297a1625",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4eb909e7-6d64-656d-6465-2eeb297a1625",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy Microsoft Defender for Endpoint agent on Linux hybrid machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d30025d0-6d64-656d-6465-67688881b632",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d30025d0-6d64-656d-6465-67688881b632",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy Microsoft Defender for Endpoint agent on Linux virtual machines"
+        },
+        "parameters": {
+          "PublishersToExclude": {
+            "value": []
+          },
+          "ImageIdsToExclude": {
+            "value": []
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "37c043a6-6d64-656d-6465-b362dfeb354a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/37c043a6-6d64-656d-6465-b362dfeb354a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy Microsoft Defender for Endpoint agent on Windows Azure Arc machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1ec9c2c2-6d64-656d-6465-3ec3309b8579",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1ec9c2c2-6d64-656d-6465-3ec3309b8579",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy Microsoft Defender for Endpoint agent on Windows virtual machines"
+        },
+        "parameters": {
+          "PublishersToExclude": {
+            "value": []
+          },
+          "ImageIdsToExclude": {
+            "value": []
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f1525828-9a90-4fcf-be48-268cdd02361e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f1525828-9a90-4fcf-be48-268cdd02361e",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy Workflow Automation for Microsoft Defender for Cloud alerts"
+        },
+        "parameters": {
+          "automationName": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudAutomationName')]"
+          },
+          "resourceGroupName": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupName')]"
+          },
+          "resourceGroupLocation": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupLocation')]"
+          },
+          "createResourceGroup": {
+            "value": true
+          },
+          "alertName": {
+            "value": ""
+          },
+          "alertSeverities": {
+            "value": [
+              "High",
+              "Medium",
+              "Low"
+            ]
+          },
+          "logicAppResourceId": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudLogicAppResourceId')]"
+          },
+          "logicAppTrigger": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudLogicAppTrigger')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "73d6ab6c-2475-4850-afd6-43795f3492ef",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/73d6ab6c-2475-4850-afd6-43795f3492ef",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy Workflow Automation for Microsoft Defender for Cloud recommendations"
+        },
+        "parameters": {
+          "automationName": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudAutomationNameA')]"
+          },
+          "resourceGroupName": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupNameA')]"
+          },
+          "resourceGroupLocation": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupLocationA')]"
+          },
+          "createResourceGroup": {
+            "value": true
+          },
+          "recommendationNames": {
+            "value": []
+          },
+          "recommendationSeverities": {
+            "value": [
+              "High",
+              "Medium",
+              "Low"
+            ]
+          },
+          "recommendationStates": {
+            "value": [
+              "Healthy",
+              "Unhealthy",
+              "Not Applicable"
+            ]
+          },
+          "logicAppResourceId": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudLogicAppResourceIdA')]"
+          },
+          "logicAppTrigger": {
+            "value": "[parameters('deployWorkflowAutomationMicrosoftDefenderCloudLogicAppTriggerA')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ac076320-ddcf-4066-b451-6154267e8ad2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac076320-ddcf-4066-b451-6154267e8ad2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Enable Microsoft Defender for Cloud on your subscription"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7e92882a-2f8a-4991-9bc4-d3147d40abb0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7e92882a-2f8a-4991-9bc4-d3147d40abb0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Enable threat protection for AI workloads"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "339353f6-2387-4a45-abe4-7f529d121046",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/339353f6-2387-4a45-abe4-7f529d121046",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Guest accounts with owner permissions on Azure resources should be removed"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e9ac8f8e-ce22-4355-8f04-99b911d6be52",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e9ac8f8e-ce22-4355-8f04-99b911d6be52",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Guest accounts with read permissions on Azure resources should be removed"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "94e1c2ac-cbbe-4cac-a2b5-389c812dee87",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/94e1c2ac-cbbe-4cac-a2b5-389c812dee87",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Guest accounts with write permissions on Azure resources should be removed"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ae89ebca-1c92-4898-ac2c-9f63decb045c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae89ebca-1c92-4898-ac2c-9f63decb045c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Guest Configuration extension should be installed on your machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f6de0be7-9a8a-4b8a-b349-43cf02d22f7c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f6de0be7-9a8a-4b8a-b349-43cf02d22f7c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Internet-facing virtual machines should be protected with network security groups"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fb893a29-21bb-418c-a157-e99480ec364c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fb893a29-21bb-418c-a157-e99480ec364c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Kubernetes Services should be upgraded to a non-vulnerable Kubernetes version"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "13a6c84f-49a5-410a-b5df-5b880c3fe009",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/13a6c84f-49a5-410a-b5df-5b880c3fe009",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Linux virtual machines should use only signed and trusted boot components"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "15fdbc87-8a47-4ee9-a2aa-9a2ea1f37554",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/15fdbc87-8a47-4ee9-a2aa-9a2ea1f37554",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Log Analytics agent should be installed on your Cloud Services (extended support) role instances"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3ac7c827-eea2-4bde-acc7-9568cd320efa",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3ac7c827-eea2-4bde-acc7-9568cd320efa",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Machines should have secret findings resolved"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b0f33259-77d7-4c9e-aac6-3aabcfae693c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b0f33259-77d7-4c9e-aac6-3aabcfae693c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Management ports of virtual machines should be protected with just-in-time network access control"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1f90fc71-a595-4066-8974-d4d0802e8ef0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f90fc71-a595-4066-8974-d4d0802e8ef0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender CSPM should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c2c0c6d8-007b-4a48-8d9b-3539bddd8e87",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c2c0c6d8-007b-4a48-8d9b-3539bddd8e87",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for AI Services should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7926a6d1-b268-4586-8197-e8ae90c877d7",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7926a6d1-b268-4586-8197-e8ae90c877d7",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for APIs should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "adbe85b5-83e6-4350-ab58-bf3a4f736e5e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/adbe85b5-83e6-4350-ab58-bf3a4f736e5e",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for Azure Cosmos DB should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1c988dd6-ade4-430f-a608-2a3e5b0a6d38",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c988dd6-ade4-430f-a608-2a3e5b0a6d38",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for Containers should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d31e5c31-63b2-4f12-887b-e49456834fa1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d31e5c31-63b2-4f12-887b-e49456834fa1",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for SQL should be enabled for unprotected Synapse workspaces"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "308fbb08-4ab8-4e67-9b29-592e93fb94fa",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/308fbb08-4ab8-4e67-9b29-592e93fb94fa",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for Storage (Classic) should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "640d2586-54d2-465f-877f-9ffc1d2109f4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/640d2586-54d2-465f-877f-9ffc1d2109f4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Defender for Storage should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "bb91dfba-c30d-4263-9add-9c2384e659a6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bb91dfba-c30d-4263-9add-9c2384e659a6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Non-internet-facing virtual machines should be protected with network security groups"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "766e621d-ba95-4e43-a6f2-e945db3d7888",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/766e621d-ba95-4e43-a6f2-e945db3d7888",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Setup subscriptions to transition to an alternative vulnerability assessment solution"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "selectedProvider": {
+            "value": "MdeTvm"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "feedbf84-6b99-488c-acc2-71c829aa5ffc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/feedbf84-6b99-488c-acc2-71c829aa5ffc",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "SQL databases should have vulnerability findings resolved"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c6283572-73bb-4deb-bf2c-7a2b8f7462cb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c6283572-73bb-4deb-bf2c-7a2b8f7462cb",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "SQL server-targeted autoprovisioning should be enabled for SQL servers on machines plan"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6ba6d016-e7c3-4842-b8f2-4992ebc0d72d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6ba6d016-e7c3-4842-b8f2-4992ebc0d72d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "SQL servers on machines should have vulnerability findings resolved"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e71308d3-144b-4262-b144-efdc3cc90517",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e71308d3-144b-4262-b144-efdc3cc90517",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Subnets should be associated with a Network Security Group"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f85bf3e0-d513-442e-89c3-1784ad63382b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f85bf3e0-d513-442e-89c3-1784ad63382b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "System updates should be installed on your machines (powered by Update Center)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

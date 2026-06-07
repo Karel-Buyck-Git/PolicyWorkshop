@@ -1,126 +1,90 @@
-# Claude Code Prompt — Phase 3: Create Initiatives by Domain
+# Claude Code Prompt — Phase 3: Create per-tier EPAC-ready initiatives
 
 Paste this prompt into Claude Code (or use it as a slash command / task prompt).
 
 ---
 
 You are working inside the repository at:
-`C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-09`
+`C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-10`
 
 ## Context
 
-This lab has an agentic pipeline with two existing phases:
+This lab has an agentic pipeline with two earlier phases:
 
 - **Phase 1** — `flows/extract-policies.py` extracts Azure Policy definitions and writes one `policies.md` per Azure resource category into the `output/` folder.
-- **Phase 2** — `flows/enrich-policies.py` deduplicates rows, validates tiers, and adds tier-rationale sections to each `output/<category>/policies.md` file.
+- **Phase 2** — `flows/enrich-policies.py` deduplicates rows, validates tiers, and adds a `## Tier rationale` section to each `output/<category>/policies.md` file.
 
 Every `policies.md` file is a Markdown document that contains a table with these exact columns:
 
 ```
-| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
 ```
 
-The **Domain** column groups Azure resource categories into higher-level governance domains (e.g. `Storage`, `Security`, `Compute`, `Network`, `Data`, `undefined`, etc.).
+The **Domain** column groups Azure resource categories into higher-level governance domains
+(e.g. `Storage`, `Security`, `Compute`, `Networking`, `Management`, `undefined`). The **Tier**
+column is one of `Essential`, `Professional`, `Enterprise`.
 
-## Your task
+## Your task — `flows/create-initiatives.py` (Phase 3)
 
-### 1. Write `flows/create-initiatives.py`
+The script turns the enriched markdown into a **per-tier, per-category, EPAC-ready** structure.
+The enriched markdown is the taxonomy source of truth (tier, rationale); the official policy repo
+is the parameter-schema source of truth. The two are joined on **Policy ID**.
 
-Create a Python 3 script at `flows/create-initiatives.py` that implements **Phase 3**:
-
-**Input**
-- Recursively scan every `output/**/*.md` file (skip any file whose path contains `initiatives`).
-- Parse the Markdown table in each file. A row belongs to the table if it starts with `|` and is not a separator line (`|---|`).
-- Extract the header row to identify column indices dynamically (do not hard-code column positions).
+**Inputs (CLI args, with defaults)**
+- `--output` (default `output/`) — enriched markdown to read.
+- `--initiatives` (default `initiatives/`) — output root.
+- `--source` (default the official built-in policy definitions repo) — parameter schema.
+- `--prefix` (default `company`) — brand prefix for files and initiative names.
 
 **Processing**
-- Group all parsed rows by their **Domain** column value.
-- Rows whose Domain is empty, whitespace-only, or equals `undefined` should be grouped under the domain name `undefined`.
-- Preserve all columns exactly as they appear in the source files — do not drop or reorder columns.
-- Within each domain group, sort rows by **Category** (alphabetically), then by Policy name within each category.
-- Renumber the `#` column sequentially (1, 2, 3 …) **per category section** — each category restarts at 1.
+- Build a parameter index `Policy ID -> {parameters, resource_id}` from `--source` (highest version wins).
+- Parse each `output/**/*.md` table (dynamic header discovery) and its `## Tier rationale` section.
+- Group every row by `(Domain, Tier, Category)`. Tiers are **exclusive** — each policy lands in
+  exactly one group. Empty/`undefined` domains collapse to `undefined`; tiers outside the three
+  canonical values fall back to `Essential`.
 
-**Output**
-- Write one Markdown file per domain to `initiatives/<domain-slug>/initiative.md` — directly under the lab root, **not** under `output/`.
-  - `<domain-slug>` is the domain name lowercased, spaces replaced with hyphens (e.g. `Storage` → `storage`, `Azure Active Directory` → `azure-active-directory`).
-- Each initiative file is divided into **one section per Category**. The section heading is the category name. Within each section there is a full Markdown table with the standard columns. The overall file structure must be:
+**Output — four artifacts per group**, written to
+`initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
 
-```markdown
-# <Domain> Initiative
+- `.md` — H1 title, the matching tier's rationale paragraph, then the full 16-column table
+  (`#` restarts at 1, policies sorted by name).
+- `.policyset.json` — an EPAC `policySetDefinition` (initiative):
+  - each member entry carries `metadata.policyName` (the policy display name) so a reviewer doesn't
+    have to cross-reference the GUID against the markdown;
+  - `effect` set to the **hardened** literal from the table (canonically cased; never the inert
+    `Disabled` when the policy supports a real effect);
+  - policies whose effect is **hardcoded in the rule** (no `effect` parameter — ~1/4 of built-ins,
+    e.g. DINE/Modify/Append) carry **no `parameters.effect` by design** — EPAC cannot override a
+    non-parameterized effect;
+  - other parameters **with** a repo default → that default value emitted inline;
+  - other parameters **without** a default (required) → bubbled up to a top-level initiative
+    parameter (no default, so it must be supplied at assignment) and referenced via
+    `[parameters('<name>')]`. Names are readable camelCase, letters only, derived from the policy +
+    parameter (e.g. `certificatesMaximumValidityPeriodMaximumValidityInMonths`).
+- `.assignment.json` — an EPAC assignment scaffold: `policySetDefinitionName`, a mock
+  `<REPLACE: ...>` value per required parameter, `scope`/`notScopes` placeholders, and
+  `managedIdentityLocations` **only** when the group contains a Modify/DeployIfNotExists policy
+  (`Requires Managed Identity = Yes`). The `description` states the group's prerequisites — how many
+  parameter values must be supplied (and which), and whether a managed identity / remediation is needed.
+- `.exemptions.json` — an EPAC exemptions template stub (one `Waiver` example with placeholders).
 
-## <Category A>
-
-| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | ... |
-| 2 | ... |
-
-## <Category B>
-
-| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | ... |
-```
-
-- Categories within a file are ordered alphabetically.
-- Create parent directories as needed.
-- Print a summary to stdout: one line per initiative file written, e.g.:
-  `[Phase 3] Written: initiatives/storage/initiative.md  (61 policies across 3 categories)`
+The target EPAC shapes follow `docs/azure-policy-assignment-requirements.html`
+(§9.3 initiative assignment, §10.2.1 exemptions, §12.3–12.4 assignment scaffolds).
 
 **Error handling**
-- If a `policies.md` file cannot be parsed (no table found), print a warning and skip it — do not abort.
-- If the `output/` directory does not exist, exit with a clear error message.
-- If the `initiatives/` output directory already exists, overwrite existing files without prompting.
+- No table found in a file → warn and skip, do not abort.
+- `output/` missing → exit with a clear error.
+- `--source` missing → continue with a warning; JSON omits sourced parameters.
+- Overwrite existing files without prompting.
 
-**Style requirements**
-- Use only Python standard library modules (`pathlib`, `re`, `collections`, `sys`).
-- No external dependencies.
-- Add a module-level docstring explaining what the script does.
-- Use `pathlib.Path` throughout (no `os.path`).
-- Define a `main()` function and guard execution with `if __name__ == "__main__": main()`.
+## Verification steps
 
-### 2. Update `plan/lab-09-plan.md`
-
-Append a **Phase 3** section to `plan/lab-09-plan.md` immediately after the existing Phase 2 section, and update the **Done when** section to include the Phase 3 completion criterion. Use the same tone and heading style as the existing phases. The new section should read:
-
-```markdown
-## Phase 3 — Create initiatives by domain
-
-Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-09\flows\create-initiatives.py"
-
-- If the script exits with an error, report the error message and stop.
-- If it completes successfully, note how many initiative files were written and proceed.
-
-The script reads all enriched `policies.md` files from the `output/` folder, groups every
-policy row by its **Domain** column value, and writes one consolidated initiative file per
-domain to `initiatives/<domain-slug>/initiative.md` (directly under the lab root).
-
-Each initiative file is divided into one section per Category (alphabetically ordered). Each
-section heading is the category name followed by a Markdown table with the standard columns.
-The `#` column restarts at 1 for each category section.
-
-Review the generated initiative files and verify:
-- Every policy from the source files appears in exactly one initiative.
-- The row counts in the script's stdout summary match the number of rows in each file.
-- Policies with Domain `undefined` are collected into `initiatives/undefined/initiative.md`
-  and flagged for manual domain assignment in a follow-up task.
-```
-
-And update the **Done when** section to add:
-
-```
-All initiative files have been generated under `initiatives/` — one per domain, divided into
-per-category sections — and verified for completeness and correctness.
-```
-
-## Verification steps after writing the code
-
-1. Run `python flows/create-initiatives.py` from the lab-09 root.
-2. Confirm that `initiatives/` (at the lab root) contains one subfolder per domain.
-3. Spot-check `initiatives/storage/initiative.md`:
-   - It should contain a `## Storage` section (or whichever categories exist in that domain).
-   - The `#` column should restart at 1 in each category section.
-   - Total policy count should match all Storage-domain rows across all source files.
-4. Confirm no policies are duplicated across initiative files (each Policy ID should appear in exactly one initiative).
-5. Confirm that within each section the `#` column is sequential with no gaps.
+1. Ensure `output/` is populated (run Phase 1 then Phase 2 if needed).
+2. Run `python flows/create-initiatives.py` from the lab-10 root; confirm the per-group summary.
+3. Confirm the tree: `initiatives/<domain>/<tier>/<category>/<prefix>-<domain>-<tier>-<category>.{md,policyset.json,assignment.json,exemptions.json}`.
+4. Validate every JSON parses (e.g. `ConvertFrom-Json` over all `*.json`).
+5. Spot-check a `policyset.json`: each `policyDefinitionId` resolves to a real repo GUID, `effect`
+   is the hardened literal, and a required parameter is bubbled to top-level `parameters`. The
+   matching `assignment.json` carries `<REPLACE: ...>` mocks and includes `managedIdentityLocations`
+   only when the group has a Modify/DINE policy.
+6. Spot-check a `.md`: rationale paragraph present, 16-column table, `#` restarts at 1.

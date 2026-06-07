@@ -1,0 +1,59 @@
+{
+  "name": "company-undefined-professional-mission",
+  "properties": {
+    "displayName": "Company undefined Professional — Mission",
+    "description": "**Professional** — Active security posture for Mission: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Mission",
+      "domain": "undefined",
+      "tier": "Professional"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "5cc7aeef-357e-433d-9627-05354b40f8e2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5cc7aeef-357e-433d-9627-05354b40f8e2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL Database should restrict or disable Public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "65e3adf0-0793-4cd2-af1f-134216ad5ce1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/65e3adf0-0793-4cd2-af1f-134216ad5ce1",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "CosmosDB should restrict public access but allow access from certain IP addresses"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allowedIPRules": {
+            "value": [
+              "52.244.48.71",
+              "52.176.6.30",
+              "52.169.50.45",
+              "52.187.184.26"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

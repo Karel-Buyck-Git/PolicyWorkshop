@@ -1,0 +1,24 @@
+{
+  "nodeName": "/company/data/enterprise/azure-databricks/",
+  "assignment": {
+    "name": "company-data-enterprise-azure-databricks",
+    "displayName": "Company Data Enterprise — Azure Databricks",
+    "description": "Deployment scaffold for 5 policies. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureDatabricksWorkspacePrivateDnsPrivateDnsZoneId, configureDiagnosticSettingsAzureDatabricksWorkspacesLogAnalytics. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-enterprise-azure-databricks",
+  "parameters": {
+    "configureAzureDatabricksWorkspacePrivateDnsPrivateDnsZoneId": "<REPLACE: configureAzureDatabricksWorkspacePrivateDnsPrivateDnsZoneId>",
+    "configureDiagnosticSettingsAzureDatabricksWorkspacesLogAnalytics": "<REPLACE: configureDiagnosticSettingsAzureDatabricksWorkspacesLogAnalytics>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -15,8 +15,8 @@ Modes:
 
 Defaults:
     --source     C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions
-    --out        C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-09\\output
-    --hierarchy  C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-09\\docs\\azure-domain-hierachy.md
+    --out        <lab-root>\\output            (derived from this script's location)
+    --hierarchy  <lab-root>\\docs\\azure-domain-hierachy.md
 """
 
 import argparse
@@ -31,15 +31,42 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 
 _EFFECT_RANK: dict[str, int] = {
-    "deny":               7,
-    "modify":             6,
+    "denyaction":         9,
+    "deny":               8,
+    "modify":             7,
+    "enforcesetting":     6,
+    "mutate":             6,
     "deployifnotexists":  5,
     "auditifnotexists":   4,
     "audit":              3,
     "append":             2,
+    "addtonetworkgroup":  2,
     "manual":             1,
     "disabled":           0,
 }
+
+# Canonical casing for known effects. Source allowedValues casing is inconsistent
+# (e.g. both "deny" and "Deny", "deployIfNotExists" and "DeployIfNotExists"), so we
+# normalise on output. Unknown effects pass through unchanged.
+CANONICAL_EFFECT: dict[str, str] = {
+    "denyaction":        "DenyAction",
+    "deny":              "Deny",
+    "modify":            "Modify",
+    "enforcesetting":    "EnforceSetting",
+    "mutate":            "Mutate",
+    "deployifnotexists": "DeployIfNotExists",
+    "auditifnotexists":  "AuditIfNotExists",
+    "audit":             "Audit",
+    "append":            "Append",
+    "addtonetworkgroup": "AddToNetworkGroup",
+    "manual":            "Manual",
+    "disabled":          "Disabled",
+}
+
+
+def canonical_effect(value: str) -> str:
+    """Return the canonically-cased form of an effect, or the input unchanged."""
+    return CANONICAL_EFFECT.get((value or "").strip().lower(), value)
 
 
 def hardened_value(allowed: list[str]) -> str:
@@ -259,11 +286,14 @@ SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
 def md_row(p: dict, n: int) -> str:
-    allowed = ", ".join(p["allowed"]) if p["allowed"] else ""
+    allowed  = ", ".join(canonical_effect(v) for v in p["allowed"]) if p["allowed"] else ""
+    effect   = canonical_effect(p["effect"])
+    soft     = canonical_effect(p["soft"])
+    hardened = canonical_effect(p["hardened"])
     desc    = p["description"].replace("|", "\\|").replace("\n", " ")
     name    = p["name"].replace("|", "\\|")
     return (
-        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {p['effect']} | {p['soft']} | {p['hardened']}"
+        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {effect} | {soft} | {hardened}"
         f" | {p['category']} | {p['domain']} | {p['version']} | {p['policyType']} | {p['tier']} | {p['requires_params']} | {p['requires_identity']} |"
     )
 
@@ -296,14 +326,12 @@ DEFAULT_SOURCE = (
     r"C:\GIT\Official Azure Policy\azure-policy\built-in-policies"
     r"\policyDefinitions"
 )
-DEFAULT_OUT = (
-    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-09\output"
-)
-DEFAULT_HIERARCHY = (
-    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-09\docs\azure-domain-hierachy.md"
-)
+# Output/hierarchy defaults derive from this script's location (lab root is two
+# levels up), so the pipeline targets its own lab with no flags. --source still
+# points at the shared official policy repo.
+LAB_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_OUT = str(LAB_ROOT / "output")
+DEFAULT_HIERARCHY = str(LAB_ROOT / "docs" / "azure-domain-hierachy.md")
 
 
 def load_domain_map(hierarchy_path: Path) -> dict[str, str]:

@@ -1,0 +1,21 @@
+{
+  "nodeName": "/company/storage/professional/storage/",
+  "assignment": {
+    "name": "company-storage-professional-storage",
+    "displayName": "Company Storage Professional — Storage",
+    "description": "Deployment scaffold for 5 policies. No parameter values are required (effects are baked; other parameters use defaults). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-storage-professional-storage",
+  "parameters": {},
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

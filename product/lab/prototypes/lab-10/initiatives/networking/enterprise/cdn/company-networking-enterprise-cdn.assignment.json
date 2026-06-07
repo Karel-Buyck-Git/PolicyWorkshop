@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/networking/enterprise/cdn/",
+  "assignment": {
+    "name": "company-networking-enterprise-cdn",
+    "displayName": "Company Networking Enterprise — CDN",
+    "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-networking-enterprise-cdn",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,36 @@
+{
+  "name": "company-undefined-professional-api-for-fhir",
+  "properties": {
+    "displayName": "Company undefined Professional — API for FHIR",
+    "description": "**Professional** — Active security posture for API for FHIR: controls that produce signals an operations team must act on. This tier protects against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse for API for FHIR workloads. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "API for FHIR",
+      "domain": "undefined",
+      "tier": "Professional"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "0fea8f8a-4169-495d-8307-30ec335f387d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0fea8f8a-4169-495d-8307-30ec335f387d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "CORS should not allow every domain to access your API for FHIR"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      }
+    ]
+  }
+}

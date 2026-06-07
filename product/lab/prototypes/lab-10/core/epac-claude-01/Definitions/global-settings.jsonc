@@ -1,0 +1,29 @@
+{
+    // EPAC global settings. Defines this EPAC instance's identity and its EPAC Environments.
+    // Docs: https://azure.github.io/enterprise-azure-policy-as-code/settings-global-setting-file/
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/global-settings-schema.json",
+
+    // Stamp written into resource metadata so EPAC knows what it owns. Generate ONE GUID and keep it forever.
+    "pacOwnerId": "REPLACE-WITH-A-GUID-0000-000000000000",
+
+    "pacEnvironments": [
+        {
+            // Isolated DEV environment for safely testing policy changes.
+            // Its deploymentRootScope MUST be separate from (not nested in) the tenant scope below.
+            "pacSelector": "epac-dev",
+            "cloud": "AzureCloud",
+            "tenantId": "REPLACE-WITH-TENANT-ID",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/epac-contoso",
+            "managedIdentityLocation": "westeurope"
+        },
+        {
+            // Your real hierarchy. Use an INTERMEDIATE root MG, never the Tenant Root Group.
+            // EPAC manages ALL policy at this scope and below as the single source of truth.
+            "pacSelector": "tenant",
+            "cloud": "AzureCloud",
+            "tenantId": "REPLACE-WITH-TENANT-ID",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/contoso",
+            "managedIdentityLocation": "westeurope"
+        }
+    ]
+}

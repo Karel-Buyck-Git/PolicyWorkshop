@@ -1,0 +1,10 @@
+# Build output (the packaged skill is a release artifact, not source)
+dist/
+*.skill
+*.zip
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp

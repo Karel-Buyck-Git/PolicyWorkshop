@@ -1,0 +1,111 @@
+{
+  "name": "company-integration-essential-event-grid",
+  "properties": {
+    "displayName": "Company Integration Essential — Event Grid",
+    "description": "**Essential** — Baseline hygiene for Event Grid: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials and TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Event Grid",
+      "domain": "Integration",
+      "tier": "Essential"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "8bfadddb-ee1c-4639-8911-a38cb8e0b3bd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8bfadddb-ee1c-4639-8911-a38cb8e0b3bd",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid domains should have local authentication methods disabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8632b003-3545-4b29-85e6-b2b96773df1e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8632b003-3545-4b29-85e6-b2b96773df1e",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid partner namespaces should have local authentication methods disabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ae9fb87f-8a17-4428-94a4-8135d431055c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae9fb87f-8a17-4428-94a4-8135d431055c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid topics should have local authentication methods disabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8ac2748f-3bf1-4c02-a3b6-92ae68cf75b1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8ac2748f-3bf1-4c02-a3b6-92ae68cf75b1",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Event Grid domains to disable local authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2dd0e8b9-4289-4bb0-b813-1883298e9924",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2dd0e8b9-4289-4bb0-b813-1883298e9924",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Event Grid partner namespaces to disable local authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1c8144d9-746a-4501-b08c-093c8d29ad04",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c8144d9-746a-4501-b08c-093c8d29ad04",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Event Grid topics to disable local authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      }
+    ]
+  }
+}

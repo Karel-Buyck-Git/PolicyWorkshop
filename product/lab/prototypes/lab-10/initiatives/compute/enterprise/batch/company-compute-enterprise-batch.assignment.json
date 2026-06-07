@@ -1,0 +1,23 @@
+{
+  "nodeName": "/company/compute/enterprise/batch/",
+  "assignment": {
+    "name": "company-compute-enterprise-batch",
+    "displayName": "Company Compute Enterprise — Batch",
+    "description": "Deployment scaffold for 6 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): deployConfigurePrivateDnsZonesPrivatePrivateDnsZoneId. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-compute-enterprise-batch",
+  "parameters": {
+    "deployConfigurePrivateDnsZonesPrivatePrivateDnsZoneId": "<REPLACE: deployConfigurePrivateDnsZonesPrivatePrivateDnsZoneId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

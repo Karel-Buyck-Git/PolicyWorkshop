@@ -1,0 +1,48 @@
+{
+    // Assigns the custom Security Baseline initiative. Contains a DeployIfNotExists policy,
+    // so managedIdentityLocations is required (EPAC creates the MI + role assignments).
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/security-baseline",
+    "definitionEntry": {
+        "policySetName": "security-baseline-initiative",
+        "displayName": "Security Baseline Initiative"
+    },
+    "assignment": {
+        "name": "sec-baseline",
+        "displayName": "Security Baseline",
+        "description": "Core security controls enforced across the scope."
+    },
+    "metadata": { "category": "Security" },
+    "enforcementMode": "Default",
+    "managedIdentityLocations": {
+        "*": "westeurope"
+    },
+    "parameters": {
+        "denyPublicIpEffect": "Deny",
+        "restrictNsgEffect": "Deny",
+        "deniedNsgPorts": [ "22", "3389" ],
+        "diagnosticsEffect": "DeployIfNotExists"
+    },
+    "children": [
+        {
+            "nodeName": "epac-dev/",
+            "parameters": {
+                // Use the dev workspace id here
+                "logAnalytics": "/subscriptions/REPLACE-DEV-SUB/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-epac-dev"
+            },
+            "scope": {
+                "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-contoso" ]
+            }
+        },
+        {
+            "nodeName": "tenant/",
+            "parameters": {
+                // Use the production workspace id here
+                "logAnalytics": "/subscriptions/REPLACE-PROD-SUB/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-contoso"
+            },
+            "scope": {
+                "tenant": [ "/providers/Microsoft.Management/managementGroups/contoso" ]
+            }
+        }
+    ]
+}

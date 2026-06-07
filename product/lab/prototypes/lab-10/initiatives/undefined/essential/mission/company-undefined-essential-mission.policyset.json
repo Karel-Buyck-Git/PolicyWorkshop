@@ -1,0 +1,102 @@
+{
+  "name": "company-undefined-essential-mission",
+  "properties": {
+    "displayName": "Company undefined Essential — Mission",
+    "description": "**Essential** — Baseline hygiene for Mission: the non-negotiable controls every deployment should enforce from day one. This tier delivers TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Mission",
+      "domain": "undefined",
+      "tier": "Essential"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "eae5dab1-5078-4686-a091-fce0e1e13d3b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/eae5dab1-5078-4686-a091-fce0e1e13d3b",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL should disable or enforce restrictions for Outbound networking"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f0a5beeb-4b9b-4a3f-ba85-4f4b06afb598",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f0a5beeb-4b9b-4a3f-ba85-4f4b06afb598",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Virtual Desktop Host Pools should restrict RDP property configurations"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "requiredRdpProperties": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f4273bc9-d20e-438d-ad30-b72221939edc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f4273bc9-d20e-438d-ad30-b72221939edc",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure managed disk network access policy to deny all"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "44a0b5ee-56f4-4285-a136-9e6dc3471011",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/44a0b5ee-56f4-4285-a136-9e6dc3471011",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure snapshot network access policy to deny all"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ea79b84d-f538-475d-a6ef-7951747a3455",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea79b84d-f538-475d-a6ef-7951747a3455",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "CosmosDB should restrict external private endpoints access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "excludedSubscriptionIDs": {
+            "value": []
+          }
+        }
+      }
+    ]
+  }
+}

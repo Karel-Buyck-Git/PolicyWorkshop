@@ -1,0 +1,24 @@
+{
+  "nodeName": "/company/data/professional/hdinsight/",
+  "assignment": {
+    "name": "company-data-professional-hdinsight",
+    "displayName": "Company Data Professional — HDInsight",
+    "description": "Deployment scaffold for 2 policies. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureHdinsightClustersPrivateEndpointsPrivateEndpointSubnetId, configureAzureHdinsightClustersPrivateEndpointsGroupId. A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-professional-hdinsight",
+  "parameters": {
+    "configureAzureHdinsightClustersPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureAzureHdinsightClustersPrivateEndpointsPrivateEndpointSubnetId>",
+    "configureAzureHdinsightClustersPrivateEndpointsGroupId": "<REPLACE: configureAzureHdinsightClustersPrivateEndpointsGroupId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

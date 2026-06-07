@@ -1,0 +1,51 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+    "name": "restrict-nsg-rules",
+    "properties": {
+        "displayName": "Restrict permissive inbound NSG rules from the Internet",
+        "policyType": "Custom",
+        "mode": "All",
+        "description": "Audits or denies NSG security rules that allow inbound traffic from any source (Internet/*/0.0.0.0/0) on sensitive management ports.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Network"
+        },
+        "parameters": {
+            "deniedPorts": {
+                "type": "Array",
+                "defaultValue": [ "22", "3389" ],
+                "metadata": {
+                    "displayName": "Denied destination ports",
+                    "description": "Inbound ports that may not be opened to the Internet."
+                }
+            },
+            "effect": {
+                "type": "String",
+                "allowedValues": [ "Audit", "Deny", "Disabled" ],
+                "defaultValue": "Deny",
+                "metadata": { "displayName": "Effect" }
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    { "field": "type", "equals": "Microsoft.Network/networkSecurityGroups/securityRules" },
+                    { "field": "Microsoft.Network/networkSecurityGroups/securityRules/access", "equals": "Allow" },
+                    { "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction", "equals": "Inbound" },
+                    {
+                        "anyOf": [
+                            { "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix", "in": [ "*", "Internet", "0.0.0.0/0", "<nw>/0" ] }
+                        ]
+                    },
+                    {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+                        "in": "[parameters('deniedPorts')]"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}
