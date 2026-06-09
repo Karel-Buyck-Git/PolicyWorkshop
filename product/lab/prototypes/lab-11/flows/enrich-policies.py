@@ -21,9 +21,9 @@ from pathlib import Path
 
 # Defaults derive from this script's location (the lab root is two levels up),
 # so the pipeline targets its own lab with no flags.
-LAB_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_OUT = str(LAB_ROOT / "output")
-DEFAULT_HIERARCHY = str(LAB_ROOT / "docs" / "azure-domain-hierachy.md")
+from _paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401
+DEFAULT_OUT = str(DEFINITIONS_DIR)
+DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 
 
 def load_domain_map(hierarchy_path: Path) -> dict[str, str]:

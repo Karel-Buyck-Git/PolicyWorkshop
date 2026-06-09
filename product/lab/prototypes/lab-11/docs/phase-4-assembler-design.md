@@ -9,7 +9,7 @@ groups into a deployable `Definitions` scaffold, rendered in one or more IaC fla
 extract → enrich → create-initiatives → input → EXPAND → ASSEMBLE (this doc) → validate → PR → deploy
 ```
 
-It is a **pure, deterministic transform**: same manifest + same `initiatives/` snapshot ⇒
+It is a **pure, deterministic transform**: same manifest + same `catalogue/initiatives/` snapshot ⇒
 byte-identical output. No Azure calls, no deployment.
 
 ---
@@ -20,7 +20,7 @@ The manifest is authored by a human SE **or** emitted by the upstream app. The a
 run locally or in CI:
 
 ```
-python flows/assemble-scaffold.py --manifest manifests/contoso.manifest.jsonc
+python flows/assemble-scaffold.py --manifest customer/manifests/contoso.manifest.jsonc
 # optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir>
 ```
 
@@ -34,9 +34,9 @@ Chain: `app / human → manifest → assembler → Definitions scaffold (×flavo
 |---|---|---|
 | `input.example.json` | minimal human input: customer + selection + value-only `parameters` | yes (expand stage) |
 | `--manifest` | the expanded customer contract (selection, scopes, bindings, exemptions) | yes (assemble stage) |
-| `initiatives/<domain>/<tier>/<category>/` | generated groups (`.policyset.json`, `.assignment.json`, `.exemptions.json`, `.md`) | yes |
+| `catalogue/initiatives/<domain>/<tier>/<category>/` | generated groups (`.policyset.json`, `.assignment.json`, `.exemptions.json`, `.md`) | yes |
 | `docs/azure-domain-hierachy.md` | validate domain/category slugs; expand `category: "*"` | yes |
-| `output/<category>/policies.md` | lineage + effect lookups | optional |
+| `catalogue/definitions/<category>/policies.md` | lineage + effect lookups | optional |
 | built-in policy repo snapshot | only to derive remediation **role IDs** for Terraform/Bicep (EPAC computes its own) | flavour-dependent |
 
 **Runtime:** Python ≥ 3.10, `jsonschema`, and a JSONC reader (json5 or a comment/trailing-comma stripper).
@@ -85,7 +85,7 @@ consistent.
                       "logAnalyticsWorkspaceId": "…",
                       "notScopes": ["…"] } ],
   "initiatives":  [ { "name": "contoso-security-essential-key-vault",
-                      "source": "initiatives/security/essential/key-vault/…policyset.json",
+                      "source": "catalogue/initiatives/security/essential/key-vault/…policyset.json",
                       "policyset": { /* the loaded .policyset.json, re-prefixed */ },
                       "hasRemediation": true } ],
   "assignments":  [ { "initiative": "contoso-security-essential-key-vault",
@@ -132,7 +132,7 @@ resolve_selection(data):
         tiers = rollup(sel.tier)        # essential⊆professional⊆enterprise
         for cat in cats:
             for tier in tiers:
-                g = "initiatives/%s/%s/%s" % (sel.domain, tier, cat)
+                g = "catalogue/initiatives/%s/%s/%s" % (sel.domain, tier, cat)
                 if exists(g): groups.append(load_group(g, sel))   # else error or warn(undefined)
     return dedup(groups)
 
@@ -175,7 +175,7 @@ report(ir):  write lineage.json + coverage/validation summary
 
 1. Input conforms to `input.schema.json`; manifest conforms to `manifest.input.schema.json` (structure) then `manifest.schema.json` (strict values).
 2. Every `selection.domain` / `category` exists in the hierarchy (`category:"*"` expands).
-3. Every resolved `(domain,tier,category)` group exists under `initiatives/`.
+3. Every resolved `(domain,tier,category)` group exists under `catalogue/initiatives/`.
 4. Every required `<REPLACE: …>` parameter has a binding; values type-check against the policyset schema.
 5. Each `environments[].selector` referenced by `scope`/`notScopes`/`exemptions` is declared.
 6. `effectOverrides[].policyDefinitionReferenceId` exists in the named group.
@@ -221,7 +221,7 @@ Determinism: stable key ordering and sorted iteration so re-runs produce clean d
 
 ## 10. Human input file & `parameters`
 
-The human surface is intentionally tiny: `manifests/input.example.json` holds only
+The human surface is intentionally tiny: `customer/manifests/input.example.json` holds only
 `customer`, `selection` (a string array of `domain/tier/category`), and `parameters`.
 
 ```json
@@ -243,7 +243,7 @@ never add, rename, or remove keys. Kept empty here until the selection is resolv
 
 ### Governance (`input.schema.json`)
 
-The input file is governed by `manifests/input.schema.json`:
+The input file is governed by `customer/manifests/input.schema.json`:
 
 - top level is **closed** (`additionalProperties:false`) — no foreign keys;
 - `selection` items must match `domain/tier/category` (`category` may be `*`);

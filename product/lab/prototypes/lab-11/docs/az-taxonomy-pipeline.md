@@ -30,7 +30,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 └──────────┬──────────┘                    │                                 │
            ▼                               │                                 │
    ┌───────────────────────┐               │                                 │
-   │ output/<category>/     │  94 files    │                                 │
+   │ catalogue/definitions/<category>/     │  94 files    │                                 │
    │ policies.md            │◀─────────────┘                                 │
    │ (16-col table)         │                                                │
    └──────────┬────────────┘                                                 │
@@ -47,7 +47,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 └──────────┬──────────────┘                                                 │
            ▼                                                                 │
    ┌────────────────────────┐                                               │
-   │ output/<category>/      │  enriched in place                           │
+   │ catalogue/definitions/<category>/      │  enriched in place                           │
    │ policies.md             │   = TAXONOMY SOURCE OF TRUTH                  │
    │ (tier + rationale)      │                                               │
    └──────────┬─────────────┘                                               │
@@ -64,7 +64,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 │ • emit 4 artifacts per group                   │
 └──────────────────────────┬───────────────────┘
                            ▼
-    initiatives/<domain>/<tier>/<category>/company-<domain>-<tier>-<category>.*
+    catalogue/initiatives/<domain>/<tier>/<category>/company-<domain>-<tier>-<category>.*
     ┌─────────────────────────────────────────────────────────────┐
     │  .md              table + tier rationale (human spec)        │
     │  .policyset.json  EPAC initiative — effect=hardened,         │
@@ -80,7 +80,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 
 | Concern                                                      | Source of truth                             |
 | ------------------------------------------------------------ | ------------------------------------------- |
-| Taxonomy — which **tier / domain / category**, the rationale | the enriched `output/*.md` (Phase 2)        |
+| Taxonomy — which **tier / domain / category**, the rationale | the enriched `catalogue/definitions/*.md` (Phase 2)        |
 | Parameters — schema, defaults, allowed values, resource ID   | the official Azure policy repo (`--source`) |
 
 Phase 3 joins the two on **Policy ID**: the markdown decides _what belongs where_, the
@@ -138,9 +138,9 @@ rule); it is simply not settable in the initiative.
 Defaults derive from each script's location, so the whole pipeline targets this lab with no arguments:
 
 ```
-python flows/extract-policies.py     # Phase 1 → output/
-python flows/enrich-policies.py      # Phase 2 → output/ (in place)
-python flows/create-initiatives.py   # Phase 3 → initiatives/
+python flows/extract-policies.py     # Phase 1 → catalogue/definitions/
+python flows/enrich-policies.py      # Phase 2 → catalogue/definitions/ (in place)
+python flows/create-initiatives.py   # Phase 3 → catalogue/initiatives/
 ```
 
 Overridable flags: `--source` (policy repo), `--out` / `--output`, `--hierarchy`,

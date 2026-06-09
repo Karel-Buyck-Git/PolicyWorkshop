@@ -2,13 +2,13 @@
 create-initiatives.py
 
 Phase 3 for lab-11:
-  - Recursively scans every `output/**/*.md` file produced by the earlier phases.
+  - Recursively scans every `catalogue/definitions/**/*.md` file produced by the earlier phases.
   - Parses each policies.md markdown table, discovering column indices from the
     header row (no hard-coded positions), and the `## Tier rationale` section.
   - Groups every policy row by (Domain, Tier, Category) — each policy lands in
     exactly one group (tiers are treated as *exclusive*, not cumulative).
   - For each group writes four EPAC-ready artifacts to
-    `initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
+    `catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
         .md               — the policy table (same columns as Phase 1/2) + tier rationale
         .policyset.json   — an EPAC policySetDefinition (initiative) with parameter
                             values sourced from the official Azure policy repo
@@ -34,9 +34,9 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-LAB_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_OUTPUT = LAB_ROOT / "output"
-DEFAULT_INITIATIVES = LAB_ROOT / "initiatives"
+from _paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR  # noqa: F401
+DEFAULT_OUTPUT = DEFINITIONS_DIR
+DEFAULT_INITIATIVES = INITIATIVES_DIR
 DEFAULT_SOURCE = (
     r"C:\GIT\Official Azure Policy\azure-policy\built-in-policies\policyDefinitions"
 )
@@ -484,7 +484,7 @@ def main() -> None:
     prefix = args.prefix
 
     if not output_dir.exists():
-        print(f"ERROR: output folder not found: {output_dir}", file=sys.stderr)
+        print(f"ERROR: definitions catalogue folder not found: {output_dir}", file=sys.stderr)
         raise SystemExit(1)
 
     if source_dir.exists():
