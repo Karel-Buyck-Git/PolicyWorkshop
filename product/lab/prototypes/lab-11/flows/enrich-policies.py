@@ -535,7 +535,7 @@ def process_file(path: Path, domain_map: dict[str, str]) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Enrich lab-09 policies.md files.")
+    parser = argparse.ArgumentParser(description="Enrich lab-11 policies.md files.")
     parser.add_argument("--out",       default=DEFAULT_OUT,       help="Output folder")
     parser.add_argument("--hierarchy", default=DEFAULT_HIERARCHY, help="Domain-hierarchy markdown file")
     args = parser.parse_args()
