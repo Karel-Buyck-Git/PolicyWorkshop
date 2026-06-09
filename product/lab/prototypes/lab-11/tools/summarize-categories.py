@@ -8,7 +8,7 @@ Usage:
     python summarize-categories.py [--source <folder>] [--md <file>]
 
 Default --source:
-    C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-08\\output
+    C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-xx\\output
 
 When --md is supplied, a markdown report is written to that path instead of
 printing to stdout.
@@ -21,7 +21,7 @@ from pathlib import Path
 
 DEFAULT_SOURCE = Path(
     r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-08\output"
+    r"\product\lab\prototypes\lab-xx\output"
 )
 
 
