@@ -35,7 +35,7 @@ infrastructure investment or map directly to regulatory frameworks.
 ## Phase 1 — Run the extraction script
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-09\extract-policies.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\extract-policies.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the output folder it reports and proceed to Phase 2.
