@@ -22,7 +22,7 @@ pacOwnerId: "9f2c7b14-3a55-4e8d-9c21-7b6e0a4f1d83"
 
 # --- Provenance / reproducibility -------------------------------------------
 source:
-  initiatives: ../initiatives          # where create-initiatives wrote the groups
+  initiatives: ../../catalogue/initiatives   # where create-initiatives wrote the groups (catalogue)
   catalogueVersion: "2026.06.01"       # built-in policy snapshot id (lineage)
   hierarchyVersion: "2026.06.01"       # domain hierarchy snapshot id (lineage)
 

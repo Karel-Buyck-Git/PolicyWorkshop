@@ -51,7 +51,7 @@ default `--source` unless you have an explicit, documented reason to deviate.
 
 ## Phase 2 — Enrich the output
 
-The script writes one `policies.md` per Azure resource category to the output folder.
+The script writes one `policies.md` per Azure resource category to the `catalogue/definitions/` folder.
 Each file contains a markdown table with columns: Policy, Policy ID, Tag,
 Description, Allowed Values, Default Value, Soft Value, Hardened Value, Category, Domain, Version, Type, Tier.
 Soft Value is the least-restrictive non-`Disabled` effect from Allowed Values
@@ -97,11 +97,11 @@ Run the following script:
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note how many groups/files were written and proceed.
 
-The script reads all enriched `policies.md` files from the `output/` folder and joins each policy
+The script reads all enriched `policies.md` files from the `catalogue/definitions/` folder and joins each policy
 (on its **Policy ID**) against a parameter index built from the official policy repo. It groups
 every policy row by `(Domain, Tier, Category)` — tiers are **exclusive**, so each policy lands in
 exactly one group — and writes four EPAC-ready artifacts per group to
-`initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*` (default prefix `company`):
+`catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*` (default prefix `company`):
 
 - `.md` — the matching tier's rationale paragraph plus the full 16-column policy table (`#` restarts at 1).
 - `.policyset.json` — an EPAC `policySetDefinition` (initiative). Each member entry carries
@@ -119,7 +119,7 @@ Review the generated files and verify:
 
 - Every policy from the source files appears in exactly one `(domain, tier, category)` group.
 - Each `policyDefinitionId` resolves to a real repo GUID and each JSON file parses.
-- Policies with Domain `undefined` are collected under `initiatives/undefined/<tier>/...`
+- Policies with Domain `undefined` are collected under `catalogue/initiatives/undefined/<tier>/...`
   and flagged for manual domain assignment in a follow-up task.
 
 ## Done when
@@ -127,6 +127,6 @@ Review the generated files and verify:
 All resource category files have been processed — duplicates removed, tier
 corrections applied, and rationale sections added.
 
-All EPAC-ready initiative artifacts have been generated under `initiatives/` — one markdown spec
+All EPAC-ready initiative artifacts have been generated under `catalogue/initiatives/` — one markdown spec
 plus policyset, assignment, and exemptions JSON per `(domain, tier, category)` group — and verified
 for completeness and correctness.

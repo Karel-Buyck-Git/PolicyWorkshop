@@ -11,8 +11,8 @@ You are working inside the repository at:
 
 This lab has an agentic pipeline with two earlier phases:
 
-- **Phase 1** — `flows/extract-policies.py` extracts Azure Policy definitions and writes one `policies.md` per Azure resource category into the `output/` folder.
-- **Phase 2** — `flows/enrich-policies.py` deduplicates rows, validates tiers, and adds a `## Tier rationale` section to each `output/<category>/policies.md` file.
+- **Phase 1** — `flows/extract-policies.py` extracts Azure Policy definitions and writes one `policies.md` per Azure resource category into the `catalogue/definitions/` folder.
+- **Phase 2** — `flows/enrich-policies.py` deduplicates rows, validates tiers, and adds a `## Tier rationale` section to each `catalogue/definitions/<category>/policies.md` file.
 
 Every `policies.md` file is a Markdown document that contains a table with these exact columns:
 
@@ -32,21 +32,21 @@ is the parameter-schema source of truth. The two are joined on **Policy ID**.
 
 **Inputs (CLI args, with defaults)**
 
-- `--output` (default `output/`) — enriched markdown to read.
-- `--initiatives` (default `initiatives/`) — output root.
+- `--output` (default `catalogue/definitions/`) — enriched markdown to read.
+- `--initiatives` (default `catalogue/initiatives/`) — output root.
 - `--source` (default the official built-in policy definitions repo) — parameter schema.
 - `--prefix` (default `company`) — brand prefix for files and initiative names.
 
 **Processing**
 
 - Build a parameter index `Policy ID -> {parameters, resource_id}` from `--source` (highest version wins).
-- Parse each `output/**/*.md` table (dynamic header discovery) and its `## Tier rationale` section.
+- Parse each `catalogue/definitions/**/*.md` table (dynamic header discovery) and its `## Tier rationale` section.
 - Group every row by `(Domain, Tier, Category)`. Tiers are **exclusive** — each policy lands in
   exactly one group. Empty/`undefined` domains collapse to `undefined`; tiers outside the three
   canonical values fall back to `Essential`.
 
 **Output — four artifacts per group**, written to
-`initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
+`catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
 
 - `.md` — H1 title, the matching tier's rationale paragraph, then the full 16-column table
   (`#` restarts at 1, policies sorted by name).
@@ -76,15 +76,15 @@ The target EPAC shapes follow `docs/azure-policy-assignment-requirements.html`
 **Error handling**
 
 - No table found in a file → warn and skip, do not abort.
-- `output/` missing → exit with a clear error.
+- `catalogue/definitions/` missing → exit with a clear error.
 - `--source` missing → continue with a warning; JSON omits sourced parameters.
 - Overwrite existing files without prompting.
 
 ## Verification steps
 
-1. Ensure `output/` is populated (run Phase 1 then Phase 2 if needed).
+1. Ensure `catalogue/definitions/` is populated (run Phase 1 then Phase 2 if needed).
 2. Run `python flows/create-initiatives.py` from the bal-10 root; confirm the per-group summary.
-3. Confirm the tree: `initiatives/<domain>/<tier>/<category>/<prefix>-<domain>-<tier>-<category>.{md,policyset.json,assignment.json,exemptions.json}`.
+3. Confirm the tree: `catalogue/initiatives/<domain>/<tier>/<category>/<prefix>-<domain>-<tier>-<category>.{md,policyset.json,assignment.json,exemptions.json}`.
 4. Validate every JSON parses (e.g. `ConvertFrom-Json` over all `*.json`).
 5. Spot-check a `policyset.json`: each `policyDefinitionId` resolves to a real repo GUID, `effect`
    is the hardened literal, and a required parameter is bubbled to top-level `parameters`. The

@@ -4,7 +4,7 @@
   "prefix": "<REPLACE: prefix-slug (defaults to customer)>",
   "pacOwnerId": "<REPLACE: pacOwnerId-guid (or leave for assembler to generate)>",
   "source": {
-    "initiatives": "../initiatives",
+    "initiatives": "../../catalogue/initiatives",
     "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
     "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>"
   },

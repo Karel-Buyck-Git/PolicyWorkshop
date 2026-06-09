@@ -16,7 +16,7 @@
 
   // --- Provenance / lineage ---
   "source": {
-    "initiatives": "../initiatives",
+    "initiatives": "../../catalogue/initiatives",
     "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
     "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>"
   },

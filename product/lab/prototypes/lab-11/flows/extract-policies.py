@@ -15,7 +15,7 @@ Modes:
 
 Defaults:
     --source     C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions
-    --out        <lab-root>\\output            (derived from this script's location)
+    --out        <lab-root>\\catalogue\\definitions            (derived from this script's location)
     --hierarchy  <lab-root>\\docs\\azure-domain-hierachy.md
 """
 
@@ -329,9 +329,9 @@ DEFAULT_SOURCE = (
 # Output/hierarchy defaults derive from this script's location (lab root is two
 # levels up), so the pipeline targets its own lab with no flags. --source still
 # points at the shared official policy repo.
-LAB_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_OUT = str(LAB_ROOT / "output")
-DEFAULT_HIERARCHY = str(LAB_ROOT / "docs" / "azure-domain-hierachy.md")
+from _paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401
+DEFAULT_OUT = str(DEFINITIONS_DIR)
+DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 
 
 def load_domain_map(hierarchy_path: Path) -> dict[str, str]:
