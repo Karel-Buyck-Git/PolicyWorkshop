@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azure Policy Assignment Requirements — EPAC Deployment Guideline</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 4rem;
+  }
+
+  /* ── Header ── */
+  .doc-header {
+    border-bottom: 3px solid #2e74b5;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .doc-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f3864;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .doc-header .subtitle {
+    font-size: 1rem;
+    color: #2e74b5;
+    margin-bottom: 0.25rem;
+  }
+  .doc-header .meta {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* ── TOC ── */
+  nav.toc {
+    background: #f5f8fc;
+    border: 1px solid #d0e1f1;
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  nav.toc h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2e74b5;
+    margin-bottom: 0.75rem;
+  }
+  nav.toc ol {
+    padding-left: 1.25rem;
+    line-height: 2;
+  }
+  nav.toc ol ol { padding-left: 1.25rem; }
+  nav.toc a { color: #2e74b5; text-decoration: none; font-size: 0.9rem; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  /* ── Headings ── */
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1f3864;
+    margin: 2.5rem 0 0.75rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid #2e74b5;
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2e74b5;
+    margin: 1.75rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2e74b5;
+    margin: 1.25rem 0 0.4rem;
+  }
+
+  /* ── Body text ── */
+  p { margin-bottom: 0.75rem; }
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+  li { margin-bottom: 0.3rem; }
+  strong { font-weight: 600; }
+
+  /* ── Callouts ── */
+  .note, .warning {
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .note {
+    background: #eef5fb;
+    border-left: 4px solid #2e74b5;
+    color: #1a3a5c;
+  }
+  .warning {
+    background: #fdf0f0;
+    border-left: 4px solid #c00000;
+    color: #5c1a1a;
+  }
+  .note::before { content: '💡 Note: '; font-weight: 600; }
+  .warning::before { content: '⚠ Warning: '; font-weight: 600; }
+
+  /* ── Code blocks ── */
+  pre {
+    background: #f4f4f4;
+    border-left: 4px solid #ccc;
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    font-family: 'Cascadia Code', 'Courier New', monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 0.75rem 0 1rem;
+    color: #1f3864;
+  }
+
+  /* ── Tables ── */
+  .table-wrap { overflow-x: auto; margin: 0.75rem 0 1.25rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  th {
+    background: #2e74b5;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid #2e74b5;
+  }
+  td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8f8f8; }
+  td.yes-id  { background: #fff2cc; }
+  td.yes-rem { background: #e2efda; }
+  td.red     { background: #fce4d6; }
+  td.amber   { background: #fff2cc; }
+  td.green   { background: #e2efda; }
+
+  /* ── Flowchart ── */
+  .flowchart {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.88rem;
+  }
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .flow-box {
+    border: 1px solid #aac4e0;
+    border-radius: 6px;
+    padding: 0.65rem 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    min-width: 220px;
+    max-width: 260px;
+    flex-shrink: 0;
+  }
+  .flow-box.decision { background: #deeaf1; color: #1f3864; border-color: #a8c8e8; }
+  .flow-box.action   { background: #fff2cc; color: #7f6000; border-color: #f0c040; }
+  .flow-box.stop     { background: #fce4d6; color: #7b2020; border-color: #f0a080; }
+  .flow-box.go       { background: #e2efda; color: #375623; border-color: #90c060; }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.6rem;
+    color: #666;
+    font-size: 0.8rem;
+    font-style: italic;
+    flex-shrink: 0;
+  }
+  .flow-connector {
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    color: #888;
+    font-size: 0.8rem;
+    font-style: italic;
+    height: 24px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 2px solid #2e74b5;
+    font-size: 0.8rem;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <h1>Azure Policy Assignment Requirements</h1>
+  <p class="subtitle">EPAC Deployment Guideline &mdash; Customer Implementation &amp; Training</p>
+  <p class="meta">delaware consulting &nbsp;|&nbsp; June 2026</p>
+</header>
+
+<nav class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Can I assign this policy? &mdash; decision flow</a></li>
+    <li><a href="#s2">Overview</a></li>
+    <li><a href="#s3">Policy effects and behavior</a>
+      <ol>
+        <li><a href="#s3-1">Effect reference</a></li>
+        <li><a href="#s3-2">Effect hardening rank</a></li>
+        <li><a href="#s3-3">Why some policies only allow DeployIfNotExists or Disabled</a></li>
+      </ol>
+    </li>
+    <li><a href="#s4">Compliance evaluation cycle</a></li>
+    <li><a href="#s5">Assignment requirements</a>
+      <ol>
+        <li><a href="#s5-1">Managed identity</a></li>
+        <li><a href="#s5-2">Parameters</a></li>
+      </ol>
+    </li>
+    <li><a href="#s6">Assignment scope hierarchy</a></li>
+    <li><a href="#s7">DeployIfNotExists vs Modify</a></li>
+    <li><a href="#s8">Remediation tasks</a></li>
+    <li><a href="#s9">Initiative vs individual assignment</a></li>
+    <li><a href="#s10">Handling non-applicable policies</a></li>
+    <li><a href="#s11">Tag policies</a></li>
+    <li><a href="#s12">EPAC deployment checklist</a></li>
+    <li><a href="#s13">Key concepts summary</a></li>
+  </ol>
+</nav>
+
+<!-- ── 1. Decision flow ─────────────────────────────────────────────────────── -->
+<h2 id="s1">1. Can I assign this policy? &mdash; decision flow</h2>
+<p>Use this flow before assigning any policy or initiative. Work through each step in order.</p>
+
+<div class="flowchart">
+  <div class="flow-row">
+    <div class="flow-box decision">1. Does the policy have required parameters?</div>
+    <div class="flow-arrow">Yes &rarr;</div>
+    <div class="flow-box action">Gather prerequisite resource IDs before proceeding</div>
+  </div>
+  <div class="flow-connector">&darr; No</div>
+  <div class="flow-row">
+    <div class="flow-box decision">2. Is the effect Modify or DeployIfNotExists?</div>
+    <div class="flow-arrow">Yes &rarr;</div>
+    <div class="flow-box action">Configure managed identity with required role at scope</div>
+  </div>
+  <div class="flow-connector">&darr; No</div>
+  <div class="flow-row">
+    <div class="flow-box decision">3. Is the policy applicable to this environment?</div>
+    <div class="flow-arrow">No &rarr;</div>
+    <div class="flow-box stop">Disable, exempt, or exclude from initiative</div>
+  </div>
+  <div class="flow-connector">&darr; Yes</div>
+  <div class="flow-row">
+    <div class="flow-box go">4. Assign the policy</div>
+    <div class="flow-arrow">Then &rarr;</div>
+    <div class="flow-box go">Trigger remediation tasks (Modify / DINE only)</div>
+  </div>
+</div>
+
+<div class="note">Steps 1 and 2 may both apply to the same policy. A DINE policy that also requires a <code>privateDnsZoneId</code> needs both a prerequisite resource and a managed identity.</div>
+
+<!-- ── 2. Overview ──────────────────────────────────────────────────────────── -->
+<h2 id="s2">2. Overview</h2>
+<p>This document captures the essential knowledge required to correctly assign Azure Policy definitions in an Enterprise Policy as Code (EPAC) deployment. It covers policy effects, behavioral differences, assignment prerequisites, managed identity requirements, remediation mechanics, compliance evaluation timing, initiative vs individual assignment trade-offs, and parameter dependencies.</p>
+<p>The goal is to give consultants and engineers a single reference that answers the question: <strong>what do I need to have in place before I can assign this policy?</strong></p>
+
+<!-- ── 3. Effects ───────────────────────────────────────────────────────────── -->
+<h2 id="s3">3. Policy effects and behavior</h2>
+<p>Every Azure Policy definition has an effect that determines what the policy engine does when a resource is evaluated.</p>
+
+<h3 id="s3-1">3.1 Effect reference</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Effect</th><th>When it fires</th><th>Req. managed identity</th><th>Supports remediation</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Deny</td><td>At request time (preflight)</td><td>No</td><td>No</td><td>Blocks non-compliant deployments; cannot fix existing resources</td></tr>
+    <tr><td>Audit</td><td>Post-deployment evaluation</td><td>No</td><td>No</td><td>Flags non-compliant resources; no action taken</td></tr>
+    <tr><td>AuditIfNotExists</td><td>Post-deployment evaluation</td><td>No</td><td>No</td><td>Flags when a related/child resource does not exist</td></tr>
+    <tr><td>Append</td><td>At request time (inline)</td><td>No</td><td>No</td><td>Adds fields to the request; uses caller identity; no backfill possible</td></tr>
+    <tr><td>Modify</td><td>Post-deployment + remediation</td><td class="yes-id">Yes</td><td class="yes-rem">Yes</td><td>Patches resource properties via operations array; no ARM template needed</td></tr>
+    <tr><td>DeployIfNotExists</td><td>Post-deployment + remediation</td><td class="yes-id">Yes</td><td class="yes-rem">Yes</td><td>Deploys child/related resource via embedded ARM template</td></tr>
+    <tr><td>Disabled</td><td>Never</td><td>No</td><td>No</td><td>Policy inactive; no evaluation or compliance impact</td></tr>
+    <tr><td>Manual</td><td>Manual attestation</td><td>No</td><td>No</td><td>Requires human attestation; lowest hardening rank</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Key insight:</strong> Only Modify and DeployIfNotExists require a managed identity on the policy assignment itself. All other effects either fire inline using the caller's identity (Append) or only evaluate without acting.</p>
+
+<h3 id="s3-2">3.2 Effect hardening rank</h3>
+<p>When selecting which effect to use from a policy's <code>allowedValues</code>, use this rank to choose the most restrictive effect the customer environment supports:</p>
+<ol>
+  <li>Deny (7) — most restrictive</li>
+  <li>Modify (6)</li>
+  <li>DeployIfNotExists (5)</li>
+  <li>AuditIfNotExists (4)</li>
+  <li>Audit (3)</li>
+  <li>Append (2)</li>
+  <li>Manual (1)</li>
+  <li>Disabled (0) — policy inactive</li>
+</ol>
+<div class="note">The soft value is the least restrictive non-Disabled effect. Use it when a customer is not yet ready to enforce but wants visibility. The hardened value is the target state for a fully governed environment.</div>
+
+<h3 id="s3-3">3.3 Why some policies only allow DeployIfNotExists or Disabled</h3>
+<p>Certain policies are remediation-focused by design and offer no Audit option. Example: <em>Configure Private Link for Azure AD to use private DNS zones</em> (<code>7e4301f9</code>). Its only action is deploying a <code>privateDnsZoneGroups</code> child resource — auditing without deploying serves no purpose.</p>
+
+<!-- ── 4. Evaluation cycle ──────────────────────────────────────────────────── -->
+<h2 id="s4">4. Compliance evaluation cycle</h2>
+<p>Understanding the full cycle from trigger to remediation is essential for setting customer expectations.</p>
+
+<h3>4.1 Full cycle for Modify and DeployIfNotExists</h3>
+<ul>
+  <li>Policy assigned — evaluation triggers within 15–30 minutes for new resources, up to 24 hours for a full scan of existing resources</li>
+  <li>Policy engine evaluates the <code>if</code> condition against each resource in scope</li>
+  <li>For DINE: checks the <code>existenceCondition</code> — is the related resource present in the expected state?</li>
+  <li>Non-compliant resources are flagged in the compliance view</li>
+  <li>Remediation task is triggered manually or via automation</li>
+  <li>Managed identity issues PATCH (Modify) or ARM deployment (DINE) against each non-compliant resource</li>
+  <li>Policy engine re-evaluates — resources become compliant once the operation succeeds</li>
+  <li>Compliance score updates within the next evaluation cycle (up to 24 hours for full propagation)</li>
+</ul>
+
+<h3>4.2 Full cycle for Deny, Audit, and Append</h3>
+<ul>
+  <li><strong>Deny:</strong> all subsequent deployment attempts that violate the policy are blocked at request time; existing non-compliant resources are flagged but not blocked or removed</li>
+  <li><strong>Audit/AuditIfNotExists:</strong> non-compliant resources are flagged; no action taken; compliance score is affected immediately</li>
+  <li><strong>Append:</strong> all subsequent deployment requests have the specified fields added inline; no effect on existing resources</li>
+</ul>
+<div class="note">For Deny policies, existing non-compliant resources are not automatically removed or blocked. They remain in place and are flagged in the compliance view. Customers must remediate them manually.</div>
+
+<!-- ── 5. Assignment requirements ─────────────────────────────────────────── -->
+<h2 id="s5">5. Assignment requirements</h2>
+<p>An assignment requirement is anything that must be in place or provided before a policy can be assigned and function correctly.</p>
+
+<h3 id="s5-1">5.1 Managed identity</h3>
+<p>Policies with Modify or DeployIfNotExists effects require a system-assigned managed identity on the policy assignment. This identity performs remediation tasks after evaluation.</p>
+
+<h4>5.1.1 What the managed identity does</h4>
+<ul>
+  <li><strong>For Modify:</strong> issues an ARM PATCH call to update a resource property directly (e.g., set <code>disableLocalAuth = true</code>)</li>
+  <li><strong>For DeployIfNotExists:</strong> submits the embedded ARM template to Azure Resource Manager, creating or configuring a child or related resource</li>
+</ul>
+
+<h4>5.1.2 Role requirements</h4>
+<p>The <code>roleDefinitionIds</code> field in the policy's <code>details</code> block specifies which role the managed identity needs:</p>
+<ul>
+  <li>Network Contributor — for private endpoint and DNS zone group deployments</li>
+  <li>Contributor — for broader resource creation such as private endpoints for App Configuration</li>
+  <li>Specific data-plane roles — for service-specific configurations</li>
+</ul>
+<p><strong>EPAC deployment approach:</strong> Grant the managed identity Owner or the required role at the highest management group level. This eliminates per-policy role assignment management and ensures remediation tasks can always execute.</p>
+<div class="note">Every ARM operation requires an identity. The distinction is whose. Append and Deny use the caller's identity (the SPN or pipeline). Modify and DINE use the managed identity on the assignment. "Requires Managed Identity" means: does the assignment itself need one configured on it?</div>
+
+<h3 id="s5-2">5.2 Parameters</h3>
+<p>Any parameter without a <code>defaultValue</code> (and not named <code>effect</code>) must be supplied at assignment time.</p>
+
+<h4>5.2.1 Parameter taxonomy</h4>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Parameter type</th><th>Examples</th><th>Blocks assignment?</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Networking</td><td><code>privateEndpointSubnetId</code>, <code>privateDnsZoneId</code>, <code>vnetId</code></td><td class="red">Yes (no default)</td><td>Resource must exist before assignment; subnet must have private endpoint policies disabled</td></tr>
+    <tr><td>Diagnostics</td><td><code>logAnalyticsWorkspaceId</code>, <code>storageAccountId</code>, <code>eventHubName</code>, <code>diagnosticsSettingName</code></td><td class="red">Yes (no default)</td><td>Target sink must exist; name param controls the diagnostic setting resource name</td></tr>
+    <tr><td>Tags</td><td><code>tagName</code>, <code>tagValue</code></td><td class="red">Yes (no default)</td><td>Always customer-specific; one assignment per tag or wrap in a custom initiative</td></tr>
+    <tr><td>Configuration values</td><td><code>allowedLocations</code>, <code>allowedSkus</code>, <code>retentionDays</code></td><td class="amber">Sometimes (varies)</td><td>May have defaults; customer must validate against their standards</td></tr>
+    <tr><td>Effect</td><td><code>effect</code> (always present)</td><td class="green">No (has default)</td><td><code>allowedValues</code> restricts which effects can be chosen; <code>defaultValue</code> is used if not overridden</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>5.2.2 The assignPermissions flag</h4>
+<p>Parameters with <code>"assignPermissions": true</code> cause Azure to auto-create a role assignment on that resource at assignment time. Requires Owner or User Access Administrator on the assigner. Handled automatically in the EPAC model with broad managed identity permissions.</p>
+
+<!-- ── 6. Scope hierarchy ───────────────────────────────────────────────────── -->
+<h2 id="s6">6. Assignment scope hierarchy</h2>
+<p>The scope at which a policy is assigned determines which resources are evaluated and where the managed identity role must be granted.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Scope level</th><th>Covers</th><th>MI role scope</th><th>When to use</th></tr></thead>
+  <tbody>
+    <tr><td>Management group</td><td>All subscriptions beneath</td><td>Management group (recommended)</td><td>Enterprise-wide baseline policies; EPAC default for most assignments</td></tr>
+    <tr><td>Subscription</td><td>All resource groups in subscription</td><td>Subscription</td><td>Subscription-specific overrides or landing zone policies</td></tr>
+    <tr><td>Resource group</td><td>All resources in the group</td><td>Resource group</td><td>Fine-grained control; rarely used in enterprise EPAC</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>6.1 Scope inheritance</h3>
+<p>Assignments inherit downward. A management group assignment applies to all subscriptions beneath it unless explicitly excluded via <code>notScopes</code>.</p>
+
+<h3>6.2 Exclusions in EPAC</h3>
+<pre>{
+  "nodeName": "/root/",
+  "assignment": {
+    "name": "baseline-security",
+    "displayName": "Baseline Security Initiative"
+  },
+  "policySetDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/...",
+  "notScopes": [
+    "/subscriptions/&lt;sandbox-subscription-id&gt;"
+  ]
+}</pre>
+
+<!-- ── 7. DINE vs Modify ────────────────────────────────────────────────────── -->
+<h2 id="s7">7. DeployIfNotExists vs Modify</h2>
+
+<h3>7.1 DeployIfNotExists mechanics</h3>
+<p>DINE policies carry a full ARM template in their <code>deployment</code> block. The policy engine evaluates the <code>if</code> condition, checks the <code>existenceCondition</code>, marks non-compliant resources, and on remediation submits the embedded template via the managed identity.</p>
+<div class="warning">DINE checks for existence but not always correctness. If a child resource exists but references the wrong configuration (e.g., a DNS zone group pointing to the wrong zone), the <code>existenceCondition</code> may still pass. Always read the <code>existenceCondition</code> in the policy JSON before trusting a compliant state.</div>
+
+<h4>7.1.1 Example: Configure private endpoints for App Configuration (614ffa75)</h4>
+<p>Deploys a full <code>Microsoft.Network/privateEndpoints</code> resource. Requires: VNet and subnet with private endpoint policies disabled, <code>privateEndpointSubnetId</code> parameter at assignment, Contributor role on the managed identity.</p>
+
+<h3>7.2 Modify mechanics</h3>
+<p>Modify policies use an <code>operations</code> array — no ARM template. The managed identity issues a direct PATCH to the resource ARM API.</p>
+<p><strong>Example:</strong> Configure App Configuration stores to disable local authentication (<code>72bc14af</code>). No template, no extra parameters. Patches <code>disableLocalAuth = true</code> directly on the resource.</p>
+
+<!-- ── 8. Remediation ──────────────────────────────────────────────────────── -->
+<h2 id="s8">8. Remediation tasks</h2>
+<p>DINE and Modify act automatically only on new or updated resources. Existing non-compliant resources need a remediation task.</p>
+
+<h3>8.1 How remediation works</h3>
+<ul>
+  <li>Policy engine identifies all non-compliant resources in scope</li>
+  <li>Managed identity issues PATCH (Modify) or ARM deployment (DINE) against each</li>
+  <li>Resources become compliant once the operation succeeds</li>
+  <li>Compliance score updates within the next evaluation cycle</li>
+</ul>
+
+<h3>8.2 Remediation does not apply to</h3>
+<ul>
+  <li><strong>Deny</strong> — blocks at request time; cannot retroactively fix existing resources</li>
+  <li><strong>Append</strong> — fires inline; no post-deployment action possible</li>
+  <li><strong>Audit and AuditIfNotExists</strong> — evaluate only; no action taken</li>
+</ul>
+<div class="note">The effects that support remediation (Modify + DINE) are exactly the same set that require a managed identity. The managed identity is the remediation mechanism.</div>
+
+<!-- ── 9. Initiative vs individual ────────────────────────────────────────── -->
+<h2 id="s9">9. Initiative vs individual assignment</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Aspect</th><th>Individual assignment</th><th>Initiative assignment</th></tr></thead>
+  <tbody>
+    <tr><td>Parameter management</td><td>Each assignment has its own parameters</td><td>Initiative parameters map to multiple policy parameters; supply once</td></tr>
+    <tr><td>Managed identity</td><td>One identity per assignment</td><td>One identity for the entire initiative assignment</td></tr>
+    <tr><td>Compliance view</td><td>Per-policy compliance</td><td>Rolled-up initiative compliance score</td></tr>
+    <tr><td>Best for</td><td>Single focused policies; testing; per-policy exemptions</td><td>Grouped governance controls; benchmarks; shared parameters</td></tr>
+    <tr><td>EPAC pattern</td><td><code>policyAssignments/*.jsonc</code> with <code>policyDefinitionId</code></td><td><code>policyAssignments/*.jsonc</code> with <code>policySetDefinitionId</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>9.1 When to use individual assignments</h3>
+<ul>
+  <li>Testing a single policy before broad rollout</li>
+  <li>A policy has a unique scope or exclusion differing from the rest of the initiative</li>
+  <li>You need to exempt a specific policy without affecting the entire initiative</li>
+</ul>
+
+<h3>9.2 When to use initiative assignments</h3>
+<ul>
+  <li>Grouping related governance controls — all network hardening, all diagnostic settings, all tag enforcement</li>
+  <li>Applying a benchmark such as the Microsoft Cloud Security Benchmark</li>
+  <li>Multiple DINE/Modify policies share the same managed identity — one initiative covers all</li>
+  <li>Parameter reuse — a single <code>logAnalyticsWorkspaceId</code> feeds multiple policies</li>
+</ul>
+
+<h3>9.3 EPAC initiative assignment structure</h3>
+<pre>{
+  "nodeName": "/security/",
+  "assignment": {
+    "name": "network-hardening",
+    "displayName": "Network Hardening Initiative"
+  },
+  "policySetDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/&lt;id&gt;",
+  "parameters": {
+    "privateDnsZoneId": "/subscriptions/.../privateDnsZones/privatelink.vaultcore.azure.net",
+    "privateEndpointSubnetId": "/subscriptions/.../subnets/pe-subnet",
+    "effect": "DeployIfNotExists"
+  },
+  "managedIdentityLocations": {
+    "westeurope": ["/providers/Microsoft.Management/managementGroups/&lt;mg-id&gt;"]
+  }
+}</pre>
+
+<!-- ── 10. Non-applicable ──────────────────────────────────────────────────── -->
+<h2 id="s10">10. Handling non-applicable policies</h2>
+
+<h3>10.1 Set effect to Disabled</h3>
+<p>If <code>allowedValues</code> includes <code>Disabled</code>, set effect to <code>Disabled</code> at assignment. No evaluation, no compliance impact. Best when a service is definitively out of scope.</p>
+
+<h3>10.2 Create a policy exemption</h3>
+<ul>
+  <li><strong>Waiver</strong> — no intention to comply with this control</li>
+  <li><strong>Mitigated</strong> — a compensating control addresses the risk</li>
+</ul>
+<p>Exempted resources are excluded from the compliance score. Exemptions can be time-bounded.</p>
+
+<h4>10.2.1 EPAC exemption structure</h4>
+<pre>{
+  "nodeName": "/exemptions/",
+  "exemptions": [
+    {
+      "name": "no-private-link-appconfig",
+      "displayName": "Private Link not required for App Configuration",
+      "description": "Customer does not use App Configuration; policy not applicable",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/&lt;mg&gt;/providers/Microsoft.Authorization/policyAssignments/&lt;name&gt;",
+      "policyDefinitionReferenceIds": ["614ffa75-862c-456e-ad8b-eaa1b0844b07"],
+      "scope": "/subscriptions/&lt;subscription-id&gt;"
+    }
+  ]
+}</pre>
+
+<h3>10.3 Compliance score impact</h3>
+<ul>
+  <li><strong>Disabled</strong> — no evaluation; excluded from score</li>
+  <li><strong>Exemption</strong> — excluded from score for exempted resources</li>
+  <li><strong>No matching resources</strong> — policy shows not applicable; no score impact</li>
+  <li><strong>DINE/Modify with non-compliant resources</strong> — counted against score until remediation task runs</li>
+</ul>
+
+<!-- ── 11. Tag policies ────────────────────────────────────────────────────── -->
+<h2 id="s11">11. Tag policies</h2>
+<p>Tag policies are the most common source of required parameters. Every active tag policy requires at minimum a <code>tagName</code>. There are 17 active policies (2 deprecated) in the Tags category, mapping to the Management domain.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Policy</th><th>Effect</th><th>Scope</th><th>Required params</th></tr></thead>
+  <tbody>
+    <tr><td>Add a tag to resources</td><td>Modify</td><td>Resource</td><td>tagName, tagValue</td></tr>
+    <tr><td>Add a tag to resource groups</td><td>Modify</td><td>Resource group</td><td>tagName, tagValue</td></tr>
+    <tr><td>Add a tag to subscriptions</td><td>Modify</td><td>Subscription</td><td>tagName, tagValue</td></tr>
+    <tr><td>Add or replace a tag on resources</td><td>Modify</td><td>Resource</td><td>tagName, tagValue</td></tr>
+    <tr><td>Add or replace a tag on resource groups</td><td>Modify</td><td>Resource group</td><td>tagName, tagValue</td></tr>
+    <tr><td>Add or replace a tag on subscriptions</td><td>Modify</td><td>Subscription</td><td>tagName, tagValue</td></tr>
+    <tr><td>Append a tag and its value to resources</td><td>Append</td><td>Resource</td><td>tagName, tagValue</td></tr>
+    <tr><td>Append a tag and its value to resource groups</td><td>Append</td><td>Resource group</td><td>tagName, tagValue</td></tr>
+    <tr><td>Append a tag and its value from the resource group</td><td>Append</td><td>Resource</td><td>tagName</td></tr>
+    <tr><td>Inherit a tag from the resource group</td><td>Modify</td><td>Resource</td><td>tagName</td></tr>
+    <tr><td>Inherit a tag from the resource group if missing</td><td>Modify</td><td>Resource</td><td>tagName</td></tr>
+    <tr><td>Inherit a tag from the subscription</td><td>Modify</td><td>Resource</td><td>tagName</td></tr>
+    <tr><td>Inherit a tag from the subscription if missing</td><td>Modify</td><td>Resource</td><td>tagName</td></tr>
+    <tr><td>Require a tag on resources</td><td>Deny</td><td>Resource</td><td>tagName</td></tr>
+    <tr><td>Require a tag on resource groups</td><td>Deny</td><td>Resource group</td><td>tagName</td></tr>
+    <tr><td>Require a tag and its value on resources</td><td>Deny</td><td>Resource</td><td>tagName, tagValue</td></tr>
+    <tr><td>Require a tag and its value on resource groups</td><td>Deny</td><td>Resource group</td><td>tagName, tagValue</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Behavioral groups</h3>
+<p><strong>Add / Add or replace (Modify):</strong> Apply a tag with a specific value. Supports remediation. Add or Replace overwrites an existing value; Add does not.</p>
+<p><strong>Append:</strong> Adds a tag field inline at request time using the caller's identity. Cannot backfill existing resources. No managed identity on the assignment.</p>
+<p><strong>Inherit (Modify):</strong> Copies a tag from parent scope. Supports remediation. Only tagName required — value is derived from the parent at runtime.</p>
+<p><strong>Require (Deny):</strong> Blocks resource creation if the tag is absent. Cannot fix existing resources. No managed identity.</p>
+<div class="note">For multiple mandatory tags, wrap policies in a custom initiative — one policy per tag. Single assignment, all tag names and values as initiative parameters.</div>
+
+<!-- ── 12. EPAC checklist ──────────────────────────────────────────────────── -->
+<h2 id="s12">12. EPAC deployment checklist</h2>
+
+<h3>12.1 Per policy</h3>
+<ul>
+  <li>Read <code>allowedValues</code> for effect — choose the hardened value the customer supports</li>
+  <li>Identify all non-effect parameters without a <code>defaultValue</code> — must be supplied</li>
+  <li>If effect is Modify or DINE — ensure managed identity has required role at correct scope</li>
+  <li>Verify prerequisite resources exist before assignment</li>
+  <li>Review the <code>existenceCondition</code> for DINE policies — confirm it checks what you expect</li>
+  <li>If not applicable — decide: Disabled, exemption, or exclude from assignment</li>
+</ul>
+
+<h3>12.2 Per initiative</h3>
+<ul>
+  <li>Map policy required parameters to initiative-level parameters</li>
+  <li>One managed identity covers all Modify/DINE policies in the initiative</li>
+  <li>After assignment, trigger remediation tasks to bring existing resources into compliance</li>
+  <li>Set <code>notScopes</code> for any excluded subscriptions or resource groups</li>
+</ul>
+
+<h3>12.3 Individual policy assignment with Modify (EPAC)</h3>
+<pre>{
+  "nodeName": "/security/appconfiguration/",
+  "assignment": {
+    "name": "disable-local-auth-appconfig",
+    "displayName": "Disable local auth on App Configuration"
+  },
+  "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/72bc14af-4ab8-43af-b4e4-38e7983f9a1f",
+  "parameters": { "effect": "Modify" },
+  "managedIdentityLocations": {
+    "westeurope": ["/providers/Microsoft.Management/managementGroups/&lt;root-mg-id&gt;"]
+  },
+  "scope": {
+    "&lt;tenant-id&gt;": ["/providers/Microsoft.Management/managementGroups/&lt;root-mg-id&gt;"]
+  }
+}</pre>
+
+<h3>12.4 Individual policy assignment with DINE and required parameters (EPAC)</h3>
+<pre>{
+  "nodeName": "/security/privateDns/",
+  "assignment": {
+    "name": "configure-private-dns-aad",
+    "displayName": "Configure Private DNS for Azure AD Private Link"
+  },
+  "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7e4301f9-5f32-4738-ad9f-7ec2d15563ad",
+  "parameters": {
+    "privateDnsZoneId": "/subscriptions/&lt;sub-id&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.Network/privateDnsZones/privatelink.microsoftonline.com",
+    "groupId": "azureactivedirectory",
+    "effect": "DeployIfNotExists"
+  },
+  "managedIdentityLocations": {
+    "westeurope": ["/providers/Microsoft.Management/managementGroups/&lt;root-mg-id&gt;"]
+  },
+  "scope": {
+    "&lt;tenant-id&gt;": ["/providers/Microsoft.Management/managementGroups/&lt;root-mg-id&gt;"]
+  }
+}</pre>
+
+<!-- ── 13. Summary ─────────────────────────────────────────────────────────── -->
+<h2 id="s13">13. Key concepts summary</h2>
+<ul>
+  <li><strong>Effect determines everything:</strong> timing, identity requirements, remediation capability, and compliance score impact</li>
+  <li><strong>Managed identity equals remediation capability:</strong> only Modify and DINE need it; they are also the only effects that support remediation tasks</li>
+  <li><strong>Required parameters block assignment:</strong> any non-effect parameter without a <code>defaultValue</code> must be supplied; no role assignment substitutes for a missing resource ID</li>
+  <li><strong>DINE has an embedded ARM template; Modify does not:</strong> Modify uses an operations array to patch resource properties directly</li>
+  <li><strong>existenceCondition checks presence, not always correctness:</strong> a misconfigured child resource may pass silently; always read the condition before trusting compliance state</li>
+  <li><strong>Remediation is always opt-in for existing resources:</strong> DINE and Modify only act automatically on new or updated resources; existing non-compliant resources need a remediation task</li>
+  <li><strong>Compliance propagation takes up to 24 hours:</strong> initial evaluation triggers within 15–30 minutes; full scans and score updates can take up to 24 hours</li>
+  <li><strong>Initiatives reduce operational overhead:</strong> one assignment, one managed identity, shared parameters — prefer initiatives for related governance controls</li>
+  <li><strong>Scope at management group covers everything beneath:</strong> use <code>notScopes</code> to exclude; grant managed identity role at the same scope or higher</li>
+  <li><strong>Non-applicable policies do not hurt your score:</strong> if no resources match the <code>if</code> condition the policy is neutral; use Disabled or exemptions to formally document intent</li>
+  <li><strong>Tag policies always require customer input:</strong> tagName and tagValue are environment-specific; use a custom initiative for multiple mandatory tags</li>
+</ul>
+
+<footer>
+  <span>delaware consulting &nbsp;|&nbsp; Internal training document</span>
+  <span>Azure Policy Assignment Requirements &mdash; EPAC Deployment Guideline &mdash; June 2026</span>
+</footer>
+
+</body>
+</html>
