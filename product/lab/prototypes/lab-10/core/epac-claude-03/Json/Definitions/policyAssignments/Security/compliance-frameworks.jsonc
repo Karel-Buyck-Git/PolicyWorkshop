@@ -1,0 +1,41 @@
+{
+    // Compliance frameworks assigned at the intermediate root, mirroring the Hydration Kit.
+    // MCSB is always deployed by hydration; NIST 800-53 R5 is an optional framework (here: Audit).
+    // Both initiatives contain DeployIfNotExists/Modify policies, so managedIdentityLocations is required.
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/compliance/",
+    "managedIdentityLocations": { "*": "westeurope" },
+    "definitionEntryList": [
+        {
+            // Microsoft Cloud Security Benchmark (built-in, formerly Azure Security Benchmark)
+            "policySetId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+            "displayName": "Microsoft Cloud Security Benchmark",
+            "assignment": {
+                "append": true,
+                "name": "mcsb",
+                "displayName": "Microsoft Cloud Security Benchmark",
+                "description": "MCSB - "
+            }
+        },
+        {
+            // NIST SP 800-53 Rev. 5 (built-in)
+            "policySetId": "/providers/Microsoft.Authorization/policySetDefinitions/179d1daa-458f-4e47-8086-2a68d0d6c38f",
+            "displayName": "NIST SP 800-53 Rev. 5",
+            "assignment": {
+                "append": true,
+                "name": "nist-800-53-r5",
+                "displayName": "NIST SP 800-53 Rev. 5",
+                "description": "NIST 800-53 R5 - "
+            }
+        }
+    ],
+    "assignment": {
+        "name": "root-",
+        "displayName": "Root ",
+        "description": "Compliance baseline at intermediate root: "
+    },
+    "scope": {
+        "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-dev-contoso" ],
+        "tenant01": [ "/providers/Microsoft.Management/managementGroups/contoso" ]
+    }
+}

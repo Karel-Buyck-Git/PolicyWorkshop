@@ -1,0 +1,24 @@
+{
+    // Built-in "Allowed locations" at the intermediate root. Sandbox MG excluded via notScopes.
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/allowed-locations/",
+    "definitionEntry": {
+        "policyId": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c",
+        "displayName": "Allowed locations (built-in)"
+    },
+    "assignment": {
+        "name": "allowed-locations",
+        "displayName": "Allowed Locations",
+        "description": "Restricts deployment regions."
+    },
+    "enforcementMode": "Default",
+    "parameters": { "listOfAllowedLocations": [ "westeurope", "northeurope" ] },
+    "scope": {
+        "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-dev-contoso" ],
+        "tenant01": [ "/providers/Microsoft.Management/managementGroups/contoso" ]
+    },
+    "notScopes": {
+        "tenant01": [ "/providers/Microsoft.Management/managementGroups/contoso-sandbox" ],
+        "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-dev-contoso-sandbox" ]
+    }
+}

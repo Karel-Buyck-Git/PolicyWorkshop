@@ -1,0 +1,23 @@
+{
+    // OPTIONAL PCI-DSS framework (the Hydration Kit offers this).
+    // DISABLED BY DEFAULT: replace the policySetId with the current PCI-DSS built-in Policy Set
+    // definition id for your cloud, then this file becomes active. Until then it is a no-op stub
+    // (enforcementMode DoNotEnforce + placeholder id).
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/pci-dss/",
+    "managedIdentityLocations": { "*": "westeurope" },
+    "enforcementMode": "DoNotEnforce",
+    "definitionEntry": {
+        "policySetId": "/providers/Microsoft.Authorization/policySetDefinitions/REPLACE-WITH-PCI-DSS-POLICYSET-ID",
+        "displayName": "PCI DSS (built-in)"
+    },
+    "assignment": {
+        "name": "pci-dss",
+        "displayName": "PCI DSS",
+        "description": "PCI-DSS compliance baseline (verify policy set id before enabling)."
+    },
+    "scope": {
+        "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-dev-contoso" ],
+        "tenant01": [ "/providers/Microsoft.Management/managementGroups/contoso" ]
+    }
+}

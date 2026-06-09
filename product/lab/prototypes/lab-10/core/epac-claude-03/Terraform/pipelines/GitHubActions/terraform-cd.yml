@@ -1,0 +1,53 @@
+# Terraform Azure Policy - plan on PR, apply on merge. Copy to .github/workflows/.
+# OIDC login (no secrets). One SPN with rights to manage policy + role assignments at the MG.
+name: Terraform Policy CD
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: [ 'Terraform/**' ]
+  push:
+    branches: [ main ]
+    paths: [ 'Terraform/**' ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  ARM_USE_OIDC: "true"
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  TF_VAR_FILE: environments/tenant01.tfvars   # PRs can override to epac-dev
+
+defaults:
+  run:
+    working-directory: Terraform
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init
+      - run: terraform fmt -check -recursive
+      - run: terraform validate
+      - run: terraform plan -var-file="${{ env.TF_VAR_FILE }}" -out=tfplan
+      - uses: actions/upload-artifact@v4
+        with: { name: tfplan, path: Terraform/tfplan }
+
+  apply:
+    needs: plan
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: tenant01            # approval gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init
+      - uses: actions/download-artifact@v4
+        with: { name: tfplan, path: Terraform }
+      - run: terraform apply -auto-approve tfplan
