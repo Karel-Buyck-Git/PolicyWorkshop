@@ -1,0 +1,152 @@
+# EPAC - Azure DevOps multi-stage pipeline (StarterKit style)
+# Plan (epac-dev) -> Deploy epac-dev -> Plan (tenant01) -> Deploy tenant01 (approval-gated)
+# Workload Identity Federation service connections (no secrets):
+#   sc-epac-plan            Reader @ tenant root
+#   sc-epac-dev             Resource Policy Contributor + RBAC Administrator @ epac-dev-contoso
+#   sc-epac-tenant-policy   Resource Policy Contributor @ contoso
+#   sc-epac-tenant-roles    Role Based Access Control Administrator @ contoso
+# Create ADO Environments "epac-dev" and "tenant01" (add approvals on tenant01).
+
+trigger:
+  branches: { include: [ main ] }
+  paths: { include: [ Definitions/** ] }
+
+pool: { vmImage: ubuntu-latest }
+
+variables:
+  definitionsRoot: '$(Build.SourcesDirectory)/Definitions'
+
+stages:
+# ---------- epac-dev ----------
+- stage: Plan_Dev
+  displayName: Plan (epac-dev)
+  jobs:
+  - job: Plan
+    steps:
+    - checkout: self
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'sc-epac-plan'
+        ScriptType: InlineScript
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
+        Inline: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Build-DeploymentPlans -PacEnvironmentSelector "epac-dev" `
+            -DefinitionsRootFolder "$(definitionsRoot)" `
+            -OutputFolder "$(Build.ArtifactStagingDirectory)/Output"
+    - publish: '$(Build.ArtifactStagingDirectory)/Output'
+      artifact: plans-epac-dev
+
+- stage: Deploy_Dev
+  displayName: Deploy (epac-dev)
+  dependsOn: Plan_Dev
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    environment: epac-dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: plans-epac-dev
+          - task: AzurePowerShell@5
+            displayName: Deploy-PolicyPlan
+            inputs:
+              azureSubscription: 'sc-epac-dev'
+              ScriptType: InlineScript
+              azurePowerShellVersion: LatestVersion
+              pwsh: true
+              Inline: |
+                Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+                Deploy-PolicyPlan -PacEnvironmentSelector "epac-dev" `
+                  -DefinitionsRootFolder "$(Build.SourcesDirectory)/Definitions" `
+                  -InputFolder "$(Pipeline.Workspace)/plans-epac-dev"
+          - task: AzurePowerShell@5
+            displayName: Deploy-RolesPlan
+            inputs:
+              azureSubscription: 'sc-epac-dev'
+              ScriptType: InlineScript
+              azurePowerShellVersion: LatestVersion
+              pwsh: true
+              Inline: |
+                Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+                Deploy-RolesPlan -PacEnvironmentSelector "epac-dev" `
+                  -DefinitionsRootFolder "$(Build.SourcesDirectory)/Definitions" `
+                  -InputFolder "$(Pipeline.Workspace)/plans-epac-dev"
+
+# ---------- tenant01 ----------
+- stage: Plan_Tenant
+  displayName: Plan (tenant01)
+  dependsOn: Deploy_Dev
+  condition: succeeded()
+  jobs:
+  - job: Plan
+    steps:
+    - checkout: self
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'sc-epac-plan'
+        ScriptType: InlineScript
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
+        Inline: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Build-DeploymentPlans -PacEnvironmentSelector "tenant01" `
+            -DefinitionsRootFolder "$(definitionsRoot)" `
+            -OutputFolder "$(Build.ArtifactStagingDirectory)/Output"
+    - publish: '$(Build.ArtifactStagingDirectory)/Output'
+      artifact: plans-tenant01
+
+- stage: Deploy_Tenant_Policy
+  displayName: Deploy policy (tenant01)
+  dependsOn: Plan_Tenant
+  condition: succeeded()
+  jobs:
+  - deployment: DeployPolicy
+    environment: tenant01           # approval gate
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: plans-tenant01
+          - task: AzurePowerShell@5
+            displayName: Deploy-PolicyPlan
+            inputs:
+              azureSubscription: 'sc-epac-tenant-policy'
+              ScriptType: InlineScript
+              azurePowerShellVersion: LatestVersion
+              pwsh: true
+              Inline: |
+                Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+                Deploy-PolicyPlan -PacEnvironmentSelector "tenant01" `
+                  -DefinitionsRootFolder "$(Build.SourcesDirectory)/Definitions" `
+                  -InputFolder "$(Pipeline.Workspace)/plans-tenant01"
+
+- stage: Deploy_Tenant_Roles
+  displayName: Deploy roles (tenant01)
+  dependsOn: Deploy_Tenant_Policy
+  condition: succeeded()
+  jobs:
+  - deployment: DeployRoles
+    environment: tenant01
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: plans-tenant01
+          - task: AzurePowerShell@5
+            displayName: Deploy-RolesPlan
+            inputs:
+              azureSubscription: 'sc-epac-tenant-roles'
+              ScriptType: InlineScript
+              azurePowerShellVersion: LatestVersion
+              pwsh: true
+              Inline: |
+                Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+                Deploy-RolesPlan -PacEnvironmentSelector "tenant01" `
+                  -DefinitionsRootFolder "$(Build.SourcesDirectory)/Definitions" `
+                  -InputFolder "$(Pipeline.Workspace)/plans-tenant01"

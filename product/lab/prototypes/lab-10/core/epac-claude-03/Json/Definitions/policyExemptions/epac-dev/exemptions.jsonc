@@ -1,0 +1,5 @@
+{
+    // epac-dev exemptions. Empty array = environment managed, nothing exempted.
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-exemption-schema.json",
+    "exemptions": []
+}

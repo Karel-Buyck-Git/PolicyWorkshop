@@ -1,0 +1,69 @@
+# Terraform Azure Policy - Azure DevOps. Plan (dev+tenant) then approval-gated apply.
+# Use a Workload Identity Federation service connection 'sc-terraform-policy' with rights to
+# manage policy and role assignments at the management group scope. Set ARM_USE_OIDC via the task.
+
+trigger:
+  branches: { include: [ main ] }
+  paths: { include: [ Terraform/** ] }
+
+pool: { vmImage: ubuntu-latest }
+
+variables:
+  workingDir: '$(Build.SourcesDirectory)/Terraform'
+  tfVarFile: 'environments/tenant01.tfvars'
+
+stages:
+- stage: Plan
+  jobs:
+  - job: Plan
+    steps:
+    - task: AzureCLI@2
+      displayName: terraform init/validate/plan
+      inputs:
+        azureSubscription: 'sc-terraform-policy'
+        scriptType: bash
+        scriptLocation: inlineScript
+        workingDirectory: $(workingDir)
+        addSpnToEnvironment: true
+        inlineScript: |
+          export ARM_USE_OIDC=true
+          export ARM_CLIENT_ID=$servicePrincipalId
+          export ARM_OIDC_TOKEN=$idToken
+          export ARM_TENANT_ID=$tenantId
+          curl -fsSL https://releases.hashicorp.com/terraform/1.9.5/terraform_1.9.5_linux_amd64.zip -o tf.zip && unzip -o tf.zip && sudo mv terraform /usr/local/bin/
+          terraform init
+          terraform fmt -check -recursive
+          terraform validate
+          terraform plan -var-file="$(tfVarFile)" -out=tfplan
+    - publish: $(workingDir)/tfplan
+      artifact: tfplan
+
+- stage: Apply
+  dependsOn: Plan
+  condition: succeeded()
+  jobs:
+  - deployment: Apply
+    environment: tenant01            # approval gate
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - download: current
+            artifact: tfplan
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'sc-terraform-policy'
+              scriptType: bash
+              scriptLocation: inlineScript
+              workingDirectory: $(workingDir)
+              addSpnToEnvironment: true
+              inlineScript: |
+                export ARM_USE_OIDC=true
+                export ARM_CLIENT_ID=$servicePrincipalId
+                export ARM_OIDC_TOKEN=$idToken
+                export ARM_TENANT_ID=$tenantId
+                curl -fsSL https://releases.hashicorp.com/terraform/1.9.5/terraform_1.9.5_linux_amd64.zip -o tf.zip && unzip -o tf.zip && sudo mv terraform /usr/local/bin/
+                terraform init
+                cp $(Pipeline.Workspace)/tfplan/tfplan ./tfplan
+                terraform apply -auto-approve tfplan

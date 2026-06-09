@@ -1,0 +1,35 @@
+{
+    // Custom security baseline initiative. Per-environment Log Analytics workspace via child nodes.
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/security-baseline/",
+    "definitionEntry": {
+        "policySetName": "security-baseline-initiative",
+        "displayName": "Custom Security Baseline Initiative"
+    },
+    "assignment": {
+        "name": "sec-baseline",
+        "displayName": "Security Baseline",
+        "description": "Custom org security controls."
+    },
+    "metadata": { "category": "Security" },
+    "enforcementMode": "Default",
+    "managedIdentityLocations": { "*": "westeurope" },
+    "parameters": {
+        "denyPublicIpEffect": "Deny",
+        "restrictNsgEffect": "Deny",
+        "deniedNsgPorts": [ "22", "3389" ],
+        "diagnosticsEffect": "DeployIfNotExists"
+    },
+    "children": [
+        {
+            "nodeName": "epac-dev/",
+            "parameters": { "logAnalytics": "/subscriptions/REPLACE-DEV-SUB/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-epac-dev" },
+            "scope": { "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-dev-contoso" ] }
+        },
+        {
+            "nodeName": "tenant01/",
+            "parameters": { "logAnalytics": "/subscriptions/REPLACE-PROD-SUB/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-contoso" },
+            "scope": { "tenant01": [ "/providers/Microsoft.Management/managementGroups/contoso" ] }
+        }
+    ]
+}

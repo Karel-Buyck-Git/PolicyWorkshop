@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "tagging-initiative",
+  "properties": {
+    "displayName": "Tagging Governance Initiative",
+    "description": "Requires an 'Owner' tag (custom) and inherits 'CostCenter' from the resource group (built-in Modify).",
+    "policyType": "Custom",
+    "metadata": { "version": "1.0.0", "category": "Governance" },
+    "parameters": {
+      "ownerTagEffect": {
+        "type": "String",
+        "allowedValues": ["Audit", "Deny", "Disabled"],
+        "defaultValue": "Audit"
+      },
+      "costCenterTagName": { "type": "String", "defaultValue": "CostCenter" }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "RequireOwnerTag",
+        "policyDefinitionName": "require-tag-owner",
+        "parameters": {
+          "tagName": { "value": "Owner" },
+          "effect": { "value": "[parameters('ownerTagEffect')]" }
+        }
+      },
+      {
+        // Built-in: "Inherit a tag from the resource group if missing" (Modify)
+        "policyDefinitionReferenceId": "InheritCostCenterFromRg",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea3f2387-9b95-492a-a190-fcdc54f7b070",
+        "parameters": {
+          "tagName": { "value": "[parameters('costCenterTagName')]" }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+# Bicep Azure Policy - Azure DevOps. What-if then approval-gated deploy at the management group.
+# Use a Workload Identity Federation service connection 'sc-bicep-policy' with policy + role
+# assignment rights at the management group scope.
+
+trigger:
+  branches: { include: [ main ] }
+  paths: { include: [ Bicep/** ] }
+
+pool: { vmImage: ubuntu-latest }
+
+variables:
+  mgId: 'contoso'
+  deployLocation: 'westeurope'
+  paramFile: '$(Build.SourcesDirectory)/Bicep/main.parameters.tenant01.json'
+  templateFile: '$(Build.SourcesDirectory)/Bicep/main.bicep'
+
+stages:
+- stage: WhatIf
+  jobs:
+  - job: WhatIf
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'sc-bicep-policy'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az deployment mg what-if \
+            --management-group-id "$(mgId)" \
+            --location "$(deployLocation)" \
+            --template-file "$(templateFile)" \
+            --parameters @"$(paramFile)"
+
+- stage: Deploy
+  dependsOn: WhatIf
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    environment: tenant01            # approval gate
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'sc-bicep-policy'
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                az deployment mg create \
+                  --management-group-id "$(mgId)" \
+                  --location "$(deployLocation)" \
+                  --template-file "$(templateFile)" \
+                  --parameters @"$(paramFile)"

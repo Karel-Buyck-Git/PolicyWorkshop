@@ -1,0 +1,15 @@
+{
+    // tenant01 exemptions. Sample: time-boxed waiver on the sandbox subscription.
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-exemption-schema.json",
+    "exemptions": [
+        {
+            "name": "sandbox-public-ip-waiver",
+            "displayName": "Sandbox waiver - Deny Public IP",
+            "description": "Temporary waiver for the sandbox subscription during a networking PoC.",
+            "exemptionCategory": "Waiver",
+            "expiresOn": "2026-12-31",
+            "scopes": [ "/subscriptions/00000000-0000-0000-0000-000000000000" ],
+            "policyDefinitionName": "deny-public-ip"
+        }
+    ]
+}

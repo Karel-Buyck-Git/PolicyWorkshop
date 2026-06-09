@@ -1,0 +1,40 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+    "name": "security-baseline-initiative",
+    "properties": {
+        "displayName": "Custom Security Baseline Initiative",
+        "description": "Organisation-specific controls layered on top of MCSB: no public IPs, restricted NSG rules, NSG diagnostics.",
+        "policyType": "Custom",
+        "metadata": { "version": "1.0.0", "category": "Security" },
+        "parameters": {
+            "denyPublicIpEffect": { "type": "String", "allowedValues": [ "Audit", "Deny", "Disabled" ], "defaultValue": "Deny" },
+            "restrictNsgEffect": { "type": "String", "allowedValues": [ "Audit", "Deny", "Disabled" ], "defaultValue": "Deny" },
+            "deniedNsgPorts": { "type": "Array", "defaultValue": [ "22", "3389" ] },
+            "diagnosticsEffect": { "type": "String", "allowedValues": [ "DeployIfNotExists", "AuditIfNotExists", "Disabled" ], "defaultValue": "DeployIfNotExists" },
+            "logAnalytics": { "type": "String", "metadata": { "displayName": "Log Analytics workspace resource id", "strongType": "oms", "assignPermissions": true } }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionReferenceId": "DenyPublicIp",
+                "policyDefinitionName": "deny-public-ip",
+                "parameters": { "effect": { "value": "[parameters('denyPublicIpEffect')]" } }
+            },
+            {
+                "policyDefinitionReferenceId": "RestrictNsgRules",
+                "policyDefinitionName": "restrict-nsg-rules",
+                "parameters": {
+                    "effect": { "value": "[parameters('restrictNsgEffect')]" },
+                    "deniedPorts": { "value": "[parameters('deniedNsgPorts')]" }
+                }
+            },
+            {
+                "policyDefinitionReferenceId": "DeployNsgDiagnostics",
+                "policyDefinitionName": "deploy-diagnostic-settings-nsg",
+                "parameters": {
+                    "effect": { "value": "[parameters('diagnosticsEffect')]" },
+                    "logAnalytics": { "value": "[parameters('logAnalytics')]" }
+                }
+            }
+        ]
+    }
+}

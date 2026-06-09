@@ -1,0 +1,71 @@
+# EPAC CD - plan + deploy to tenant01 on merge to main. Copy to .github/workflows/.
+# Separate SPNs per step (least privilege); approval gate on the "tenant01" environment.
+name: EPAC CD (tenant01)
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'Definitions/**' ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  PAC_SELECTOR: tenant01
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    environment: tenant01-plan
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Build-DeploymentPlans -PacEnvironmentSelector "$env:PAC_SELECTOR" `
+            -DefinitionsRootFolder ./Definitions -OutputFolder ./Output
+      - uses: actions/upload-artifact@v4
+        with: { name: plans-tenant01, path: ./Output }
+
+  deploy-policy:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: tenant01            # approval gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: plans-tenant01, path: ./Output }
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.POLICY_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Deploy-PolicyPlan -PacEnvironmentSelector "$env:PAC_SELECTOR" -DefinitionsRootFolder ./Definitions -InputFolder ./Output
+
+  deploy-roles:
+    needs: deploy-policy
+    runs-on: ubuntu-latest
+    environment: tenant01
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: plans-tenant01, path: ./Output }
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ROLES_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Deploy-RolesPlan -PacEnvironmentSelector "$env:PAC_SELECTOR" -DefinitionsRootFolder ./Definitions -InputFolder ./Output
