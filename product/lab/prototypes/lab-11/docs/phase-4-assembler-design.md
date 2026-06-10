@@ -1,16 +1,20 @@
-# Phase 4 — Scaffold Assembler (design)
+# The Assembler — Catalogue Consumer (design)
 
-The fourth stage of the taxonomy pipeline. Where Phase 3 (`create-initiatives`) emits
-reusable `(domain, tier, category)` groups, Phase 4 turns a **customer manifest** + those
-groups into a deployable `Definitions` scaffold, rendered in one or more IaC flavours
-(EPAC/JSON, Terraform, Bicep).
+The assembler is a **standalone consumer of the catalogue**, not a fourth phase of the taxonomy
+pipeline. Phases 1–3 are a *producer* that builds the shared catalogue (run occasionally — when
+Microsoft's built-ins or the taxonomy change). The assembler is a *consumer* that turns a
+**customer manifest** + the catalogue into a deployable `Definitions` scaffold, rendered in one or
+more IaC flavours (EPAC/JSON, Terraform, Bicep). A customer build needs only a **published
+catalogue** — it does NOT re-run phases 1–3.
 
 ```
-extract → enrich → create-initiatives → input → EXPAND → ASSEMBLE (this doc) → validate → PR → deploy
+PRODUCER (occasional)                          CONSUMER (per customer, on demand)
+extract → enrich → create-initiatives  ──►  catalogue@version  ──►  input → EXPAND → ASSEMBLE → validate → PR → deploy
 ```
 
-It is a **pure, deterministic transform**: same manifest + same `catalogue/initiatives/` snapshot ⇒
-byte-identical output. No Azure calls, no deployment.
+The two systems are joined by a single contract: the **catalogue** (its files + `catalogueVersion`).
+The assembler is a **pure, deterministic transform**: same manifest + same catalogue snapshot ⇒
+byte-identical output. No Azure calls, no deployment, no taxonomy derivation.
 
 ---
 
@@ -21,7 +25,7 @@ run locally or in CI:
 
 ```
 python flows/assemble-scaffold.py --manifest customer/manifests/contoso.manifest.jsonc
-# optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir>
+# optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: customer/initiatives/)
 ```
 
 Chain: `app / human → manifest → assembler → Definitions scaffold (×flavour) → CI validate → deploy`.
@@ -34,10 +38,10 @@ Chain: `app / human → manifest → assembler → Definitions scaffold (×flavo
 |---|---|---|
 | `input.example.json` | minimal human input: customer + selection + value-only `parameters` | yes (expand stage) |
 | `--manifest` | the expanded customer contract (selection, scopes, bindings, exemptions) | yes (assemble stage) |
-| `catalogue/initiatives/<domain>/<tier>/<category>/` | generated groups (`.policyset.json`, `.assignment.json`, `.exemptions.json`, `.md`) | yes |
-| `docs/azure-domain-hierachy.md` | validate domain/category slugs; expand `category: "*"` | yes |
+| `catalogue/index.json` | group list + `domainMap`; validate selection, expand `category:"*"` | yes |
+| `catalogue/catalogue.json` | catalogue version + content fingerprint (pin / verify) | yes |
+| `catalogue/initiatives/<domain>/<tier>/<category>/` | generated groups (`.policyset.json`, `.assignment.json`, `.exemptions.json`, `.roles.json`, `.md`) | yes |
 | `catalogue/definitions/<category>/policies.md` | lineage + effect lookups | optional |
-| built-in policy repo snapshot | only to derive remediation **role IDs** for Terraform/Bicep (EPAC computes its own) | flavour-dependent |
 
 **Runtime:** Python ≥ 3.10, `jsonschema`, and a JSONC reader (json5 or a comment/trailing-comma stripper).
 
@@ -51,6 +55,26 @@ Chain: `app / human → manifest → assembler → Definitions scaffold (×flavo
 
 All are JSON Schema 2020-12. "input" state allows `<REPLACE: …>` placeholders and value-only
 edits; the "resolved" state (strict) must pass before any rendering.
+
+### Catalogue contract & versioning
+
+The catalogue is the only thing the assembler depends on — it is self-describing:
+
+- **`index.json`** — the group list plus `domainMap` (category → domain), projected from the ONE
+  authored hierarchy (`config/azure-domain-hierachy.md`) at build time. Selection validation and
+  `category:"*"` expansion read this, never the markdown, so the consumer has no `config/` or
+  `docs/` dependency.
+- **`catalogue.json`** — the version stamp: a human `catalogueVersion` label, `generatedAt`,
+  `inputs` (built-ins git ref, hierarchy hash, tier-rules hash), `counts`, `tools`, and a
+  `contentHash` fingerprint over every catalogue file. The manifest pins `source.catalogueVersion`;
+  the assembler verifies it matches and can recompute `contentHash` to detect drift.
+- **Baked remediation roles** — each group containing a DeployIfNotExists/Modify member carries its
+  required `roleDefinitionIds` in the policyset `metadata` and a `<name>.roles.json` sidecar,
+  precomputed by phase 3 from the policy repo. The Terraform/Bicep renderers read these; the
+  assembler never touches the policy repo.
+
+Single-source guarantee: one authored hierarchy → one parser (`flows/hierarchy.py`) → one generated
+`index.json`. The markdown is the source; `index.json` is a derived projection, never hand-edited.
 
 ---
 
@@ -87,7 +111,8 @@ consistent.
   "initiatives":  [ { "name": "contoso-security-essential-key-vault",
                       "source": "catalogue/initiatives/security/essential/key-vault/…policyset.json",
                       "policyset": { /* the loaded .policyset.json, re-prefixed */ },
-                      "hasRemediation": true } ],
+                      "hasRemediation": true,
+                      "roleDefinitionIds": ["/providers/.../roleDefinitions/…"] } ],  // baked in catalogue
   "assignments":  [ { "initiative": "contoso-security-essential-key-vault",
                       "boundParameters": { "certificates…": 90 },
                       "scopes":   { "tenant01": ["/providers/.../contoso"] },
@@ -124,11 +149,11 @@ load_and_validate(manifest):
     resolve_pac_owner_id(data, manifest_path)               # see §3
 
 resolve_selection(data):
-    hierarchy = parse_hierarchy(docs/azure-domain-hierachy.md)
+    index = load(catalogue/index.json)                       # groups + domainMap (no config/ or docs/)
     groups = []
     for sel in data.selection:
-        assert sel.domain in hierarchy                       # else hard error
-        cats = all_categories(hierarchy, sel.domain) if sel.category == "*" else [sel.category]
+        assert sel.domain in index.domains                   # else hard error
+        cats = index.categories(sel.domain) if sel.category == "*" else [sel.category]
         tiers = rollup(sel.tier)        # essential⊆professional⊆enterprise
         for cat in cats:
             for tier in tiers:
@@ -187,7 +212,7 @@ report(ir):  write lineage.json + coverage/validation summary
 ## 7. Outputs
 
 ```
-<output.root>/
+customer/initiatives/                # = output.root  (per-customer; default)
 ├── json/        Definitions/{global-settings.jsonc, policySetDefinitions/, policyAssignments/, policyExemptions/<selector>/}
 │                + pipelines/ + README.md
 ├── terraform/   *.tf + environments/<selector>.tfvars + policies/ + pipelines/ + README.md
@@ -195,6 +220,11 @@ report(ir):  write lineage.json + coverage/validation summary
 ├── lineage.json # manifest hash, snapshot versions, group→file→policyId map
 └── report.md    # coverage: groups selected, params bound, exemptions, warnings
 ```
+
+**Input vs output:** the assembler READS the shared `catalogue/` and WRITES the customer's own
+`customer/initiatives/` (the `output.root`). Catalogue is never modified. Paths in `source.*` and
+`output.root` are resolved **relative to the manifest file**, so `../../catalogue/initiatives`
+(read) and `../initiatives` (write) both resolve from `customer/manifests/`.
 
 Determinism: stable key ordering and sorted iteration so re-runs produce clean diffs.
 
@@ -205,8 +235,9 @@ Determinism: stable key ordering and sorted iteration so re-runs produce clean d
 - No deployment, no live Azure calls, no remediation execution.
 - No taxonomy derivation — that is Phases 1–3.
 - No invention of policy content — only selection, binding, and rendering of existing groups.
-- Role-assignment auto-calculation for TF/Bicep is best-effort (from the repo snapshot); EPAC
-  remains the most complete for remediation roles and desired-state deletion.
+- Remediation role IDs for TF/Bicep are read from the catalogue (baked by phase 3), so the
+  assembler needs no policy-repo access. EPAC still computes its own at deploy time and remains
+  the most complete for desired-state deletion.
 
 ---
 

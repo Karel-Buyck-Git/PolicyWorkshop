@@ -9,7 +9,7 @@
     "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>"
   },
   "output": {
-    "root": "<REPLACE: output-root-folder>",
+    "root": "../initiatives",
     "flavours": [
       "<REPLACE: flavour: json | terraform | bicep>"
     ]

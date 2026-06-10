@@ -10,9 +10,12 @@ LAB_ROOT = Path(__file__).resolve().parent.parent
 
 # Shared catalogue produced by the taxonomy flow
 CATALOGUE_DIR   = LAB_ROOT / "catalogue"
-DEFINITIONS_DIR = CATALOGUE_DIR / "definitions"   # was: output/        (policies.md taxonomy)
-INITIATIVES_DIR = CATALOGUE_DIR / "initiatives"   # was: initiatives/    (EPAC group artifacts)
+DEFINITIONS_DIR = CATALOGUE_DIR / "definitions"   # policies.md taxonomy
+INITIATIVES_DIR = CATALOGUE_DIR / "initiatives"   # EPAC group artifacts
+INDEX_FILE      = CATALOGUE_DIR / "index.json"     # generated: groups + domain map
+CATALOGUE_FILE  = CATALOGUE_DIR / "catalogue.json" # generated: version stamp
 
-# Inputs
+# Authored inputs
+CONFIG_DIR     = LAB_ROOT / "config"
+HIERARCHY_FILE = CONFIG_DIR / "azure-domain-hierachy.md"   # the ONE authored hierarchy
 DOCS_DIR       = LAB_ROOT / "docs"
-HIERARCHY_FILE = DOCS_DIR / "azure-domain-hierachy.md"

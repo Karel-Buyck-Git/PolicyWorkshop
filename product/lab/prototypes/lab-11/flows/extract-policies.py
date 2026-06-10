@@ -24,6 +24,7 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
+from hierarchy import load_domain_map  # shared parser (single source)
 
 
 # ---------------------------------------------------------------------------
@@ -332,24 +333,6 @@ DEFAULT_SOURCE = (
 from _paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401
 DEFAULT_OUT = str(DEFINITIONS_DIR)
 DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
-
-
-def load_domain_map(hierarchy_path: Path) -> dict[str, str]:
-    """Parse the domain-hierarchy markdown into a {category: domain} map.
-
-    Top-level domains are bullets at column 0 ('- Domain'); their child
-    categories are indented bullets ('  - Category').
-    """
-    mapping: dict[str, str] = {}
-    current_domain: str | None = None
-    for raw in hierarchy_path.read_text(encoding="utf-8").splitlines():
-        if raw.startswith("- "):
-            current_domain = raw[2:].strip()
-        elif raw.startswith("  - ") and current_domain:
-            category = raw[4:].strip()
-            if category:
-                mapping[category] = current_domain
-    return mapping
 
 
 def write_jsonl(policies: list[dict], source_dir: Path, out_dir: Path) -> Path:

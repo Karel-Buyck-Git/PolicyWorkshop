@@ -23,7 +23,7 @@
 
   // --- Output ---
   "output": {
-    "root": "<REPLACE: output-root-folder>",
+    "root": "../initiatives",                    // resolves to customer/initiatives (relative to this manifest)
     "flavours": ["json"]                         // any of: json | terraform | bicep
   },
 
