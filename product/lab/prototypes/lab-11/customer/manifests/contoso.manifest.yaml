@@ -28,7 +28,7 @@ source:
 
 # --- Output ------------------------------------------------------------------
 output:
-  root: ./generated/contoso            # base folder for the rendered scaffold
+  root: ../initiatives                 # customer/initiatives (relative to this manifest)
   flavours: [json, terraform, bicep]   # which renderers to run (>=1)
 
 # --- EPAC environments -------------------------------------------------------

@@ -28,13 +28,17 @@ Usage:
 """
 
 import argparse
+import hashlib
 import json
 import re
+import subprocess
 import sys
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 
-from _paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR  # noqa: F401
+from _paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE  # noqa: F401
+from hierarchy import load_domain_map
 DEFAULT_OUTPUT = DEFINITIONS_DIR
 DEFAULT_INITIATIVES = INITIATIVES_DIR
 DEFAULT_SOURCE = (
@@ -181,10 +185,14 @@ def build_param_index(source_dir: Path) -> dict[str, dict]:
         existing = index.get(pid)
         if existing is not None and version_key(existing["version"]) >= version_key(version):
             continue
+        rule = props.get("policyRule") or {}
+        details = (rule.get("then") or {}).get("details") or {}
+        role_ids = details.get("roleDefinitionIds") or []
         index[pid] = {
             "parameters": props.get("parameters") or {},
             "resource_id": raw.get("id") or f"/providers/Microsoft.Authorization/policyDefinitions/{pid}",
             "version": version,
+            "roleDefinitionIds": list(role_ids),
         }
     return index
 
@@ -306,13 +314,20 @@ def _mock_value(param_def: dict, init_name: str) -> object:
     return placeholder
 
 
-def build_policyset(name, display_name, domain, tier, category, rows, param_index, description):
-    """Return (policyset_dict, required_params) where required_params maps each
-    bubbled-up initiative parameter name to its source schema definition."""
+def build_policyset(name, display_name, domain, tier, category, rows, param_index, description,
+                    catalogue_version: str = ""):
+    """Return (policyset_dict, required_params, roles_info).
+
+    required_params maps each bubbled-up initiative parameter name to its source
+    schema. roles_info captures remediation role IDs (baked from the repo at build
+    time) so the Terraform/Bicep renderers never need the policy repo downstream.
+    """
     policy_defs: list[dict] = []
     init_params: dict[str, dict] = {}
     required_params: dict[str, dict] = {}
     used_param_names: set[str] = set()
+    role_union: set[str] = set()
+    roles_by_policy: dict[str, list] = {}
 
     for i, r in enumerate(rows, start=1):
         pid = r["Policy ID"].strip()
@@ -322,6 +337,12 @@ def build_policyset(name, display_name, domain, tier, category, rows, param_inde
             else f"/providers/Microsoft.Authorization/policyDefinitions/{pid}"
         )
         src_params = idx["parameters"] if idx else {}
+        ref = pid or slugify(r["Policy"]) or f"policy-{i}"
+
+        member_roles = (idx or {}).get("roleDefinitionIds") or []
+        if member_roles:
+            roles_by_policy[ref] = list(member_roles)
+            role_union.update(member_roles)
 
         pd_params: dict[str, dict] = {}
         for pname, pdef in src_params.items():
@@ -354,7 +375,7 @@ def build_policyset(name, display_name, domain, tier, category, rows, param_inde
                 pd_params[pname] = {"value": f"[parameters('{init_name}')]"}
 
         policy_def = {
-            "policyDefinitionReferenceId": pid or slugify(r["Policy"]) or f"policy-{i}",
+            "policyDefinitionReferenceId": ref,
             "policyDefinitionId": resource_id,
             "groupNames": [tier],
             "metadata": {"policyName": r["Policy"]},
@@ -363,19 +384,32 @@ def build_policyset(name, display_name, domain, tier, category, rows, param_inde
             policy_def["parameters"] = pd_params
         policy_defs.append(policy_def)
 
+    metadata = {"category": category, "domain": domain, "tier": tier}
+    if catalogue_version:
+        metadata["catalogueVersion"] = catalogue_version
+    metadata["hasRemediation"] = bool(role_union)
+    if role_union:
+        metadata["roleDefinitionIds"] = sorted(role_union)
+
     policyset = {
         "name": name,
         "properties": {
             "displayName": display_name,
             "description": description,
             "policyType": "Custom",
-            "metadata": {"category": category, "domain": domain, "tier": tier},
+            "metadata": metadata,
             "policyDefinitionGroups": [{"name": tier}],
             "parameters": init_params,
             "policyDefinitions": policy_defs,
         },
     }
-    return policyset, required_params
+    roles_info = {
+        "name": name,
+        "hasRemediation": bool(role_union),
+        "roleDefinitionIds": sorted(role_union),
+        "byPolicy": roles_by_policy,
+    }
+    return policyset, required_params, roles_info
 
 
 def assignment_description(rows, required_params) -> str:
@@ -470,16 +504,94 @@ def write_json(path: Path, obj: dict) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Catalogue manifests (version stamp + group index) — the consumer contract
+# ---------------------------------------------------------------------------
+
+def _sha256_file(path: Path) -> str:
+    p = Path(path)
+    return "sha256:" + hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else ""
+
+
+def _content_hash(root: Path, exclude: set[str]) -> str:
+    h = hashlib.sha256()
+    for p in sorted(Path(root).rglob("*")):
+        if not p.is_file() or p.name in exclude:
+            continue
+        rel = str(p.relative_to(root)).replace("\\", "/")
+        h.update(rel.encode("utf-8")); h.update(b"\x00")
+        h.update(p.read_bytes()); h.update(b"\x00")
+    return "sha256:" + h.hexdigest()
+
+
+def _git_ref(source_dir: Path) -> str:
+    try:
+        out = subprocess.run(["git", "-C", str(source_dir), "rev-parse", "HEAD"],
+                             capture_output=True, text=True, timeout=10)
+        if out.returncode == 0 and out.stdout.strip():
+            return "git:" + out.stdout.strip()
+    except Exception:
+        pass
+    p = Path(source_dir)
+    if p.exists():
+        return "snapshot:" + datetime.utcfromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d")
+    return "unavailable"
+
+
+def write_catalogue_manifests(catalogue_root, records, version, source_dir,
+                              group_count, file_count) -> None:
+    """Write the two consumer-facing manifests at the catalogue root:
+    index.json (groups + domain map) and catalogue.json (version + fingerprint)."""
+    catalogue_root = Path(catalogue_root)
+    catalogue_root.mkdir(parents=True, exist_ok=True)
+    flows_dir = Path(__file__).resolve().parent
+    domain_map = load_domain_map(HIERARCHY_FILE) if Path(HIERARCHY_FILE).exists() else {}
+
+    index = {
+        "catalogueVersion": version,
+        "tiers": list(VALID_TIERS),
+        "domainMap": domain_map,   # category -> domain, from the ONE authored hierarchy
+        "groups": sorted(
+            records,
+            key=lambda r: (r["domain"].lower(), VALID_TIERS.index(r["tier"]), r["category"].lower()),
+        ),
+    }
+    write_json(catalogue_root / "index.json", index)
+
+    catalogue = {
+        "catalogueVersion": version,
+        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "inputs": {
+            "builtInsRef": _git_ref(source_dir),
+            "hierarchyHash": _sha256_file(HIERARCHY_FILE),
+            "tierRulesHash": _sha256_file(flows_dir / "enrich-policies.py"),
+        },
+        "counts": {"groups": group_count, "files": file_count},
+        "tools": {
+            "extract": _sha256_file(flows_dir / "extract-policies.py"),
+            "enrich": _sha256_file(flows_dir / "enrich-policies.py"),
+            "createInitiatives": _sha256_file(flows_dir / "create-initiatives.py"),
+        },
+        # fingerprint over the whole catalogue except catalogue.json itself
+        "contentHash": _content_hash(catalogue_root, exclude={"catalogue.json"}),
+    }
+    write_json(catalogue_root / "catalogue.json", catalogue)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Phase 3 — build per-tier EPAC-ready initiatives.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Enriched markdown folder to read")
     parser.add_argument("--initiatives", default=str(DEFAULT_INITIATIVES), help="Output root for initiatives")
     parser.add_argument("--source", default=DEFAULT_SOURCE, help="Official policy repo (parameter schema)")
     parser.add_argument("--prefix", default=DEFAULT_PREFIX, help="Brand prefix for files and initiative names")
+    parser.add_argument("--version", default=datetime.now(timezone.utc).strftime("%Y.%m.%d"),
+                        help="Catalogue version label (default: today's UTC date)")
     args = parser.parse_args()
+    catalogue_version = args.version
 
     output_dir = Path(args.output)
     initiatives_dir = Path(args.initiatives)
+    catalogue_root = initiatives_dir.parent
     source_dir = Path(args.source)
     prefix = args.prefix
 
@@ -514,6 +626,7 @@ def main() -> None:
             by_group[(domain, tier, category)].append(r)
             rationale_by_cat.setdefault(category, rationale)
 
+    index_records: list[dict] = []
     file_count = 0
     for (domain, tier, category) in sorted(by_group, key=lambda k: (k[0].lower(), VALID_TIERS.index(k[1]), k[2].lower())):
         rows = by_group[(domain, tier, category)]
@@ -528,10 +641,20 @@ def main() -> None:
         (group_dir / f"{name}.md").write_text(
             render_markdown(display_name, rationale_text, rows), encoding="utf-8"
         )
-        policyset, required_params = build_policyset(
-            name, display_name, domain, tier, category, rows, param_index, description
+        policyset, required_params, roles_info = build_policyset(
+            name, display_name, domain, tier, category, rows, param_index, description,
+            catalogue_version,
         )
         write_json(group_dir / f"{name}.policyset.json", policyset)
+        if roles_info["hasRemediation"]:
+            write_json(group_dir / f"{name}.roles.json", roles_info)
+            file_count += 1
+        index_records.append({
+            "domain": domain, "tier": tier, "category": category, "name": name,
+            "dir": str(group_dir.relative_to(catalogue_root)).replace("\\", "/"),
+            "policyCount": len(rows),
+            "hasRemediation": roles_info["hasRemediation"],
+        })
         write_json(
             group_dir / f"{name}.assignment.json",
             build_assignment(name, display_name, prefix, domain, tier, category, rows, required_params),
@@ -544,7 +667,12 @@ def main() -> None:
         print(f"[Phase 3] {slugify(domain)}/{slugify(tier)}/{slugify(category)}: "
               f"{len(rows)} policies -> 1 md + 3 json")
 
+    write_catalogue_manifests(
+        catalogue_root, index_records, catalogue_version, source_dir, len(by_group), file_count
+    )
     print(f"\n[Phase 3] Done. {len(by_group)} groups, {file_count} files written to {initiatives_dir}")
+    print(f"[Phase 3] Catalogue stamped: version {catalogue_version} "
+          f"(index.json + catalogue.json at {catalogue_root})")
 
 
 if __name__ == "__main__":

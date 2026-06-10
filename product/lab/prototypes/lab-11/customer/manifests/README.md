@@ -1,14 +1,18 @@
-# Manifests — format & edit rules
+# Manifests — the assembler's customer input
 
-The manifest is the assembler's input. **Format: JSONC** (JSON + `//` comments +
-trailing commas) — stays in the JSON family/pipeline, matches EPAC's own `.jsonc`,
-and keeps the explanatory comments.
+This folder holds one customer's input to the **assembler** — the catalogue *consumer*
+that turns a manifest + the shared `catalogue/` into a deployable `Definitions` scaffold
+(EPAC/JSON, Terraform, Bicep). The assembler does **not** run the taxonomy pipeline
+(phases 1–3); it only reads a published catalogue. See `docs/phase-4-assembler-design.md`.
+
+**Format: JSONC** (JSON + `//` comments + trailing commas) — stays in the JSON pipeline,
+matches EPAC's own `.jsonc`, and keeps the explanatory comments.
 
 ## Edit rule (important)
 
-**Change VALUES only.** Do not add, remove, or rename keys; do not introduce new
-objects or arrays. Structure is fixed and schema-validated. Fill every
-`<REPLACE: ...>` placeholder with a real value.
+**Change VALUES only.** Do not add, remove, or rename keys; do not introduce new objects
+or arrays. Structure is fixed and schema-validated. Fill every `<REPLACE: ...>` placeholder
+with a real value.
 
 Enforced by validation, not convention:
 
@@ -28,19 +32,37 @@ Enforced by validation, not convention:
 | `manifest.input.schema.json` | structure lock for the manifest (values free) |
 | `manifest.schema.json` | strict schema — the build gate |
 
+## How it points at the catalogue (and where output goes)
+
+Paths in the manifest are resolved **relative to the manifest file**:
+
+| Manifest key | Value | Resolves to |
+|---|---|---|
+| `source.initiatives` | `../../catalogue/initiatives` | the shared catalogue (read) |
+| `source.catalogueVersion` | e.g. `2026.06.10` | pins the catalogue snapshot used (must match `catalogue/catalogue.json`) |
+| `output.root` | `../initiatives` | `customer/initiatives/` — the rendered scaffold (write) |
+
+The assembler reads `catalogue/index.json` to validate the selection and expand
+`category:"*"`, and reads each group's baked `roleDefinitionIds` (policyset metadata +
+`.roles.json`) for Terraform/Bicep remediation — so a customer build needs **only the
+catalogue**, no policy repo and no `config/`/`docs/` files.
+
 ## `parameters` (input)
 
 `parameters` is a flat map whose **keys are generated from the selection** — one per
-required parameter of the selected initiatives. Humans fill values only; values are
-scalars or arrays (no objects). It maps to the manifest's `bindings.defaults`. Kept
-as an empty object `{}` until the selection is resolved.
+required parameter of the selected initiatives (read from each group's `.assignment.json`).
+Humans fill values only; values are scalars or arrays (no objects). It maps to the
+manifest's `bindings.defaults`. Kept as an empty object `{}` until the selection is resolved.
 
-## Two-stage flow
+## End-to-end flow
 
 ```
+catalogue@version  (produced occasionally by phases 1–3)
+        │  (read)
 form (customer + selections)
-  -> assembler seeds parameters{} keys from the selection
+  -> assembler seeds parameters{} keys from the selection (via catalogue/index.json)
   -> assembler expands -> contoso.manifest.jsonc (placeholders, structure-locked)
   -> human fills values (value-only edits)
-  -> strict schema validates -> build
+  -> strict schema validates + catalogueVersion verified
+  -> render -> customer/initiatives/{json,terraform,bicep} + lineage.json
 ```
