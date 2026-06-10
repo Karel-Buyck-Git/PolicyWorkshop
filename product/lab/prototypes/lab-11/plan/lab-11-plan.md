@@ -6,6 +6,8 @@ designing enterprise governance frameworks, specializing in Azure Policy.
 Produce a customer-facing Azure Policy taxonomy, classified by commercial tier
 (Essential / Professional / Enterprise), across all Azure resource categories.
 
+Phases 1–3 are the **producer**: they **produce the catalogue that the assembler consumes** (see `docs/phase-4-assembler-design.md`).
+
 ## Tier definitions
 
 The tiers are cumulative — Professional includes everything in Essential,
@@ -35,7 +37,7 @@ infrastructure investment or map directly to regulatory frameworks.
 ## Phase 1 — Run the extraction script
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\extract-policies.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\extract-policies.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the output folder it reports and proceed to Phase 2.
@@ -58,7 +60,8 @@ Soft Value is the least-restrictive non-`Disabled` effect from Allowed Values
 (the counterpart to Hardened Value); Disabled is only emitted when it is the
 sole allowed effect.
 The Domain column is looked up from the row's Category in
-`docs/azure-domain-hierachy.md`; categories with no hierarchy match get `undefined`.
+`config/azure-domain-hierachy.md` (the ONE authored hierarchy, parsed via the shared
+`flows/hierarchy.py`); categories with no hierarchy match get `undefined`.
 
 The Tier column was assigned by keyword matching and is a first pass only —
 use the tier definitions above to validate and correct it.
@@ -100,7 +103,7 @@ Run the following script:
 The script reads all enriched `policies.md` files from the `catalogue/definitions/` folder and joins each policy
 (on its **Policy ID**) against a parameter index built from the official policy repo. It groups
 every policy row by `(Domain, Tier, Category)` — tiers are **exclusive**, so each policy lands in
-exactly one group — and writes four EPAC-ready artifacts per group to
+exactly one group — and writes up to five EPAC-ready artifacts per group to
 `catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*` (default prefix `company`):
 
 - `.md` — the matching tier's rationale paragraph plus the full 16-column policy table (`#` restarts at 1).
@@ -108,10 +111,25 @@ exactly one group — and writes four EPAC-ready artifacts per group to
   `metadata.policyName` (display name) for readability beside the GUID. `effect` is the hardened literal;
   parameters with a repo default are emitted inline; required (no-default) parameters are bubbled up
   to top-level initiative parameters (readable camelCase, letters only) that must be supplied at assignment.
+  The policyset `metadata` also carries `catalogueVersion`, `hasRemediation`, and (when remediating)
+  `roleDefinitionIds` baked from the policy repo.
 - `.assignment.json` — an EPAC assignment scaffold with mock tenant references (`<REPLACE: ...>`,
   `<root-mg-id>`, `<pac-environment-selector>`). `managedIdentityLocations` is emitted only when the
   group contains a Modify/DeployIfNotExists policy.
 - `.exemptions.json` — an EPAC exemptions template stub (one `Waiver` example with placeholders).
+- `.roles.json` — written **only** for groups with a Modify/DeployIfNotExists member: the deduped
+  remediation `roleDefinitionIds` (and per-policy map), so the Terraform/Bicep renderers never need
+  the policy repo downstream.
+
+The parameter-index join also reads each policy's `roleDefinitionIds` from the repo (for the baking
+above). A version label is set with `--version` (default: today's UTC date).
+
+Finally, two catalogue manifests are written at the catalogue root:
+
+- `catalogue/index.json` — the group list + `domainMap` (category → domain) + tiers, stamped with `catalogueVersion`.
+- `catalogue/catalogue.json` — the version stamp: `catalogueVersion`, `generatedAt`, `inputs`
+  (built-ins git ref, hierarchy hash, tier-rules hash), `counts`, `tools`, and a `contentHash`
+  fingerprint over every catalogue file.
 
 The EPAC shapes follow `docs/azure-policy-assignment-requirements.html` (§9.3, §10.2.1, §12.3–12.4).
 
@@ -128,5 +146,8 @@ All resource category files have been processed — duplicates removed, tier
 corrections applied, and rationale sections added.
 
 All EPAC-ready initiative artifacts have been generated under `catalogue/initiatives/` — one markdown spec
-plus policyset, assignment, and exemptions JSON per `(domain, tier, category)` group — and verified
-for completeness and correctness.
+plus policyset, assignment, exemptions (and a `.roles.json` for remediating groups) per
+`(domain, tier, category)` group — and verified for completeness and correctness.
+
+The catalogue manifests `catalogue/index.json` and `catalogue/catalogue.json` have been written and
+carry the `catalogueVersion` stamp.
