@@ -1,0 +1,16 @@
+{
+  "name": "company-undefined-enterprise-mission",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab",
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+  ],
+  "byPolicy": {
+    "3c304718-915f-4321-8d9b-6dcd758999b7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "6bebaf3c-2420-4459-b512-c0f77f3d0afb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+    ]
+  }
+}

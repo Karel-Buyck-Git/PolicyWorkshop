@@ -1,0 +1,22 @@
+{
+  "name": "company-networking-enterprise-network",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+    "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "98a2e215-5382-489e-bd29-32e7190a39ba": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "69f5d115-d282-4c1b-9c76-7f6640427d2e": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "6d7c9ba4-b4b9-4d38-9e86-f1bc6b322bde": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ]
+  }
+}

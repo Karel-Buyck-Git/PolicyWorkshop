@@ -1,0 +1,12 @@
+{
+  "name": "company-web-professional-app-configuration",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "73290fa2-dfa7-4bbb-945d-a5e23b75df2c": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

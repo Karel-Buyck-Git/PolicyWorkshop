@@ -11,8 +11,8 @@ You are working inside the repository at:
 
 This lab has an agentic pipeline with two earlier phases:
 
-- **Phase 1** — `flows/extract-policies.py` extracts Azure Policy definitions and writes one `policies.md` per Azure resource category into the `catalogue/definitions/` folder.
-- **Phase 2** — `flows/enrich-policies.py` deduplicates rows, validates tiers, and adds a `## Tier rationale` section to each `catalogue/definitions/<category>/policies.md` file.
+- **Phase 1** — `flows/extract_policies.py` extracts Azure Policy definitions and writes one `policies.md` per Azure resource category into the `catalogue/definitions/` folder.
+- **Phase 2** — `flows/enrich_policies.py` deduplicates rows, validates tiers, and adds a `## Tier rationale` section to each `catalogue/definitions/<category>/policies.md` file.
 
 Every `policies.md` file is a Markdown document that contains a table with these exact columns:
 
@@ -24,7 +24,7 @@ The **Domain** column groups Azure resource categories into higher-level governa
 (e.g. `Storage`, `Security`, `Compute`, `Networking`, `Management`, `undefined`). The **Tier**
 column is one of `Essential`, `Professional`, `Enterprise`.
 
-## Your task — `flows/create-initiatives.py` (Phase 3)
+## Your task — `flows/create_initiatives.py` (Phase 3)
 
 The script turns the enriched markdown into a **per-tier, per-category, EPAC-ready** structure.
 The enriched markdown is the taxonomy source of truth (tier, rationale); the official policy repo
@@ -83,7 +83,7 @@ The target EPAC shapes follow `docs/azure-policy-assignment-requirements.html`
 ## Verification steps
 
 1. Ensure `catalogue/definitions/` is populated (run Phase 1 then Phase 2 if needed).
-2. Run `python flows/create-initiatives.py` from the bal-10 root; confirm the per-group summary.
+2. Run `python flows/create_initiatives.py` from the bal-10 root; confirm the per-group summary.
 3. Confirm the tree: `catalogue/initiatives/<domain>/<tier>/<category>/<prefix>-<domain>-<tier>-<category>.{md,policyset.json,assignment.json,exemptions.json}`.
 4. Validate every JSON parses (e.g. `ConvertFrom-Json` over all `*.json`).
 5. Spot-check a `policyset.json`: each `policyDefinitionId` resolves to a real repo GUID, `effect`

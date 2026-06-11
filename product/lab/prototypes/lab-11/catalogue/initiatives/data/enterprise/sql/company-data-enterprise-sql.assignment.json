@@ -1,0 +1,30 @@
+{
+  "nodeName": "/company/data/enterprise/sql/",
+  "assignment": {
+    "name": "company-data-enterprise-sql",
+    "displayName": "Company Data Enterprise — SQL",
+    "description": "Deployment scaffold for 25 policies. 8 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureSqlDatabaseServersDiagnosticLogAnalyticsWorkspaceId, configureAzureSqlServerEnablePrivatePrivateEndpointSubnetId, configureSqlServersAuditingEnabledStorageAccountsResourceGroup, configureSqlServersAuditingEnabledEventEventHubName, configureSqlServersAuditingEnabledEventEventHubRuleId, configureSqlServersAuditingEnabledLogLogAnalyticsWorkspaceId, …. A managed identity is required: 8 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-enterprise-sql",
+  "parameters": {
+    "configureAzureSqlDatabaseServersDiagnosticLogAnalyticsWorkspaceId": "<REPLACE: configureAzureSqlDatabaseServersDiagnosticLogAnalyticsWorkspaceId>",
+    "configureAzureSqlServerEnablePrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureSqlServerEnablePrivatePrivateEndpointSubnetId>",
+    "configureSqlServersAuditingEnabledStorageAccountsResourceGroup": "<REPLACE: configureSqlServersAuditingEnabledStorageAccountsResourceGroup>",
+    "configureSqlServersAuditingEnabledEventEventHubName": "<REPLACE: configureSqlServersAuditingEnabledEventEventHubName>",
+    "configureSqlServersAuditingEnabledEventEventHubRuleId": "<REPLACE: configureSqlServersAuditingEnabledEventEventHubRuleId>",
+    "configureSqlServersAuditingEnabledLogLogAnalyticsWorkspaceId": "<REPLACE: configureSqlServersAuditingEnabledLogLogAnalyticsWorkspaceId>",
+    "deployConfigureDiagnosticSettingsSqlDatabasesLogAnalytics": "<REPLACE: deployConfigureDiagnosticSettingsSqlDatabasesLogAnalytics>",
+    "deployDiagnosticSettingsAzureSqlDatabaseEventHubRuleId": "<REPLACE: deployDiagnosticSettingsAzureSqlDatabaseEventHubRuleId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,12 @@
+{
+  "name": "company-management-essential-automation",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "30d1d58e-8f96-47a5-8564-499a3f3cca81": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

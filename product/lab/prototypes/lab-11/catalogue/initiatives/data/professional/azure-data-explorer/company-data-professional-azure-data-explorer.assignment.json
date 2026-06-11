@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/data/professional/azure-data-explorer/",
+  "assignment": {
+    "name": "company-data-professional-azure-data-explorer",
+    "displayName": "Company Data Professional — Azure Data Explorer",
+    "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-professional-azure-data-explorer",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

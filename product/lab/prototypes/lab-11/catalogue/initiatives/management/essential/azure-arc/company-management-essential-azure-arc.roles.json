@@ -1,0 +1,17 @@
+{
+  "name": "company-management-essential-azure-arc",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/088ab73d-1256-47ae-bea9-9de8e7131f31",
+    "/providers/Microsoft.Authorization/roleDefinitions/48b40c6e-82e0-4eb3-90d5-19e40f49b624"
+  ],
+  "byPolicy": {
+    "f9dfba6f-7430-4214-a666-342b3d3d0d62": [
+      "/providers/Microsoft.Authorization/roleDefinitions/48b40c6e-82e0-4eb3-90d5-19e40f49b624"
+    ],
+    "4864134f-d306-4ff5-94d8-ea4553b18c97": [
+      "/providers/Microsoft.Authorization/roleDefinitions/48b40c6e-82e0-4eb3-90d5-19e40f49b624",
+      "/providers/Microsoft.Authorization/roleDefinitions/088ab73d-1256-47ae-bea9-9de8e7131f31"
+    ]
+  }
+}

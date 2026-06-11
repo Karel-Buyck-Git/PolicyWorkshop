@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/container-services/essential/kubernetes/exemptions/",
+  "exemptions": [
+    {
+      "name": "company-container-services-essential-kubernetes-example-exemption",
+      "displayName": "Example exemption — replace or remove",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/company-container-services-essential-kubernetes",
+      "policyDefinitionReferenceIds": [
+        "<policy-reference-id>"
+      ],
+      "scope": "/subscriptions/<sub-id>"
+    }
+  ]
+}

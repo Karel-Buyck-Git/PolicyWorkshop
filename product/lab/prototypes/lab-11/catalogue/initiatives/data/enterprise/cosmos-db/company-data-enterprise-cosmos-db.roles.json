@@ -1,0 +1,18 @@
+{
+  "name": "company-data-enterprise-cosmos-db",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/Microsoft.Authorization/roleDefinitions/5bd9cd88-fe45-4216-938b-f97437e15450",
+    "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "a63cc0bd-cda4-4178-b705-37dc439d3e0f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "b609e813-3156-4079-91fa-a8494c1471c4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+      "/providers/Microsoft.Authorization/roleDefinitions/5bd9cd88-fe45-4216-938b-f97437e15450"
+    ]
+  }
+}

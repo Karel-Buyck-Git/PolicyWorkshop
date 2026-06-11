@@ -18,7 +18,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
         ▼                                  │                                 │
 ┌─────────────────────┐                   │                                 │
 │  PHASE 1 — EXTRACT   │                   │                                 │
-│  extract-policies.py │                   │                                 │
+│  extract_policies.py │                   │                                 │
 ├─────────────────────┤                   │                                 │
 │ • read 5009 JSON     │                   │                                 │
 │ • skip deprecated    │                   │                                 │
@@ -37,7 +37,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
               ▼                                                              │
 ┌─────────────────────────┐                                                 │
 │   PHASE 2 — ENRICH       │                                                 │
-│   enrich-policies.py     │                                                 │
+│   enrich_policies.py     │                                                 │
 ├─────────────────────────┤                                                 │
 │ • re-validate Tier with  │     ← 1676 tier corrections                     │
 │   refined rules          │                                                 │
@@ -55,7 +55,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
               ▼                                                             │
 ┌──────────────────────────────────────────────┐                          │
 │   PHASE 3 — CREATE INITIATIVES                 │                          │
-│   create-initiatives.py                        │   joins on Policy ID     │
+│   create_initiatives.py                        │   joins on Policy ID     │
 ├──────────────────────────────────────────────┤◀─────────────────────────┘
 │ • build param index from the repo              │   (param values + schema)
 │ • parse table + rationale                      │
@@ -138,9 +138,9 @@ rule); it is simply not settable in the initiative.
 Defaults derive from each script's location, so the whole pipeline targets this lab with no arguments:
 
 ```
-python flows/extract-policies.py     # Phase 1 → catalogue/definitions/
-python flows/enrich-policies.py      # Phase 2 → catalogue/definitions/ (in place)
-python flows/create-initiatives.py   # Phase 3 → catalogue/initiatives/
+python flows/extract_policies.py     # Phase 1 → catalogue/definitions/
+python flows/enrich_policies.py      # Phase 2 → catalogue/definitions/ (in place)
+python flows/create_initiatives.py   # Phase 3 → catalogue/initiatives/
 ```
 
 Overridable flags: `--source` (policy repo), `--out` / `--output`, `--hierarchy`,
