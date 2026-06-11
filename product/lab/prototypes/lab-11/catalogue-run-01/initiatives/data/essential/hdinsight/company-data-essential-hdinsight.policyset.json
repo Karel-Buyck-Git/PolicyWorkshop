@@ -1,0 +1,53 @@
+{
+  "name": "company-data-essential-hdinsight",
+  "properties": {
+    "displayName": "Company Data Essential — HDInsight",
+    "description": "**Essential** — Baseline hygiene for HDInsight: the non-negotiable controls every deployment should enforce from day one. This tier delivers encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "HDInsight",
+      "domain": "Data",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "1fd32ebd-e4c3-4e13-a54a-d7422d4d95f6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1fd32ebd-e4c3-4e13-a54a-d7422d4d95f6",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure HDInsight clusters should use encryption at host to encrypt data at rest"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d9da03a1-f3c3-412a-9709-947156872263",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d9da03a1-f3c3-412a-9709-947156872263",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure HDInsight clusters should use encryption in transit to encrypt communication between Azure HDInsight cluster nodes"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

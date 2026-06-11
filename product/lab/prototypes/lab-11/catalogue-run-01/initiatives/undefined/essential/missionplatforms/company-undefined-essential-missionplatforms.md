@@ -1,0 +1,13 @@
+# Company undefined Essential — MissionPlatforms
+
+## Tier rationale
+
+**Essential** — Baseline hygiene for MissionPlatforms: the non-negotiable controls every deployment should enforce from day one. This tier delivers TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Storage Account should enable Secure transfer | f86a882d-7fe6-44e4-916d-ae8c3e792bb2 |  | This policy ensures that data transmitted to storage accounts is protected in transit by requiring secure transfer protocols. Enforcing secure transfer helps prevent unauthorized access and data interception, supporting compliance with security standards and protecting sensitive information. | Audit, Deny, Disabled | Audit | Audit | Deny | MissionPlatforms | undefined | 1.0.0 | BuiltIn | Essential | No | No |
+| 2 | Storage Account should restrict IP Rules in Storage Account Firewalls. | dad358fa-3aa7-4308-97ba-2c48617d929f |  | IP Rules in Storage Account Firewalls are restricted. | Audit, Deny, Disabled | Audit | Audit | Deny | MissionPlatforms | undefined | 1.0.0 | BuiltIn | Essential | No | No |
+| 3 | Storage Account should Restrict Source and Destination Targets for Specified Storage Account Object Replication Policies | ac8b77ab-b2cb-457a-a5a7-db8f1dc6a6bc |  | Restrict Source and Destination Targets for Specified Storage Account Object Replication Policies. storageAccountTargets is an array of objects with Storage Account Name, Source Storage Account Names, and Destination Storage Account Names. | Audit, Deny, Disabled | Audit | Audit | Deny | MissionPlatforms | undefined | 1.0.0 | BuiltIn | Essential | No | No |

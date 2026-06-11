@@ -1,0 +1,12 @@
+{
+  "name": "company-azure-ai-foundry-professional-cognitive-services",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "47ba1dd7-28d9-4b07-a8d5-9813bed64e0c": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

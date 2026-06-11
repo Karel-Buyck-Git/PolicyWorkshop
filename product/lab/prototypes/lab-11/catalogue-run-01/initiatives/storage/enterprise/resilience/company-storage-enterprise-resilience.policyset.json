@@ -1,0 +1,557 @@
+{
+  "name": "company-storage-enterprise-resilience",
+  "properties": {
+    "displayName": "Company Storage Enterprise — Resilience",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Resilience: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel and zone-redundant deployments backing the 99.99% SLA. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Resilience",
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "42daa904-5969-47ef-92cb-b75df946195a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/42daa904-5969-47ef-92cb-b75df946195a",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "API Management Service should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "22888755-d824-4e43-8e0b-42d481836554",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/22888755-d824-4e43-8e0b-42d481836554",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "App Service Plans should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "493c215c-0553-4976-bc81-57d2c04fc8c1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/493c215c-0553-4976-bc81-57d2c04fc8c1",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Application Gateways should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "90bc8109-d21a-4692-88fc-51419391da3d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/90bc8109-d21a-4692-88fc-51419391da3d",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure AI Search Service should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "408934a8-941a-4c1e-ba88-dd035d9688f4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/408934a8-941a-4c1e-ba88-dd035d9688f4",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Cache for Redis Enterprise & Flash should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1bf67da8-b100-45bf-b89d-e4669fc54411",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1bf67da8-b100-45bf-b89d-e4669fc54411",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Cache for Redis should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cbe58ab0-07a8-43ea-9ccc-8ea33e4d6aa5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cbe58ab0-07a8-43ea-9ccc-8ea33e4d6aa5",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Data Explorer Clusters should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "493c215d-2554-5976-bc81-57d2c04fc8c1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/493c215d-2554-5976-bc81-57d2c04fc8c1",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Database for MySQL Flexible Server should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "493c215d-2553-4976-bc81-57d2c04fc8c1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/493c215d-2553-4976-bc81-57d2c04fc8c1",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Database for PostgreSQL Flexible Server should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "bf45a74c-ed4f-4300-8afe-d6f0abdfe75b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bf45a74c-ed4f-4300-8afe-d6f0abdfe75b",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure HDInsight should be Zone Aligned"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2dec5f47-bc40-40d1-8c7d-a39d9d6808d1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2dec5f47-bc40-40d1-8c7d-a39d9d6808d1",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Kubernetes Service Managed Clusters should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "bdd8bbb2-1efd-48dc-a0fd-8ddcba2e96cd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bdd8bbb2-1efd-48dc-a0fd-8ddcba2e96cd",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Managed Grafana should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ae243d87-5cf3-4dce-90bd-6d62be328de3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae243d87-5cf3-4dce-90bd-6d62be328de3",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Backup and Site Recovery should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4bd1f3c0-9443-49ad-b8bc-7c17a92b5924",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4bd1f3c0-9443-49ad-b8bc-7c17a92b5924",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Backup Vaults should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "42daa904-5969-47ef-92fb-b75df946195a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/42daa904-5969-47ef-92fb-b75df946195a",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Container App should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f58e8c0a-3c79-431a-abf8-cd1b895478e8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f58e8c0a-3c79-431a-abf8-cd1b895478e8",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Container Instances should be Zone Aligned"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9d2b0a20-57d6-474c-9d12-44a4a20999c6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9d2b0a20-57d6-474c-9d12-44a4a20999c6",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Container Registry should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "44c5a1f9-7ef6-4c38-880c-273e8f7a3c24",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/44c5a1f9-7ef6-4c38-880c-273e8f7a3c24",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Cosmos Database Accounts should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ae243d87-5cf3-4dce-90bd-6d62be328de9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae243d87-5cf3-4dce-90bd-6d62be328de9",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Event Hubs should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "18314dc7-a25d-420c-a069-f094b25ff91b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/18314dc7-a25d-420c-a069-f094b25ff91b",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Firewalls should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "42daa901-5969-47ef-92cb-b75df946195a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/42daa901-5969-47ef-92cb-b75df946195a",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Load Balancers should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "344ea7ca-2ba8-4d68-859b-317239714b2c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/344ea7ca-2ba8-4d68-859b-317239714b2c",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Managed Disks should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "18314dc7-a25d-420c-a069-f094b25ff919",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/18314dc7-a25d-420c-a069-f094b25ff919",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "NAT gateway should be Zone Aligned"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "682e4ab9-59fe-4871-9839-265b54c568c4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/682e4ab9-59fe-4871-9839-265b54c568c4",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Public IP addresses should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2dba5c7e-12a4-4be8-b208-f59bc49e88c2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2dba5c7e-12a4-4be8-b208-f59bc49e88c2",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Public IP Prefixes should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d3ee5dcf-0c6d-49ab-aee4-f250583a7bdc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d3ee5dcf-0c6d-49ab-aee4-f250583a7bdc",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Service Bus should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "075896de-f4f8-465b-b6d8-9e73725bb62d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/075896de-f4f8-465b-b6d8-9e73725bb62d",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Service Fabric Clusters should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6221cac0-bb8d-40f4-9535-5d03f713f054",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6221cac0-bb8d-40f4-9535-5d03f713f054",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "SQL Databases should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f16a3ca9-b57a-4392-b660-4c1f8442aa8d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f16a3ca9-b57a-4392-b660-4c1f8442aa8d",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "SQL Elastic database pools should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0fc92280-604b-4f23-9e04-5ef98d1a28df",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0fc92280-604b-4f23-9e04-5ef98d1a28df",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "SQL Managed Instances should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "85b005b2-95fc-4953-b9cb-f9ee6427c754",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/85b005b2-95fc-4953-b9cb-f9ee6427c754",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Storage Accounts should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d3903bdf-ab85-4cce-85d3-2934d77629d4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d3903bdf-ab85-4cce-85d3-2934d77629d4",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Virtual Machine Scale Sets should be Zone Resilient"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allow": {
+            "value": "Both"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "42f4f3a2-7d20-4c13-a05d-01857a626c22",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/42f4f3a2-7d20-4c13-a05d-01857a626c22",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Virtual Machines should be Zone Aligned"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "da8a2248-6b4a-44a7-96bf-bf1c0dd208c3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/da8a2248-6b4a-44a7-96bf-bf1c0dd208c3",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Virtual network gateways should be Zone Redundant"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

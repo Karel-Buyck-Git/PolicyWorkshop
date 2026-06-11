@@ -1,0 +1,15 @@
+# Company Security Essential — Managed Identity
+
+## Tier rationale
+
+**Essential** — Baseline hygiene for Managed Identity: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | [Preview]: Managed Identity Federated Credentials from Azure Kubernetes should be from trusted sources | ae62c456-33de-4dc8-b100-7ce9028a7d99 | Preview | This policy limits federeation with Azure Kubernetes clusters to only clusters from approved tenants, approved regions, and a specific exception list of additional clusters. | Audit, Disabled, Deny | Audit | Audit | Deny | Managed Identity | Security | 1.0.0-preview | BuiltIn | Essential | Yes | No |
+| 2 | [Preview]: Managed Identity Federated Credentials from GitHub should be from trusted repository owners | fd1a8e20-2c4f-4a6c-9354-b58d786d9a1f | Preview | This policy limits federation with GitHub repos to only approved repository owners. | Audit, Disabled, Deny | Audit | Audit | Deny | Managed Identity | Security | 1.0.1-preview | BuiltIn | Essential | Yes | No |
+| 3 | [Preview]: Managed Identity Federated Credentials should be from allowed issuer types | 2571b7c3-3056-4a61-b00a-9bc5232234f5 | Preview | This policy limits whether Managed Identities can use federated credentials, which common issuer types are allowed, and provides a list of allowed issuer exceptions. | Audit, Disabled, Deny | Audit | Audit | Deny | Managed Identity | Security | 1.0.0-preview | BuiltIn | Essential | No | No |
+| 4 | Assign Built-In User-Assigned Managed Identity to Virtual Machine Scale Sets | 516187d4-ef64-4a1b-ad6b-a7348502976c | Preview | Create and assign a built-in user-assigned managed identity or assign a pre-created user-assigned managed identity at scale to virtual machine scale sets. For more detailed documentation, visit aka.ms/managedidentitypolicy. | AuditIfNotExists, DeployIfNotExists, Disabled | DeployIfNotExists | AuditIfNotExists | DeployIfNotExists | Managed Identity | Security | 1.1.0-preview | BuiltIn | Essential | Yes | Yes |
+| 5 | Assign Built-In User-Assigned Managed Identity to Virtual Machines | d367bd60-64ca-4364-98ea-276775bddd94 | Preview | Create and assign a built-in user-assigned managed identity or assign a pre-created user-assigned managed identity at scale to virtual machines. For more detailed documentation, visit aka.ms/managedidentitypolicy. | AuditIfNotExists, DeployIfNotExists, Disabled | DeployIfNotExists | AuditIfNotExists | DeployIfNotExists | Managed Identity | Security | 1.1.0-preview | BuiltIn | Essential | Yes | Yes |

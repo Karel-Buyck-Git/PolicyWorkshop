@@ -1,0 +1,110 @@
+{
+  "name": "company-integration-enterprise-web-pubsub",
+  "properties": {
+    "displayName": "Company Integration Enterprise — Web PubSub",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Web PubSub: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers private endpoints and private link removing the public attack surface. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Web PubSub",
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "configureAzureWebPubsubServicePrivatePrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone Id",
+          "description": "Private DNS zone to integrate with private endpoint.",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "configureAzureWebPubsubServicePrivatePrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private Endpoint Subnet ID",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "82909236-25f3-46a6-841c-fe1020f95ae1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/82909236-25f3-46a6-841c-fe1020f95ae1",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Web PubSub Service should use a SKU that supports private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "eb907f70-7514-460d-92b3-a5ae93b4f917",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/eb907f70-7514-460d-92b3-a5ae93b4f917",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Web PubSub Service should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0b026355-49cb-467b-8ac4-f777874e175a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0b026355-49cb-467b-8ac4-f777874e175a",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Web PubSub Service to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureWebPubsubServicePrivatePrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1b9c0b58-fc7b-42c8-8010-cdfa1d1b8544",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1b9c0b58-fc7b-42c8-8010-cdfa1d1b8544",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Web PubSub Service with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureWebPubsubServicePrivatePrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

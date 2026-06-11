@@ -1,0 +1,68 @@
+{
+  "name": "company-compute-essential-stack-hci",
+  "properties": {
+    "displayName": "Company Compute Essential — Stack HCI",
+    "description": "**Essential** — Baseline hygiene for Azure Stack HCI: the non-negotiable controls every deployment should enforce from day one. This tier delivers encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Stack HCI",
+      "domain": "Compute",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "5e6bf724-0154-49bc-985f-27b2e07e636b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5e6bf724-0154-49bc-985f-27b2e07e636b",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Stack HCI servers should meet Secured-core requirements"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ee8ca833-1583-4d24-837e-96c2af9488a4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ee8ca833-1583-4d24-837e-96c2af9488a4",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Stack HCI systems should have encrypted volumes"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "36f0d6bc-a253-4df8-b25b-c3a5023ff443",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36f0d6bc-a253-4df8-b25b-c3a5023ff443",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Host and VM networking should be protected on Azure Stack HCI systems"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

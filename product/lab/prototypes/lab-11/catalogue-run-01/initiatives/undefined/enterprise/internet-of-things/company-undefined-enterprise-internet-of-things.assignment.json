@@ -1,0 +1,30 @@
+{
+  "nodeName": "/company/undefined/enterprise/internet-of-things/",
+  "assignment": {
+    "name": "company-undefined-enterprise-internet-of-things",
+    "displayName": "Company undefined Enterprise — Internet of Things",
+    "description": "Deployment scaffold for 22 policies. 8 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureDeviceUpdateIotHubPrivateDnsZoneId, configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId, configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId, configureIotHubDeviceProvisioningServicePrivateEndpointSubnetId, deployConfigureAzureIotHubsPrivatePrivateDnsZoneId, deployConfigureAzureIotHubsPrivatePrivateEndpointSubnetId, …. A managed identity is required: 11 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-enterprise-internet-of-things",
+  "parameters": {
+    "configureAzureDeviceUpdateIotHubPrivateDnsZoneId": "<REPLACE: configureAzureDeviceUpdateIotHubPrivateDnsZoneId>",
+    "configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId": "<REPLACE: configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId>",
+    "configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId": "<REPLACE: configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId>",
+    "configureIotHubDeviceProvisioningServicePrivateEndpointSubnetId": "<REPLACE: configureIotHubDeviceProvisioningServicePrivateEndpointSubnetId>",
+    "deployConfigureAzureIotHubsPrivatePrivateDnsZoneId": "<REPLACE: deployConfigureAzureIotHubsPrivatePrivateDnsZoneId>",
+    "deployConfigureAzureIotHubsPrivatePrivateEndpointSubnetId": "<REPLACE: deployConfigureAzureIotHubsPrivatePrivateEndpointSubnetId>",
+    "deployConfigureIotCentralPrivateDnsPrivateDnsZoneId": "<REPLACE: deployConfigureIotCentralPrivateDnsPrivateDnsZoneId>",
+    "deployConfigureIotCentralPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: deployConfigureIotCentralPrivateEndpointsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

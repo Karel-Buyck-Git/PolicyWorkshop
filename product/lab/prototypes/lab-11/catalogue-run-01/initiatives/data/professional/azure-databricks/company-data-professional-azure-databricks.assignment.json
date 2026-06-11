@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/data/professional/azure-databricks/",
+  "assignment": {
+    "name": "company-data-professional-azure-databricks",
+    "displayName": "Company Data Professional — Azure Databricks",
+    "description": "Deployment scaffold for 3 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-professional-azure-databricks",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}
