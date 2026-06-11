@@ -4,10 +4,23 @@
 
 **Essential** — Baseline hygiene for Azure Data Explorer: the non-negotiable controls every deployment should enforce from day one. This tier delivers encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
 
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-data-essential-azure-data-explorer.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-data-essential-azure-data-explorer.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-data-essential-azure-data-explorer.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-data-essential-azure-data-explorer.roles.json` | role assignments (lab helper) | Not present for this group (no Modify/DeployIfNotExists policy). Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
 ## Policies
 
-| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | All Database Admin on Azure Data Explorer should be disabled | 8945ba5e-918e-4a57-8117-fe615d12e3ba |  | Disable all database admin role to restrict granting highly privileged/administrative user role. | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Data Explorer | Data | 1.0.0 | BuiltIn | Essential | No | No |
-| 2 | Disk encryption should be enabled on Azure Data Explorer | f4b53539-8df9-40e4-86c6-6b607703bd4e |  | Enabling disk encryption helps protect and safeguard your data to meet your organizational security and compliance commitments. | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Data Explorer | Data | 2.0.0 | BuiltIn | Essential | No | No |
-| 3 | Double encryption should be enabled on Azure Data Explorer | ec068d99-e9c7-401f-8cef-5bdde4e6ccf1 |  | Enabling double encryption helps protect and safeguard your data to meet your organizational security and compliance commitments. When double encryption has been enabled, data in the storage account is encrypted twice, once at the service level and once at the infrastructure level, using two different encryption algorithms and two different keys. | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Data Explorer | Data | 2.0.0 | BuiltIn | Essential | No | No |
+| 1 | All Database Admin on Azure Data Explorer should be disabled | 8945ba5e-918e-4a57-8117-fe615d12e3ba |  | Disable all database admin role to restrict granting highly privileged/administrative user role. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Data Explorer | Data | 1.0.0 | BuiltIn | Essential |
+| 2 | Disk encryption should be enabled on Azure Data Explorer | f4b53539-8df9-40e4-86c6-6b607703bd4e |  | Enabling disk encryption helps protect and safeguard your data to meet your organizational security and compliance commitments. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Data Explorer | Data | 2.0.0 | BuiltIn | Essential |
+| 3 | Double encryption should be enabled on Azure Data Explorer | ec068d99-e9c7-401f-8cef-5bdde4e6ccf1 |  | Enabling double encryption helps protect and safeguard your data to meet your organizational security and compliance commitments. When double encryption has been enabled, data in the storage account is encrypted twice, once at the service level and once at the infrastructure level, using two different encryption algorithms and two different keys. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Data Explorer | Data | 2.0.0 | BuiltIn | Essential |

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
   "name": "company-management-enterprise-azure-arc",
   "properties": {
     "displayName": "Company Management Enterprise — Azure Arc",

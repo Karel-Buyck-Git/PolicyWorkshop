@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
   "name": "company-devops-professional-devopsinfrastructure",
   "properties": {
     "displayName": "Company DevOps Professional — DevOpsInfrastructure",
