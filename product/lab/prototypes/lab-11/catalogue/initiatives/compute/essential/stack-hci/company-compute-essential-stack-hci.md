@@ -4,10 +4,23 @@
 
 **Essential** — Baseline hygiene for Azure Stack HCI: the non-negotiable controls every deployment should enforce from day one. This tier delivers encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
 
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-compute-essential-stack-hci.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-compute-essential-stack-hci.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-compute-essential-stack-hci.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-compute-essential-stack-hci.roles.json` | role assignments (lab helper) | Not present for this group (no Modify/DeployIfNotExists policy). Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
 ## Policies
 
-| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Azure Stack HCI servers should meet Secured-core requirements | 5e6bf724-0154-49bc-985f-27b2e07e636b | Preview | Ensure that all Azure Stack HCI servers meet the Secured-core requirements. To enable the Secured-core server requirements: 1. From the Azure Stack HCI clusters page, go to Windows Admin Center and select Connect. 2. Go to the Security extension and select Secured-core. 3. Select any setting that is not enabled and click Enable. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | Audit | AuditIfNotExists | Stack HCI | Compute | 1.0.0-preview | BuiltIn | Essential | No | No |
-| 2 | Azure Stack HCI systems should have encrypted volumes | ee8ca833-1583-4d24-837e-96c2af9488a4 | Preview | Use BitLocker to encrypt the OS and data volumes on Azure Stack HCI systems. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | Audit | AuditIfNotExists | Stack HCI | Compute | 1.0.0-preview | BuiltIn | Essential | No | No |
-| 3 | Host and VM networking should be protected on Azure Stack HCI systems | 36f0d6bc-a253-4df8-b25b-c3a5023ff443 | Preview | Protect data on the Azure Stack HCI hosts network and on virtual machine network connections. | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | Audit | AuditIfNotExists | Stack HCI | Compute | 1.0.0-preview | BuiltIn | Essential | No | No |
+| 1 | Azure Stack HCI servers should meet Secured-core requirements | 5e6bf724-0154-49bc-985f-27b2e07e636b | Preview | Ensure that all Azure Stack HCI servers meet the Secured-core requirements. To enable the Secured-core server requirements: 1. From the Azure Stack HCI clusters page, go to Windows Admin Center and select Connect. 2. Go to the Security extension and select Secured-core. 3. Select any setting that is not enabled and click Enable. | No | No | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | Audit | AuditIfNotExists | Stack HCI | Compute | 1.0.0-preview | BuiltIn | Essential |
+| 2 | Azure Stack HCI systems should have encrypted volumes | ee8ca833-1583-4d24-837e-96c2af9488a4 | Preview | Use BitLocker to encrypt the OS and data volumes on Azure Stack HCI systems. | No | No | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | Audit | AuditIfNotExists | Stack HCI | Compute | 1.0.0-preview | BuiltIn | Essential |
+| 3 | Host and VM networking should be protected on Azure Stack HCI systems | 36f0d6bc-a253-4df8-b25b-c3a5023ff443 | Preview | Protect data on the Azure Stack HCI hosts network and on virtual machine network connections. | No | No | Audit, Disabled, AuditIfNotExists | AuditIfNotExists | Audit | AuditIfNotExists | Stack HCI | Compute | 1.0.0-preview | BuiltIn | Essential |

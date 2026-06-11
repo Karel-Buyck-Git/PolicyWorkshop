@@ -414,13 +414,14 @@ def build_rationale_section(
 # Expected columns in order; matches what extract_policies.py emits.
 COLUMNS = [
     "#", "Policy", "Policy ID", "Tag", "Description",
+    "Requires Parameters", "Requires Managed Identity",
     "Allowed Values", "Default Value", "Soft Value", "Hardened Value",
-    "Category", "Domain", "Version", "Type", "Tier", "Requires Parameters", "Requires Managed Identity",
+    "Category", "Domain", "Version", "Type", "Tier",
 ]
 
 HEADER_LINE = (
-    "| # | Policy | Policy ID | Tag | Description | Allowed Values | "
-    "Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |"
+    "| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | "
+    "Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |"
 )
 SEP_LINE = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
@@ -486,10 +487,9 @@ def parse_table(path: Path) -> tuple[str, list[dict]]:
 def md_row(row: dict, n: int) -> str:
     return (
         f"| {n} | {md_escape(row['Policy'])} | {row['Policy ID']} | {row['Tag']} | "
-        f"{md_escape(row['Description'])} | {row['Allowed Values']} | {row['Default Value']} | "
-        f"{row['Soft Value']} | {row['Hardened Value']} | {row['Category']} | "
-        f"{row['Domain']} | {row['Version']} | {row['Type']} | {row['Tier']} | "
-        f"{row['Requires Parameters']} | {row['Requires Managed Identity']} |"
+        f"{md_escape(row['Description'])} | {row['Requires Parameters']} | {row['Requires Managed Identity']} | "
+        f"{row['Allowed Values']} | {row['Default Value']} | {row['Soft Value']} | {row['Hardened Value']} | "
+        f"{row['Category']} | {row['Domain']} | {row['Version']} | {row['Type']} | {row['Tier']} |"
     )
 
 

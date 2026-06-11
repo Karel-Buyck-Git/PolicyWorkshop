@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
   "name": "company-integration-enterprise-service-bus",
   "properties": {
     "displayName": "Company Integration Enterprise — Service Bus",

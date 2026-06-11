@@ -4,9 +4,22 @@
 
 **Essential** — Baseline hygiene for VirtualEnclaves: the non-negotiable controls every deployment should enforce from day one. This tier delivers TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
 
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-undefined-essential-virtualenclaves.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-undefined-essential-virtualenclaves.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-undefined-essential-virtualenclaves.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-undefined-essential-virtualenclaves.roles.json` | role assignments (lab helper) | Not present for this group (no Modify/DeployIfNotExists policy). Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
 ## Policies
 
-| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Do not allow creation of resource types outside of the allowlist | ead33d15-8ff9-44d8-be85-24144ecc859e |  | This policy prevents deployment of resource types outside of the explicitly allowed types, in order to maintain security in a virtual enclave. https://aka.ms/VirtualEnclaves | Audit, Deny, Disabled | Deny | Audit | Deny | VirtualEnclaves | undefined | 1.0.0 | BuiltIn | Essential | No | No |
-| 2 | Do not allow creation of specified resource types or types under specific providers | 337ef0ec-0703-499e-a57c-b4155034e606 |  | The resource providers and types specified via parameter list are not allowed to be created without explicit approval from the security team. If an exemption is granted to the policy assignment, the resource can be leveraged within the enclave. https://aka.ms/VirtualEnclaves | Audit, Deny, Disabled | Deny | Audit | Deny | VirtualEnclaves | undefined | 1.0.0 | BuiltIn | Essential | No | No |
+| 1 | Do not allow creation of resource types outside of the allowlist | ead33d15-8ff9-44d8-be85-24144ecc859e |  | This policy prevents deployment of resource types outside of the explicitly allowed types, in order to maintain security in a virtual enclave. https://aka.ms/VirtualEnclaves | No | No | Audit, Deny, Disabled | Deny | Audit | Deny | VirtualEnclaves | undefined | 1.0.0 | BuiltIn | Essential |
+| 2 | Do not allow creation of specified resource types or types under specific providers | 337ef0ec-0703-499e-a57c-b4155034e606 |  | The resource providers and types specified via parameter list are not allowed to be created without explicit approval from the security team. If an exemption is granted to the policy assignment, the resource can be leveraged within the enclave. https://aka.ms/VirtualEnclaves | No | No | Audit, Deny, Disabled | Deny | Audit | Deny | VirtualEnclaves | undefined | 1.0.0 | BuiltIn | Essential |

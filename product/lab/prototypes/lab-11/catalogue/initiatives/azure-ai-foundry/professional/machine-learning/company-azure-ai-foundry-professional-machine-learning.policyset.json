@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
   "name": "company-azure-ai-foundry-professional-machine-learning",
   "properties": {
     "displayName": "Company Azure AI Foundry Professional — Machine Learning",

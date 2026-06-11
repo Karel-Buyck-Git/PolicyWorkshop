@@ -282,7 +282,7 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
 # Markdown rendering
 # ---------------------------------------------------------------------------
 
-HEADER = "| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |"
+HEADER = "| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |"
 SEP    = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
@@ -294,8 +294,9 @@ def md_row(p: dict, n: int) -> str:
     desc    = p["description"].replace("|", "\\|").replace("\n", " ")
     name    = p["name"].replace("|", "\\|")
     return (
-        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {allowed} | {effect} | {soft} | {hardened}"
-        f" | {p['category']} | {p['domain']} | {p['version']} | {p['policyType']} | {p['tier']} | {p['requires_params']} | {p['requires_identity']} |"
+        f"| {n} | {name} | {p['policy_id']} | {p['tag']} | {desc} | {p['requires_params']} | {p['requires_identity']}"
+        f" | {allowed} | {effect} | {soft} | {hardened}"
+        f" | {p['category']} | {p['domain']} | {p['version']} | {p['policyType']} | {p['tier']} |"
     )
 
 
