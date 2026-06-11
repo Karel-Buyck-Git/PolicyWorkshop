@@ -1,0 +1,12 @@
+{
+  "name": "company-azure-ai-foundry-professional-machine-learning",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "a10ee784-7409-4941-b091-663697637c0f": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

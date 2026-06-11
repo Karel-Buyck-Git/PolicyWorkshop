@@ -1,0 +1,96 @@
+{
+  "name": "company-monitoring-enterprise-managed-grafana",
+  "properties": {
+    "displayName": "Company Monitoring Enterprise — Managed Grafana",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Managed Grafana: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers private endpoints and private link removing the public attack surface. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Managed Grafana",
+      "domain": "Monitoring",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "configureAzureManagedGrafanaWorkspacesPrivatePrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID for privatelink.grafana.azure.com",
+          "description": "The private DNS zone ID used to resolve a private DNS Zone to the Managed Grafana service.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "configureAzureManagedGrafanaWorkspacesPrivatePrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet ID",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "3a97e513-f75e-4230-8137-1efad4eadbbc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a97e513-f75e-4230-8137-1efad4eadbbc",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Managed Grafana workspaces should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4c8537f8-cd1b-49ec-b704-18e82a42fd58",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4c8537f8-cd1b-49ec-b704-18e82a42fd58",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Managed Grafana workspaces to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureManagedGrafanaWorkspacesPrivatePrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "bc33de80-97cd-4c11-b6b4-d075e03c7d60",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bc33de80-97cd-4c11-b6b4-d075e03c7d60",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Managed Grafana workspaces with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureManagedGrafanaWorkspacesPrivatePrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

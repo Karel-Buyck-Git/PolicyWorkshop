@@ -1,0 +1,11 @@
+# Company Management Enterprise — Managed Application
+
+## Tier rationale
+
+**Enterprise** — Zero-trust and regulatory alignment for Managed Application: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Application definition for Managed Application should use customer provided storage account | 9db7917b-1607-4e7d-a689-bca978dd0633 |  | Use your own storage account to control the application definition data when this is a regulatory or compliance requirement. You can choose to store your managed application definition within a storage account provided by you during creation, so that its location and access can be fully managed by you to fulfill regulatory compliance requirements. | Audit, Audit, Deny, Deny, Disabled, Disabled | Audit | Audit | Deny | Managed Application | Management | 1.1.0 | BuiltIn | Enterprise | No | No |

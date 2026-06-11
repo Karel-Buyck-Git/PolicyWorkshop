@@ -1,0 +1,23 @@
+{
+  "nodeName": "/company/web/enterprise/app-service/",
+  "assignment": {
+    "name": "company-web-enterprise-app-service",
+    "displayName": "Company Web Enterprise — App Service",
+    "description": "Deployment scaffold for 7 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): configureAppServiceAppsPrivateDnsPrivateDnsZoneId. A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-web-enterprise-app-service",
+  "parameters": {
+    "configureAppServiceAppsPrivateDnsPrivateDnsZoneId": "<REPLACE: configureAppServiceAppsPrivateDnsPrivateDnsZoneId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

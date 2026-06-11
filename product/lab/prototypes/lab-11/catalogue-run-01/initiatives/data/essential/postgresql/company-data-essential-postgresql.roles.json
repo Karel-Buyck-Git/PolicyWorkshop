@@ -1,0 +1,27 @@
+{
+  "name": "company-data-essential-postgresql",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "3bf854e8-b34a-47fe-9f81-bc558c82b3bd": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "f5ed3f7a-cf5d-4ee6-9ede-b5d5192ccf81": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "eadbb524-8644-4a87-8af6-549e1d125982": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "a7d3e5b1-8c4f-4a2b-9d6e-1f3c5a8b2e7d": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "a8f89ff4-3d6e-4d7b-8c5a-2e9b1f4c8d3a": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "dd626066-39f5-4f72-aba8-06a99fabf278": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}
