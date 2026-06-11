@@ -1,0 +1,763 @@
+{
+  "name": "company-security-essential-key-vault",
+  "properties": {
+    "displayName": "Company Security Essential — Key Vault",
+    "description": "**Essential** — Baseline hygiene for Key Vault: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials, TLS / HTTPS enforcement preventing in-transit interception, key and certificate lifecycle hygiene (rotation, expiration, validity), backup, soft-delete, and purge-protection guards against accidental or malicious data loss, and tagging, SKU, and naming controls for cost and ownership accountability. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Key Vault",
+      "domain": "Security",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "certificatesIssuedOneNonIntegratedCertificateCaCommonNames": {
+        "type": "array",
+        "metadata": {
+          "displayName": "The common names of the certificate authorities which are allowed",
+          "description": "The common names (CN) of the Certificate Authority (CA) provider which are allowed. For example, if certificate create with Certificate Authority CN = Contoso, OU = .., DC  and parameter caCommonNames is set as  ['Contoso', 'AnotherCA'] then the certificate create will be allowed because the certificate authority contains Contoso which is one of the parameter values"
+        }
+      },
+      "certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "The common name of the certificate authority",
+          "description": "The common name (CN) of the Certificate Authority (CA) provider. For example, for an issuer CN = Contoso, OU = .., DC = .., you can specify Contoso"
+        }
+      },
+      "certificatesLifetimeActionTriggersMaximumPercentageLife": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The maximum lifetime percentage",
+          "description": "Enter the percentage of lifetime of the certificate when you want to trigger the policy action. For example, to trigger a policy action at 80% of the certificate's valid life, enter '80'."
+        }
+      },
+      "certificatesLifetimeActionTriggersMinimumDaysBeforeExpiry": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The minimum days before expiry",
+          "description": "Enter the days before expiration of the certificate when you want to trigger the policy action. For example, to trigger a policy action 90 days before the certificate's expiration, enter '90'."
+        }
+      },
+      "certificatesExpireNumberDaysDaysToExpire": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "Days to expire",
+          "description": "The number of days for a certificate to expire."
+        }
+      },
+      "certificatesRsaCryptographyMinimumKeySizeMinimumRSAKeySize": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "Minimum RSA key size",
+          "description": "The minimum key size for RSA certificates."
+        },
+        "allowedValues": [
+          2048,
+          3072,
+          4096
+        ]
+      },
+      "keysRotationPolicyEnsuringRotationScheduledMaximumDaysToRotate": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The maximum days to rotate",
+          "description": "The maximum number of days after key creation until it must be rotated."
+        }
+      },
+      "keysNumberDaysBeforeExpirationMinimumDaysBeforeExpiration": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The minimum days before expiration",
+          "description": "Specify the minimum number of days that a key should remain usable prior to expiration."
+        }
+      },
+      "keysMaximumValidityPeriodMaximumValidityInDays": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The maximum validity period in days",
+          "description": "Specify the maximum number of days a key can be valid for. Keys should be ephemeral. Using a key with a long validity period is not recommended."
+        }
+      },
+      "keysActiveLongerNumberDaysMaximumValidityInDays": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The maximum validity period in days",
+          "description": "Specify the maximum number of days a key can be valid for after activation."
+        }
+      },
+      "keysAesCryptographyMinimumKeySizeMinimumOCTKeySize": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "Minimum OCT key size",
+          "description": "The minimum key size for OCT keys."
+        },
+        "allowedValues": [
+          128,
+          192,
+          256,
+          512
+        ]
+      },
+      "keysRsaCryptographyMinimumKeySizeMinimumRSAKeySize": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "Minimum RSA key size",
+          "description": "The minimum key size for RSA keys."
+        },
+        "allowedValues": [
+          2048,
+          3072,
+          4096
+        ]
+      },
+      "secretsNumberDaysBeforeExpirationMinimumDaysBeforeExpiration": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The minimum days before expiration",
+          "description": "Specify the minimum number of days that a secret should remain usable prior to expiration."
+        }
+      },
+      "secretsMaximumValidityPeriodMaximumValidityInDays": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The maximum validity period in days",
+          "description": "Specify the maximum number of days a secret can be valid for. Secrets should be ephemeral. Using a secret with a long validity period is not recommended."
+        }
+      },
+      "secretsActiveLongerNumberDaysMaximumValidityInDays": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "The maximum validity period in days",
+          "description": "Specify the maximum number of days a secret can be valid for after activation."
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "1fd3b2cc-9904-40fa-b8da-050c02612da9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1fd3b2cc-9904-40fa-b8da-050c02612da9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM keys should be the specified cryptographic type"
+        },
+        "parameters": {
+          "allowedKeyTypes": {
+            "value": [
+              "RSA-HSM",
+              "EC-HSM",
+              "oct-HSM"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1d478a74-21ba-4b9f-9d8f-8e6fced0eec5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1d478a74-21ba-4b9f-9d8f-8e6fced0eec5",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM keys should have an expiration date"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ad27588c-0198-4c84-81ef-08efd0274653",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ad27588c-0198-4c84-81ef-08efd0274653",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM Keys should have more than the specified number of days before expiration"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "minimumDaysBeforeExpiration": {
+            "value": 90
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fa85a975-a142-46dc-a9ab-8cc69ecb358c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fa85a975-a142-46dc-a9ab-8cc69ecb358c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM keys using AES cryptography should have a specified minimum key size"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "minimumOCTKeySize": {
+            "value": 128
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e58fd0c1-feac-4d12-92db-0a7e9421f53e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e58fd0c1-feac-4d12-92db-0a7e9421f53e",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM keys using elliptic curve cryptography should have the specified curve names"
+        },
+        "parameters": {
+          "allowedECNames": {
+            "value": [
+              "P-256",
+              "P-256K",
+              "P-384",
+              "P-521"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "86810a98-8e91-4a44-8386-ec66d0de5d57",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86810a98-8e91-4a44-8386-ec66d0de5d57",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM keys using RSA cryptography should have a specified minimum key size"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "minimumRSAKeySize": {
+            "value": 2048
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c39ba22d-4428-4149-b981-70acb31fc383",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c39ba22d-4428-4149-b981-70acb31fc383",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM should have purge protection enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "12d4fa5e-1f9f-4c21-97a9-b99b3c6611b5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/12d4fa5e-1f9f-4c21-97a9-b99b3c6611b5",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault should use RBAC permission model"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d3e82b87-6673-410b-8501-1896b688b9a3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d3e82b87-6673-410b-8501-1896b688b9a3",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should be issued by one of the specified non-integrated certificate authorities"
+        },
+        "parameters": {
+          "caCommonNames": {
+            "value": "[parameters('certificatesIssuedOneNonIntegratedCertificateCaCommonNames')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8e826246-c976-48f6-b03e-619bb92b3d82",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8e826246-c976-48f6-b03e-619bb92b3d82",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should be issued by the specified integrated certificate authority"
+        },
+        "parameters": {
+          "allowedCAs": {
+            "value": [
+              "DigiCert",
+              "GlobalSign"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a22f4a40-01d3-4c7d-8071-da157eeff341",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a22f4a40-01d3-4c7d-8071-da157eeff341",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should be issued by the specified non-integrated certificate authority"
+        },
+        "parameters": {
+          "caCommonName": {
+            "value": "[parameters('certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "12ef42cb-9903-4e39-9c26-422d29570417",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/12ef42cb-9903-4e39-9c26-422d29570417",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should have the specified lifetime action triggers"
+        },
+        "parameters": {
+          "maximumPercentageLife": {
+            "value": "[parameters('certificatesLifetimeActionTriggersMaximumPercentageLife')]"
+          },
+          "minimumDaysBeforeExpiry": {
+            "value": "[parameters('certificatesLifetimeActionTriggersMinimumDaysBeforeExpiry')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0a075868-4c26-42ef-914c-5bc007359560",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0a075868-4c26-42ef-914c-5bc007359560",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should have the specified maximum validity period"
+        },
+        "parameters": {
+          "maximumValidityInMonths": {
+            "value": 12
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f772fb64-8e40-40ad-87bc-7706e1949427",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f772fb64-8e40-40ad-87bc-7706e1949427",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should not expire within the specified number of days"
+        },
+        "parameters": {
+          "daysToExpire": {
+            "value": "[parameters('certificatesExpireNumberDaysDaysToExpire')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1151cede-290b-4ba0-8b38-0ad145ac888f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1151cede-290b-4ba0-8b38-0ad145ac888f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates should use allowed key types"
+        },
+        "parameters": {
+          "allowedKeyTypes": {
+            "value": [
+              "RSA",
+              "RSA-HSM"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "bd78111f-4953-4367-9fd5-7e08808b54bf",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bd78111f-4953-4367-9fd5-7e08808b54bf",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates using elliptic curve cryptography should have allowed curve names"
+        },
+        "parameters": {
+          "allowedECNames": {
+            "value": [
+              "P-256",
+              "P-256K",
+              "P-384",
+              "P-521"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cee51871-e572-4576-855c-047c820360f0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cee51871-e572-4576-855c-047c820360f0",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Certificates using RSA cryptography should have the specified minimum key size"
+        },
+        "parameters": {
+          "minimumRSAKeySize": {
+            "value": "[parameters('certificatesRsaCryptographyMinimumKeySizeMinimumRSAKeySize')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "152b15f7-8e1f-4c1f-ab71-8c010ba5dbc0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/152b15f7-8e1f-4c1f-ab71-8c010ba5dbc0",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Key Vault keys should have an expiration date"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "98728c90-32c7-4049-8429-847dc0f4fe37",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/98728c90-32c7-4049-8429-847dc0f4fe37",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Key Vault secrets should have an expiration date"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0b60c0b2-2dc2-4e1c-b5c9-abbed971de53",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0b60c0b2-2dc2-4e1c-b5c9-abbed971de53",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Key vaults should have deletion protection enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Key vaults should have soft delete enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "587c79fe-dd04-4a5e-9d0b-f89598c7261b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/587c79fe-dd04-4a5e-9d0b-f89598c7261b",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys should be backed by a hardware security module (HSM)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "75c4f823-d65c-4f29-a733-01d0077fdbcb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/75c4f823-d65c-4f29-a733-01d0077fdbcb",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys should be the specified cryptographic type RSA or EC"
+        },
+        "parameters": {
+          "allowedKeyTypes": {
+            "value": [
+              "RSA",
+              "RSA-HSM",
+              "EC",
+              "EC-HSM"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d8cf8476-a2ec-4916-896e-992351803c44",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d8cf8476-a2ec-4916-896e-992351803c44",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys should have a rotation policy ensuring that their rotation is scheduled within the specified number of days after creation."
+        },
+        "parameters": {
+          "maximumDaysToRotate": {
+            "value": "[parameters('keysRotationPolicyEnsuringRotationScheduledMaximumDaysToRotate')]"
+          },
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5ff38825-c5d8-47c5-b70e-069a21955146",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5ff38825-c5d8-47c5-b70e-069a21955146",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys should have more than the specified number of days before expiration"
+        },
+        "parameters": {
+          "minimumDaysBeforeExpiration": {
+            "value": "[parameters('keysNumberDaysBeforeExpirationMinimumDaysBeforeExpiration')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "49a22571-d204-4c91-a7b6-09b1a586fbc9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/49a22571-d204-4c91-a7b6-09b1a586fbc9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys should have the specified maximum validity period"
+        },
+        "parameters": {
+          "maximumValidityInDays": {
+            "value": "[parameters('keysMaximumValidityPeriodMaximumValidityInDays')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c26e4b24-cf98-4c67-b48b-5a25c4c69eb9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c26e4b24-cf98-4c67-b48b-5a25c4c69eb9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys should not be active for longer than the specified number of days"
+        },
+        "parameters": {
+          "maximumValidityInDays": {
+            "value": "[parameters('keysActiveLongerNumberDaysMaximumValidityInDays')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "51fb1409-3c36-43c4-a750-ce814ac35ea6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/51fb1409-3c36-43c4-a750-ce814ac35ea6",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys using AES cryptography should have a specified minimum key size"
+        },
+        "parameters": {
+          "minimumOCTKeySize": {
+            "value": "[parameters('keysAesCryptographyMinimumKeySizeMinimumOCTKeySize')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ff25f3c8-b739-4538-9d07-3d6d25cfb255",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ff25f3c8-b739-4538-9d07-3d6d25cfb255",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys using elliptic curve cryptography should have the specified curve names"
+        },
+        "parameters": {
+          "allowedECNames": {
+            "value": [
+              "P-256",
+              "P-256K",
+              "P-384",
+              "P-521"
+            ]
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "82067dbb-e53b-4e06-b631-546d197452d9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/82067dbb-e53b-4e06-b631-546d197452d9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Keys using RSA cryptography should have a specified minimum key size"
+        },
+        "parameters": {
+          "minimumRSAKeySize": {
+            "value": "[parameters('keysRsaCryptographyMinimumKeySizeMinimumRSAKeySize')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "75262d3e-ba4a-4f43-85f8-9f72c090e5e3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/75262d3e-ba4a-4f43-85f8-9f72c090e5e3",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Secrets should have content type set"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b0eb591a-5e70-4534-a8bf-04b9c489584a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b0eb591a-5e70-4534-a8bf-04b9c489584a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Secrets should have more than the specified number of days before expiration"
+        },
+        "parameters": {
+          "minimumDaysBeforeExpiration": {
+            "value": "[parameters('secretsNumberDaysBeforeExpirationMinimumDaysBeforeExpiration')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "342e8053-e12e-4c44-be01-c3c2f318400f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/342e8053-e12e-4c44-be01-c3c2f318400f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Secrets should have the specified maximum validity period"
+        },
+        "parameters": {
+          "maximumValidityInDays": {
+            "value": "[parameters('secretsMaximumValidityPeriodMaximumValidityInDays')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e8d99835-8a06-45ae-a8e0-87a91941ccfe",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e8d99835-8a06-45ae-a8e0-87a91941ccfe",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Secrets should not be active for longer than the specified number of days"
+        },
+        "parameters": {
+          "maximumValidityInDays": {
+            "value": "[parameters('secretsActiveLongerNumberDaysMaximumValidityInDays')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

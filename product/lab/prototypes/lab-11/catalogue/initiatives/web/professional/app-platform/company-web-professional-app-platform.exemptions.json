@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/web/professional/app-platform/exemptions/",
+  "exemptions": [
+    {
+      "name": "company-web-professional-app-platform-example-exemption",
+      "displayName": "Example exemption — replace or remove",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/company-web-professional-app-platform",
+      "policyDefinitionReferenceIds": [
+        "<policy-reference-id>"
+      ],
+      "scope": "/subscriptions/<sub-id>"
+    }
+  ]
+}

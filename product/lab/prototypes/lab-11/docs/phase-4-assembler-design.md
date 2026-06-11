@@ -24,7 +24,7 @@ The manifest is authored by a human SE **or** emitted by the upstream app. The a
 run locally or in CI:
 
 ```
-python flows/assemble-scaffold.py --manifest customer/manifests/contoso.manifest.jsonc
+python flows/assemble_scaffold.py --manifest customer/manifests/contoso.manifest.jsonc
 # optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: customer/initiatives/)
 ```
 

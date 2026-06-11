@@ -1,0 +1,18 @@
+{
+  "nodeName": "/company/undefined/professional/virtualenclaves/",
+  "assignment": {
+    "name": "company-undefined-professional-virtualenclaves",
+    "displayName": "Company undefined Professional — VirtualEnclaves",
+    "description": "Deployment scaffold for 1 policy. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId. No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-professional-virtualenclaves",
+  "parameters": {
+    "networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId": "<REPLACE: networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

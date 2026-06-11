@@ -1,0 +1,12 @@
+{
+  "name": "company-azure-ai-foundry-essential-search",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/7ca78c08-252a-4471-8644-bb5ff32d4ba0"
+  ],
+  "byPolicy": {
+    "4eb216f2-9dba-4979-86e6-5d7e63ce3b75": [
+      "/providers/microsoft.authorization/roleDefinitions/7ca78c08-252a-4471-8644-bb5ff32d4ba0"
+    ]
+  }
+}

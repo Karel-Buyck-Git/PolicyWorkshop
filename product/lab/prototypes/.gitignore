@@ -1,0 +1,5 @@
+# Python bytecode caches — build output, regenerated on every import.
+# Placed at the prototypes/ level so it covers every lab run (lab-11, lab-12, …).
+__pycache__/
+*.pyc
+*.pyo

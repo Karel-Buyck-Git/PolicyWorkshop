@@ -37,7 +37,7 @@ infrastructure investment or map directly to regulatory frameworks.
 ## Phase 1 — Run the extraction script
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\extract-policies.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\extract_policies.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the output folder it reports and proceed to Phase 2.
@@ -95,7 +95,7 @@ where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 ## Phase 3 — Create per-tier EPAC-ready initiatives
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\create-initiatives.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\create_initiatives.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note how many groups/files were written and proceed.

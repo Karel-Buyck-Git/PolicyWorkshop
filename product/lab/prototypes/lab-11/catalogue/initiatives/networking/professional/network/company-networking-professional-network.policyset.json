@@ -1,0 +1,998 @@
+{
+  "name": "company-networking-professional-network",
+  "properties": {
+    "displayName": "Company Networking Professional — Network",
+    "description": "**Professional** — Active security posture for Network: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules) and audit-log and monitoring controls that produce signals for ops teams. Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Network",
+      "domain": "Networking",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "customIpsecIkePolicyAppliedAllIPsecEncryption": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "IPsec Encryption",
+          "description": "IPsec Encryption"
+        }
+      },
+      "customIpsecIkePolicyAppliedAllIPsecIntegrity": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "IPsec Integrity",
+          "description": "IPsec Integrity"
+        }
+      },
+      "customIpsecIkePolicyAppliedAllIKEEncryption": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "IKE Encryption",
+          "description": "IKE Encryption"
+        }
+      },
+      "customIpsecIkePolicyAppliedAllIKEIntegrity": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "IKE Integrity",
+          "description": "IKE Integrity"
+        }
+      },
+      "customIpsecIkePolicyAppliedAllDHGroup": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "DH Group",
+          "description": "DH Group"
+        }
+      },
+      "customIpsecIkePolicyAppliedAllPFSGroup": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "PFS Group",
+          "description": "PFS Group"
+        }
+      },
+      "configureVirtualNetworkEnableFlowLogVnetRegion": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Virtual Network Region",
+          "description": "Configures for virtual network in the selected region only.",
+          "strongType": "location"
+        }
+      },
+      "configureVirtualNetworkEnableFlowLogStorageId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Account",
+          "description": "The resource id of storage account where flowlogs will be sent to. It will be used for deployment purposes only. Make sure this storage account is located in the same region as the Vnet.",
+          "assignPermissions": true,
+          "strongType": "Microsoft.Storage/storageAccounts"
+        }
+      },
+      "configureVirtualNetworkEnableFlowLogWorkspaceResourceId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Workspace Resource ID",
+          "description": "Log Analytics workspace resource id",
+          "assignPermissions": true,
+          "strongType": "Microsoft.OperationalInsights/workspaces"
+        }
+      },
+      "configureVirtualNetworkEnableFlowLogWorkspaceRegion": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Workspace Region",
+          "description": "Log Analytics workspace region",
+          "strongType": "location"
+        }
+      },
+      "configureVirtualNetworkEnableFlowLogNetworkWatcherName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Network Watcher",
+          "description": "The resource id of the network watcher under which the flowLog resources will be created. Make sure it belongs to the same region as the Vnet.",
+          "strongType": "Microsoft.Network/networkWatchers"
+        }
+      },
+      "configureVirtualNetworksEnforceWorkspaceStorageVnetRegion": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Virtual Networks Region",
+          "description": "Configures for virtual networks in the selected region only.",
+          "strongType": "location"
+        }
+      },
+      "configureVirtualNetworksEnforceWorkspaceStorageStorageId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Account",
+          "description": "The resource id of storage account where flowlogs will be sent to. It will be used for deployment purposes only. Make sure this storage account is located in the same region as the Vnet.",
+          "assignPermissions": true,
+          "strongType": "Microsoft.Storage/storageAccounts"
+        }
+      },
+      "configureVirtualNetworksEnforceWorkspaceStorageWorkspaceResourceId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Workspace Resource ID",
+          "description": "Log Analytics workspace resource id",
+          "assignPermissions": true,
+          "strongType": "Microsoft.OperationalInsights/workspaces"
+        }
+      },
+      "configureVirtualNetworksEnforceWorkspaceStorageWorkspaceRegion": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Workspace Region",
+          "description": "Log Analytics workspace region",
+          "strongType": "location"
+        }
+      },
+      "configureVirtualNetworksEnforceWorkspaceStorageNetworkWatcherName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Network Watcher",
+          "description": "The resource id of the network watcher under which the flowLog resources will be created. Make sure it belongs to the same region as the Vnet.",
+          "strongType": "Microsoft.Network/networkWatchers"
+        }
+      },
+      "createRegionalNetworkwatcherNetworkwatcherrgVnetFlowlogsLocation": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Network Watcher Location",
+          "description": "Location where the Network Watcher exists or will be created in. It should match the location of the Virtual Network where flow logs are to be enabled.",
+          "strongType": "location"
+        }
+      },
+      "createRegionalStorageAccountVnetFlowlogsLocation": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Storage Account Location",
+          "description": "Location where the Storage Account exists or will be created in. It should match the location of the Virtual Network where flowlog is to be enabled.",
+          "strongType": "location"
+        }
+      },
+      "deployFlowLogResourceTargetNetworkNsgRegion": {
+        "type": "String",
+        "metadata": {
+          "displayName": "NSG Region",
+          "description": "This Policy will review NSGs only in the selected region. You can create other assignments to include other regions.",
+          "strongType": "location"
+        }
+      },
+      "deployFlowLogResourceTargetNetworkStorageId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Storage id",
+          "description": "A string with the storage id for the flowlogs to be sent to. It will be used for deployment purposes only. Make sure this storage account is located in the same region as the NSG. The format must be: '/subscriptions/{subscription id}/resourceGroups/{resourceGroup name}/providers/Microsoft.Storage/storageAccounts/{storage account name}",
+          "assignPermissions": true
+        }
+      },
+      "deployFlowLogResourceTargetNetworkNetworkWatcherRG": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Network Watchers RG",
+          "description": "The name of the resource group where the flowLog resources will be created. This will be used only if a deployment is required. This is the resource group where the Network Watchers are located.",
+          "strongType": "existingResourceGroups"
+        }
+      },
+      "deployFlowLogResourceTargetNetworkNetworkWatcherName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Network Watcher name",
+          "description": "The name of the network watcher under which the flowLog resources will be created. Make sure it belongs to the same region as the NSG."
+        }
+      },
+      "deployFlowLogResourceTargetVirtualVnetRegion": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Virtual Network Region",
+          "description": "This Policy will review Vnets only in the selected region. You can create other assignments to include other regions.",
+          "strongType": "location"
+        }
+      },
+      "deployFlowLogResourceTargetVirtualStorageId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Account",
+          "description": "The resource id of storage account where flowlogs will be sent to. It will be used for deployment purposes only. Make sure this storage account is located in the same region as the Vnet.",
+          "assignPermissions": true,
+          "strongType": "Microsoft.Storage/storageAccounts"
+        }
+      },
+      "deployFlowLogResourceTargetVirtualNetworkWatcherName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Network Watcher",
+          "description": "The resource id of the network watcher under which the flowLog resources will be created. Make sure it belongs to the same region as the Vnet.",
+          "strongType": "Microsoft.Network/networkWatchers"
+        }
+      },
+      "virtualMachinesConnectedApprovedVirtualNetworkVirtualNetworkId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Virtual network Id",
+          "description": "Resource Id of the virtual network. Example: /subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Network/virtualNetworks/Name"
+        }
+      },
+      "virtualNetworksVirtualNetworkGatewayVirtualNetworkGatewayId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Virtual network gateway Id",
+          "description": "Resource Id of the virtual network gateway. Example: /subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroup/providers/Microsoft.Network/virtualNetworkGateways/Name"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "50b83b09-03da-41c1-b656-c293c914862b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/50b83b09-03da-41c1-b656-c293c914862b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "IPsecEncryption": {
+            "value": "[parameters('customIpsecIkePolicyAppliedAllIPsecEncryption')]"
+          },
+          "IPsecIntegrity": {
+            "value": "[parameters('customIpsecIkePolicyAppliedAllIPsecIntegrity')]"
+          },
+          "IKEEncryption": {
+            "value": "[parameters('customIpsecIkePolicyAppliedAllIKEEncryption')]"
+          },
+          "IKEIntegrity": {
+            "value": "[parameters('customIpsecIkePolicyAppliedAllIKEIntegrity')]"
+          },
+          "DHGroup": {
+            "value": "[parameters('customIpsecIkePolicyAppliedAllDHGroup')]"
+          },
+          "PFSGroup": {
+            "value": "[parameters('customIpsecIkePolicyAppliedAllPFSGroup')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "27960feb-a23c-4577-8d36-ef8b5f35e0be",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/27960feb-a23c-4577-8d36-ef8b5f35e0be",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "All flow log resources should be in enabled state"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fc5e4038-4584-4632-8c85-c0448d374b2c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fc5e4038-4584-4632-8c85-c0448d374b2c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "All Internet traffic should be routed via your deployed Azure Firewall"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9df61aa2-b10c-4efe-aae0-295cc936930b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9df61aa2-b10c-4efe-aae0-295cc936930b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "All Internet traffic should be routed via your deployed Azure Firewall"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2d21331d-a4c2-4def-a9ad-ee4e1e023beb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2d21331d-a4c2-4def-a9ad-ee4e1e023beb",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4c3c6c5f-0d47-4402-99b8-aa543dd8bcee",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4c3c6c5f-0d47-4402-99b8-aa543dd8bcee",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Audit flow logs configuration for every virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ff1f1879-a60d-4f23-9641-41e7391ec19a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ff1f1879-a60d-4f23-9641-41e7391ec19a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Application Gateway should be deployed with Azure WAF"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "794d77cc-fe65-4801-8514-230c0be387a8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/794d77cc-fe65-4801-8514-230c0be387a8",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Firewall Classic Rules should be migrated to Firewall Policy"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "dfb5ac92-ce74-4dbc-81fa-87243e62d5d3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dfb5ac92-ce74-4dbc-81fa-87243e62d5d3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Firewall Policy Analytics should be Enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "da79a7e2-8aa1-45ed-af81-ba050c153564",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/da79a7e2-8aa1-45ed-af81-ba050c153564",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Firewall Policy should enable Threat Intelligence"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3f84c9b0-8b64-4208-98d4-6ada96bb49c3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3f84c9b0-8b64-4208-98d4-6ada96bb49c3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Firewall Policy should have DNS Proxy Enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7c591a93-c34c-464c-94ac-8f9f9a46e3d6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7c591a93-c34c-464c-94ac-8f9f9a46e3d6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Firewall Standard - Classic Rules should enable Threat Intelligence"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8c19196d-7fd7-45b2-a9b4-7288f47c769a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8c19196d-7fd7-45b2-a9b4-7288f47c769a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Firewall Standard should be upgraded to Premium for next generation protection"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ca85ef9a-741d-461d-8b7a-18c2da82c666",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ca85ef9a-741d-461d-8b7a-18c2da82c666",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Web Application Firewall on Azure Application Gateway should have request body inspection enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4598f028-de1f-4694-8751-84dceb5f86b9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4598f028-de1f-4694-8751-84dceb5f86b9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Web Application Firewall on Azure Front Door should have request body inspection enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "055aa869-bc98-4af8-bafc-23f1ab6ffe2c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/055aa869-bc98-4af8-bafc-23f1ab6ffe2c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Web Application Firewall should be enabled for Azure Front Door entry-points"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ebea0d86-7fbd-42e3-8a46-27e7568c2525",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ebea0d86-7fbd-42e3-8a46-27e7568c2525",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Bot Protection should be enabled for Azure Application Gateway WAF"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "27f7fb01-5fdb-44ad-954c-d582f8659533",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/27f7fb01-5fdb-44ad-954c-d582f8659533",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Bot Protection should be enabled for Azure Front Door WAF"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3e9965dc-cc13-47ca-8259-a4252fd0cf7b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3e9965dc-cc13-47ca-8259-a4252fd0cf7b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure virtual network to enable Flow Log and Traffic Analytics"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "vnetRegion": {
+            "value": "[parameters('configureVirtualNetworkEnableFlowLogVnetRegion')]"
+          },
+          "storageId": {
+            "value": "[parameters('configureVirtualNetworkEnableFlowLogStorageId')]"
+          },
+          "timeInterval": {
+            "value": "60"
+          },
+          "workspaceResourceId": {
+            "value": "[parameters('configureVirtualNetworkEnableFlowLogWorkspaceResourceId')]"
+          },
+          "workspaceRegion": {
+            "value": "[parameters('configureVirtualNetworkEnableFlowLogWorkspaceRegion')]"
+          },
+          "workspaceId": {
+            "value": "00000000-0000-0000-0000-000000000000"
+          },
+          "networkWatcherRG": {
+            "value": "NetworkWatcherRG"
+          },
+          "networkWatcherName": {
+            "value": "[parameters('configureVirtualNetworkEnableFlowLogNetworkWatcherName')]"
+          },
+          "retentionDays": {
+            "value": "30"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "052c180e-287d-44c3-86ef-01aeae2d9774",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/052c180e-287d-44c3-86ef-01aeae2d9774",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure virtual networks to enforce workspace, storage account and retention interval for Flow logs and Traffic Analytics"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "vnetRegion": {
+            "value": "[parameters('configureVirtualNetworksEnforceWorkspaceStorageVnetRegion')]"
+          },
+          "storageId": {
+            "value": "[parameters('configureVirtualNetworksEnforceWorkspaceStorageStorageId')]"
+          },
+          "timeInterval": {
+            "value": "60"
+          },
+          "workspaceResourceId": {
+            "value": "[parameters('configureVirtualNetworksEnforceWorkspaceStorageWorkspaceResourceId')]"
+          },
+          "workspaceRegion": {
+            "value": "[parameters('configureVirtualNetworksEnforceWorkspaceStorageWorkspaceRegion')]"
+          },
+          "workspaceId": {
+            "value": "00000000-0000-0000-0000-000000000000"
+          },
+          "networkWatcherRG": {
+            "value": "NetworkWatcherRG"
+          },
+          "networkWatcherName": {
+            "value": "[parameters('configureVirtualNetworksEnforceWorkspaceStorageNetworkWatcherName')]"
+          },
+          "retentionDays": {
+            "value": "30"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c4857be7-912a-4c75-87e6-e30292bcdf78",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c4857be7-912a-4c75-87e6-e30292bcdf78",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Container Registry should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e0a2b1a3-f7f9-4569-807f-2a9edebdf4d9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e0a2b1a3-f7f9-4569-807f-2a9edebdf4d9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Cosmos DB should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6f4374d1-455b-4f14-83d9-3bf5133c5bb5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6f4374d1-455b-4f14-83d9-3bf5133c5bb5",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Create Regional NetworkWatcher in NetworkWatcherRG for VNet Flowlogs"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "location": {
+            "value": "[parameters('createRegionalNetworkwatcherNetworkwatcherrgVnetFlowlogsLocation')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1c46fa74-ad5c-46e4-9cf3-6bf88e3adcba",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c46fa74-ad5c-46e4-9cf3-6bf88e3adcba",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Create regional Storage Account for VNet Flowlogs in resourceGroupName RG"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "resourceGroupName": {
+            "value": "nwtarg"
+          },
+          "location": {
+            "value": "[parameters('createRegionalStorageAccountVnetFlowlogsLocation')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0db34a60-64f4-4bf6-bd44-f95c16cf34b9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0db34a60-64f4-4bf6-bd44-f95c16cf34b9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy a flow log resource with target network security group"
+        },
+        "parameters": {
+          "nsgRegion": {
+            "value": "[parameters('deployFlowLogResourceTargetNetworkNsgRegion')]"
+          },
+          "storageId": {
+            "value": "[parameters('deployFlowLogResourceTargetNetworkStorageId')]"
+          },
+          "networkWatcherRG": {
+            "value": "[parameters('deployFlowLogResourceTargetNetworkNetworkWatcherRG')]"
+          },
+          "networkWatcherName": {
+            "value": "[parameters('deployFlowLogResourceTargetNetworkNetworkWatcherName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cd6f7aff-2845-4dab-99f2-6d1754a754b0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd6f7aff-2845-4dab-99f2-6d1754a754b0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy a Flow Log resource with target virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "vnetRegion": {
+            "value": "[parameters('deployFlowLogResourceTargetVirtualVnetRegion')]"
+          },
+          "storageId": {
+            "value": "[parameters('deployFlowLogResourceTargetVirtualStorageId')]"
+          },
+          "networkWatcherRG": {
+            "value": "NetworkWatcherRG"
+          },
+          "networkWatcherName": {
+            "value": "[parameters('deployFlowLogResourceTargetVirtualNetworkWatcherName')]"
+          },
+          "retentionDays": {
+            "value": "30"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e52e8487-4a97-48ac-b3e6-1c3cef45d298",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e52e8487-4a97-48ac-b3e6-1c3cef45d298",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Enable Rate Limit rule to protect against DDoS attacks on Azure Front Door WAF"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d63edb4a-c612-454d-b47d-191a724fcbf0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d63edb4a-c612-454d-b47d-191a724fcbf0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Event Hub should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c251913d-7d24-4958-af87-478ed3b9ba41",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c251913d-7d24-4958-af87-478ed3b9ba41",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Flow logs should be configured for every network security group"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "35f9c03a-cc27-418e-9c0c-539ff999d010",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/35f9c03a-cc27-418e-9c0c-539ff999d010",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Gateway subnets should not be configured with a network security group"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ea4d6841-2173-4317-9747-ff522a45120f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea4d6841-2173-4317-9747-ff522a45120f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Key Vault should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "882e19a6-996f-400e-a30f-c090887254f4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/882e19a6-996f-400e-a30f-c090887254f4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Migrate WAF from WAF Config to WAF Policy on Application Gateway"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "83a86a26-fd1f-447c-b59d-e51f44264114",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/83a86a26-fd1f-447c-b59d-e51f44264114",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Network interfaces should not have public IPs"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b6e2945c-0b7b-40f5-9233-7a5323b5cdc6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b6e2945c-0b7b-40f5-9233-7a5323b5cdc6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Network Watcher should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "listOfLocations": {
+            "value": []
+          },
+          "resourceGroupName": {
+            "value": "NetworkWatcherRG"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fe8a9af4-a003-4c7d-b7a4-b9808310c4f8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe8a9af4-a003-4c7d-b7a4-b9808310c4f8",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Public IPs and Public IP prefixes should have FirstPartyUsage tag"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ae5d2f14-d830-42b6-9899-df6cfe9c71a3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae5d2f14-d830-42b6-9899-df6cfe9c71a3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "SQL Server should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "60d21c4f-21a3-4d94-85f4-b924e6aeeda4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/60d21c4f-21a3-4d94-85f4-b924e6aeeda4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Storage Accounts should use a virtual network service endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "72923a3a-e567-46d3-b3f9-ffb2462a1c3a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/72923a3a-e567-46d3-b3f9-ffb2462a1c3a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Virtual Hubs should be protected with Azure Firewall"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d416745a-506c-48b6-8ab1-83cb814bcaa3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d416745a-506c-48b6-8ab1-83cb814bcaa3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Virtual machines should be connected to an approved virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "virtualNetworkId": {
+            "value": "[parameters('virtualMachinesConnectedApprovedVirtualNetworkVirtualNetworkId')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f1776c76-f58c-4245-a8d0-2b207198dc8b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f1776c76-f58c-4245-a8d0-2b207198dc8b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Virtual networks should use specified virtual network gateway"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "virtualNetworkGatewayId": {
+            "value": "[parameters('virtualNetworksVirtualNetworkGatewayVirtualNetworkGatewayId')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "564feb30-bf6a-4854-b4bb-0d2d2d1e6c66",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/564feb30-bf6a-4854-b4bb-0d2d2d1e6c66",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Web Application Firewall (WAF) should be enabled for Application Gateway"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "12430be1-6cc8-4527-a9a8-e3d38f250096",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/12430be1-6cc8-4527-a9a8-e3d38f250096",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Web Application Firewall (WAF) should use the specified mode for Application Gateway"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "modeRequirement": {
+            "value": "Detection"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "425bea59-a659-4cbb-8d31-34499bd030b8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/425bea59-a659-4cbb-8d31-34499bd030b8",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Web Application Firewall (WAF) should use the specified mode for Azure Front Door Service"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "modeRequirement": {
+            "value": "Detection"
+          }
+        }
+      }
+    ]
+  }
+}

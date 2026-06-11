@@ -1,0 +1,79 @@
+{
+  "name": "company-compute-professional-compute",
+  "properties": {
+    "displayName": "Company Compute Professional — Compute",
+    "description": "**Professional** — Active security posture for Compute: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Compute",
+      "domain": "Compute",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.11",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureManagedDisksDisablePublicNetworkLocation": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Location",
+          "strongType": "location",
+          "description": "All disks in this region are validated and disk access resource would be associated with them."
+        }
+      },
+      "configureManagedDisksDisablePublicNetworkDiskAccessId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resource Id for the DiskAccess in the given location to which the disk resource needs to be linked",
+          "strongType": "Microsoft.Compute/diskAccesses",
+          "description": "Disk access resources enable exporting managed disks securely via private endpoints. Learn more at: https://aka.ms/disksprivatelinksdoc"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "8426280e-b5be-43d9-979e-653d12a08638",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8426280e-b5be-43d9-979e-653d12a08638",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure managed disks to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          },
+          "location": {
+            "value": "[parameters('configureManagedDisksDisablePublicNetworkLocation')]"
+          },
+          "diskAccessId": {
+            "value": "[parameters('configureManagedDisksDisablePublicNetworkDiskAccessId')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8405fdab-1faf-48aa-b702-999c9c172094",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8405fdab-1faf-48aa-b702-999c9c172094",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Managed disks should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

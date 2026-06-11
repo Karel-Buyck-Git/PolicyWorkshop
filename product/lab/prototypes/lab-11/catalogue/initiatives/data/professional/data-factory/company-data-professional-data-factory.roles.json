@@ -1,0 +1,12 @@
+{
+  "name": "company-data-professional-data-factory",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/673868aa-7521-48a0-acc6-0f60742d39f5"
+  ],
+  "byPolicy": {
+    "08b1442b-7789-4130-8506-4f99a97226a7": [
+      "/providers/microsoft.authorization/roleDefinitions/673868aa-7521-48a0-acc6-0f60742d39f5"
+    ]
+  }
+}
