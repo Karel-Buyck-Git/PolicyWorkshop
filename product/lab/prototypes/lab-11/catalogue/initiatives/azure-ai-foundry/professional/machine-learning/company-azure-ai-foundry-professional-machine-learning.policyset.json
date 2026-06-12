@@ -1,0 +1,162 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-azure-ai-foundry-professional-machine-learning",
+  "properties": {
+    "displayName": "Company Azure AI Foundry Professional — Machine Learning",
+    "description": "**Professional** — Active security posture for Machine Learning: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Machine Learning",
+      "domain": "Azure AI Foundry",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.12",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAzureMachineLearningWorkspacePrivatePrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone id",
+          "description": "A private DNS zone id to connect to the private endpoint.",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "configureAzureMachineLearningWorkspacesPrivatePrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "6ddb1705-c8cf-450e-aa4b-19ad6703c440",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6ddb1705-c8cf-450e-aa4b-19ad6703c440",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Machine Learning and Ai Studio should use Allow Only Approved Outbound Managed Vnet mode"
+        },
+        "parameters": {
+          "isolationMode": {
+            "value": "Disabled"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7804b5c7-01dc-4723-969b-ae300cc07ff1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7804b5c7-01dc-4723-969b-ae300cc07ff1",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Machine Learning Computes should be in a virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "438c38d2-3772-465a-a9cc-7a6666a275ce",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/438c38d2-3772-465a-a9cc-7a6666a275ce",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Machine Learning Workspaces should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "45e05259-1eb5-4f70-9574-baf73e9d219b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/45e05259-1eb5-4f70-9574-baf73e9d219b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Machine Learning workspaces should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ee40564d-486e-4f68-a5ca-7a621edae0fb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ee40564d-486e-4f68-a5ca-7a621edae0fb",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Machine Learning workspace to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureMachineLearningWorkspacePrivatePrivateDnsZoneId')]"
+          },
+          "secondPrivateDnsZoneId": {
+            "value": ""
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a10ee784-7409-4941-b091-663697637c0f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a10ee784-7409-4941-b091-663697637c0f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Machine Learning Workspaces to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7838fd83-5cbb-4b5d-888c-bfa240972597",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7838fd83-5cbb-4b5d-888c-bfa240972597",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Machine Learning workspaces with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureMachineLearningWorkspacesPrivatePrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

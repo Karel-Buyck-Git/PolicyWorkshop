@@ -1,0 +1,30 @@
+{
+  "name": "company-management-professional-azure-arc",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/34e09817-6cbe-4d01-b1a2-e0eac5743d41",
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/Microsoft.Authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302",
+    "/providers/microsoft.authorization/roleDefinitions/34e09817-6cbe-4d01-b1a2-e0eac5743d41",
+    "/providers/microsoft.authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302"
+  ],
+  "byPolicy": {
+    "de0bc8ea-76e2-4fe2-a288-a07556d0e9c4": [
+      "/providers/microsoft.authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302"
+    ],
+    "55c4db33-97b0-437b-8469-c4f4498f5df9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "d6eeba80-df61-4de5-8772-bc1b7852ba6b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+      "/providers/Microsoft.Authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302",
+      "/providers/Microsoft.Authorization/roleDefinitions/34e09817-6cbe-4d01-b1a2-e0eac5743d41"
+    ],
+    "4002015b-1272-4dfb-8943-fed4aeec39b6": [
+      "/providers/microsoft.authorization/roleDefinitions/34e09817-6cbe-4d01-b1a2-e0eac5743d41"
+    ],
+    "a3461c8c-6c9d-4e42-a644-40ba8a1abf49": [
+      "/providers/microsoft.authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302"
+    ]
+  }
+}

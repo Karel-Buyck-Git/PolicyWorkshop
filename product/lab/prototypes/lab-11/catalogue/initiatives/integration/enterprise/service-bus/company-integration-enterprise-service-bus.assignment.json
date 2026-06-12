@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/integration/enterprise/service-bus/",
+  "assignment": {
+    "name": "company-integration-enterprise-service-bus",
+    "displayName": "Company Integration Enterprise — Service Bus",
+    "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-integration-enterprise-service-bus",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

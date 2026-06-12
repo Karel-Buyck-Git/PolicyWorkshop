@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/management/professional/azure-arc/",
+  "assignment": {
+    "name": "company-management-professional-azure-arc",
+    "displayName": "Company Management Professional — Azure Arc",
+    "description": "Deployment scaffold for 9 policies. 5 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForGuestConfiguration, configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForHybridResourceProvider, configureAzureArcPrivateLinkScopesPrivateEndpointSubnetId, configureAzureArcEnabledKubernetesClustersPrivateLinkScopeId, configureAzureArcEnabledServersAzurePrivateLinkScopeId. A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-management-professional-azure-arc",
+  "parameters": {
+    "configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForGuestConfiguration": "<REPLACE: configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForGuestConfiguration>",
+    "configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForHybridResourceProvider": "<REPLACE: configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForHybridResourceProvider>",
+    "configureAzureArcPrivateLinkScopesPrivateEndpointSubnetId": "<REPLACE: configureAzureArcPrivateLinkScopesPrivateEndpointSubnetId>",
+    "configureAzureArcEnabledKubernetesClustersPrivateLinkScopeId": "<REPLACE: configureAzureArcEnabledKubernetesClustersPrivateLinkScopeId>",
+    "configureAzureArcEnabledServersAzurePrivateLinkScopeId": "<REPLACE: configureAzureArcEnabledServersAzurePrivateLinkScopeId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

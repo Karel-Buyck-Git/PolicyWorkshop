@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/undefined/enterprise/internet-of-things/",
+  "assignment": {
+    "name": "company-undefined-enterprise-internet-of-things",
+    "displayName": "Company undefined Enterprise — Internet of Things",
+    "description": "Deployment scaffold for 4 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-enterprise-internet-of-things",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

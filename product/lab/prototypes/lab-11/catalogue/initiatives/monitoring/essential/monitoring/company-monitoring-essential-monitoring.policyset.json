@@ -1,0 +1,1643 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-monitoring-essential-monitoring",
+  "properties": {
+    "displayName": "Company Monitoring Essential — Monitoring",
+    "description": "**Essential** — Baseline hygiene for Monitoring: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials, TLS / HTTPS enforcement preventing in-transit interception, and encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Monitoring",
+      "domain": "Monitoring",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.12",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074",
+        "/providers/Microsoft.Authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302",
+        "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+        "/providers/microsoft.authorization/roleDefinitions/9980e02c-c2be-4d73-94e8-173b1dc7cf3c",
+        "/providers/microsoft.authorization/roleDefinitions/e40ec5ca-96e0-45a2-b4ff-59039f2c2b59",
+        "/providers/microsoft.authorization/roleDefinitions/f1a07417-d97a-45cb-824c-7a7467783830"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "activityLogAlertExistSpecificAdministrativeOperationName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Operation Name",
+          "description": "Administrative Operation name for which activity log alert should be configured"
+        },
+        "allowedValues": [
+          "Microsoft.Sql/servers/firewallRules/write",
+          "Microsoft.Sql/servers/firewallRules/delete",
+          "Microsoft.Network/networkSecurityGroups/write",
+          "Microsoft.Network/networkSecurityGroups/delete",
+          "Microsoft.ClassicNetwork/networkSecurityGroups/write",
+          "Microsoft.ClassicNetwork/networkSecurityGroups/delete",
+          "Microsoft.Network/networkSecurityGroups/securityRules/write",
+          "Microsoft.Network/networkSecurityGroups/securityRules/delete",
+          "Microsoft.ClassicNetwork/networkSecurityGroups/securityRules/write",
+          "Microsoft.ClassicNetwork/networkSecurityGroups/securityRules/delete"
+        ]
+      },
+      "activityLogAlertExistSpecificPolicyOperationName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Operation Name",
+          "description": "Policy Operation name for which activity log alert should exist"
+        },
+        "allowedValues": [
+          "Microsoft.Authorization/policyAssignments/write",
+          "Microsoft.Authorization/policyAssignments/delete"
+        ]
+      },
+      "activityLogAlertExistSpecificSecurityOperationName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Operation Name",
+          "description": "Security Operation name for which activity log alert should exist"
+        },
+        "allowedValues": [
+          "Microsoft.Security/policies/write",
+          "Microsoft.Security/securitySolutions/write",
+          "Microsoft.Security/securitySolutions/delete"
+        ]
+      },
+      "configureLinuxArcMachinesAssociatedDataDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureLinuxMachinesAssociatedDataCollectionDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureLinuxVirtualMachineScaleSetsDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureLinuxVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity": {
+        "type": "Boolean",
+        "metadata": {
+          "displayName": "Bring Your Own User-Assigned Managed Identity",
+          "description": "If set to true, Azure Monitor Agent will use the user-assigned managed identity specified via the 'User-Assigned Managed Identity ...' parameters for authentication. Otherwise, Azure Monitor Agent will use the user-assigned managed identity /subscriptions/<subscription-id>/resourceGroups/built-in-identity-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/built-in-identity-<location> for authentication."
+        },
+        "allowedValues": [
+          false,
+          true
+        ]
+      },
+      "configureLinuxVirtualMachinesAssociatedDataDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureLinuxVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity": {
+        "type": "Boolean",
+        "metadata": {
+          "displayName": "Bring Your Own User-Assigned Managed Identity",
+          "description": "If set to true, Azure Monitor Agent will use the user-assigned managed identity specified via the 'User-Assigned Managed Identity ...' parameters for authentication. Otherwise, Azure Monitor Agent will use the user-assigned managed identity /subscriptions/<subscription-id>/resourceGroups/built-in-identity-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/built-in-identity-<location> for authentication."
+        },
+        "allowedValues": [
+          false,
+          true
+        ]
+      },
+      "configureWindowsArcMachinesAssociatedDataDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureWindowsMachinesAssociatedDataCollectionDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureWindowsVirtualMachineScaleSetsDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureWindowsVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity": {
+        "type": "Boolean",
+        "metadata": {
+          "displayName": "Bring Your Own User-Assigned Managed Identity",
+          "description": "If set to true, Azure Monitor Agent will use the user-assigned managed identity specified via the 'User-Assigned Managed Identity ...' parameters for authentication. Otherwise, Azure Monitor Agent will use the user-assigned managed identity /subscriptions/<subscription-id>/resourceGroups/built-in-identity-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/built-in-identity-<location> for authentication."
+        },
+        "allowedValues": [
+          false,
+          true
+        ]
+      },
+      "configureWindowsVirtualMachinesAssociatedDataDcrResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Rule Resource Id or Data Collection Endpoint Resource Id",
+          "description": "Resource Id of the Data Collection Rule or the Data Collection Endpoint to be applied on the Linux machines in scope.",
+          "portalReview": "true",
+          "assignPermissions": true
+        }
+      },
+      "configureWindowsVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity": {
+        "type": "Boolean",
+        "metadata": {
+          "displayName": "Bring Your Own User-Assigned Managed Identity",
+          "description": "If set to true, Azure Monitor Agent will use the user-assigned managed identity specified via the 'User-Assigned Managed Identity ...' parameters for authentication. Otherwise, Azure Monitor Agent will use the user-assigned managed identity /subscriptions/<subscription-id>/resourceGroups/built-in-identity-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/built-in-identity-<location> for authentication."
+        },
+        "allowedValues": [
+          false,
+          true
+        ]
+      },
+      "dataCollectionRulesTargetSpecificWorkspaceWorkspaceResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Log Analytics Workspace resource ID",
+          "description": "The Workspace resource ID formatted as a resource path"
+        }
+      },
+      "dataCollectionRulesTargetSpecificWorkspaceDceResourceId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Data Collection Endpoint resource ID",
+          "description": "The resource ID of the DCE associated with the workspace (System DCE) formatted as a resource path"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "b02aacc0-b073-424e-8298-42b22829ee0a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b02aacc0-b073-424e-8298-42b22829ee0a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Activity log should be retained for at least one year"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b954148f-4c11-4c38-8221-be76711e194a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b954148f-4c11-4c38-8221-be76711e194a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "An activity log alert should exist for specific Administrative operations"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "operationName": {
+            "value": "[parameters('activityLogAlertExistSpecificAdministrativeOperationName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c5447c04-a4d7-4ba8-a263-c9ee321a6858",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c5447c04-a4d7-4ba8-a263-c9ee321a6858",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "An activity log alert should exist for specific Policy operations"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "operationName": {
+            "value": "[parameters('activityLogAlertExistSpecificPolicyOperationName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3b980d31-7904-4bb7-8575-5665739a8052",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3b980d31-7904-4bb7-8575-5665739a8052",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "An activity log alert should exist for specific Security operations"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "operationName": {
+            "value": "[parameters('activityLogAlertExistSpecificSecurityOperationName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1bc02227-0cb6-4e11-8f53-eb0b22eab7e8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1bc02227-0cb6-4e11-8f53-eb0b22eab7e8",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Application Insights components should block log ingestion and querying from public networks"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "199d5677-e4d9-4264-9465-efe1839c06bd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/199d5677-e4d9-4264-9465-efe1839c06bd",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Application Insights components should block non-Azure Active Directory based ingestion."
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1a4e592a-6a6e-44a5-9814-e36264ca96e7",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1a4e592a-6a6e-44a5-9814-e36264ca96e7",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Monitor log profile should collect logs for categories 'write,' 'delete,' and 'action'"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ea0dfaed-95fb-448c-934e-d6e713ce393d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea0dfaed-95fb-448c-934e-d6e713ce393d",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Monitor Logs clusters should be created with infrastructure-encryption enabled (double encryption)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3e596b57-105f-48a6-be97-03e9243bad6e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3e596b57-105f-48a6-be97-03e9243bad6e",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Monitor solution 'Security and Audit' must be deployed"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d5c37ce1-5f52-4523-b949-f19bf945b73a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d5c37ce1-5f52-4523-b949-f19bf945b73a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux Arc Machines to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureLinuxArcMachinesAssociatedDataDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "845857af-0333-4c5d-bbbc-6076697da122",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/845857af-0333-4c5d-bbbc-6076697da122",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux Arc-enabled machines to run Azure Monitor Agent"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2ea82cdd-f2e8-4500-af75-67a2e084ca74",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2ea82cdd-f2e8-4500-af75-67a2e084ca74",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux Machines to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureLinuxMachinesAssociatedDataCollectionDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "050a90d5-7cce-483f-8f6c-0df462036dda",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/050a90d5-7cce-483f-8f6c-0df462036dda",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux Virtual Machine Scale Sets to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureLinuxVirtualMachineScaleSetsDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "56a3e4f8-649b-4fac-887e-5564d11e8d3a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/56a3e4f8-649b-4fac-887e-5564d11e8d3a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux virtual machine scale sets to run Azure Monitor Agent with system-assigned managed identity-based authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "59c3d93f-900b-4827-a8bd-562e7b956e7c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/59c3d93f-900b-4827-a8bd-562e7b956e7c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux virtual machine scale sets to run Azure Monitor Agent with user-assigned managed identity-based authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "bringYourOwnUserAssignedManagedIdentity": {
+            "value": "[parameters('configureLinuxVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity')]"
+          },
+          "restrictBringYourOwnUserAssignedIdentityToSubscription": {
+            "value": true
+          },
+          "userAssignedIdentityResourceId": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityName": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityResourceGroup": {
+            "value": ""
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "58e891b9-ce13-4ac3-86e4-ac3e1f20cb07",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/58e891b9-ce13-4ac3-86e4-ac3e1f20cb07",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux Virtual Machines to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureLinuxVirtualMachinesAssociatedDataDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a4034bc6-ae50-406d-bf76-50f4ee5a7811",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a4034bc6-ae50-406d-bf76-50f4ee5a7811",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux virtual machines to run Azure Monitor Agent with system-assigned managed identity-based authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ae8a10e6-19d6-44a3-a02d-a2bdfc707742",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae8a10e6-19d6-44a3-a02d-a2bdfc707742",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Linux virtual machines to run Azure Monitor Agent with user-assigned managed identity-based authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "bringYourOwnUserAssignedManagedIdentity": {
+            "value": "[parameters('configureLinuxVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity')]"
+          },
+          "restrictBringYourOwnUserAssignedIdentityToSubscription": {
+            "value": true
+          },
+          "userAssignedIdentityResourceId": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityName": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityResourceGroup": {
+            "value": ""
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfLinuxImageIdToInclude": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "98903777-a9f6-47f5-90a9-acaf62ab01a8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/98903777-a9f6-47f5-90a9-acaf62ab01a8",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure subscriptions to enable service health alert monitoring rule"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "enableAlertRule": {
+            "value": "true"
+          },
+          "alertRuleName": {
+            "value": "ServiceHealthSubscriptionAlertRule"
+          },
+          "eventTypes": {
+            "value": [
+              "Service Issues",
+              "Planned Maintenance",
+              "Health Advisories",
+              "Security Advisories"
+            ]
+          },
+          "customProperties": {
+            "value": {}
+          },
+          "actionGroups": {
+            "value": []
+          },
+          "createNewActionGroup": {
+            "value": "true"
+          },
+          "newActionGroupName": {
+            "value": "ag-ServiceHealthAlertActionGroup"
+          },
+          "actionGroupRoleIds": {
+            "value": [
+              "Owner"
+            ]
+          },
+          "actionGroupResources": {
+            "value": {
+              "actionGroupEmail": [],
+              "logicappResourceId": "",
+              "logicappCallbackUrl": "",
+              "eventHubResourceId": [],
+              "webhookServiceUri": [],
+              "functionResourceId": "",
+              "functionTriggerUrl": ""
+            }
+          },
+          "resourceGroupName": {
+            "value": "rg-serviceHealthAlert"
+          },
+          "resourceGroupLocation": {
+            "value": "centralus"
+          },
+          "additionalTags": {
+            "value": {
+              "_created_by_policy": true
+            }
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "17b3de92-f710-4cf4-aa55-0e7859f1ed7b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/17b3de92-f710-4cf4-aa55-0e7859f1ed7b",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure system-assigned managed identity to enable Azure Monitor assignments on VMs"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          },
+          "listOfImageIdToInclude": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c24c537f-2516-4c2f-aac5-2cd26baa3d26",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c24c537f-2516-4c2f-aac5-2cd26baa3d26",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows Arc Machines to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureWindowsArcMachinesAssociatedDataDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "94f686d6-9a24-4e19-91f1-de937dc171a4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/94f686d6-9a24-4e19-91f1-de937dc171a4",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows Arc-enabled machines to run Azure Monitor Agent"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "eab1f514-22e3-42e3-9a1f-e1dc9199355c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/eab1f514-22e3-42e3-9a1f-e1dc9199355c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows Machines to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureWindowsMachinesAssociatedDataCollectionDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0a3b9bf4-d30e-424a-af6b-9a93f6f78792",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0a3b9bf4-d30e-424a-af6b-9a93f6f78792",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows Virtual Machine Scale Sets to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureWindowsVirtualMachineScaleSetsDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4efbd9d8-6bc6-45f6-9be2-7fe9dd5d89ff",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4efbd9d8-6bc6-45f6-9be2-7fe9dd5d89ff",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows virtual machine scale sets to run Azure Monitor Agent using system-assigned managed identity"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "98569e20-8f32-4f31-bf34-0e91590ae9d3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/98569e20-8f32-4f31-bf34-0e91590ae9d3",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows virtual machine scale sets to run Azure Monitor Agent with user-assigned managed identity-based authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "bringYourOwnUserAssignedManagedIdentity": {
+            "value": "[parameters('configureWindowsVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity')]"
+          },
+          "restrictBringYourOwnUserAssignedIdentityToSubscription": {
+            "value": true
+          },
+          "userAssignedIdentityResourceId": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityName": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityResourceGroup": {
+            "value": ""
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chinaeast",
+              "chinaeast2",
+              "chinaeast3",
+              "chinanorth",
+              "chinanorth2",
+              "chinanorth3",
+              "usgovarizona",
+              "usgovtexas",
+              "usgovvirginia",
+              "usdodeast",
+              "usdodcentral",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "244efd75-0d92-453c-b9a3-7d73ca36ed52",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/244efd75-0d92-453c-b9a3-7d73ca36ed52",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows Virtual Machines to be associated with a Data Collection Rule or a Data Collection Endpoint"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "dcrResourceId": {
+            "value": "[parameters('configureWindowsVirtualMachinesAssociatedDataDcrResourceId')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.Insights/dataCollectionRules"
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ca817e41-e85a-4783-bc7f-dc532d36235e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ca817e41-e85a-4783-bc7f-dc532d36235e",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows virtual machines to run Azure Monitor Agent using system-assigned managed identity"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus",
+              "eastus2",
+              "eastus2euap",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "637125fd-7c39-4b94-bb0a-d331faf333a9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/637125fd-7c39-4b94-bb0a-d331faf333a9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Windows virtual machines to run Azure Monitor Agent with user-assigned managed identity-based authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "bringYourOwnUserAssignedManagedIdentity": {
+            "value": "[parameters('configureWindowsVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity')]"
+          },
+          "restrictBringYourOwnUserAssignedIdentityToSubscription": {
+            "value": true
+          },
+          "userAssignedIdentityResourceId": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityName": {
+            "value": ""
+          },
+          "userAssignedManagedIdentityResourceGroup": {
+            "value": ""
+          },
+          "scopeToSupportedImages": {
+            "value": true
+          },
+          "listOfWindowsImageIdToInclude": {
+            "value": []
+          },
+          "listOfApplicableLocations": {
+            "value": [
+              "australiacentral",
+              "australiacentral2",
+              "australiaeast",
+              "australiasoutheast",
+              "brazilsouth",
+              "brazilsoutheast",
+              "canadacentral",
+              "canadaeast",
+              "centralindia",
+              "centralus",
+              "centraluseuap",
+              "eastasia",
+              "eastus2euap",
+              "eastus",
+              "eastus2",
+              "francecentral",
+              "francesouth",
+              "germanynorth",
+              "germanywestcentral",
+              "israelcentral",
+              "italynorth",
+              "japaneast",
+              "japanwest",
+              "jioindiacentral",
+              "jioindiawest",
+              "koreacentral",
+              "koreasouth",
+              "malaysiasouth",
+              "mexicocentral",
+              "northcentralus",
+              "northeurope",
+              "norwayeast",
+              "norwaywest",
+              "polandcentral",
+              "qatarcentral",
+              "southafricanorth",
+              "southafricawest",
+              "southcentralus",
+              "southeastasia",
+              "southindia",
+              "spaincentral",
+              "swedencentral",
+              "swedensouth",
+              "switzerlandnorth",
+              "switzerlandwest",
+              "taiwannorth",
+              "taiwannorthwest",
+              "uaecentral",
+              "uaenorth",
+              "uksouth",
+              "ukwest",
+              "westcentralus",
+              "westeurope",
+              "westindia",
+              "westus",
+              "westus2",
+              "westus3",
+              "chinaeast",
+              "chinaeast2",
+              "chinaeast3",
+              "chinanorth",
+              "chinanorth2",
+              "chinanorth3",
+              "usgovarizona",
+              "usgovtexas",
+              "usgovvirginia",
+              "usdodeast",
+              "usdodcentral",
+              "chilecentral",
+              "newzealandnorth"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1a94e687-23be-4c29-87a9-92c9cabae28f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1a94e687-23be-4c29-87a9-92c9cabae28f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Data Collection Rules that target a specific workspace should use the specified Data Collection Endpoint"
+        },
+        "parameters": {
+          "WorkspaceResourceId": {
+            "value": "[parameters('dataCollectionRulesTargetSpecificWorkspaceWorkspaceResourceId')]"
+          },
+          "DceResourceId": {
+            "value": "[parameters('dataCollectionRulesTargetSpecificWorkspaceDceResourceId')]"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "04c4380f-3fae-46e8-96c9-30193528f602",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/04c4380f-3fae-46e8-96c9-30193528f602",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Network traffic data collection agent should be installed on Linux virtual machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2f2ee1de-44aa-4762-b6bd-0893fc3f306d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2f2ee1de-44aa-4762-b6bd-0893fc3f306d",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Network traffic data collection agent should be installed on Windows virtual machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "bd58d393-162c-4134-bcd6-a6a5484a37a1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bd58d393-162c-4134-bcd6-a6a5484a37a1",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "The legacy Log Analytics extension should not be installed on Azure Arc enabled Linux servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "df441472-4dae-4e4e-87b9-9205ba46be16",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/df441472-4dae-4e4e-87b9-9205ba46be16",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "The legacy Log Analytics extension should not be installed on Azure Arc enabled Windows servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "383c45fa-8b64-4d1c-aa9f-e69d2d879aa4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/383c45fa-8b64-4d1c-aa9f-e69d2d879aa4",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "The legacy Log Analytics extension should not be installed on Linux virtual machine scale sets"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d4b065e2-fbda-4461-a42c-b0346aeb12a0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d4b065e2-fbda-4461-a42c-b0346aeb12a0",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "The legacy Log Analytics extension should not be installed on Linux virtual machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ba6881f9-ab93-498b-8bad-bb91b1d755bf",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ba6881f9-ab93-498b-8bad-bb91b1d755bf",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "The legacy Log Analytics extension should not be installed on virtual machine scale sets"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d2185817-5b7e-473c-aadd-9de6ac114280",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d2185817-5b7e-473c-aadd-9de6ac114280",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "The legacy Log Analytics extension should not be installed on virtual machines"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6fc8115b-2008-441f-8c61-9b722c1e537f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6fc8115b-2008-441f-8c61-9b722c1e537f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Workbooks should be saved to storage accounts that you control"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

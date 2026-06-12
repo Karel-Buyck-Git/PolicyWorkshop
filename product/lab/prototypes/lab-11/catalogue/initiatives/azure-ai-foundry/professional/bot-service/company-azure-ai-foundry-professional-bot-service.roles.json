@@ -1,0 +1,15 @@
+{
+  "name": "company-azure-ai-foundry-professional-bot-service",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+  ],
+  "byPolicy": {
+    "6a4e6f44-f2af-4082-9702-033c9e88b9f8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "29261f8e-efdb-4255-95b8-8215414515d6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ]
+  }
+}

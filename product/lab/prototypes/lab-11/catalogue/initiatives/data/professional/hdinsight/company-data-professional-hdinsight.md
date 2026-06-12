@@ -1,0 +1,27 @@
+# Company Data Professional — HDInsight
+
+## Tier rationale
+
+**Professional** — Active security posture for HDInsight: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).
+
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-data-professional-hdinsight.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-data-professional-hdinsight.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-data-professional-hdinsight.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-data-professional-hdinsight.roles.json` | role assignments (lab helper) | Present for this group. Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure HDInsight clusters should be injected into a virtual network | b0ab5b05-1c98-40f7-bb9e-dc568e41b501 |  | Injecting Azure HDInsight clusters in a virtual network unlocks advanced HDInsight networking and security features and provides you with control over your network security configuration. | No | No | Audit, Disabled, Deny | Audit | Audit | Deny | HDInsight | Data | 1.0.0 | BuiltIn | Professional |
+| 2 | Azure HDInsight should use private link | c8cc2f85-e019-4065-9fa3-5e6a2b2dde56 |  | Azure Private Link lets you connect your virtual networks to Azure services without a public IP address at the source or destination. The Private Link platform handles the connectivity between the consumer and services over the Azure backbone network. By mapping private endpoints to Azure HDInsight clusters, you can reduce data leakage risks. Learn more about private links at: https://aka.ms/hdi.pl. | No | No | AuditIfNotExists, Disabled | AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | HDInsight | Data | 1.0.0 | BuiltIn | Professional |
+| 3 | Configure Azure HDInsight clusters to use private DNS zones | 43d6e3bd-fc6a-4b44-8b4d-2151d8736a11 |  | Use private DNS zones to override the DNS resolution for a private endpoint. A private DNS zone links to your virtual network to resolve to Azure HDInsight clusters. Learn more at: https://aka.ms/hdi.pl. | Yes | Yes | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | HDInsight | Data | 1.0.0 | BuiltIn | Professional |
+| 4 | Configure Azure HDInsight clusters with private endpoints | 2676090a-4baf-46ac-9085-4ac02cc50e3e |  | Private endpoints connect your virtual networks to Azure services without a public IP address at the source or destination. By mapping private endpoints to Azure HDInsight clusters, you can reduce data leakage risks. Learn more about private links at: https://aka.ms/hdi.pl. | Yes | Yes | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | HDInsight | Data | 1.0.0 | BuiltIn | Professional |

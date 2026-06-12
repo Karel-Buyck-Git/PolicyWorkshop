@@ -36,7 +36,6 @@
 # enterprise > professional > essential order), name or category alike.
 
 tiers:
-
   # ── Enterprise ── zero-trust + regulatory: needs infrastructure investment or
   # maps directly to a compliance framework. (Checked first, so a policy that is
   # both e.g. "encrypted" and uses a "customer-managed key" lands here.)
@@ -63,20 +62,31 @@ tiers:
     # observability / audit (moved here from Professional)
     - auditing should be enabled
     - audit ... should be enabled
+    - auditing to
     - should have ... audit*
     - diagnostic logs ... should be enabled
     - log ... should be enabled
     - logging should be enabled
-    - should ... monitor*
+    - Log Analytics agent should be installed
+    # "should be monitored" / "should monitor" — verb form only. The old
+    # "should ... monitor*" gap also matched the product name "Azure Monitor"
+    # (e.g. "...should block access... Azure Monitor Private Link Scope"),
+    # over-promoting private-link policies; the tightened forms below don't.
+    - should be monitor*
+    - should monitor*
+    - collect activity logs
     - compliance scan*
     # zone resiliency / 99.99% SLA
     - zone-redundan*
-    - zoneredundant      # concatenated spelling (no separator) used by some SKUs
+    - zoneredundant # concatenated spelling (no separator) used by some SKUs
     - zone resilien*
     - availability zone*
     - regional outage*
     - zone outage*
-    - geo-redundan*      # moved here from Essential
+    - geo-redundan* # moved here from Essential
+    - Geo-redundant backup
+    - geo-redundant backup
+    - geo-redundant storage
     # confidential compute / attestation
     - confidential comput*
     - trusted launch
@@ -85,7 +95,13 @@ tiers:
     # sovereignty + named regulatory frameworks
     - sovereignty
     - data residency
-    - regulatory
+    # "regulatory framework/compliance" only — the bare word "regulatory"
+    # appeared in boilerplate ("meet regulatory, legal, or organizational
+    # policy requirements") and over-promoted network-hardening policies. The
+    # regulatory-compliance category is still pinned to Enterprise via the
+    # category_only override below, so no compliance rows are lost.
+    - regulatory framework*
+    - regulatory compliance
     - nis2
     - iso 27001
     - cis benchmark
@@ -116,18 +132,28 @@ tiers:
     - web application firewall
     - waf
     - cors
+    - should restrict network access
+    # cluster control-plane network hardening: restrict the API server's public
+    # exposure. "private cluster*" generalises the AKS "Private Clusters should
+    # be enabled" policy (and any future private-cluster variant); "authorized
+    # ip*" catches its sibling "Authorized IP ranges should be defined on
+    # Kubernetes Services", which otherwise falls through to Essential.
+    - private cluster*
+    - authorized ip*
     # private connectivity (moved here from Enterprise). Stemmed so the plural
     # "private endpoints" is caught too — the removed name_only override used to
     # cover that form.
     - private endpoint*
     - private link
     - private dns zone*
+    - should use private link
+    - delivers private endpoints and private link
     # privileged + external identity governance
     - privileged identity management
     - pim
     - just-in-time
     - jit
-    - external account*   # Defender "external/guest accounts should be removed"
+    - external account* # Defender "external/guest accounts should be removed"
     # remediation
     - remediat*
 
