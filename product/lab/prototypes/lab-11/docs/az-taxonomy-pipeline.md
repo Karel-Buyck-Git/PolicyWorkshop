@@ -26,7 +26,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 │   (keep highest ver) │   docs\azure-domain-hierachy.md  (Category→Domain) │
 │ • first-pass Tier    │                   │                                 │
 │   (keyword classify) │                   │                                 │
-│ 4455 → 3242 policies │                   │                                 │
+│ 4455 → 3284 policies │                   │                                 │
 └──────────┬──────────┘                    │                                 │
            ▼                               │                                 │
    ┌───────────────────────┐               │                                 │
@@ -39,8 +39,8 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 │   PHASE 2 — ENRICH       │                                                 │
 │   enrich_policies.py     │                                                 │
 ├─────────────────────────┤                                                 │
-│ • re-validate Tier with  │     ← 1676 tier corrections                     │
-│   refined rules          │                                                 │
+│ • re-validate Tier with  │     ← rules: tier-rules.yaml                    │
+│   shared engine          │                                                 │
 │ • derive Domain          │                                                 │
 │ • add "## Tier rationale"│                                                 │
 │ • sort by (tier, name)   │                                                 │
@@ -60,7 +60,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 │ • build param index from the repo              │   (param values + schema)
 │ • parse table + rationale                      │
 │ • group rows by (Domain, Tier, Category)       │   tiers EXCLUSIVE
-│   → 194 groups                                 │
+│   → 189 groups                                 │
 │ • emit 4 artifacts per group                   │
 └──────────────────────────┬───────────────────┘
                            ▼
@@ -73,7 +73,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
     │                   managedIdentity only if Modify/DINE        │
     │  .exemptions.json EPAC Waiver stub                           │
     └─────────────────────────────────────────────────────────────┘
-              194 groups × 4  =  776 files
+              189 groups  →  870 files  (≈4–5 each)
 ```
 
 ## Two sources, joined on Policy ID
@@ -88,11 +88,11 @@ repo supplies _the deployable parameter values_.
 
 ## What each phase produces
 
-| Stage               | In → Out                                                               |
-| ------------------- | ---------------------------------------------------------------------- |
-| **Phase 1** extract | 5009 JSON → 4455 active → **3242** deduped → 94 category `policies.md` |
-| **Phase 2** enrich  | 3242 rows, **1676** re-tiered, `## Tier rationale` added in place      |
-| **Phase 3** build   | 3242 rows → **194** (domain × tier × category) groups → **776** files  |
+| Stage               | In → Out                                                                  |
+| ------------------- | ------------------------------------------------------------------------- |
+| **Phase 1** extract | 5009 JSON → active → deduped → **3284** rows in **95** category `policies.md` |
+| **Phase 2** enrich  | 3284 rows, Tier re-applied (same engine as Phase 1 ⇒ ~0 changes), `## Tier rationale` added in place |
+| **Phase 3** build   | 3284 rows → **189** (domain × tier × category) groups → **870** files      |
 
 ## Tiers (exclusive)
 
@@ -100,11 +100,18 @@ Each policy lands in exactly one tier. The cumulative commercial story
 (Professional ⊇ Essential, Enterprise ⊇ Professional) is carried in the rationale text,
 not by duplicating policies across files.
 
-| Tier             | Theme                                                                            |
-| ---------------- | -------------------------------------------------------------------------------- |
-| **Essential**    | Secure baseline — identity, encryption, key hygiene, backup, tagging             |
-| **Professional** | Security posture & ops — network hardening, Defender, auditing, remediation      |
-| **Enterprise**   | Zero trust & regulatory — private link, diagnostics, zone redundancy, frameworks |
+| Tier             | Theme                                                                              |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| **Essential**    | Secure baseline — identity, encryption, key hygiene, backup, tagging               |
+| **Professional** | Security posture & ops — network hardening, Defender, private connectivity, remediation |
+| **Enterprise**   | Zero trust & regulatory — diagnostics & auditing, CMK, zone/geo redundancy, frameworks |
+
+The exact keyword rules behind these themes are authored in
+[`config/tier-rules.yaml`](../config/tier-rules.yaml) and applied by the shared
+engine [`flows/tiers.py`](../flows/tiers.py); see
+[`config/README.md`](../config/README.md) for the rules, overrides, and the
+priority order. Both Phase 1 and Phase 2 call the same engine, so they always
+agree.
 
 ## Phase 3 EPAC artifacts (per group)
 
