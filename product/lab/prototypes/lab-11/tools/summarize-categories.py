@@ -8,31 +8,42 @@ Usage:
     python summarize-categories.py [--source <folder>] [--md <file>]
 
 Default --source:
-    C:\\GIT\\Karel Buyck Git Azure Policy Workshop\\PolicyWorkshop\\product\\lab\\prototypes\\lab-xx\\output
+    <lab-root>\\catalogue\\definitions   (the enriched taxonomy, via flows/paths.py)
 
 When --md is supplied, a markdown report is written to that path instead of
 printing to stdout.
 """
 
 import argparse
+import re
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+# Share the ONE definition of the catalogue path with the pipeline (flows/paths.py)
+# instead of hardcoding, so a future folder rename is a one-line change there.
+_LAB_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_LAB_ROOT / "flows"))
+from paths import DEFINITIONS_DIR  # noqa: E402
 
-DEFAULT_SOURCE = Path(
-    r"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop"
-    r"\product\lab\prototypes\lab-xx\output"
-)
+DEFAULT_SOURCE = DEFINITIONS_DIR
+
+
+# Cells are pipe-separated; a literal pipe inside a value is escaped as ``\|``
+# (e.g. NIST control titles "… | Cryptographic Protection"). Split only on
+# *unescaped* pipes — mirroring flows/create_initiatives.py — otherwise the
+# columns shift and the Category is read from the wrong cell.
+_CELL_SPLIT_RE = re.compile(r"(?<!\\)\|")
 
 
 def split_row(line: str) -> list[str]:
-    """Split a markdown table row into stripped cells."""
-    parts = line.split("|")
-    if parts and parts[0].strip() == "":
-        parts = parts[1:]
-    if parts and parts[-1].strip() == "":
-        parts = parts[:-1]
-    return [cell.strip() for cell in parts]
+    """Split a markdown table row into stripped cells (honouring ``\\|`` escapes)."""
+    inner = line.strip()
+    if inner.startswith("|"):
+        inner = inner[1:]
+    if inner.endswith("|"):
+        inner = inner[:-1]
+    return [cell.strip().replace("\\|", "|") for cell in _CELL_SPLIT_RE.split(inner)]
 
 
 def is_separator_row(cells: list[str]) -> bool:
