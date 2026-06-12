@@ -18,4 +18,5 @@ CATALOGUE_FILE  = CATALOGUE_DIR / "catalogue.json" # generated: version stamp
 # Authored inputs
 CONFIG_DIR     = LAB_ROOT / "config"
 HIERARCHY_FILE = CONFIG_DIR / "azure-domain-hierachy.md"   # the ONE authored hierarchy
+TIER_RULES_FILE = CONFIG_DIR / "tier-rules.yaml"           # the ONE authored tier ruleset
 DOCS_DIR       = LAB_ROOT / "docs"
