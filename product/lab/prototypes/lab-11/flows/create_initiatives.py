@@ -37,7 +37,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE  # noqa: F401
+from paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE, TIER_RULES_FILE  # noqa: F401
 from hierarchy import load_domain_map
 DEFAULT_OUTPUT = DEFINITIONS_DIR
 DEFAULT_INITIATIVES = INITIATIVES_DIR
@@ -589,7 +589,7 @@ def write_catalogue_manifests(catalogue_root, records, version, source_dir,
         "inputs": {
             "builtInsRef": _git_ref(source_dir),
             "hierarchyHash": _sha256_file(HIERARCHY_FILE),
-            "tierRulesHash": _sha256_file(flows_dir / "enrich_policies.py"),
+            "tierRulesHash": _sha256_file(TIER_RULES_FILE),
         },
         "counts": {"groups": group_count, "files": file_count},
         "tools": {

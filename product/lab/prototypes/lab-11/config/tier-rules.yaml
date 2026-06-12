@@ -1,0 +1,178 @@
+# tier-rules.yaml — the ONE authored source of policy-tier classification.
+#
+# Parsed by flows/tiers.py (a small built-in subset parser — no PyYAML needed,
+# matching the zero-dependency style of hierarchy.py). Imported by both
+# extract_policies.py (first pass) and enrich_policies.py (final pass), so there
+# is exactly one definition of the tiering rules and no second copy can drift.
+#
+# ── How a policy is classified ───────────────────────────────────────────────
+# A policy's "name + description" text is scanned case-insensitively. Tiers are
+# tried in priority order — enterprise, then professional, then essential — and
+# the FIRST tier with any keyword match wins. No match at all => essential.
+#
+# ── How to write a keyword ───────────────────────────────────────────────────
+# Keywords are plain words/phrases, not regexes. Three small conventions:
+#   • Whole-word match. "vnet" matches "VNet" but not "myvnetwork".
+#   • A space matches whitespace only; a hyphen matches a space OR a hyphen. So
+#     "zone-redundant" matches both "zone redundant" and "zone-redundant", while
+#     "private endpoint" matches only the spaced form — it will NOT fire on the
+#     hyphenated "private-endpoint" that appears inside doc-link URL slugs. Pick
+#     a hyphen when the term is commonly hyphenated; a space otherwise. Neither
+#     matches a fully concatenated word (add "zoneredundant" explicitly for that).
+#   • Trailing "*" = stem/prefix. "encrypt*" matches encrypt, encryption,
+#     encrypted. "remediat*" matches remediate, remediation.
+#   • "..." = an arbitrary gap of text. "audit ... should be enabled" matches
+#     "auditing should be enabled" AND "audit logs should be enabled".
+# Avoid the "#" character inside a keyword (it starts a comment).
+#
+# ── Overrides (applied BEFORE the keyword scan) ──────────────────────────────
+#   • name_only_enterprise — if the policy NAME matches, force Enterprise. This
+#     is the zero-trust private-link rule. It deliberately ignores the
+#     description, so "<X> should disable public network access" stays
+#     Professional even when its description recommends a private endpoint.
+#   • enterprise_only_categories — every policy in these resource categories is
+#     Enterprise regardless of its text (the category exists for a governance
+#     purpose, so per-keyword rules can't fairly tier its rows).
+
+tiers:
+
+  # ── Enterprise ── zero-trust + regulatory: needs infrastructure investment or
+  # maps directly to a compliance framework. (Checked first, so a policy that is
+  # both e.g. "encrypted" and uses a "customer-managed key" lands here.)
+  enterprise:
+    # private connectivity
+    - private endpoint
+    - private link
+    - private dns zone*
+    # customer-controlled cryptography
+    - customer-managed key*
+    - cmk
+    - byok
+    # diagnostic pipeline: a diagnostic setting / resource log, a Log Analytics
+    # workspace, or logs streamed to a downstream sink => Enterprise. Plain
+    # "logging should be enabled" observability stays Professional (below). The
+    # sink keywords are gated behind "stream/send ..." so a bare mention of a
+    # Log Analytics workspace or Event Hub elsewhere does not over-promote.
+    - diagnostic setting*
+    - resource log*
+    - log analytics workspace*
+    - stream ... log analytics
+    - stream ... event hub
+    - stream ... storage account
+    - send ... log analytics
+    - send ... event hub
+    - sentinel
+    # zone resiliency / 99.99% SLA
+    - zone-redundan*
+    - zoneredundant      # concatenated spelling (no separator) used by some SKUs
+    - zone resilien*
+    - availability zone*
+    - regional outage*
+    - zone outage*
+    # confidential compute / attestation
+    - confidential comput*
+    - trusted launch
+    - secure boot
+    - vtpm
+    # sovereignty + named regulatory frameworks
+    - sovereignty
+    - data residency
+    - regulatory
+    - nis2
+    - iso 27001
+    - cis benchmark
+    - nist
+
+  # ── Professional ── active security posture: produces a signal an operations
+  # team must act on (detection, network hardening, privileged access, audit).
+  professional:
+    # threat detection
+    - defender
+    - threat protection
+    - advanced threat
+    - vulnerability
+    - microsoft cloud security benchmark
+    - malware
+    # network hardening
+    - public network access
+    - disable public
+    - public ip
+    - public access
+    - firewall
+    - virtual network
+    - vnet
+    - service endpoint
+    - network security group
+    - nsg
+    - network acl*
+    - web application firewall
+    - waf
+    - cors
+    # privileged + external identity governance
+    - privileged identity management
+    - pim
+    - just-in-time
+    - jit
+    - external account*   # Defender "external/guest accounts should be removed"
+    # observability / audit (signal, not a pipeline)
+    - auditing should be enabled
+    - audit ... should be enabled
+    - should have ... audit*
+    - diagnostic logs ... should be enabled
+    - log ... should be enabled
+    - logging should be enabled
+    - should ... monitor*
+    - compliance scan*
+    # remediation
+    - remediat*
+
+  # ── Essential ── non-negotiable baseline hygiene every deployment should
+  # enforce from day one. Also the fallback tier when nothing matches.
+  essential:
+    # encryption at rest / in transit
+    - encrypt*
+    - infrastructure encryption
+    - double encryption
+    - service-managed key*
+    - tls
+    - https
+    - secure transfer
+    - transport security
+    # identity & access
+    - rbac
+    - role-based access
+    - managed identity
+    - system-assigned identity*
+    - user-assigned identity*
+    - local authentication
+    - lock box
+    - mfa
+    # key & certificate lifecycle
+    - key rotation
+    - key expiration
+    - certificate
+    - expir*
+    # backup & resiliency
+    - backup
+    - soft delete*
+    - purge protection
+    - geo-redundan*
+    - recovery vault*
+    - recovery service*
+    - deletion protection*
+    # tagging / FinOps / governance
+    - tag
+    - tagging
+    - sku
+    - naming
+    - quota
+    # shared-access hygiene
+    - shared access
+    - sas
+
+overrides:
+  name_only_enterprise:
+    - private endpoint*
+    - private link
+  enterprise_only_categories:
+    - regulatory-compliance

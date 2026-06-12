@@ -40,6 +40,7 @@ CONSUMER — assembler (per customer, on demand)  ◄─────────
 | [`create_initiatives.py`](create_initiatives.py) | **Producer step ③** — group + bake + stamp | ✅ yes | — |
 | [`paths.py`](paths.py) | **Shared module** — canonical paths | ✅ (imported) | — |
 | [`hierarchy.py`](hierarchy.py) | **Shared module** — the ONE hierarchy parser | ✅ (imported) | — |
+| [`tiers.py`](tiers.py) | **Shared module** — the ONE tier engine (parses `tier-rules.yaml`) | ✅ (imported) | — |
 | [`ab_verify.py`](ab_verify.py) | **Tool** — A/B regression / diff check | ❌ no | ❌ no |
 | [`catalogue_diff.py`](catalogue_diff.py) | **Tool** — catalogue drift / diff report | ❌ no | ❌ no |
 | `assemble_scaffold.py` | **Consumer (Phase 4)** — *not built yet* | — | ✅ (the consumer) |
@@ -94,17 +95,22 @@ resource category to `catalogue/definitions/<category>/`.
   version (semver-aware, pre-release loses to GA).
 - Looks up each category's **Domain** from the authored hierarchy (via
   [`hierarchy.py`](hierarchy.py)); no match → `undefined`.
-- Assigns a **first-pass Tier** by keyword (corrected in step ②).
+- Assigns a **first-pass Tier** via the shared engine ([`tiers.py`](tiers.py));
+  step ② re-runs the same engine as the authoritative pass.
 - `--jsonl` mode emits a flat extraction instead (no tier, for agent consumption).
 
 ### ② [`enrich_policies.py`](enrich_policies.py)
 **Re-reads** every `policies.md`, **corrects the Tier**, adds a rationale, and
-rewrites the file. This is the canonical Phase 2 mechanism (it encodes the lab
-plan's tier rules and is hashed into `catalogue.json` as `tierRulesHash`).
+rewrites the file. This is the canonical Phase 2 mechanism; the tier rules it
+applies live in the authored [`config/tier-rules.yaml`](../config/tier-rules.yaml)
+(parsed by [`tiers.py`](tiers.py)), which is hashed into `catalogue.json` as
+`tierRulesHash`.
 
-- Refined tier rules: Defender/threat/vulnerability → **Professional**; private
-  endpoint/link → **Enterprise**; zone-redundancy/availability-zone → **Enterprise**;
-  diagnostic-pipeline/CMK/regulatory → **Enterprise**; backup/resiliency → **Essential**.
+- Tier rules (authored in `tier-rules.yaml`): Defender/threat/vulnerability →
+  **Professional**; private endpoint/link → **Enterprise**;
+  zone-redundancy/availability-zone → **Enterprise**;
+  diagnostic-pipeline/CMK/regulatory → **Enterprise**; backup/resiliency →
+  **Essential**. Edit the YAML to change the tiering — no code change needed.
 - Generates a `## Tier rationale` section (theme-aware, per resource), with
   compliance-framework references (NIS2 / ISO 27001 / CIS / NIST).
 - Re-sorts rows by (tier, name). Idempotent: same input ⇒ same output.
@@ -144,6 +150,16 @@ The **one** parser for the authored domain hierarchy
 (`config/azure-domain-hierachy.md`). Exposes `load_domain_map()` (`{category: domain}`)
 and `load_hierarchy()` (`{domain: [categories]}`). One authored hierarchy → one
 parser → one generated `index.json`; no second copy means no drift.
+
+### [`tiers.py`](tiers.py)
+The **one** tier-classification engine. Parses the authored
+[`config/tier-rules.yaml`](../config/tier-rules.yaml) (with a small built-in
+YAML-subset parser — no PyYAML dependency) and exposes `classify(name,
+description, category=None)`. Both `extract_policies.py` and `enrich_policies.py`
+import it, so the Essential/Professional/Enterprise rules have a single authored
+source and no second copy can drift. The YAML uses plain keyword phrases (a space
+matches whitespace, a hyphen matches space-or-hyphen, a trailing `*` is a stem,
+and `...` is an arbitrary gap) — see the comments at the top of the file.
 
 ---
 

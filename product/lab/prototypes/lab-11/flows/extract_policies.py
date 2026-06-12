@@ -25,6 +25,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 from hierarchy import load_domain_map  # shared parser (single source)
+from tiers import classify             # shared tier engine (single source)
 
 
 # ---------------------------------------------------------------------------
@@ -125,78 +126,15 @@ def deduplicate(policies: list[dict]) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Tier classification — keyword rationale
+# Tier classification
 #
-# Classification is based on the commercial tier definitions in the pitch deck
-# ("What's included in each flavour?"). The tiers are cumulative — Professional
-# includes everything in Essential, Enterprise includes everything in Professional.
-#
-# Matching priority: Enterprise > Professional > Essential > default (Essential)
-# The first tier whose keyword set contains a match wins.
-#
-# ESSENTIAL — Secure baseline: the minimum viable governance layer.
-#   Target: organizations embedding governance in their DevOps flow.
-#   Keywords cover: identity & access controls, encryption at rest/in transit,
-#   certificate and key hygiene, backup and resiliency, tagging and naming,
-#   FinOps / SKU governance, and quota controls.
-#   Rationale: these are non-negotiable hygiene policies — cheap to enforce,
-#   high risk if absent. No advanced networking or observability required.
-#
-# PROFESSIONAL — Security posture & operations: proactive and network-aware.
-#   Target: enterprises running ongoing policy operations.
-#   Keywords cover: network hardening (public access, VNet, service endpoints,
-#   CORS), vulnerability and threat management (Defender, threat protection),
-#   identity governance (PIM), auto-remediation signals, and auditing &
-#   observability (audit effects, logging, monitoring).
-#   Rationale: these policies require operational maturity — someone needs to
-#   act on the findings. Network hardening sits here rather than Essential
-#   because it requires architectural decisions (VNet design, endpoint strategy).
-#   Auditing sits here rather than Enterprise because compliance reporting
-#   is a Professional capability; Enterprise adds the regulatory framework layer.
-#
-# ENTERPRISE — Governance, zero trust & regulatory alignment.
-#   Target: organizations wanting governance fully managed end-to-end.
-#   Keywords cover: private connectivity (private endpoints, private link),
-#   diagnostic settings and resource logs (deep telemetry pipelines),
-#   Security Center / Sentinel integration, regulatory compliance signals,
-#   zone redundancy / high availability (99.99% SLA commitments), and
-#   data sovereignty / confidential computing controls.
-#   Rationale: these policies either require significant infrastructure investment
-#   (private endpoints, availability zones), map directly to regulatory frameworks
-#   (NIS2, ISO 27001, CIS), or depend on centralised security tooling
-#   (Sentinel, Defender for Cloud at scale). They cannot be self-served without
-#   dedicated governance expertise.
+# This is the first-pass tier; enrich_policies.py re-runs the same engine as the
+# final, authoritative pass. The keyword rules live in the authored
+# config/tier-rules.yaml and are parsed by tiers.py, so extract and enrich share
+# exactly one definition (`classify`, imported above) — there is no second copy
+# to drift. See tier-rules.yaml for the Essential / Professional / Enterprise
+# rationale and the full keyword set.
 # ---------------------------------------------------------------------------
-
-ENTERPRISE_KEYWORDS  = {"private endpoint", "private link", "diagnostic", 
-                         "customer-managed key", "resource logs", "diagnostic settings", 
-                         "security center", "sentinel", "regulatory", "zone redundant", 
-                         "availability zone", "confidential", "sovereignty"}
-
-PROFESSIONAL_KEYWORDS = {"public", "vnet", "virtual network", "cors", "pim", 
-                          "service endpoint", "public ip", "disable public network access",
-                          "audit", "log", "logging", "monitoring", "observability",
-                          "vulnerability", "defender", "threat", "remediate"}
-
-ESSENTIAL_KEYWORDS   = {"identity", "managed identity", "crypto", "tls", "https", 
-                         "backup", "tag", "sas", "mfa", "rbac", "sku", "key", 
-                         "certificate", "encryption", "service-managed key",
-                         "resilience", "recovery", "naming", "quota"}
-
-
-
-def classify_tier(name: str, description: str) -> str:
-    text = (name + " " + description).lower()
-
-    # Most specific wins: Enterprise > Professional > Essential
-    if any(kw in text for kw in ENTERPRISE_KEYWORDS):
-        return "Enterprise"
-    if any(kw in text for kw in PROFESSIONAL_KEYWORDS):
-        return "Professional"
-    if any(kw in text for kw in ESSENTIAL_KEYWORDS):
-        return "Essential"
-
-    return "Essential"   # safe default; flag for review
 
 
 # ---------------------------------------------------------------------------
@@ -274,7 +212,7 @@ def extract_policy(path: Path, include_tier: bool = True) -> dict | None:
         "requires_identity": requires_managed_identity(allowed, effect),
     }
     if include_tier:
-        record["tier"] = classify_tier(clean_name, props.get("description", ""))
+        record["tier"] = classify(clean_name, props.get("description", ""))
     return record
 
 

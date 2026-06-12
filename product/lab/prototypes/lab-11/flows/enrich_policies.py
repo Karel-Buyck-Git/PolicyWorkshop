@@ -19,6 +19,7 @@ import argparse
 import re
 from pathlib import Path
 from hierarchy import load_domain_map  # shared parser (single source)
+from tiers import classify             # shared tier engine (single source)
 
 # Defaults derive from this script's location (the lab root is two levels up),
 # so the pipeline targets its own lab with no flags.
@@ -30,161 +31,10 @@ DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 TIER_ORDER = {"Essential": 0, "Professional": 1, "Enterprise": 2}
 
 
-# ---------------------------------------------------------------------------
-# Refined tier classification
-#
-# Priority: Enterprise > Professional > Essential. First tier whose rule
-# matches wins. Rules are tuned to the corrections called out in lab-09-plan:
-#   - Defender/threat/vulnerability  -> Professional (someone must act)
-#   - Auditing/logging as observability -> Professional
-#   - Logging that feeds a diagnostic pipeline (Log Analytics / Event Hub /
-#     diagnostic settings / resource logs) -> Enterprise
-#   - Private endpoint / private link -> Enterprise (zero trust investment)
-#   - Zone redundancy / availability zones -> Enterprise (99.99% SLA)
-#   - Resiliency / backup / recovery -> Essential (baseline data protection)
-# ---------------------------------------------------------------------------
-
-ENTERPRISE_PATTERNS = [
-    r"\bprivate endpoint\b",
-    r"\bprivate link\b",
-    r"\bprivate dns zone\b",
-    r"\bcustomer[- ]managed key",
-    r"\bcustomer managed key",
-    r"\bcmk\b",
-    r"\bbyok\b",
-    r"\bdiagnostic setting",
-    r"\bresource log",
-    r"\bstream.*(log analytics|event hub|storage account)",
-    r"\bsend.*(log analytics|event hub)",
-    r"\blog analytics workspace",
-    r"\bzone[- ]redundan",
-    r"\bzone resilien",
-    r"\bzoneredundant",
-    r"\bavailability zone",
-    r"\bregional outage",
-    r"\bzone outage",
-    r"\bsentinel\b",
-    r"\bconfidential comput",
-    r"\btrusted launch",
-    r"\bsecure boot",
-    r"\bvtpm\b",
-    r"\bsovereignty\b",
-    r"\bdata residency\b",
-    r"\bregulatory\b",
-    r"\bnis2\b",
-    r"\biso 27001\b",
-    r"\bcis benchmark\b",
-    r"\bnist\b",
-    r"\bcma_",
-]
-
-# Categories that, by definition, are entirely Enterprise tier regardless of
-# the individual policy text. Only used when the category as a whole exists
-# *for* a regulatory/governance purpose (so the per-row keyword rules cannot
-# fairly classify them — every row is the same kind of control).
-ENTERPRISE_ONLY_CATEGORIES = {
-    "regulatory-compliance",   # NIST 800-53 / CMA attestations, terse descriptions
-}
-
-PROFESSIONAL_PATTERNS = [
-    r"\bdefender\b",
-    r"\bthreat protection\b",
-    r"\badvanced threat",
-    r"\bvulnerability\b",
-    r"\bvulnerability assessment\b",
-    r"\bmicrosoft cloud security benchmark",
-    r"\bpublic network access\b",
-    r"\bdisable public",
-    r"\bpublic ip\b",
-    r"\bpublic access\b",
-    r"\bfirewall\b",
-    r"\bvirtual network\b",
-    r"\bvnet\b",
-    r"\bservice endpoint\b",
-    r"\bnetwork security group\b",
-    r"\bnsg\b",
-    r"\bnetwork acl",
-    r"\bweb application firewall",
-    r"\bwaf\b",
-    r"\bprivileged identity management\b",
-    r"\bpim\b",
-    r"\bjust[- ]in[- ]time\b",
-    r"\bjit\b",
-    r"\bcors\b",
-    r"\bauditing should be enabled\b",
-    r"\baudit.*should be enabled\b",
-    r"\bshould have.*audit",
-    r"\bdiagnostic logs.*should be enabled\b",
-    r"\blog.*should be enabled\b",
-    r"\blogging should be enabled\b",
-    r"\bremediat",
-    r"\bshould.*monitor",
-    r"\bcompliance scan",
-    r"\bmalware\b",
-]
-
-ESSENTIAL_PATTERNS = [
-    r"\bencryption at rest\b",
-    r"\binfrastructure encryption\b",
-    r"\bdouble encryption\b",
-    r"\bservice[- ]managed key",
-    r"\btls\b",
-    r"\bhttps\b",
-    r"\bsecure transfer\b",
-    r"\btransport security\b",
-    r"\bencrypt(ion|ed)?\b",
-    r"\brbac\b",
-    r"\brole[- ]based access",
-    r"\bmanaged identity\b",
-    r"\bsystem[- ]assigned identity",
-    r"\buser[- ]assigned identity",
-    r"\blocal authentication\b",
-    r"\block.box\b",
-    r"\bmfa\b",
-    r"\bkey rotation\b",
-    r"\bkey expiration\b",
-    r"\bcertificate\b",
-    r"\bbackup\b",
-    r"\bsoft delete",
-    r"\bpurge protection",
-    r"\bgeo[- ]redundan",
-    r"\brecovery (vault|service)",
-    r"\bdeletion protection",
-    r"\btag\b",
-    r"\btagging\b",
-    r"\bsku\b",
-    r"\bnaming\b",
-    r"\bquota\b",
-    r"\bshared access\b",
-    r"\bsas\b",
-    r"\bexpir(e|y|ation)\b",
-]
-
-_ENT_RE  = re.compile("|".join(ENTERPRISE_PATTERNS), re.IGNORECASE)
-_PRO_RE  = re.compile("|".join(PROFESSIONAL_PATTERNS), re.IGNORECASE)
-_ESS_RE  = re.compile("|".join(ESSENTIAL_PATTERNS), re.IGNORECASE)
-
-# Name-scoped private-connectivity rule. A policy whose *name* is about
-# provisioning/using/restricting private endpoints or private link is an
-# Enterprise zero-trust control (lab plan), regardless of any "public network
-# access" wording in its description. Matched against the NAME only so that
-# "<X> should disable public network access" stays Professional (network
-# hardening) even when its description mentions private endpoints as the
-# recommended alternative. Plural-tolerant ("private endpoints").
-_NAME_PRIVATE_LINK_RE = re.compile(r"private endpoints?|private link", re.IGNORECASE)
-
-
-def classify(name: str, description: str) -> str:
-    if _NAME_PRIVATE_LINK_RE.search(name):
-        return "Enterprise"
-    text = f"{name} {description}".lower()
-    if _ENT_RE.search(text):
-        return "Enterprise"
-    if _PRO_RE.search(text):
-        return "Professional"
-    if _ESS_RE.search(text):
-        return "Essential"
-    return "Essential"
+# Tier classification (the keyword rules, the name-scoped private-link override,
+# and the regulatory-compliance category override) now lives in the authored
+# config/tier-rules.yaml, parsed by tiers.py. `classify` is imported above so
+# there is one definition shared with extract_policies.py — no second copy here.
 
 
 # ---------------------------------------------------------------------------
@@ -513,12 +363,12 @@ def write_enriched(path: Path, title: str, rows: list[dict], rationale: str) -> 
 def process_file(path: Path, domain_map: dict[str, str]) -> dict:
     title, rows = parse_table(path)
     slug = path.parent.name
-    force_enterprise = slug in ENTERPRISE_ONLY_CATEGORIES
 
-    # Re-classify tier + (re-)derive Domain from Category
+    # Re-classify tier + (re-)derive Domain from Category. The category slug is
+    # passed so the engine can apply the whole-category Enterprise override.
     changed = 0
     for r in rows:
-        new_tier = "Enterprise" if force_enterprise else classify(r["Policy"], r["Description"])
+        new_tier = classify(r["Policy"], r["Description"], slug)
         if new_tier != r["Tier"]:
             changed += 1
             r["Tier"] = new_tier
