@@ -26,13 +26,14 @@
 # Avoid the "#" character inside a keyword (it starts a comment).
 #
 # ── Overrides (applied BEFORE the keyword scan) ──────────────────────────────
-#   • name_only_enterprise — if the policy NAME matches, force Enterprise. This
-#     is the zero-trust private-link rule. It deliberately ignores the
-#     description, so "<X> should disable public network access" stays
-#     Professional even when its description recommends a private endpoint.
-#   • enterprise_only_categories — every policy in these resource categories is
-#     Enterprise regardless of its text (the category exists for a governance
-#     purpose, so per-keyword rules can't fairly tier its rows).
+# Two override kinds, each declared per-tier (see the `overrides:` block below
+# and config/README.md for the full design):
+#   • name_only[tier] — if the policy NAME matches, force that tier (description
+#     ignored), e.g. to pin a tier from a naming convention alone.
+#   • category_only[tier] — every policy in the listed resource categories gets
+#     that tier regardless of its text.
+# Precedence: if more than one override matches, the HIGHEST tier wins (same
+# enterprise > professional > essential order), name or category alike.
 
 tiers:
 
@@ -40,19 +41,16 @@ tiers:
   # maps directly to a compliance framework. (Checked first, so a policy that is
   # both e.g. "encrypted" and uses a "customer-managed key" lands here.)
   enterprise:
-    # private connectivity
-    - private endpoint
-    - private link
-    - private dns zone*
     # customer-controlled cryptography
     - customer-managed key*
     - cmk
     - byok
     # diagnostic pipeline: a diagnostic setting / resource log, a Log Analytics
-    # workspace, or logs streamed to a downstream sink => Enterprise. Plain
-    # "logging should be enabled" observability stays Professional (below). The
-    # sink keywords are gated behind "stream/send ..." so a bare mention of a
-    # Log Analytics workspace or Event Hub elsewhere does not over-promote.
+    # workspace, or logs streamed to a downstream sink => Enterprise. The sink
+    # keywords are gated behind "stream/send ..." so a bare mention of a Log
+    # Analytics workspace or Event Hub elsewhere does not over-promote. (Plain
+    # "logging should be enabled" observability is now Enterprise too — see the
+    # observability/audit group below.)
     - diagnostic setting*
     - resource log*
     - log analytics workspace*
@@ -62,6 +60,15 @@ tiers:
     - send ... log analytics
     - send ... event hub
     - sentinel
+    # observability / audit (moved here from Professional)
+    - auditing should be enabled
+    - audit ... should be enabled
+    - should have ... audit*
+    - diagnostic logs ... should be enabled
+    - log ... should be enabled
+    - logging should be enabled
+    - should ... monitor*
+    - compliance scan*
     # zone resiliency / 99.99% SLA
     - zone-redundan*
     - zoneredundant      # concatenated spelling (no separator) used by some SKUs
@@ -69,6 +76,7 @@ tiers:
     - availability zone*
     - regional outage*
     - zone outage*
+    - geo-redundan*      # moved here from Essential
     # confidential compute / attestation
     - confidential comput*
     - trusted launch
@@ -84,7 +92,7 @@ tiers:
     - nist
 
   # ── Professional ── active security posture: produces a signal an operations
-  # team must act on (detection, network hardening, privileged access, audit).
+  # team must act on (detection, network hardening, private/privileged access).
   professional:
     # threat detection
     - defender
@@ -108,21 +116,18 @@ tiers:
     - web application firewall
     - waf
     - cors
+    # private connectivity (moved here from Enterprise). Stemmed so the plural
+    # "private endpoints" is caught too — the removed name_only override used to
+    # cover that form.
+    - private endpoint*
+    - private link
+    - private dns zone*
     # privileged + external identity governance
     - privileged identity management
     - pim
     - just-in-time
     - jit
     - external account*   # Defender "external/guest accounts should be removed"
-    # observability / audit (signal, not a pipeline)
-    - auditing should be enabled
-    - audit ... should be enabled
-    - should have ... audit*
-    - diagnostic logs ... should be enabled
-    - log ... should be enabled
-    - logging should be enabled
-    - should ... monitor*
-    - compliance scan*
     # remediation
     - remediat*
 
@@ -156,7 +161,6 @@ tiers:
     - backup
     - soft delete*
     - purge protection
-    - geo-redundan*
     - recovery vault*
     - recovery service*
     - deletion protection*
@@ -170,9 +174,19 @@ tiers:
     - shared access
     - sas
 
+# Overrides are per-tier and win before the keyword scan. If several match, the
+# highest tier wins (same enterprise > professional > essential order), whether
+# it matched by name or by category. Add entries under any tier you like.
 overrides:
-  name_only_enterprise:
-    - private endpoint*
-    - private link
-  enterprise_only_categories:
-    - regulatory-compliance
+  # name_only[tier] — force `tier` when the policy NAME matches (description
+  # ignored). None are defined right now. To add one, mirror category_only:
+  #   name_only:
+  #     enterprise:
+  #       - private endpoint*
+  #
+  # category_only[tier] — force `tier` for every policy in these resource
+  # categories, regardless of text (the category exists for one governance
+  # purpose, so per-keyword rules can't fairly tier its rows).
+  category_only:
+    enterprise:
+      - regulatory-compliance
