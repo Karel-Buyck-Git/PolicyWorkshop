@@ -154,18 +154,30 @@ class TierRules:
             tier: [_compile_keyword(k) for k in tiers.get(tier.lower(), [])]
             for tier in TIER_PRIORITY
         }
+        # Overrides are per-tier. `name_only[tier]` forces `tier` when the policy
+        # NAME matches; `category_only[tier]` forces `tier` for whole categories.
         overrides = data.get("overrides", {})
-        self._name_only_enterprise = [
-            _compile_keyword(k) for k in overrides.get("name_only_enterprise", [])
-        ]
-        self._enterprise_categories = set(overrides.get("enterprise_only_categories", []))
+        name_only = overrides.get("name_only", {})
+        category_only = overrides.get("category_only", {})
+        self._name_only = {
+            tier: [_compile_keyword(k) for k in name_only.get(tier.lower(), [])]
+            for tier in TIER_PRIORITY
+        }
+        self._category_only = {
+            tier: set(category_only.get(tier.lower(), []))
+            for tier in TIER_PRIORITY
+        }
 
     def classify(self, name: str, description: str, category: str | None = None) -> str:
-        # Overrides win before any keyword scan.
-        if category is not None and category in self._enterprise_categories:
-            return "Enterprise"
-        if any(m.search(name) for m in self._name_only_enterprise):
-            return "Enterprise"
+        # Overrides win before the keyword scan. When more than one override
+        # matches, the highest-priority tier wins (the same Enterprise >
+        # Professional > Essential order used for the keyword scan), regardless
+        # of whether it is a name or a category override.
+        for tier in TIER_PRIORITY:
+            if category is not None and category in self._category_only[tier]:
+                return tier
+            if any(m.search(name) for m in self._name_only[tier]):
+                return tier
 
         text = f"{name} {description}"
         for tier in TIER_PRIORITY:
