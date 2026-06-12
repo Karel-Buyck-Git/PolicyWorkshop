@@ -1,0 +1,20 @@
+{
+  "name": "company-integration-professional-signalr",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"
+  ],
+  "byPolicy": {
+    "ef45854f-b33f-49a3-8041-9057e915d88f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+      "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"
+    ],
+    "b0e86710-7fb7-4a6c-a064-32e9b829509e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "62a3ae95-8169-403e-a2d2-b82141448092": [
+      "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"
+    ]
+  }
+}

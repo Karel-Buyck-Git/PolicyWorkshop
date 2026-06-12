@@ -1,0 +1,19 @@
+{
+  "name": "company-storage-professional-backup",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/microsoft.authorization/roleDefinitions/5e467623-bb1f-42f4-a55d-6e525e11384b"
+  ],
+  "byPolicy": {
+    "04726aae-4e8d-427c-af7d-ecf56d490022": [
+      "/providers/microsoft.authorization/roleDefinitions/5e467623-bb1f-42f4-a55d-6e525e11384b"
+    ],
+    "af783da1-4ad1-42be-800d-d19c70038820": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "8015d6ed-3641-4534-8d0b-5c67b67ff7de": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ]
+  }
+}

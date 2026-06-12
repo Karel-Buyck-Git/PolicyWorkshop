@@ -1,0 +1,322 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-integration-professional-event-grid",
+  "properties": {
+    "displayName": "Company Integration Professional — Event Grid",
+    "description": "**Professional** — Active security posture for Event Grid: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Event Grid",
+      "domain": "Integration",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.12",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de",
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/microsoft.authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de",
+        "/providers/microsoft.authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "Specifies the subnet to use to configure private endpoint",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      },
+      "configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "Specifies the subnet to use to configure private endpoint",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      },
+      "deployConfigureAzureEventGridDomainsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID",
+          "description": "Specifies the private DNS zone to use to configure private endpoint",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "deployConfigureAzureEventGridDomainsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "Specifies the subnet to use to configure private endpoint",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      },
+      "deployConfigureAzureEventGridTopicsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID",
+          "description": "Specifies the private DNS zone to use to configure private endpoint",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "deployConfigureAzureEventGridTopicsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "Specifies the subnet to use to configure private endpoint",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "f8f774be-6aee-492a-9e29-486ef81f3a68",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f8f774be-6aee-492a-9e29-486ef81f3a68",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid domains should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9830b652-8523-49cc-b1b3-e17dce1127ca",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9830b652-8523-49cc-b1b3-e17dce1127ca",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid domains should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cd8f7644-6fe8-4516-bded-0e465ead03ac",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd8f7644-6fe8-4516-bded-0e465ead03ac",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid namespace MQTT broker should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1301a000-bc6b-4d90-8414-7091e3abdc40",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1301a000-bc6b-4d90-8414-7091e3abdc40",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid namespace topic broker should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "67dcad1a-ec60-45df-8fd0-14c9d29eeaa2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/67dcad1a-ec60-45df-8fd0-14c9d29eeaa2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid namespaces should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1adadefe-5f21-44f7-b931-a59b54ccdb45",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1adadefe-5f21-44f7-b931-a59b54ccdb45",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid topics should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4b90e17e-8448-49db-875e-bd83fb6f804f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4b90e17e-8448-49db-875e-bd83fb6f804f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Event Grid topics should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cddcbb7e-a7b1-4380-b4d8-45cf77b0d561",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cddcbb7e-a7b1-4380-b4d8-45cf77b0d561",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Event Grid namespace MQTT broker with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2b21ce34-9c45-4037-9c84-0ac0dbd0095f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2b21ce34-9c45-4037-9c84-0ac0dbd0095f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Event Grid namespaces with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d389df0a-e0d7-4607-833c-75a6fdac2c2d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d389df0a-e0d7-4607-833c-75a6fdac2c2d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure Azure Event Grid domains to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('deployConfigureAzureEventGridDomainsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "36f4658a-848a-467b-881c-e6fa20cf75fc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36f4658a-848a-467b-881c-e6fa20cf75fc",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure Azure Event Grid domains with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('deployConfigureAzureEventGridDomainsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "baf19753-7502-405f-8745-370519b20483",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/baf19753-7502-405f-8745-370519b20483",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure Azure Event Grid topics to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('deployConfigureAzureEventGridTopicsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6fcec95c-fbdf-45e8-91e1-e3175d9c9eca",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6fcec95c-fbdf-45e8-91e1-e3175d9c9eca",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure Azure Event Grid topics with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('deployConfigureAzureEventGridTopicsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "898e9824-104c-4965-8e0e-5197588fa5d4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/898e9824-104c-4965-8e0e-5197588fa5d4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Modify - Configure Azure Event Grid domains to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "36ea4b4b-0f7f-4a54-89fa-ab18f555a172",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36ea4b4b-0f7f-4a54-89fa-ab18f555a172",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Modify - Configure Azure Event Grid topics to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      }
+    ]
+  }
+}

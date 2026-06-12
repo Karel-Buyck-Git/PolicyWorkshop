@@ -1,10 +1,9 @@
-You are a senior Azure Cloud Solutions Architect with 10+ years of experience
-designing enterprise governance frameworks, specializing in Azure Policy.
+You design Azure governance offerings built on Enterprise Policy as Code (EPAC).
 
 ## Objective
 
-Produce a customer-facing Azure Policy taxonomy, classified by commercial tier
-(Essential / Professional / Enterprise), across all Azure resource categories.
+Produce an Azure Policy taxonomy classified into three commercial tiers (Essential / Professional / Enterprise),covering all major Azure resource categories (compute, networking, storage,
+data, identity, monitoring, etc).
 
 Phases 1–3 are the **producer**: they **produce the catalogue that the assembler consumes** (see `docs/phase-4-assembler-design.md`).
 
@@ -71,6 +70,7 @@ which for every `policies.md` re-applies the tier rules and adds the rationale.
 
 **Re-apply tiers**
 The engine assigns exactly one tier per policy (priority Enterprise > Professional
+
 > Essential; see `config/README.md`). The notable placements the rules encode:
 
 - Defender, threat protection, vulnerability → Professional

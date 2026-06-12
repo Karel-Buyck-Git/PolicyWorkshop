@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/storage/essential/storage/",
+  "assignment": {
+    "name": "company-storage-essential-storage",
+    "displayName": "Company Storage Essential — Storage",
+    "description": "Deployment scaffold for 22 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): storageAccountsLimitedAllowedSkusListOfAllowedSKUs. A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-storage-essential-storage",
+  "parameters": {
+    "storageAccountsLimitedAllowedSkusListOfAllowedSKUs": [
+      "<REPLACE: storageAccountsLimitedAllowedSkusListOfAllowedSKUs>"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

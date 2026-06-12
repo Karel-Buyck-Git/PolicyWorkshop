@@ -9,11 +9,16 @@ Phase 3 for lab-11:
     exactly one group (tiers are treated as *exclusive*, not cumulative).
   - For each group writes four EPAC-ready artifacts to
     `catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
-        .md               — the policy table (same columns as Phase 1/2) + tier rationale
+        .md               — tier rationale + a `## Usage` deployment guide + the policy table
         .policyset.json   — an EPAC policySetDefinition (initiative) with parameter
                             values sourced from the official Azure policy repo
         .assignment.json  — an EPAC assignment scaffold with mock tenant references
         .exemptions.json  — an EPAC exemptions template stub
+    Every EPAC-native JSON artifact (.policyset/.assignment/.exemptions) is stamped
+    with a `$schema` reference as its first key for editor validation; .roles.json
+    is a lab-local helper and is intentionally left unstamped. The `## Usage` block
+    and `$schema` stamps are produced here at generation time (they used to be a
+    separate post-processor, annotate_initiatives.py) so the flow is single-pass.
 
 Parameter values are sourced by joining each policy row (on its Policy ID) against
 a parameter index built from the official built-in policy definitions. The enriched
@@ -47,6 +52,14 @@ DEFAULT_SOURCE = (
 DEFAULT_PREFIX = "company"
 
 VALID_TIERS = ("Essential", "Professional", "Enterprise")
+
+# Canonical EPAC schema URLs (Azure/enterprise-azure-policy-as-code, Schemas/),
+# stamped as the first key of each EPAC-native artifact for editor validation.
+# .roles.json is a lab-local helper (no published EPAC schema) — left unstamped.
+_EPAC_BASE = "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas"
+SCHEMA_POLICYSET = f"{_EPAC_BASE}/policy-set-definition-schema.json"
+SCHEMA_ASSIGNMENT = f"{_EPAC_BASE}/policy-assignment-schema.json"
+SCHEMA_EXEMPTIONS = f"{_EPAC_BASE}/policy-exemption-schema.json"
 
 # Canonical column layout (matches enrich_policies.py / extract_policies.py).
 COLUMNS = [
@@ -315,10 +328,55 @@ def md_row(row: dict, n: int) -> str:
     )
 
 
-def render_markdown(display_name: str, rationale: str, rows: list[dict]) -> str:
+def usage_block(base_name: str, has_roles: bool) -> list[str]:
+    """The `## Usage` deployment-guide section lines for one initiative group.
+
+    Documents the IaC role of each sibling artifact; `has_roles` reflects whether
+    a .roles.json was written (i.e. the group has a Modify/DeployIfNotExists policy).
+    """
+    roles_state = (
+        "Present for this group" if has_roles
+        else "Not present for this group (no Modify/DeployIfNotExists policy)"
+    )
+    return [
+        "## Usage",
+        "",
+        "These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) "
+        "(Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code "
+        "via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) "
+        "or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor "
+        "validation.",
+        "",
+        "| Artifact | EPAC type | What to do with it |",
+        "|---|---|---|",
+        f"| `{base_name}.policyset.json` | `policySetDefinition` (initiative) | The set of built-in "
+        "policies for this (domain, tier, category), hardened effect baked in and required parameters "
+        "bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |",
+        f"| `{base_name}.assignment.json` | `policyAssignment` | Binds the initiative to a scope. "
+        "Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` "
+        "parameter mock, then place under `policyAssignments/`. The `description` field states this "
+        "group's prerequisites (required parameter count, managed identity). |",
+        f"| `{base_name}.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and "
+        "`policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place "
+        "under `policyExemptions/`. |",
+        f"| `{base_name}.roles.json` | role assignments (lab helper) | {roles_state}. Lists the "
+        "`roleDefinitionIds` the assignment's managed identity needs for remediation. Not an "
+        "EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never "
+        "need the policy repo downstream. |",
+        "",
+        "**Deployment order:** assign the initiative → (if a managed identity is required) grant the "
+        "roles from `roles.json` at the assignment scope → run remediation tasks for the "
+        "Modify/DeployIfNotExists policies.",
+        "",
+    ]
+
+
+def render_markdown(display_name: str, rationale: str, rows: list[dict],
+                    base_name: str, has_roles: bool) -> str:
     lines = [f"# {display_name}", ""]
     if rationale:
         lines += ["## Tier rationale", "", rationale, ""]
+    lines += usage_block(base_name, has_roles)
     lines += ["## Policies", "", HEADER_LINE, SEP_LINE]
     for i, r in enumerate(sorted(rows, key=lambda r: r["Policy"].lower()), start=1):
         lines.append(md_row(r, i))
@@ -521,7 +579,12 @@ def build_exemptions(name, prefix, domain, tier, category):
     }
 
 
-def write_json(path: Path, obj: dict) -> None:
+def write_json(path: Path, obj: dict, schema_url: str | None = None) -> None:
+    """Write ``obj`` as pretty JSON. When ``schema_url`` is given, ``$schema`` is
+    emitted as the first key (EPAC-native artifacts); manifests and the .roles.json
+    helper pass no schema and are written as-is."""
+    if schema_url:
+        obj = {"$schema": schema_url, **{k: v for k, v in obj.items() if k != "$schema"}}
     path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
@@ -663,30 +726,36 @@ def main() -> None:
         group_dir = initiatives_dir / slugify(domain) / slugify(tier) / slugify(category)
         group_dir.mkdir(parents=True, exist_ok=True)
 
-        (group_dir / f"{name}.md").write_text(
-            render_markdown(display_name, rationale_text, rows), encoding="utf-8"
-        )
+        # Build the policyset first so the markdown's `## Usage` section knows
+        # whether a .roles.json will be written for this group.
         policyset, required_params, roles_info = build_policyset(
             name, display_name, domain, tier, category, rows, param_index, description,
             catalogue_version,
         )
-        write_json(group_dir / f"{name}.policyset.json", policyset)
-        if roles_info["hasRemediation"]:
-            write_json(group_dir / f"{name}.roles.json", roles_info)
+        has_roles = roles_info["hasRemediation"]
+
+        (group_dir / f"{name}.md").write_text(
+            render_markdown(display_name, rationale_text, rows, name, has_roles), encoding="utf-8"
+        )
+        write_json(group_dir / f"{name}.policyset.json", policyset, SCHEMA_POLICYSET)
+        if has_roles:
+            write_json(group_dir / f"{name}.roles.json", roles_info)  # lab helper — no $schema
             file_count += 1
         index_records.append({
             "domain": domain, "tier": tier, "category": category, "name": name,
             "dir": str(group_dir.relative_to(catalogue_root)).replace("\\", "/"),
             "policyCount": len(rows),
-            "hasRemediation": roles_info["hasRemediation"],
+            "hasRemediation": has_roles,
         })
         write_json(
             group_dir / f"{name}.assignment.json",
             build_assignment(name, display_name, prefix, domain, tier, category, rows, required_params),
+            SCHEMA_ASSIGNMENT,
         )
         write_json(
             group_dir / f"{name}.exemptions.json",
             build_exemptions(name, prefix, domain, tier, category),
+            SCHEMA_EXEMPTIONS,
         )
         file_count += 4
         print(f"[Phase 3] {slugify(domain)}/{slugify(tier)}/{slugify(category)}: "

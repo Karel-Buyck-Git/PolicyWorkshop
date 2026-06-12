@@ -1,0 +1,19 @@
+{
+  "catalogueVersion": "2026.06.12",
+  "generatedAt": "2026-06-12T11:45:29Z",
+  "inputs": {
+    "builtInsRef": "git:04989912c4660389bef9abb8fd2e55c7445bdfa7",
+    "hierarchyHash": "sha256:6d13160c07496cf83ef89584b39c520de66cb1dd44b3f80c8746e4fbcff6d448",
+    "tierRulesHash": "sha256:43597c26d34957ded512237e65d78724e04615bb3b8fd2c69f1f068ead39f1e5"
+  },
+  "counts": {
+    "groups": 186,
+    "files": 843
+  },
+  "tools": {
+    "extract": "sha256:7682a89f01fb8e4d9b45582ee275a1bb735606cd469beb417b505a69ab266ed2",
+    "enrich": "sha256:3cb95bd1a671cd8575786b9a90d4f7b04f80757893cbb9a106498988d07d6194",
+    "createInitiatives": "sha256:25217a61715ba2636861902e536882128d2bfbcaa7837b239b7edbb063d2a4f5"
+  },
+  "contentHash": "sha256:ddbf1a4e46882b845d78b10334137d42185cc80afcc4e8bc65366c5c7ba7cd37"
+}

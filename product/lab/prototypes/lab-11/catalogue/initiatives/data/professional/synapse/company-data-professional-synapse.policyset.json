@@ -1,0 +1,193 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-data-professional-synapse",
+  "properties": {
+    "displayName": "Company Data Professional — Synapse",
+    "description": "**Professional** — Active security posture for Synapse: controls that produce signals an operations team must act on. This tier delivers vulnerability assessment scanning, network hardening (public access disabled, VNet integration, firewall rules), audit-log and monitoring controls that produce signals for ops teams, and auto-remediation deployments. Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Synapse",
+      "domain": "Data",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.12",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAzureSynapseWorkspacesPrivateDnsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone id",
+          "description": "A private DNS zone Id",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "configureAzureSynapseWorkspacesPrivateEndpointsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "A subnet with private endpoint network policies disabled",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "38d8df46-cf4e-4073-8e03-48c24b29de0d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/38d8df46-cf4e-4073-8e03-48c24b29de0d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Synapse workspaces should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "72d11df1-dd8a-41f7-8925-b05b960ebafc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/72d11df1-dd8a-41f7-8925-b05b960ebafc",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Synapse workspaces should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5c8cad01-ef30-4891-b230-652dadb4876a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5c8cad01-ef30-4891-b230-652dadb4876a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Synapse workspaces to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1e5ed725-f16c-478b-bd4b-7bfa2f7940b9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e5ed725-f16c-478b-bd4b-7bfa2f7940b9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Synapse workspaces to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureSynapseWorkspacesPrivateDnsPrivateDnsZoneId')]"
+          },
+          "targetSubResource": {
+            "value": "Dev"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3b3b0c27-08d2-4b32-879d-19930bee3266",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3b3b0c27-08d2-4b32-879d-19930bee3266",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Synapse workspaces with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureSynapseWorkspacesPrivateEndpointsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "56fd377d-098c-4f02-8406-81eb055902b8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/56fd377d-098c-4f02-8406-81eb055902b8",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "IP firewall rules on Azure Synapse workspaces should be removed"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2d9dbfa3-927b-4cf0-9d0f-08747f971650",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2d9dbfa3-927b-4cf0-9d0f-08747f971650",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Managed workspace virtual network on Azure Synapse workspaces should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3a003702-13d2-4679-941b-937e58c443f0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a003702-13d2-4679-941b-937e58c443f0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Synapse managed private endpoints should only connect to resources in approved Azure Active Directory tenants"
+        },
+        "parameters": {
+          "allowedTenantIds": {
+            "value": []
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0049a6b3-a662-4f3e-8635-39cf44ace45a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0049a6b3-a662-4f3e-8635-39cf44ace45a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Vulnerability assessment should be enabled on your Synapse workspaces"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

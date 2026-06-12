@@ -1,0 +1,28 @@
+# Company Compute Professional — Batch
+
+## Tier rationale
+
+**Professional** — Active security posture for Batch: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).
+
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-compute-professional-batch.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-compute-professional-batch.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-compute-professional-batch.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-compute-professional-batch.roles.json` | role assignments (lab helper) | Present for this group. Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Configure Batch accounts to disable public network access | c520cefc-285f-40f3-86e2-2efc38ef1f64 |  | Disabling public network access on a Batch account improves security by ensuring your Batch account can only be accessed from a private endpoint. Learn more about disabling public network access at https://docs.microsoft.com/azure/batch/private-connectivity. | No | Yes | Modify, Disabled | Modify | Modify | Modify | Batch | Compute | 1.0.0 | BuiltIn | Professional |
+| 2 | Configure Batch accounts with private endpoints | 0ef5aac7-c064-427a-b87b-d47b3ddcaf73 |  | Private endpoints connect your virtual network to Azure services without a public IP address at the source or destination. By mapping private endpoints to Batch accounts, you can reduce data leakage risks. Learn more about private links at: https://docs.microsoft.com/azure/batch/private-connectivity. | Yes | Yes | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | Batch | Compute | 1.0.0 | BuiltIn | Professional |
+| 3 | Deploy - Configure private DNS zones for private endpoints that connect to Batch accounts | 4ec38ebc-381f-45ee-81a4-acbc4be878f8 |  | Private DNS records allow private connections to private endpoints. Private endpoint connections allow secure communication by enabling private connectivity to Batch accounts without a need for public IP addresses at the source or destination. For more information on private endpoints and DNS zones in Batch, see https://docs.microsoft.com/azure/batch/private-connectivity. | Yes | Yes | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | Batch | Compute | 1.0.0 | BuiltIn | Professional |
+| 4 | Private endpoint connections on Batch accounts should be enabled | 009a0c92-f5b4-4776-9b66-4ed2b4775563 |  | Private endpoint connections allow secure communication by enabling private connectivity to Batch accounts without a need for public IP addresses at the source or destination. Learn more about private endpoints in Batch at https://docs.microsoft.com/azure/batch/private-connectivity. | No | No | AuditIfNotExists, Disabled | AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Batch | Compute | 1.0.0 | BuiltIn | Professional |
+| 5 | Public network access should be disabled for Batch accounts | 74c5a0ae-5e48-4738-b093-65e23a060488 |  | Disabling public network access on a Batch account improves security by ensuring your Batch account can only be accessed from a private endpoint. Learn more about disabling public network access at https://docs.microsoft.com/azure/batch/private-connectivity. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Batch | Compute | 1.0.0 | BuiltIn | Professional |

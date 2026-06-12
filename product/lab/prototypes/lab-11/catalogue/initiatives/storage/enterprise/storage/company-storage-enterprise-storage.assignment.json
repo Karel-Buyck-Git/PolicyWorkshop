@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/storage/enterprise/storage/",
+  "assignment": {
+    "name": "company-storage-enterprise-storage",
+    "displayName": "Company Storage Enterprise — Storage",
+    "description": "Deployment scaffold for 11 policies. 5 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureDiagnosticSettingsBlobServicesLogLogAnalytics, configureDiagnosticSettingsFileServicesLogLogAnalytics, configureDiagnosticSettingsQueueServicesLogLogAnalytics, configureDiagnosticSettingsStorageAccountsLogLogAnalytics, configureDiagnosticSettingsTableServicesLogLogAnalytics. A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-storage-enterprise-storage",
+  "parameters": {
+    "configureDiagnosticSettingsBlobServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsBlobServicesLogLogAnalytics>",
+    "configureDiagnosticSettingsFileServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsFileServicesLogLogAnalytics>",
+    "configureDiagnosticSettingsQueueServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsQueueServicesLogLogAnalytics>",
+    "configureDiagnosticSettingsStorageAccountsLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsStorageAccountsLogLogAnalytics>",
+    "configureDiagnosticSettingsTableServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsTableServicesLogLogAnalytics>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

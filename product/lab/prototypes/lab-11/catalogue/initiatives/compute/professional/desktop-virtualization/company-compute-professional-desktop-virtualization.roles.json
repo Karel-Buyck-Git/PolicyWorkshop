@@ -1,0 +1,33 @@
+{
+  "name": "company-compute-professional-desktop-virtualization",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/21efdde3-836f-432b-bf3d-3e8e734d4b2b",
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "/providers/Microsoft.Authorization/roleDefinitions/e307426c-f9b6-4e81-87de-d99efb3c32bc"
+  ],
+  "byPolicy": {
+    "9427df23-0f42-4e1e-bf99-a6133d841c4a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "2a0913ff-51e7-47b8-97bb-ea17127f7c8d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/e307426c-f9b6-4e81-87de-d99efb3c32bc"
+    ],
+    "e84e8a9a-f43e-46e3-9458-bbcfb2d7e429": [
+      "/providers/Microsoft.Authorization/roleDefinitions/e307426c-f9b6-4e81-87de-d99efb3c32bc"
+    ],
+    "7b331e6b-6096-4395-a754-758a64505f19": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "34804460-d88b-4922-a7ca-537165e060ed": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "ce6ebf1d-0b94-4df9-9257-d8cacc238b4f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/21efdde3-836f-432b-bf3d-3e8e734d4b2b"
+    ],
+    "02aa841c-42e8-492f-a43d-1f2c67e58d41": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

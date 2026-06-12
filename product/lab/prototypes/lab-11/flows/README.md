@@ -124,11 +124,13 @@ EPAC-ready artifacts per group under
 
 | Artifact | Contents |
 |---|---|
-| `.md` | tier rationale + the full policy table |
+| `.md` | tier rationale + a `## Usage` deployment guide + the full policy table |
 | `.policyset.json` | EPAC `policySetDefinition`; hardened effects baked, required params bubbled up |
 | `.assignment.json` | EPAC assignment scaffold with mock tenant references |
 | `.exemptions.json` | EPAC exemptions template stub |
 | `.roles.json` | *only* for Modify/DeployIfNotExists groups: deduped remediation `roleDefinitionIds` |
+
+> Generated in one pass: each EPAC-native JSON (`.policyset`/`.assignment`/`.exemptions`) is stamped with a `$schema` reference as its first key, and each `.md` gets a `## Usage` deployment guide (between the rationale and the policy table) — no separate post-processing step.
 
 Finally writes the two catalogue manifests at the catalogue root — **`index.json`**
 (groups + `domainMap` + tiers) and **`catalogue.json`** (the version stamp:

@@ -1,0 +1,25 @@
+# Company undefined Professional — Health Deidentification Service
+
+## Tier rationale
+
+**Professional** — Active security posture for Health Deidentification Service: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).
+
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-undefined-professional-health-deidentification-service.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-undefined-professional-health-deidentification-service.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-undefined-professional-health-deidentification-service.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-undefined-professional-health-deidentification-service.roles.json` | role assignments (lab helper) | Not present for this group (no Modify/DeployIfNotExists policy). Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure Health Data Services de-identification service should disable public network access | c5f34731-7ab9-42ff-922d-ef4920068b74 |  | Disabling public network access improves security by ensuring that the resource isn't exposed on the public internet. You can limit exposure of your resources by creating private endpoints instead. | No | No | Audit, Disabled | Audit | Audit | Audit | Health Deidentification Service | undefined | 1.0.0 | BuiltIn | Professional |
+| 2 | Azure Health Data Services de-identification service should use private link | d9b2d63d-a233-4123-847a-7f7e5f5d7e7a |  | Azure Health Data Services de-identification service should have at least one approved private endpoint connection. Clients in a virtual network can securely access resources that have private endpoint connections through private links. | No | No | Audit, Disabled | Audit | Audit | Audit | Health Deidentification Service | undefined | 1.0.0 | BuiltIn | Professional |

@@ -1,0 +1,27 @@
+# Company Azure AI Foundry Enterprise — Machine Learning
+
+## Tier rationale
+
+**Enterprise** — Zero-trust and regulatory alignment for Machine Learning: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel, customer-managed keys (CMK / BYOK) for cryptographic sovereignty, and direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).
+
+## Usage
+
+These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) (Enterprise Azure Policy as Code) definition files — deploy them as Infrastructure-as-Code via the EPAC pipeline (`Build-DeploymentPlans` → `Deploy-PolicyPlan` → `Deploy-RolesPlan`) or translate them to Terraform / Bicep. Each carries a `$schema` reference for editor validation.
+
+| Artifact | EPAC type | What to do with it |
+|---|---|---|
+| `company-azure-ai-foundry-enterprise-machine-learning.policyset.json` | `policySetDefinition` (initiative) | The set of built-in policies for this (domain, tier, category), hardened effect baked in and required parameters bubbled to top-level `parameters`. Place under your EPAC `policyDefinitions/` folder. |
+| `company-azure-ai-foundry-enterprise-machine-learning.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace `<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>` and every `<REPLACE: …>` parameter mock, then place under `policyAssignments/`. The `description` field states this group's prerequisites (required parameter count, managed identity). |
+| `company-azure-ai-foundry-enterprise-machine-learning.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and `policyDefinitionReferenceIds` for policies that do not apply, or remove the file. Place under `policyExemptions/`. |
+| `company-azure-ai-foundry-enterprise-machine-learning.roles.json` | role assignments (lab helper) | Present for this group. Lists the `roleDefinitionIds` the assignment's managed identity needs for remediation. Not an EPAC-native file (no `$schema`) — consumed by the Terraform / Bicep renderers so they never need the policy repo downstream. |
+
+**Deployment order:** assign the initiative → (if a managed identity is required) grant the roles from `roles.json` at the assignment scope → run remediation tasks for the Modify/DeployIfNotExists policies.
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure Machine Learning workspaces should be encrypted with a customer-managed key | ba769a63-b8cc-4b2d-abf6-ac33c7204be8 |  | Manage encryption at rest of Azure Machine Learning workspace data with customer-managed keys. By default, customer data is encrypted with service-managed keys, but customer-managed keys are commonly required to meet regulatory compliance standards. Customer-managed keys enable the data to be encrypted with an Azure Key Vault key created and owned by you. You have full control and responsibility for the key lifecycle, including rotation and management. Learn more at https://aka.ms/azureml-workspaces-cmk. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Machine Learning | Azure AI Foundry | 1.1.0 | BuiltIn | Enterprise |
+| 2 | Azure Machine Learning workspaces should be encrypted with the use of a customer-managed key | 7f40cee6-e933-4d0f-a782-b96615e0f4a6 |  | Manage encryption at rest of Azure Machine Learning workspace data with customer-managed keys. By default, customer data is encrypted with service-managed keys, but customer-managed keys are commonly required to meet regulatory compliance standards. Customer-managed keys enable the data to be encrypted with an Azure Key Vault key created and owned by you. You have full control and responsibility for the key lifecycle, including rotation and management. Learn more at https://aka.ms/azureml-workspaces-cmk. | No | No | AuditIfNotExists, Disabled | AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Machine Learning | Azure AI Foundry | 1.0.0 | BuiltIn | Enterprise |
+| 3 | Configure diagnostic settings for Azure Machine Learning Workspaces to Log Analytics workspace | f59276f0-5740-4aaf-821d-45d185aa210e |  | Deploys the diagnostic settings for Azure Machine Learning Workspaces to stream resource logs to a Log Analytics Workspace when any Azure Machine Learning Workspace which is missing this diagnostic settings is created or updated. | Yes | Yes | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | Machine Learning | Azure AI Foundry | 1.0.1 | BuiltIn | Enterprise |
+| 4 | Resource logs in Azure Machine Learning Workspaces should be enabled | afe0c3be-ba3b-4544-ba52-0c99672a8ad6 |  | Resource logs enable recreating activity trails to use for investigation purposes when a security incident occurs or when your network is compromised. | No | No | AuditIfNotExists, Disabled | AuditIfNotExists | AuditIfNotExists | AuditIfNotExists | Machine Learning | Azure AI Foundry | 1.0.1 | BuiltIn | Enterprise |

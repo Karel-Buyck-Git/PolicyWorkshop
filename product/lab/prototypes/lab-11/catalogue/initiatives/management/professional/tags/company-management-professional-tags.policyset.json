@@ -1,0 +1,395 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-management-professional-tags",
+  "properties": {
+    "displayName": "Company Management Professional — Tags",
+    "description": "**Professional** — Active security posture for Tags: controls that produce signals an operations team must act on. This tier delivers auto-remediation deployments. Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Tags",
+      "domain": "Management",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.12",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/4a9ae827-6dc8-4573-8ac7-8239d42aa03f",
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "addTagResourceGroupsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "addTagResourceGroupsTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "addTagResourcesTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "addTagResourcesTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "addTagSubscriptionsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "addTagSubscriptionsTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "addReplaceTagResourceGroupsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "addReplaceTagResourceGroupsTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "addReplaceTagResourcesTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "addReplaceTagResourcesTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "addReplaceTagSubscriptionsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "addReplaceTagSubscriptionsTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "appendTagValueResourceGroupTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "appendTagValueResourceGroupsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "appendTagValueResourceGroupsTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "appendTagValueResourcesTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "appendTagValueResourcesTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "inheritTagResourceGroupTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "inheritTagResourceGroupMissingTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "inheritTagSubscriptionTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "inheritTagSubscriptionMissingTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "726aca4c-86e9-4b04-b0c5-073027359532",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/726aca4c-86e9-4b04-b0c5-073027359532",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Add a tag to resource groups"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('addTagResourceGroupsTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('addTagResourceGroupsTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "4f9dc7db-30c1-420c-b61a-e1d640128d26",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4f9dc7db-30c1-420c-b61a-e1d640128d26",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Add a tag to resources"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('addTagResourcesTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('addTagResourcesTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "96d9a89c-0d67-41fc-899d-2b9599f76a24",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/96d9a89c-0d67-41fc-899d-2b9599f76a24",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Add a tag to subscriptions"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('addTagSubscriptionsTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('addTagSubscriptionsTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d157c373-a6c4-483d-aaad-570756956268",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d157c373-a6c4-483d-aaad-570756956268",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Add or replace a tag on resource groups"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('addReplaceTagResourceGroupsTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('addReplaceTagResourceGroupsTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5ffd78d9-436d-4b41-a421-5baa819e3008",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5ffd78d9-436d-4b41-a421-5baa819e3008",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Add or replace a tag on resources"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('addReplaceTagResourcesTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('addReplaceTagResourcesTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "61a4d60b-7326-440e-8051-9f94394d4dd1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/61a4d60b-7326-440e-8051-9f94394d4dd1",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Add or replace a tag on subscriptions"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('addReplaceTagSubscriptionsTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('addReplaceTagSubscriptionsTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9ea02ca2-71db-412d-8b00-7c7ca9fcd32d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9ea02ca2-71db-412d-8b00-7c7ca9fcd32d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Append a tag and its value from the resource group"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('appendTagValueResourceGroupTagName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "49c88fc8-6fd1-46fd-a676-f12d1d3a4c71",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/49c88fc8-6fd1-46fd-a676-f12d1d3a4c71",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Append a tag and its value to resource groups"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('appendTagValueResourceGroupsTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('appendTagValueResourceGroupsTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2a0e14a6-b0a6-4fab-991a-187a4f81c498",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0e14a6-b0a6-4fab-991a-187a4f81c498",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Append a tag and its value to resources"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('appendTagValueResourcesTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('appendTagValueResourcesTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cd3aa116-8754-49c9-a813-ad46512ece54",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Inherit a tag from the resource group"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('inheritTagResourceGroupTagName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ea3f2387-9b95-492a-a190-fcdc54f7b070",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea3f2387-9b95-492a-a190-fcdc54f7b070",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Inherit a tag from the resource group if missing"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('inheritTagResourceGroupMissingTagName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b27a0cbd-a167-4dfa-ae64-4337be671140",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b27a0cbd-a167-4dfa-ae64-4337be671140",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Inherit a tag from the subscription"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('inheritTagSubscriptionTagName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "40df99da-1232-49b1-a39a-6da8d878f469",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Inherit a tag from the subscription if missing"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('inheritTagSubscriptionMissingTagName')]"
+          }
+        }
+      }
+    ]
+  }
+}
