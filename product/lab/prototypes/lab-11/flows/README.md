@@ -7,9 +7,9 @@ The end-to-end design is drawn in
 [`../docs/epac-scaffold-generator-flow.svg`](../docs/epac-scaffold-generator-flow.svg).
 It has two halves joined by one contract (the catalogue):
 
-- **Producer** (this folder, runs *occasionally* — when Microsoft's built-ins or
+- **Producer** (this folder, runs _occasionally_ — when Microsoft's built-ins or
   the taxonomy change): `extract → enrich → create-initiatives → catalogue@version`.
-- **Consumer** (the *assembler*, runs *per customer, on demand*): expands a
+- **Consumer** (the _assembler_, runs _per customer, on demand_): expands a
   customer manifest against the catalogue and renders EPAC/JSON, Terraform and
   Bicep scaffolds. **Not built yet** — see the placeholder at the bottom.
 
@@ -33,17 +33,17 @@ CONSUMER — assembler (per customer, on demand)  ◄─────────
 
 ## At a glance
 
-| File | Role | Used in catalogue build? | Used by client/consumer? |
-|---|---|---|---|
-| [`extract_policies.py`](extract_policies.py) | **Producer step ①** — extract + dedup | ✅ yes | — |
-| [`enrich_policies.py`](enrich_policies.py) | **Producer step ②** — validate tier + rationale | ✅ yes | — |
-| [`create_initiatives.py`](create_initiatives.py) | **Producer step ③** — group + bake + stamp | ✅ yes | — |
-| [`paths.py`](paths.py) | **Shared module** — canonical paths | ✅ (imported) | — |
-| [`hierarchy.py`](hierarchy.py) | **Shared module** — the ONE hierarchy parser | ✅ (imported) | — |
-| [`tiers.py`](tiers.py) | **Shared module** — the ONE tier engine (parses `tier-rules.yaml`) | ✅ (imported) | — |
-| [`ab_verify.py`](ab_verify.py) | **Tool** — A/B regression / diff check | ❌ no | ❌ no |
-| [`catalogue_diff.py`](catalogue_diff.py) | **Tool** — catalogue drift / diff report | ❌ no | ❌ no |
-| `assemble_scaffold.py` | **Consumer (Phase 4)** — *not built yet* | — | ✅ (the consumer) |
+| File                                             | Role                                                               | Used in catalogue build? | Used by client/consumer? |
+| ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------ | ------------------------ |
+| [`extract_policies.py`](extract_policies.py)     | **Producer step ①** — extract + dedup                              | ✅ yes                   | —                        |
+| [`enrich_policies.py`](enrich_policies.py)       | **Producer step ②** — validate tier + rationale                    | ✅ yes                   | —                        |
+| [`create_initiatives.py`](create_initiatives.py) | **Producer step ③** — group + bake + stamp                         | ✅ yes                   | —                        |
+| [`paths.py`](paths.py)                           | **Shared module** — canonical paths                                | ✅ (imported)            | —                        |
+| [`hierarchy.py`](hierarchy.py)                   | **Shared module** — the ONE hierarchy parser                       | ✅ (imported)            | —                        |
+| [`tiers.py`](tiers.py)                           | **Shared module** — the ONE tier engine (parses `tier-rules.yaml`) | ✅ (imported)            | —                        |
+| [`ab_verify.py`](ab_verify.py)                   | **Tool** — A/B regression / diff check                             | ❌ no                    | ❌ no                    |
+| [`catalogue_diff.py`](catalogue_diff.py)         | **Tool** — catalogue drift / diff report                           | ❌ no                    | ❌ no                    |
+| `assemble_scaffold.py`                           | **Consumer (Phase 4)** — _not built yet_                           | —                        | ✅ (the consumer)        |
 
 ---
 
@@ -51,21 +51,21 @@ CONSUMER — assembler (per customer, on demand)  ◄─────────
 
 All scripts in this folder are **snake_case** so every file is a valid Python
 module name and can be imported as well as run. The rule is keyed on what the
-file *is*, not how it happens to be invoked:
+file _is_, not how it happens to be invoked:
 
-| Kind | Convention | Imported? | Examples |
-|---|---|---|---|
-| **Pipeline entry points** (the producer steps) | `snake_case`, `verb_noun.py` | runnable *and* importable | `extract_policies.py`, `enrich_policies.py`, `create_initiatives.py` |
-| **Shared library modules** | `snake_case`, `noun.py` | yes | `paths.py`, `hierarchy.py` |
-| **Dev / validation tools** | `snake_case`, `verb_noun.py` | runnable | `ab_verify.py`, `catalogue_diff.py` |
-| **Consumer entry point** (Phase 4) | `snake_case`, `verb_noun.py` | runnable | `assemble_scaffold.py` *(planned)* |
+| Kind                                           | Convention                   | Imported?                 | Examples                                                             |
+| ---------------------------------------------- | ---------------------------- | ------------------------- | -------------------------------------------------------------------- |
+| **Pipeline entry points** (the producer steps) | `snake_case`, `verb_noun.py` | runnable _and_ importable | `extract_policies.py`, `enrich_policies.py`, `create_initiatives.py` |
+| **Shared library modules**                     | `snake_case`, `noun.py`      | yes                       | `paths.py`, `hierarchy.py`                                           |
+| **Dev / validation tools**                     | `snake_case`, `verb_noun.py` | runnable                  | `ab_verify.py`, `catalogue_diff.py`                                  |
+| **Consumer entry point** (Phase 4)             | `snake_case`, `verb_noun.py` | runnable                  | `assemble_scaffold.py` _(planned)_                                   |
 
 Rules:
 
 1. **No hyphens.** A hyphen makes a file impossible to `import` (Python reads `-`
    as minus), which is what forced `ab_verify.py` to copy-and-subprocess the
    generator instead of importing it. snake_case keeps every file importable.
-2. **No leading underscore** unless the module is genuinely *private* (an
+2. **No leading underscore** unless the module is genuinely _private_ (an
    implementation detail that must never be imported from outside this folder).
    Shared helpers that siblings import — `paths.py`, `hierarchy.py` — are part of
    the internal API and do **not** get a `_` prefix. (This is why `_paths.py` was
@@ -74,8 +74,8 @@ Rules:
 3. **Pipeline steps read as `verb_noun`** (`extract_policies`); **modules read as
    `noun`** (`hierarchy`); **tools read as `verb_noun`** (`catalogue_diff`).
 
-> The *conceptual* pipeline steps are still written `extract → enrich →
-> create-initiatives` in prose/diagrams; that's a step label, not a filename. Only
+> The _conceptual_ pipeline steps are still written `extract → enrich →
+create-initiatives` in prose/diagrams; that's a step label, not a filename. Only
 > the files are snake_case.
 
 ---
@@ -86,6 +86,7 @@ Run from this folder, in order. Each step is idempotent; defaults target this la
 (via [`paths.py`](paths.py)), so no flags are needed for a normal run.
 
 ### ① [`extract_policies.py`](extract_policies.py)
+
 **Reads** the official built-in policy JSON (`--source`, default the shared
 `Official Azure Policy` repo) and **writes** one `policies.md` table per Azure
 resource category to `catalogue/definitions/<category>/`.
@@ -100,6 +101,7 @@ resource category to `catalogue/definitions/<category>/`.
 - `--jsonl` mode emits a flat extraction instead (no tier, for agent consumption).
 
 ### ② [`enrich_policies.py`](enrich_policies.py)
+
 **Re-reads** every `policies.md`, **corrects the Tier**, adds a rationale, and
 rewrites the file. This is the canonical Phase 2 mechanism; the tier rules it
 applies live in the authored [`config/tier-rules.yaml`](../config/tier-rules.yaml)
@@ -116,19 +118,20 @@ applies live in the authored [`config/tier-rules.yaml`](../config/tier-rules.yam
 - Re-sorts rows by (tier, name). Idempotent: same input ⇒ same output.
 
 ### ③ [`create_initiatives.py`](create_initiatives.py)
+
 **Reads** all enriched `policies.md`, joins each policy (on Policy ID) against a
 parameter index built from the policy repo, **groups** rows by
-`(Domain, Tier, Category)` — tiers are *exclusive* here — and writes up to five
+`(Domain, Tier, Category)` — tiers are _exclusive_ here — and writes up to five
 EPAC-ready artifacts per group under
 `catalogue/initiatives/<domain>/<tier>/<category>/`:
 
-| Artifact | Contents |
-|---|---|
-| `.md` | tier rationale + a `## Usage` deployment guide + the full policy table |
-| `.policyset.json` | EPAC `policySetDefinition`; hardened effects baked, required params bubbled up |
-| `.assignment.json` | EPAC assignment scaffold with mock tenant references |
-| `.exemptions.json` | EPAC exemptions template stub |
-| `.roles.json` | *only* for Modify/DeployIfNotExists groups: deduped remediation `roleDefinitionIds` |
+| Artifact           | Contents                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| `.md`              | tier rationale + a `## Usage` deployment guide + the full policy table              |
+| `.policyset.json`  | EPAC `policySetDefinition`; hardened effects baked, required params bubbled up      |
+| `.assignment.json` | EPAC assignment scaffold with mock tenant references                                |
+| `.exemptions.json` | EPAC exemptions template stub                                                       |
+| `.roles.json`      | _only_ for Modify/DeployIfNotExists groups: deduped remediation `roleDefinitionIds` |
 
 > Generated in one pass: each EPAC-native JSON (`.policyset`/`.assignment`/`.exemptions`) is stamped with a `$schema` reference as its first key, and each `.md` gets a `## Usage` deployment guide (between the rationale and the policy table) — no separate post-processing step.
 
@@ -143,17 +146,20 @@ These two files plus the `initiatives/` and `definitions/` folders are the
 ## Shared modules (imported by the pipeline, not run directly)
 
 ### [`paths.py`](paths.py)
+
 Single source of truth for lab paths (`CATALOGUE_DIR`, `DEFINITIONS_DIR`,
 `INITIATIVES_DIR`, `HIERARCHY_FILE`, …), all derived from this folder's location.
 Every script imports these constants so a folder rename is a one-line change.
 
 ### [`hierarchy.py`](hierarchy.py)
+
 The **one** parser for the authored domain hierarchy
 (`config/azure-domain-hierachy.md`). Exposes `load_domain_map()` (`{category: domain}`)
 and `load_hierarchy()` (`{domain: [categories]}`). One authored hierarchy → one
 parser → one generated `index.json`; no second copy means no drift.
 
 ### [`tiers.py`](tiers.py)
+
 The **one** tier-classification engine. Parses the authored
 [`config/tier-rules.yaml`](../config/tier-rules.yaml) (with a small built-in
 YAML-subset parser — no PyYAML dependency) and exposes `classify(name,
@@ -168,12 +174,13 @@ and `...` is an arbitrary gap) — see the comments at the top of the file.
 ## Tools (not part of the catalogue build, not consumed by clients)
 
 ### [`ab_verify.py`](ab_verify.py)
-A **regression / diff-check harness** — a developer tool, *not* a pipeline step.
+
+A **regression / diff-check harness** — a developer tool, _not_ a pipeline step.
 It proves a past refactor of `create_initiatives.py` was **additive-only**: it
 mechanically strips the deliberately-added bits (the `catalogueVersion` /
 `hasRemediation` / `roleDefinitionIds` metadata keys, the `.roles.json` sidecar,
 and the `index.json` / `catalogue.json` finalize) to reconstruct a synthetic
-"pre-refactor" generator, runs **both** old and new against the *same*
+"pre-refactor" generator, runs **both** old and new against the _same_
 `catalogue/definitions`, and diffs the output.
 
 **PASS** means: `.md` / `.assignment.json` / `.exemptions.json` are byte-identical;
@@ -187,6 +194,7 @@ python flows/ab_verify.py --source "<official policy repo>"   # also bakes roles
 ```
 
 ### [`catalogue_diff.py`](catalogue_diff.py)
+
 A **catalogue drift detector** — compares two catalogues at the policy-asset level
 (keyed on policy GUID) and reports exactly which policies were **added, removed,
 re-tiered, re-categorised, or had their baked effect changed**, then attributes the
@@ -200,11 +208,11 @@ python flows/catalogue_diff.py OLD NEW [--out report.json] [--limit 20]
 
 ---
 
-## Phase 4 — the assembler (to be built)  ░ placeholder ░
+## Phase 4 — the assembler (to be built) ░ placeholder ░
 
 The bottom half of the SVG — the **consumer** — is not implemented yet. It is a
 standalone, deterministic transform `manifest + catalogue@version → IaC scaffold`,
-designed in [`../docs/phase-4-assembler-design.md`](../docs/phase-4-assembler-design.md).
+designed in [`../docs/assembler-design.md`](../docs/assembler-design.md).
 Planned entry point:
 
 ```
