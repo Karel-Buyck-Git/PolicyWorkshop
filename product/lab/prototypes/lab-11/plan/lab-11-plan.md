@@ -5,7 +5,7 @@ You design Azure governance offerings built on Enterprise Policy as Code (EPAC).
 Produce an Azure Policy taxonomy classified into three commercial tiers (Essential / Professional / Enterprise),covering all major Azure resource categories (compute, networking, storage,
 data, identity, monitoring, etc).
 
-Phases 1–3 are the **producer**: they **produce the catalogue that the assembler consumes** (see `docs/phase-4-assembler-design.md`).
+Phases 1–3 are the **producer**: they **produce the catalogue that the assembler consumes** (see `docs/assembler-design.md`).
 
 ## Tier definitions
 
