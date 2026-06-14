@@ -1,0 +1,123 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "tagging-require-mandatory-tags",
+  "properties": {
+    "displayName": "Require mandatory tags on resources",
+    "description": "Audits or denies resources that are missing (or have an empty value for) any of the organisation's mandatory tags: environment, costCenter, workload, owner, creationDate, service. This policy validates tag PRESENCE only - the tag values are supplied by the deploying template (Bicep). The 'description' tag is optional and is not validated, and deployers remain free to add any additional tags they need. Land with effect 'Audit' to discover non-compliant existing resources (brownfield), then switch to 'Deny' to enforce the tags on new deployments (greenfield). Note: Deny only gates create/update operations - it never blocks or modifies resources that already exist.",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Tags",
+      "version": "1.0.0",
+      "source": "getResourceTags.bicep",
+      "cafCategory": "Governance",
+      "checkKind": "presence",
+      "mandatoryTags": [
+        "environment",
+        "costCenter",
+        "workload",
+        "owner",
+        "creationDate",
+        "service"
+      ],
+      "optionalTags": [
+        "description"
+      ]
+    },
+    "parameters": {
+      "excludedResourceTypes": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded resource types",
+          "description": "Resource types matching any of these wildcard patterns are exempt from the tag check. Useful for child/proxy resource types that do not support tags. Example: 'Microsoft.Network/*/*, Microsoft.Insights/diagnosticSettings'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "count": {
+              "value": "[parameters('excludedResourceTypes')]",
+              "name": "excludedType",
+              "where": {
+                "field": "type",
+                "like": "[current('excludedType')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "anyOf": [
+              {
+                "field": "tags['environment']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['environment']",
+                "equals": ""
+              },
+              {
+                "field": "tags['costCenter']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['costCenter']",
+                "equals": ""
+              },
+              {
+                "field": "tags['workload']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['workload']",
+                "equals": ""
+              },
+              {
+                "field": "tags['owner']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['owner']",
+                "equals": ""
+              },
+              {
+                "field": "tags['creationDate']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['creationDate']",
+                "equals": ""
+              },
+              {
+                "field": "tags['service']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['service']",
+                "equals": ""
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
