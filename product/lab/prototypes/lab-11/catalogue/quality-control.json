@@ -1,0 +1,21 @@
+{
+  "catalogueVersion": "2026.06.12",
+  "generatedAt": "2026-06-14T22:33:33Z",
+  "counts": {
+    "customDefinitions": 170,
+    "builtinPolicies": 2452,
+    "initiatives": 187,
+    "assignments": 187,
+    "members": 3453,
+    "errors": 0,
+    "warnings": 0
+  },
+  "findings": [
+    {
+      "severity": "info",
+      "code": "naming-coverage",
+      "message": "170 custom definitions (readable slugs), 2452 built-in policies (GUID ids), 187 initiatives, 187 assignments",
+      "file": ""
+    }
+  ]
+}

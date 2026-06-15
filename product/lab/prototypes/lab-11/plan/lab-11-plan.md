@@ -137,6 +137,35 @@ Review the generated files and verify:
 - Policies with Domain `undefined` are collected under `catalogue/initiatives/undefined/<tier>/...`
   and flagged for manual domain assignment in a follow-up task.
 
+## Phase 4 — Quality control output
+
+Run the following script:
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\quality_control.py"
+
+- If the script exits with an error, report the error message and stop.
+- If it completes successfully, note the summary line it prints (counts + findings).
+
+This is the repeatable QC gate run at the **end of every pipeline execution**. It reads the
+freshly generated catalogue (custom definitions under `catalogue/definitions/custom/`, the
+built-in `policies.md` tables, and the `initiatives/**/*.policyset.json` + `*.assignment.json`
+artifacts), runs a validation pass, and regenerates three outputs:
+
+- `catalogue/naming-samples.md` — naming-result samples plus the live `name` ↔ `displayName`
+  pair tables (custom definitions, built-ins, initiatives, assignments, initiative members).
+- `docs/epac-naming-convention.md` — the explanatory naming / identifiers guide, with the same
+  live pair tables.
+- `catalogue/quality-control.json` — a machine-readable report: `catalogueVersion`,
+  `generatedAt`, `counts`, and the `findings` list.
+
+The validation pass flags: missing `displayName` (definitions, initiatives, assignments),
+duplicate technical names, empty initiatives (zero members), orphan assignments (referencing a
+missing policy set), and members without a `metadata.policyName`. The script **exits non-zero
+when any `error`-level finding is present** — treat that as a stop condition and resolve the
+findings before the run is considered complete. The two markdown files are generated artifacts
+(a banner says so); edit the templates in `flows/quality_control.py`, not the files. Output is
+deterministic — re-running on an unchanged catalogue is byte-identical apart from `generatedAt`.
+Use `--check-only` to run the validation/report without rewriting the docs.
+
 ## Done when
 
 All resource category files have been processed — duplicates removed, tier
@@ -148,3 +177,7 @@ plus policyset, assignment, exemptions (and a `.roles.json` for remediating grou
 
 The catalogue manifests `catalogue/index.json` and `catalogue/catalogue.json` have been written and
 carry the `catalogueVersion` stamp.
+
+The quality-control step has run: `catalogue/naming-samples.md` and `docs/epac-naming-convention.md`
+have been regenerated from the catalogue, `catalogue/quality-control.json` has been written, and the
+validation report shows **no `error`-level findings**.
