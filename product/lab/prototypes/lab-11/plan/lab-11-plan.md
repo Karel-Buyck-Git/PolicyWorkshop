@@ -37,7 +37,7 @@ either require significant infrastructure investment or map directly to regulato
 ## Phase 1 — Run the extraction script
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\extract_policies.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\catalogue_builder\extract_policies.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the output folder it reports and proceed to Phase 2.
@@ -61,11 +61,11 @@ Soft Value is the least-restrictive non-`Disabled` effect from Allowed Values
 sole allowed effect.
 The Domain column is looked up from the row's Category in
 `config/azure-domain-hierachy.md` (the ONE authored hierarchy, parsed via the shared
-`flows/hierarchy.py`); categories with no hierarchy match get `undefined`.
+`flows/shared/hierarchy.py`); categories with no hierarchy match get `undefined`.
 
 The Tier column is assigned by the shared classification engine
-(`flows/tiers.py`) from the authored keyword rules in `config/tier-rules.yaml`;
-duplicate Policy IDs were already removed in Phase 1. Run `flows/enrich_policies.py`,
+(`flows/shared/tiers.py`) from the authored keyword rules in `config/tier-rules.yaml`;
+duplicate Policy IDs were already removed in Phase 1. Run `flows/catalogue_builder/enrich_policies.py`,
 which for every `policies.md` re-applies the tier rules and adds the rationale.
 
 **Re-apply tiers**
@@ -92,7 +92,7 @@ where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 ## Phase 3 — Create per-tier EPAC-ready initiatives
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\create_initiatives.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\catalogue_builder\create_initiatives.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note how many groups/files were written and proceed.
@@ -137,15 +137,21 @@ Review the generated files and verify:
 - Policies with Domain `undefined` are collected under `catalogue/initiatives/undefined/<tier>/...`
   and flagged for manual domain assignment in a follow-up task.
 
-## Phase 4 — Quality control output
+## Phase 4 — Quality control output (producer step ④)
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\quality_control.py"
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\catalogue_builder\quality_control.py"
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the summary line it prints (counts + findings).
 
-This is the repeatable QC gate run at the **end of every pipeline execution**. It reads the
+> **Scope note.** This QC step is the **fourth and final step of the *producer* (the
+> *catalogue-builder*)** — it validates and documents the catalogue the first three steps built.
+> It is *not* the "assembler". The **epac-builder** (consumer / assembler) is a separate,
+> not-yet-built app that consumes the published catalogue; see
+> [`flows/epac_builder/README.md`](../flows/epac_builder/README.md).
+
+This is the repeatable QC gate run at the **end of every catalogue-builder run**. It reads the
 freshly generated catalogue (custom definitions under `catalogue/definitions/custom/`, the
 built-in `policies.md` tables, and the `initiatives/**/*.policyset.json` + `*.assignment.json`
 artifacts), runs a validation pass, and regenerates three outputs:
@@ -162,7 +168,7 @@ duplicate technical names, empty initiatives (zero members), orphan assignments 
 missing policy set), and members without a `metadata.policyName`. The script **exits non-zero
 when any `error`-level finding is present** — treat that as a stop condition and resolve the
 findings before the run is considered complete. The two markdown files are generated artifacts
-(a banner says so); edit the templates in `flows/quality_control.py`, not the files. Output is
+(a banner says so); edit the templates in `flows/catalogue_builder/quality_control.py`, not the files. Output is
 deterministic — re-running on an unchanged catalogue is byte-identical apart from `generatedAt`.
 Use `--check-only` to run the validation/report without rewriting the docs.
 

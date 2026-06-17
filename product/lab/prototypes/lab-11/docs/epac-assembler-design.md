@@ -73,7 +73,7 @@ The catalogue is the only thing the assembler depends on — it is self-describi
   precomputed by phase 3 from the policy repo. The Terraform/Bicep renderers read these; the
   assembler never touches the policy repo.
 
-Single-source guarantee: one authored hierarchy → one parser (`flows/hierarchy.py`) → one generated
+Single-source guarantee: one authored hierarchy → one parser (`flows/shared/hierarchy.py`) → one generated
 `index.json`. The markdown is the source; `index.json` is a derived projection, never hand-edited.
 
 ---

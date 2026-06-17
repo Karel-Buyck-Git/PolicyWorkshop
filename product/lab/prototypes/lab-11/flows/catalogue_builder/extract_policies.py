@@ -24,8 +24,13 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
-from hierarchy import load_domain_map  # shared parser (single source)
-from tiers import classify             # shared tier engine (single source)
+
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
+
+from shared.hierarchy import load_domain_map  # shared parser (single source)  # noqa: E402
+from shared.tiers import classify             # shared tier engine (single source)  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -269,7 +274,7 @@ DEFAULT_SOURCE = (
 # Output/hierarchy defaults derive from this script's location (lab root is two
 # levels up), so the pipeline targets its own lab with no flags. --source still
 # points at the shared official policy repo.
-from paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401
+from shared.paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401,E402
 DEFAULT_OUT = str(DEFINITIONS_DIR)
 DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 

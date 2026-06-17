@@ -1,14 +1,14 @@
 """
-summarize-categories.py
+summarize_categories.py
 
 Walks every policies.md under the output directory, parses the markdown table,
 and summarizes the values found in the "Category" column.
 
 Usage:
-    python summarize-categories.py [--source <folder>] [--md <file>]
+    python flows/tools/summarize_categories.py [--source <folder>] [--md <file>]
 
 Default --source:
-    <lab-root>\\catalogue\\definitions   (the enriched taxonomy, via flows/paths.py)
+    <lab-root>\\catalogue\\definitions   (the enriched taxonomy, via shared/paths.py)
 
 When --md is supplied, a markdown report is written to that path instead of
 printing to stdout.
@@ -20,18 +20,18 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-# Share the ONE definition of the catalogue path with the pipeline (flows/paths.py)
+# Share the ONE definition of the catalogue path with the pipeline (shared/paths.py)
 # instead of hardcoding, so a future folder rename is a one-line change there.
-_LAB_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(_LAB_ROOT / "flows"))
-from paths import DEFINITIONS_DIR  # noqa: E402
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
+from shared.paths import DEFINITIONS_DIR  # noqa: E402
 
 DEFAULT_SOURCE = DEFINITIONS_DIR
 
 
 # Cells are pipe-separated; a literal pipe inside a value is escaped as ``\|``
 # (e.g. NIST control titles "… | Cryptographic Protection"). Split only on
-# *unescaped* pipes — mirroring flows/create_initiatives.py — otherwise the
+# *unescaped* pipes — mirroring flows/shared/mdtable.py — otherwise the
 # columns shift and the Category is read from the wrong cell.
 _CELL_SPLIT_RE = re.compile(r"(?<!\\)\|")
 

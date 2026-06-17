@@ -16,14 +16,19 @@ Usage:
 """
 
 import argparse
+import os
 import re
+import sys
 from pathlib import Path
-from hierarchy import load_domain_map  # shared parser (single source)
-from tiers import classify             # shared tier engine (single source)
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
+
+from shared.hierarchy import load_domain_map  # shared parser (single source)  # noqa: E402
+from shared.tiers import classify             # shared tier engine (single source)  # noqa: E402
 
 # Defaults derive from this script's location (the lab root is two levels up),
 # so the pipeline targets its own lab with no flags.
-from paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401
+from shared.paths import LAB_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401,E402
 DEFAULT_OUT = str(DEFINITIONS_DIR)
 DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 
