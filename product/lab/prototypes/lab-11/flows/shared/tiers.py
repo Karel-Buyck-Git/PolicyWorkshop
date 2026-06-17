@@ -193,8 +193,8 @@ def load_tier_rules(path) -> TierRules:
 
 
 # Convenience module-level singleton bound to the canonical authored file, so
-# callers can simply `from tiers import classify`.
-from paths import TIER_RULES_FILE  # noqa: E402
+# callers can simply `from shared.tiers import classify`.
+from shared.paths import TIER_RULES_FILE  # noqa: E402
 
 _RULES = load_tier_rules(TIER_RULES_FILE)
 

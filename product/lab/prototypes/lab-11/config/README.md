@@ -7,8 +7,8 @@ second copy to drift (see each file's note in [`../flows/README.md`](../flows/RE
 
 | File | What it defines | Parser |
 |---|---|---|
-| [`azure-domain-hierachy.md`](azure-domain-hierachy.md) | Domain → resource-category taxonomy | [`../flows/hierarchy.py`](../flows/hierarchy.py) |
-| [`tier-rules.yaml`](tier-rules.yaml) | Essential / Professional / Enterprise classification | [`../flows/tiers.py`](../flows/tiers.py) |
+| [`azure-domain-hierachy.md`](azure-domain-hierachy.md) | Domain → resource-category taxonomy | [`../flows/shared/hierarchy.py`](../flows/shared/hierarchy.py) |
+| [`tier-rules.yaml`](tier-rules.yaml) | Essential / Professional / Enterprise classification | [`../flows/shared/tiers.py`](../flows/shared/tiers.py) |
 
 The rest of this document explains the **tier-rules design** — the priority order
 and the override model — because both have non-obvious effects.
@@ -120,7 +120,7 @@ present is the one that takes effect.
 
 - Edit `tier-rules.yaml` by hand (keyword conventions are documented at the top
   of that file: whole-word match, space vs. hyphen, trailing `*` stem, `...` gap).
-- Re-run the pipeline to apply: `python flows/enrich_policies.py` re-classifies
+- Re-run the pipeline to apply: `python flows/catalogue_builder/enrich_policies.py` re-classifies
   every `policies.md`. The file's SHA is recorded in `catalogue.json` as
   `tierRulesHash`, so a rules change is visible in catalogue provenance and in
-  [`../flows/catalogue_diff.py`](../flows/catalogue_diff.py).
+  [`../flows/tools/catalogue_diff.py`](../flows/tools/catalogue_diff.py).

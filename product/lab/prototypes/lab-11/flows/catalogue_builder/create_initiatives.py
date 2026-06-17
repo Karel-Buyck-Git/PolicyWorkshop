@@ -28,8 +28,8 @@ parameter-schema source of truth.
 Run after enrich_policies.py.
 
 Usage:
-    python flows/create_initiatives.py
-    python flows/create_initiatives.py --prefix company --source "<repo>" --output <dir> --initiatives <dir>
+    python flows/catalogue_builder/create_initiatives.py
+    python flows/catalogue_builder/create_initiatives.py --prefix company --source "<repo>" --output <dir> --initiatives <dir>
 """
 
 import argparse
@@ -42,8 +42,12 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE, TIER_RULES_FILE  # noqa: F401
-from hierarchy import load_domain_map
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
+
+from shared.paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE, TIER_RULES_FILE  # noqa: F401,E402
+from shared.hierarchy import load_domain_map  # noqa: E402
+from shared.mdtable import md_escape, slugify, parse_table  # noqa: E402
 DEFAULT_OUTPUT = DEFINITIONS_DIR
 DEFAULT_INITIATIVES = INITIATIVES_DIR
 DEFAULT_SOURCE = (
@@ -61,21 +65,12 @@ SCHEMA_POLICYSET = f"{_EPAC_BASE}/policy-set-definition-schema.json"
 SCHEMA_ASSIGNMENT = f"{_EPAC_BASE}/policy-assignment-schema.json"
 SCHEMA_EXEMPTIONS = f"{_EPAC_BASE}/policy-exemption-schema.json"
 
-# Canonical column layout (matches enrich_policies.py / extract_policies.py).
-COLUMNS = [
-    "#", "Policy", "Policy ID", "Tag", "Description",
-    "Requires Parameters", "Requires Managed Identity",
-    "Allowed Values", "Default Value", "Soft Value", "Hardened Value",
-    "Category", "Domain", "Version", "Type", "Tier",
-]
-
 HEADER_LINE = (
     "| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | "
     "Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |"
 )
 SEP_LINE = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
-_SEP_RE = re.compile(r"^\|[-:\s|]+\|$")
 _RATIONALE_RE = re.compile(r"^\*\*(Essential|Professional|Enterprise)\*\*\s*(.*)$")
 
 # Canonical casing for known effects (source allowedValues casing is inconsistent).
@@ -94,36 +89,12 @@ def canonical_effect(value: str) -> str:
     return CANONICAL_EFFECT.get((value or "").strip().lower(), value)
 
 
-# Cells are pipe-separated; a literal pipe inside a value is escaped as ``\|``.
-# Split only on *unescaped* pipes so policy names/descriptions containing a pipe
-# (e.g. NIST control titles "… | Cryptographic Protection") stay in one cell —
-# otherwise the columns shift and the real GUID lands in the wrong column,
-# breaking the Policy-ID join. Cells are unescaped on read; md_escape re-escapes
-# on write so the round-trip is stable.
-_CELL_SPLIT_RE = re.compile(r"(?<!\\)\|")
-
-
-def split_cells(stripped: str) -> list[str]:
-    inner = stripped.strip()
-    if inner.startswith("|"):
-        inner = inner[1:]
-    if inner.endswith("|"):
-        inner = inner[:-1]
-    return [c.strip().replace("\\|", "|") for c in _CELL_SPLIT_RE.split(inner)]
-
-
-def md_escape(value: str) -> str:
-    return (value or "").replace("|", "\\|").replace("\n", " ")
-
+# Markdown-table parsing, cell escaping and slugify now live in shared/mdtable.py
+# (imported above) so consumers reuse one implementation.
 
 # ---------------------------------------------------------------------------
-# Slug / version helpers
+# Parameter-name helpers
 # ---------------------------------------------------------------------------
-
-def slugify(value: str) -> str:
-    """Lowercase, replace any run of non-alphanumerics with a single hyphen."""
-    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", (value or "").lower())).strip("-")
-
 
 # Filler words dropped when deriving a readable parameter name from a policy display name.
 _PARAM_STOPWORDS = {
@@ -237,40 +208,8 @@ def build_param_index(source_dir: Path) -> dict[str, dict]:
 
 
 # ---------------------------------------------------------------------------
-# Markdown parsing
+# Markdown parsing  (parse_table lives in shared/mdtable.py)
 # ---------------------------------------------------------------------------
-
-def parse_table(path: Path) -> list[dict]:
-    """Parse the markdown table in ``path`` and return a list of row dicts.
-
-    Column names are discovered from the header row, then each row is re-keyed
-    onto COLUMNS so downstream code stays uniform regardless of source layout.
-    Returns [] when no table is found.
-    """
-    lines = path.read_text(encoding="utf-8").splitlines()
-    header_cells: list[str] | None = None
-    rows: list[dict] = []
-    in_table = False
-    for line in lines:
-        stripped = line.strip()
-        if not stripped.startswith("|"):
-            in_table = False
-            continue
-        if header_cells is None and "Policy ID" in stripped:
-            header_cells = split_cells(stripped)
-            in_table = True
-            continue
-        if _SEP_RE.match(stripped):
-            continue
-        if in_table and header_cells:
-            cells = split_cells(stripped)
-            if len(cells) < len(header_cells):
-                cells.extend([""] * (len(header_cells) - len(cells)))
-            raw_row = dict(zip(header_cells, cells[: len(header_cells)]))
-            row = {col: raw_row.get(col, "") for col in COLUMNS}
-            rows.append(row)
-    return rows
-
 
 def parse_rationale(path: Path) -> dict[str, str]:
     """Return {tier: paragraph} captured from the `## Tier rationale` section.
@@ -386,7 +325,7 @@ def product_block(tier: str, has_roles: bool) -> list[str]:
         "## Product, purpose & deployment",
         "",
         "**Product.** Part of the DLW Azure Policy catalogue — tiered governance initiatives "
-        "(Essential / Professional / Enterprise) generated by `flows/create_initiatives.py` from "
+        "(Essential / Professional / Enterprise) generated by `flows/catalogue_builder/create_initiatives.py` from "
         "Microsoft's built-in Azure Policy definitions.",
         "",
         f"**Purpose.** Bundles the built-in policies for this **{tier}** group into one assignable set, "

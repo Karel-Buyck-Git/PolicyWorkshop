@@ -108,7 +108,7 @@ not by duplicating policies across files.
 
 The exact keyword rules behind these themes are authored in
 [`config/tier-rules.yaml`](../config/tier-rules.yaml) and applied by the shared
-engine [`flows/tiers.py`](../flows/tiers.py); see
+engine [`flows/shared/tiers.py`](../flows/shared/tiers.py); see
 [`config/README.md`](../config/README.md) for the rules, overrides, and the
 priority order. Both Phase 1 and Phase 2 call the same engine, so they always
 agree.
@@ -145,9 +145,10 @@ rule); it is simply not settable in the initiative.
 Defaults derive from each script's location, so the whole pipeline targets this lab with no arguments:
 
 ```
-python flows/extract_policies.py     # Phase 1 → catalogue/definitions/
-python flows/enrich_policies.py      # Phase 2 → catalogue/definitions/ (in place)
-python flows/create_initiatives.py   # Phase 3 → catalogue/initiatives/
+python flows/catalogue_builder/extract_policies.py     # Phase 1 → catalogue/definitions/
+python flows/catalogue_builder/enrich_policies.py      # Phase 2 → catalogue/definitions/ (in place)
+python flows/catalogue_builder/create_initiatives.py   # Phase 3 → catalogue/initiatives/
+python flows/catalogue_builder/quality_control.py      # Phase 4 → validate + regenerate docs
 ```
 
 Overridable flags: `--source` (policy repo), `--out` / `--output`, `--hierarchy`,

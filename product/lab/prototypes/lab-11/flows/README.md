@@ -1,20 +1,29 @@
-# `flows/` — the EPAC scaffold generator
+# `flows/` — lab-11 source root
 
-This folder holds the **producer pipeline**: the scripts that turn Azure's
-built-in policy definitions into a versioned, customer-facing **catalogue**.
+This folder is the **source root**, organized into **named components** (each a Python
+subpackage), joined by one contract (the **catalogue**):
+
+| Component | Dir | What it is |
+| --- | --- | --- |
+| **catalogue-builder** | [`catalogue_builder/`](catalogue_builder/) | the **producer** pipeline: `extract → enrich → create-initiatives → quality-control` |
+| **definition-gen** | [`definition_gen/`](definition_gen/) | on-demand authoring of **custom** definitions (e.g. `dlw-az-naming`) that feed the catalogue |
+| **epac-builder** | [`epac_builder/`](epac_builder/) | the **consumer / assembler** app — manifest + catalogue → IaC scaffolds (**not built yet**) |
+| **shared** | [`shared/`](shared/) | libraries imported across components (`paths`, `hierarchy`, `tiers`, `mdtable`) |
+| **tools** | [`tools/`](tools/) | dev / analyst utilities (`ab_verify`, `catalogue_diff`, `summarize_categories`) |
 
 The end-to-end design is drawn in
 [`../docs/epac-scaffold-generator-flow.svg`](../docs/epac-scaffold-generator-flow.svg).
-It has two halves joined by one contract (the catalogue):
+The two halves joined by the catalogue:
 
-- **Producer** (this folder, runs _occasionally_ — when Microsoft's built-ins or
-  the taxonomy change): `extract → enrich → create-initiatives → catalogue@version`.
-- **Consumer** (the _assembler_, runs _per customer, on demand_): expands a
-  customer manifest against the catalogue and renders EPAC/JSON, Terraform and
-  Bicep scaffolds. **Not built yet** — see the placeholder at the bottom.
+- **Producer** = the *catalogue-builder* (runs _occasionally_ — when Microsoft's built-ins or
+  the taxonomy change): `extract → enrich → create-initiatives → quality-control → catalogue@version`.
+  The fourth step (quality-control) validates and documents the catalogue the first three built.
+- **Consumer** = the *epac-builder* / assembler (runs _per customer, on demand_): expands a
+  customer manifest against the catalogue and renders EPAC/JSON, Terraform and Bicep scaffolds.
+  **Not built yet** — see [`epac_builder/README.md`](epac_builder/README.md).
 
 ```
-PRODUCER — taxonomy pipeline (this folder)          CATALOGUE @version (the contract)
+PRODUCER — catalogue-builder (catalogue_builder/)   CATALOGUE @version (the contract)
                                                      ┌─────────────────────────────────┐
   Azure built-in policies ┐                          │ catalogue.json  version·hash     │
                           ├─► ① extract ─► ② enrich ─►③ create-initiatives ─►          │
@@ -26,7 +35,7 @@ PRODUCER — taxonomy pipeline (this folder)          CATALOGUE @version (the co
 CONSUMER — assembler (per customer, on demand)  ◄──────────────────────────────────────── ┘
   input.json ─► EXPAND ─► manifest ─► Resolve+Bind ─► Canonical IR ─► render {EPAC/JSON · Terraform · Bicep}
                                                                           └─► customer/initiatives/ ─► Validate ─► PR ─► Deploy
-            ░░░  TO BE BUILT — see § "Phase 4 — the assembler"  ░░░
+            ░░░  TO BE BUILT — see § "epac-builder — the assembler"  ░░░
 ```
 
 ---
@@ -35,15 +44,18 @@ CONSUMER — assembler (per customer, on demand)  ◄─────────
 
 | File                                             | Role                                                               | Used in catalogue build? | Used by client/consumer? |
 | ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------ | ------------------------ |
-| [`extract_policies.py`](extract_policies.py)     | **Producer step ①** — extract + dedup                              | ✅ yes                   | —                        |
-| [`enrich_policies.py`](enrich_policies.py)       | **Producer step ②** — validate tier + rationale                    | ✅ yes                   | —                        |
-| [`create_initiatives.py`](create_initiatives.py) | **Producer step ③** — group + bake + stamp                         | ✅ yes                   | —                        |
-| [`paths.py`](paths.py)                           | **Shared module** — canonical paths                                | ✅ (imported)            | —                        |
-| [`hierarchy.py`](hierarchy.py)                   | **Shared module** — the ONE hierarchy parser                       | ✅ (imported)            | —                        |
-| [`tiers.py`](tiers.py)                           | **Shared module** — the ONE tier engine (parses `tier-rules.yaml`) | ✅ (imported)            | —                        |
-| [`ab_verify.py`](ab_verify.py)                   | **Tool** — A/B regression / diff check                             | ❌ no                    | ❌ no                    |
-| [`catalogue_diff.py`](catalogue_diff.py)         | **Tool** — catalogue drift / diff report                           | ❌ no                    | ❌ no                    |
-| `assemble_scaffold.py`                           | **Consumer (Phase 4)** — _not built yet_                           | —                        | ✅ (the consumer)        |
+| [`extract_policies.py`](catalogue_builder/extract_policies.py)     | **Producer step ①** — extract + dedup                              | ✅ yes                   | —                        |
+| [`enrich_policies.py`](catalogue_builder/enrich_policies.py)       | **Producer step ②** — validate tier + rationale                    | ✅ yes                   | —                        |
+| [`create_initiatives.py`](catalogue_builder/create_initiatives.py) | **Producer step ③** — group + bake + stamp                         | ✅ yes                   | —                        |
+| [`quality_control.py`](catalogue_builder/quality_control.py) | **Producer step ④** — validate + regenerate docs                   | ✅ yes                   | —                        |
+| [`gen_dlw_naming_definitions.py`](definition_gen/gen_dlw_naming_definitions.py) | **definition-gen** — author custom `dlw-az-naming` defs            | on demand                | —                        |
+| [`paths.py`](shared/paths.py)                           | **Shared module** — canonical paths                                | ✅ (imported)            | —                        |
+| [`hierarchy.py`](shared/hierarchy.py)                   | **Shared module** — the ONE hierarchy parser                       | ✅ (imported)            | —                        |
+| [`tiers.py`](shared/tiers.py)                           | **Shared module** — the ONE tier engine (parses `tier-rules.yaml`) | ✅ (imported)            | —                        |
+| [`mdtable.py`](shared/mdtable.py)                       | **Shared module** — markdown-table parse/escape + `slugify`        | ✅ (imported)            | —                        |
+| [`ab_verify.py`](tools/ab_verify.py)                   | **Tool** — A/B regression / diff check                             | ❌ no                    | ❌ no                    |
+| [`catalogue_diff.py`](tools/catalogue_diff.py)         | **Tool** — catalogue drift / diff report                           | ❌ no                    | ❌ no                    |
+| `epac_builder/assemble_scaffold.py`              | **Consumer (epac-builder)** — _not built yet_                      | —                        | ✅ (the consumer)        |
 
 ---
 
@@ -80,12 +92,12 @@ create-initiatives` in prose/diagrams; that's a step label, not a filename. Only
 
 ---
 
-## Producer — the catalogue pipeline (3 steps)
+## Producer — the catalogue-builder pipeline (4 steps)
 
 Run from this folder, in order. Each step is idempotent; defaults target this lab
-(via [`paths.py`](paths.py)), so no flags are needed for a normal run.
+(via [`paths.py`](shared/paths.py)), so no flags are needed for a normal run.
 
-### ① [`extract_policies.py`](extract_policies.py)
+### ① [`extract_policies.py`](catalogue_builder/extract_policies.py)
 
 **Reads** the official built-in policy JSON (`--source`, default the shared
 `Official Azure Policy` repo) and **writes** one `policies.md` table per Azure
@@ -95,17 +107,17 @@ resource category to `catalogue/definitions/<category>/`.
 - Drops `[Deprecated]` policies; **deduplicates** by Policy ID keeping the highest
   version (semver-aware, pre-release loses to GA).
 - Looks up each category's **Domain** from the authored hierarchy (via
-  [`hierarchy.py`](hierarchy.py)); no match → `undefined`.
-- Assigns a **first-pass Tier** via the shared engine ([`tiers.py`](tiers.py));
+  [`hierarchy.py`](shared/hierarchy.py)); no match → `undefined`.
+- Assigns a **first-pass Tier** via the shared engine ([`tiers.py`](shared/tiers.py));
   step ② re-runs the same engine as the authoritative pass.
 - `--jsonl` mode emits a flat extraction instead (no tier, for agent consumption).
 
-### ② [`enrich_policies.py`](enrich_policies.py)
+### ② [`enrich_policies.py`](catalogue_builder/enrich_policies.py)
 
 **Re-reads** every `policies.md`, **corrects the Tier**, adds a rationale, and
 rewrites the file. This is the canonical Phase 2 mechanism; the tier rules it
 applies live in the authored [`config/tier-rules.yaml`](../config/tier-rules.yaml)
-(parsed by [`tiers.py`](tiers.py)), which is hashed into `catalogue.json` as
+(parsed by [`tiers.py`](shared/tiers.py)), which is hashed into `catalogue.json` as
 `tierRulesHash`.
 
 - Tier rules (authored in `tier-rules.yaml`): Defender/threat/vulnerability →
@@ -117,7 +129,7 @@ applies live in the authored [`config/tier-rules.yaml`](../config/tier-rules.yam
   compliance-framework references (NIS2 / ISO 27001 / CIS / NIST).
 - Re-sorts rows by (tier, name). Idempotent: same input ⇒ same output.
 
-### ③ [`create_initiatives.py`](create_initiatives.py)
+### ③ [`create_initiatives.py`](catalogue_builder/create_initiatives.py)
 
 **Reads** all enriched `policies.md`, joins each policy (on Policy ID) against a
 parameter index built from the policy repo, **groups** rows by
@@ -141,24 +153,44 @@ Finally writes the two catalogue manifests at the catalogue root — **`index.js
 These two files plus the `initiatives/` and `definitions/` folders are the
 **catalogue contract** the consumer depends on.
 
+### ④ [`quality_control.py`](catalogue_builder/quality_control.py)
+
+**Reads** the freshly built catalogue (custom definitions, built-in `policies.md`,
+`initiatives/**/*.policyset.json` + `*.assignment.json`), runs a **validation pass**, and
+regenerates the documentation from live data. The repeatable QC gate at the end of every
+catalogue-builder run.
+
+- **Validates:** missing `displayName`, duplicate technical names, empty initiatives, orphan
+  assignments, members without a `metadata.policyName`. **Exits non-zero on any `error`.**
+- **Writes:** `catalogue/naming-samples.md`, `docs/epac-naming-convention.md`, and the
+  machine-readable `catalogue/quality-control.json`. `--check-only` validates without rewriting.
+- Deterministic: re-running on an unchanged catalogue is byte-identical apart from `generatedAt`.
+
+> This is producer **step ④**, not the assembler. The assembler is a separate app — see
+> [`epac_builder/README.md`](epac_builder/README.md).
+
 ---
 
 ## Shared modules (imported by the pipeline, not run directly)
 
-### [`paths.py`](paths.py)
+> Imports are absolute from the `flows/` root (e.g. `from shared.paths import …`); each
+> entry-point script puts that root on `sys.path` with a two-line bootstrap, so scripts run
+> as `python flows/<component>/<script>.py` from anywhere.
+
+### [`paths.py`](shared/paths.py)
 
 Single source of truth for lab paths (`CATALOGUE_DIR`, `DEFINITIONS_DIR`,
-`INITIATIVES_DIR`, `HIERARCHY_FILE`, …), all derived from this folder's location.
-Every script imports these constants so a folder rename is a one-line change.
+`INITIATIVES_DIR`, `HIERARCHY_FILE`, …), all derived from this module's location
+(`shared/` → `flows/` → lab root). Every script imports these constants so a folder rename is a one-line change.
 
-### [`hierarchy.py`](hierarchy.py)
+### [`hierarchy.py`](shared/hierarchy.py)
 
 The **one** parser for the authored domain hierarchy
 (`config/azure-domain-hierachy.md`). Exposes `load_domain_map()` (`{category: domain}`)
 and `load_hierarchy()` (`{domain: [categories]}`). One authored hierarchy → one
 parser → one generated `index.json`; no second copy means no drift.
 
-### [`tiers.py`](tiers.py)
+### [`tiers.py`](shared/tiers.py)
 
 The **one** tier-classification engine. Parses the authored
 [`config/tier-rules.yaml`](../config/tier-rules.yaml) (with a small built-in
@@ -169,11 +201,28 @@ source and no second copy can drift. The YAML uses plain keyword phrases (a spac
 matches whitespace, a hyphen matches space-or-hyphen, a trailing `*` is a stem,
 and `...` is an arbitrary gap) — see the comments at the top of the file.
 
+### [`mdtable.py`](shared/mdtable.py)
+
+Shared markdown-table helpers for the catalogue `policies.md` tables: `parse_table`
+(header-discovering row parser), `split_cells` / `md_escape` (pipe-safe round-trip) and
+`slugify`. Extracted from `create_initiatives.py` so consumers (`quality_control.py`,
+`summarize_categories.py`) reuse one implementation instead of importing a producer step.
+
+---
+
+## definition-gen — custom definition authoring
+
+[`definition_gen/`](definition_gen/) holds on-demand generators for **custom** (non-built-in)
+policy definitions that feed the catalogue. Currently
+[`gen_dlw_naming_definitions.py`](definition_gen/gen_dlw_naming_definitions.py) — see
+[`definition_gen/README.md`](definition_gen/README.md). Run on demand (not part of the built-in
+producer chain); it writes the `dlw-az-naming` defs + their `naming` initiative into the catalogue.
+
 ---
 
 ## Tools (not part of the catalogue build, not consumed by clients)
 
-### [`ab_verify.py`](ab_verify.py)
+### [`ab_verify.py`](tools/ab_verify.py)
 
 A **regression / diff-check harness** — a developer tool, _not_ a pipeline step.
 It proves a past refactor of `create_initiatives.py` was **additive-only**: it
@@ -189,11 +238,11 @@ post-exclusive files are `.roles.json` plus the root manifests. Run it after any
 change to step ③ to confirm grouping/enrichment behaviour is unchanged:
 
 ```
-python flows/ab_verify.py            # empty param index — isolates the grouping path
-python flows/ab_verify.py --source "<official policy repo>"   # also bakes roles
+python flows/tools/ab_verify.py            # empty param index — isolates the grouping path
+python flows/tools/ab_verify.py --source "<official policy repo>"   # also bakes roles
 ```
 
-### [`catalogue_diff.py`](catalogue_diff.py)
+### [`catalogue_diff.py`](tools/catalogue_diff.py)
 
 A **catalogue drift detector** — compares two catalogues at the policy-asset level
 (keyed on policy GUID) and reports exactly which policies were **added, removed,
@@ -203,20 +252,22 @@ content fingerprint). Works on a catalogue root or an `initiatives/` directory
 directly. Use it to review what a re-run or a built-ins bump actually changed:
 
 ```
-python flows/catalogue_diff.py OLD NEW [--out report.json] [--limit 20]
+python flows/tools/catalogue_diff.py OLD NEW [--out report.json] [--limit 20]
 ```
 
 ---
 
-## Phase 4 — the assembler (to be built) ░ placeholder ░
+## epac-builder — the assembler (to be built) ░ placeholder ░
 
-The bottom half of the SVG — the **consumer** — is not implemented yet. It is a
-standalone, deterministic transform `manifest + catalogue@version → IaC scaffold`,
-designed in [`../docs/assembler-design.md`](../docs/assembler-design.md).
-Planned entry point:
+The bottom half of the SVG — the **consumer**, a.k.a. the **epac-builder** — is not implemented
+yet and lives in [`epac_builder/`](epac_builder/) (see its
+[README](epac_builder/README.md)). It is a separate app from the producer — **not** "producer
+phase 4" (that label belongs to the quality-control step above). It is a standalone,
+deterministic transform `manifest + catalogue@version → IaC scaffold`, designed in
+[`../docs/epac-assembler-design.md`](../docs/epac-assembler-design.md). Planned entry point:
 
 ```
-python flows/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc
+python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc
         # --only json|terraform|bicep   --check (validate, write nothing)   --out <dir>
 ```
 

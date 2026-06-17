@@ -13,8 +13,8 @@ Expected result (PASS):
   - the only post-exclusive files are .roles.json (and index.json/catalogue.json at the root).
 
 Run:
-  python flows/ab_verify.py
-  python flows/ab_verify.py --source "C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions"
+  python flows/tools/ab_verify.py
+  python flows/tools/ab_verify.py --source "C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions"
 
 With no --source both sides use an empty parameter index (identical), which cleanly isolates
 the grouping/assembly code paths. With the real --source, post additionally bakes roles.
@@ -34,39 +34,62 @@ try:
 except AttributeError:
     pass
 
-HERE = Path(__file__).resolve().parent
-POST = HERE / "create_initiatives.py"
-DEFS = HERE.parent / "catalogue" / "definitions"
+HERE = Path(__file__).resolve().parent              # flows/tools
+FLOWS = HERE.parent                                  # flows/
+POST = FLOWS / "catalogue_builder" / "create_initiatives.py"
+SHARED = FLOWS / "shared"
+DEFS = FLOWS.parent / "catalogue" / "definitions"
+
+
+def _indent(line: str) -> int:
+    return len(line) - len(line.lstrip())
 
 
 def build_pre(post_text: str) -> str:
-    """Remove only the post-refactor additions (line-based, no regex/escaping)."""
+    """Remove only the post-refactor additions to reconstruct a pre-refactor generator.
+
+    Everything else stays byte-identical. The additions stripped (kept in sync with
+    create_initiatives.py) are:
+      1) the extra policyset metadata keys (catalogueVersion / hasRemediation / roleDefinitionIds);
+      2) the `.roles.json` sidecar write block (`if has_roles:` …);
+      3) the `index_records` initializer + its `.append({…})` block;
+      4) the `write_catalogue_manifests(...)` call;
+      5) the 'Catalogue stamped' print.
+    Block bodies are skipped by indentation, so the stripper tolerates small edits.
+    """
     lines = post_text.split("\n")
     out, i, n = [], 0, len(lines)
     while i < n:
         s = lines[i].strip()
-        # 1) keep the clean metadata= line, drop the extra metadata.* lines after it
+        # 1) keep the clean metadata= line, drop the extra metadata.* lines until the blank
         if s == 'metadata = {"category": category, "domain": domain, "tier": tier}':
             out.append(lines[i]); i += 1
             while i < n and lines[i].strip() != "":
                 i += 1
             continue
-        # 2) drop the roles sidecar write + index_records.append block
-        if s == 'if roles_info["hasRemediation"]:':
+        # 2) drop the `.roles.json` sidecar write block (header + its indented body)
+        if s == "if has_roles:":
+            base = _indent(lines[i]); i += 1
+            while i < n and (lines[i].strip() == "" or _indent(lines[i]) > base):
+                i += 1
+            continue
+        # 3a) drop the index_records initializer
+        if s == "index_records: list[dict] = []":
+            i += 1
+            continue
+        # 3b) drop the index_records.append({...}) block (until the closing `})`)
+        if s.startswith("index_records.append("):
             while i < n and lines[i].strip() != "})":
                 i += 1
             i += 1  # skip the closing })
             continue
-        # 3) drop the index_records initializer
-        if s == "index_records: list[dict] = []":
-            i += 1
-            continue
-        # 4) drop the write_catalogue_manifests(...) call and the 'stamped' print
+        # 4) drop the write_catalogue_manifests(...) call
         if s.startswith("write_catalogue_manifests("):
             while i < n and lines[i].strip() != ")":
                 i += 1
             i += 1
             continue
+        # 5) drop the 'Catalogue stamped' print (+ its continuation line)
         if s.startswith('print(f"[Phase 3] Catalogue stamped:'):
             i += 1
             if i < n and lines[i].strip().startswith('f"(index.json'):
@@ -105,12 +128,17 @@ def main():
 
     tmp = Path(tempfile.mkdtemp(prefix="ab_"))
     pre_dir, post_dir = tmp / "pre", tmp / "post"
-    # support modules next to the scripts so imports resolve
-    for m in ("paths.py", "hierarchy.py"):
-        shutil.copy(HERE / m, tmp / m)
-    pre_script = tmp / "create_initiatives.py"          # same basename → same imports
+    # Recreate the minimal package layout so the scripts' `from shared.* import …`
+    # bootstrap resolves: tmp/shared/<libs> + tmp/catalogue_builder/<scripts>.
+    # Each generator inserts parents[1] (== tmp) on sys.path, where shared/ lives.
+    (tmp / "shared").mkdir()
+    for m in ("paths.py", "hierarchy.py", "mdtable.py", "__init__.py"):
+        shutil.copy(SHARED / m, tmp / "shared" / m)
+    cb = tmp / "catalogue_builder"
+    cb.mkdir()
+    pre_script = cb / "create_initiatives.py"           # same bootstrap → shared resolves
     pre_script.write_text(build_pre(POST.read_text(encoding="utf-8")), encoding="utf-8")
-    post_script = tmp / "post_create.py"
+    post_script = cb / "post_create.py"
     shutil.copy(POST, post_script)
 
     print(f"definitions: {DEFS}")

@@ -4,13 +4,13 @@ This tool generates the **Azure Policy definitions** that audit/deny Azure resou
 whose names don't follow the DLW landing-zone naming convention. It is the policy-side
 mirror of the deployment-side Bicep function [`getResourceName.bicep`](https://github.com/DLW-INT-MSPE-Bicep-Framework/bicep-framework/blob/main/0-shared/function/getResourceName/getResourceName.bicep) v1.5 by MSPE. Their Bicep module _builds_ compliant names; these policies _enforce_ them.
 
-- **Script:** `gen-dlw-naming-definitions.py`
+- **Script:** `gen_dlw_naming_definitions.py`
 - **Outputs:**
   - `catalogue/definitions/custom/dlw-az-naming/naming-*.json` one EPAC
     policyDefinition per Azure resource type (existing `naming-*.json` are overwritten;
   - `catalogue/initiatives/management/essential/naming/company-management-essential-naming.*`
     a `naming` **initiative** that bundles every definition above, using the same
-    artifact set and JSON shapes the built-in producer (`flows/create_initiatives.py`)
+    artifact set and JSON shapes the built-in producer (`flows/catalogue_builder/create_initiatives.py`)
     emits per group.
 
 ## Product, purpose & deployment
@@ -56,7 +56,7 @@ here it **derives from the `dlw` MSPE (Managed Services Platform Engineering) un
 the Bicep Framework**, which is where the convention and the resource-type abbreviation
 map are owned and maintained. This generator simply mirrors that module's logic onto the
 policy side; when the MSPE unit updates the convention or abbreviations, sync the changes
-into the `MODULE` map in `gen-dlw-naming-definitions.py` and re-run.
+into the `MODULE` map in `gen_dlw_naming_definitions.py` and re-run.
 
 Its main pattern is:
 
@@ -197,7 +197,7 @@ policies. Where one ARM type carries several CAF abbreviations (e.g. CognitiveSe
 kinds, internal/external load balancer), all are listed; the module collapses them to
 the single abbreviation it actually emits.
 
-> Reflects the current `MODULE` map in `gen-dlw-naming-definitions.py`. Re-derive it from
+> Reflects the current `MODULE` map in `gen_dlw_naming_definitions.py`. Re-derive it from
 > `ROWS` (CAF) and `MODULE` (getResourceName) after editing either. `Microsoft.Web/connections`
 > (`apic`) and `Microsoft.OperationsManagement/solutions` (`oms`) are **not** on the CAF
 > page the module is their only source.
@@ -301,12 +301,12 @@ policyset is read from `catalogue/catalogue.json` when present, else today's UTC
 
 > Note: the script does **not** update the catalogue manifests
 > (`catalogue/index.json` / `catalogue/catalogue.json`) those are owned by
-> `flows/create_initiatives.py`, which would overwrite them on its next run.
+> `flows/catalogue_builder/create_initiatives.py`, which would overwrite them on its next run.
 
 ## What it does when you run it
 
 ```bash
-python tools/gen-dlw-naming-definitions.py
+python flows/definition_gen/gen_dlw_naming_definitions.py
 ```
 
 1. Builds the type → {abbreviations, category} map from `ROWS`, normalising provider
