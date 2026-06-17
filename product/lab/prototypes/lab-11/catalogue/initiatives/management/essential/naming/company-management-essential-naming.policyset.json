@@ -1,0 +1,3572 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-management-essential-naming",
+  "properties": {
+    "displayName": "Company Management Essential — Naming",
+    "description": "**Essential** — Naming-convention guardrails for every Azure resource type: audits (or denies) resources whose names do not follow the DLW landing-zone convention defined in getResourceName.bicep. Consistent, decodable names are baseline hygiene — they underpin cost allocation, automation, access scoping and incident response. Effects default to Audit and are tuned from a single initiative parameter.",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Naming convention",
+      "domain": "Management",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "source": "getResourceName.bicep v1.5",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Effect applied to every naming-convention policy in this initiative."
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "naming-search-searchservices",
+        "policyDefinitionName": "naming-search-searchservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for AI Search"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-cognitiveservices-accounts",
+        "policyDefinitionName": "naming-cognitiveservices-accounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Foundry Tools"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-cognitiveservices-accounts-projects",
+        "policyDefinitionName": "naming-cognitiveservices-accounts-projects",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Foundry account project"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-machinelearningservices-workspaces",
+        "policyDefinitionName": "naming-machinelearningservices-workspaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Foundry hub"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-videoindexer-accounts",
+        "policyDefinitionName": "naming-videoindexer-accounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure AI Video Indexer"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-botservice-botservices",
+        "policyDefinitionName": "naming-botservice-botservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Bot service"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-analysisservices-servers",
+        "policyDefinitionName": "naming-analysisservices-servers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Analysis Services server"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-databricks-workspaces-accessconnectors",
+        "policyDefinitionName": "naming-databricks-workspaces-accessconnectors",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Databricks Access Connector"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-databricks-workspaces",
+        "policyDefinitionName": "naming-databricks-workspaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Databricks workspace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-kusto-clusters",
+        "policyDefinitionName": "naming-kusto-clusters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Data Explorer cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-kusto-clusters-databases",
+        "policyDefinitionName": "naming-kusto-clusters-databases",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Data Explorer cluster database"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-datafactory-factories",
+        "policyDefinitionName": "naming-datafactory-factories",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Data Factory"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-digitaltwins-digitaltwinsinstances",
+        "policyDefinitionName": "naming-digitaltwins-digitaltwinsinstances",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Digital Twin instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-streamanalytics-cluster",
+        "policyDefinitionName": "naming-streamanalytics-cluster",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Stream Analytics"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-synapse-privatelinkhubs",
+        "policyDefinitionName": "naming-synapse-privatelinkhubs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Synapse Analytics private link hub"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-synapse-workspaces-sqlpools",
+        "policyDefinitionName": "naming-synapse-workspaces-sqlpools",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Synapse Analytics SQL Dedicated Pool"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-synapse-workspaces-bigdatapools",
+        "policyDefinitionName": "naming-synapse-workspaces-bigdatapools",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Synapse Analytics Spark Pool"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-synapse-workspaces",
+        "policyDefinitionName": "naming-synapse-workspaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Synapse Analytics workspaces"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-datalakestore-accounts",
+        "policyDefinitionName": "naming-datalakestore-accounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Data Lake Store account"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventhub-namespaces",
+        "policyDefinitionName": "naming-eventhub-namespaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event Hubs namespace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventhub-namespaces-eventhubs",
+        "policyDefinitionName": "naming-eventhub-namespaces-eventhubs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event hub"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventgrid-domains",
+        "policyDefinitionName": "naming-eventgrid-domains",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event Grid domain"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventgrid-namespaces",
+        "policyDefinitionName": "naming-eventgrid-namespaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event Grid namespace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventgrid-eventsubscriptions",
+        "policyDefinitionName": "naming-eventgrid-eventsubscriptions",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event Grid subscriptions"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventgrid-domains-topics",
+        "policyDefinitionName": "naming-eventgrid-domains-topics",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event Grid topic"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-eventgrid-systemtopics",
+        "policyDefinitionName": "naming-eventgrid-systemtopics",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Event Grid system topic"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-fabric-capacities",
+        "policyDefinitionName": "naming-fabric-capacities",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Fabric Capacity"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-hdinsight-clusters",
+        "policyDefinitionName": "naming-hdinsight-clusters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for HDInsight - Hadoop cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-devices-iothubs",
+        "policyDefinitionName": "naming-devices-iothubs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for IoT hub"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-devices-provisioningservices",
+        "policyDefinitionName": "naming-devices-provisioningservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Provisioning services"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-devices-provisioningservices-certificates",
+        "policyDefinitionName": "naming-devices-provisioningservices-certificates",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Provisioning services certificate"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-powerbidedicated-capacities",
+        "policyDefinitionName": "naming-powerbidedicated-capacities",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Power BI Embedded"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-timeseriesinsights-environments",
+        "policyDefinitionName": "naming-timeseriesinsights-environments",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Time Series Insights environment"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-web-hostingenvironments",
+        "policyDefinitionName": "naming-web-hostingenvironments",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for App Service environment"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-web-serverfarms",
+        "policyDefinitionName": "naming-web-serverfarms",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for App Service plan"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-loadtestservice-loadtests",
+        "policyDefinitionName": "naming-loadtestservice-loadtests",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Load Testing instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-availabilitysets",
+        "policyDefinitionName": "naming-compute-availabilitysets",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Availability set"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-hybridcompute-machines",
+        "policyDefinitionName": "naming-hybridcompute-machines",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Arc enabled server"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-kubernetes-connectedclusters",
+        "policyDefinitionName": "naming-kubernetes-connectedclusters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Arc enabled Kubernetes cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-hybridcompute-privatelinkscopes",
+        "policyDefinitionName": "naming-hybridcompute-privatelinkscopes",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Arc private link scope"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-hybridcompute-gateways",
+        "policyDefinitionName": "naming-hybridcompute-gateways",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Arc gateway"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-batch-batchaccounts",
+        "policyDefinitionName": "naming-batch-batchaccounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Batch accounts"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-cloudservices",
+        "policyDefinitionName": "naming-compute-cloudservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Cloud service"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-communication-communicationservices",
+        "policyDefinitionName": "naming-communication-communicationservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Communication Services"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-diskencryptionsets",
+        "policyDefinitionName": "naming-compute-diskencryptionsets",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Disk encryption set"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-web-sites",
+        "policyDefinitionName": "naming-web-sites",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Function app"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-galleries",
+        "policyDefinitionName": "naming-compute-galleries",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Gallery"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-virtualmachineimages-imagetemplates",
+        "policyDefinitionName": "naming-virtualmachineimages-imagetemplates",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Image template"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-disks",
+        "policyDefinitionName": "naming-compute-disks",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Managed disk"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-notificationhubs-namespaces-notificationhubs",
+        "policyDefinitionName": "naming-notificationhubs-namespaces-notificationhubs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Notification Hubs"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-notificationhubs-namespaces",
+        "policyDefinitionName": "naming-notificationhubs-namespaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Notification Hubs namespace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-proximityplacementgroups",
+        "policyDefinitionName": "naming-compute-proximityplacementgroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Proximity placement group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-restorepointcollections",
+        "policyDefinitionName": "naming-compute-restorepointcollections",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Restore point collection"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-snapshots",
+        "policyDefinitionName": "naming-compute-snapshots",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Snapshot"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-web-staticsites",
+        "policyDefinitionName": "naming-web-staticsites",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Static web app"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-virtualmachines",
+        "policyDefinitionName": "naming-compute-virtualmachines",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual machine"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-virtualmachinescalesets",
+        "policyDefinitionName": "naming-compute-virtualmachinescalesets",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual machine scale set"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-maintenance-maintenanceconfigurations",
+        "policyDefinitionName": "naming-maintenance-maintenanceconfigurations",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual machine maintenance configuration"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-storage-storageaccounts",
+        "policyDefinitionName": "naming-storage-storageaccounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for VM storage account"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-containerservice-managedclusters",
+        "policyDefinitionName": "naming-containerservice-managedclusters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for AKS cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-containerservice-managedclusters-agentpools",
+        "policyDefinitionName": "naming-containerservice-managedclusters-agentpools",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for AKS system node pool"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-app-containerapps",
+        "policyDefinitionName": "naming-app-containerapps",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Container apps"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-app-managedenvironments",
+        "policyDefinitionName": "naming-app-managedenvironments",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Container apps environment"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-app-jobs",
+        "policyDefinitionName": "naming-app-jobs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Container apps job"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-containerregistry-registries",
+        "policyDefinitionName": "naming-containerregistry-registries",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Container registry"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-containerinstance-containergroups",
+        "policyDefinitionName": "naming-containerinstance-containergroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Container instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-servicefabric-clusters",
+        "policyDefinitionName": "naming-servicefabric-clusters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service Fabric cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-servicefabric-managedclusters",
+        "policyDefinitionName": "naming-servicefabric-managedclusters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service Fabric managed cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-documentdb-databaseaccounts-sqldatabases",
+        "policyDefinitionName": "naming-documentdb-databaseaccounts-sqldatabases",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Cosmos DB database"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-documentdb-databaseaccounts",
+        "policyDefinitionName": "naming-documentdb-databaseaccounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Cosmos DB for Apache Cassandra account"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dbforpostgresql-servergroupsv2",
+        "policyDefinitionName": "naming-dbforpostgresql-servergroupsv2",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Cosmos DB PostgreSQL cluster"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-cache-redisenterprise",
+        "policyDefinitionName": "naming-cache-redisenterprise",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Managed Redis"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-sql-servers",
+        "policyDefinitionName": "naming-sql-servers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure SQL Database server"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-sql-servers-databases",
+        "policyDefinitionName": "naming-sql-servers-databases",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure SQL database"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-sql-servers-jobagents",
+        "policyDefinitionName": "naming-sql-servers-jobagents",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure SQL Elastic Job agent"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-sql-servers-elasticpool",
+        "policyDefinitionName": "naming-sql-servers-elasticpool",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure SQL Elastic Pool"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dbformysql-servers",
+        "policyDefinitionName": "naming-dbformysql-servers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for MySQL database"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dbforpostgresql-servers",
+        "policyDefinitionName": "naming-dbforpostgresql-servers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for PostgreSQL database"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-sql-managedinstances",
+        "policyDefinitionName": "naming-sql-managedinstances",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for SQL Managed Instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-appconfiguration-configurationstores",
+        "policyDefinitionName": "naming-appconfiguration-configurationstores",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for App Configuration store"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-maps-accounts",
+        "policyDefinitionName": "naming-maps-accounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Maps account"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-signalrservice-signalr",
+        "policyDefinitionName": "naming-signalrservice-signalr",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for SignalR"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-signalrservice-webpubsub",
+        "policyDefinitionName": "naming-signalrservice-webpubsub",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for WebPubSub"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dashboard-grafana",
+        "policyDefinitionName": "naming-dashboard-grafana",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Managed Grafana"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-devopsinfrastructure-pools",
+        "policyDefinitionName": "naming-devopsinfrastructure-pools",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Managed DevOps Pools"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-apimanagement-service",
+        "policyDefinitionName": "naming-apimanagement-service",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for API management service instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-logic-integrationaccounts",
+        "policyDefinitionName": "naming-logic-integrationaccounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Integration account"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-logic-workflows",
+        "policyDefinitionName": "naming-logic-workflows",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Logic app"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-servicebus-namespaces",
+        "policyDefinitionName": "naming-servicebus-namespaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service Bus namespace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-servicebus-namespaces-queues",
+        "policyDefinitionName": "naming-servicebus-namespaces-queues",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service Bus queue"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-servicebus-namespaces-topics",
+        "policyDefinitionName": "naming-servicebus-namespaces-topics",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service Bus topic"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-servicebus-namespaces-topics-subscriptions",
+        "policyDefinitionName": "naming-servicebus-namespaces-topics-subscriptions",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service Bus topic subscription"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-automation-automationaccounts",
+        "policyDefinitionName": "naming-automation-automationaccounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Automation account"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-insights-components",
+        "policyDefinitionName": "naming-insights-components",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Application Insights"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-insights-actiongroups",
+        "policyDefinitionName": "naming-insights-actiongroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Monitor action group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-insights-datacollectionrules",
+        "policyDefinitionName": "naming-insights-datacollectionrules",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Monitor data collection rule"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-alertsmanagement-actionrules",
+        "policyDefinitionName": "naming-alertsmanagement-actionrules",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Monitor alert processing rule"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-insights-datacollectionendpoints",
+        "policyDefinitionName": "naming-insights-datacollectionendpoints",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Data collection endpoint"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-resources-deploymentscripts",
+        "policyDefinitionName": "naming-resources-deploymentscripts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Deployment scripts"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-operationalinsights-workspaces",
+        "policyDefinitionName": "naming-operationalinsights-workspaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Log Analytics workspace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-operationalinsights-querypacks",
+        "policyDefinitionName": "naming-operationalinsights-querypacks",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Log Analytics query packs"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-purview-accounts",
+        "policyDefinitionName": "naming-purview-accounts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Microsoft Purview instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-resources-subscriptions-resourcegroups",
+        "policyDefinitionName": "naming-resources-subscriptions-resourcegroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Resource group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": [
+              "AzureBackupRG_*",
+              "NetworkWatcherRG",
+              "synapseworkspace-managedrg-*",
+              "mrg-cisco-meraki-*"
+            ]
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-resources-templatespecs",
+        "policyDefinitionName": "naming-resources-templatespecs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Template specs"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-migrate-assessmentprojects",
+        "policyDefinitionName": "naming-migrate-assessmentprojects",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Migrate project"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-datamigration-services",
+        "policyDefinitionName": "naming-datamigration-services",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Database Migration Service instance"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-recoveryservices-vaults",
+        "policyDefinitionName": "naming-recoveryservices-vaults",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Recovery Services vault"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-applicationgateways",
+        "policyDefinitionName": "naming-network-applicationgateways",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Application gateway"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-applicationsecuritygroups",
+        "policyDefinitionName": "naming-network-applicationsecuritygroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Application security group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-cdn-profiles",
+        "policyDefinitionName": "naming-cdn-profiles",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for CDN profile"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-cdn-profiles-endpoints",
+        "policyDefinitionName": "naming-cdn-profiles-endpoints",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for CDN endpoint"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-connections",
+        "policyDefinitionName": "naming-network-connections",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Connections"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-dnsforwardingrulesets",
+        "policyDefinitionName": "naming-network-dnsforwardingrulesets",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for DNS forwarding ruleset"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-dnsresolvers",
+        "policyDefinitionName": "naming-network-dnsresolvers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for DNS private resolver"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-dnsresolvers-inboundendpoints",
+        "policyDefinitionName": "naming-network-dnsresolvers-inboundendpoints",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for DNS private resolver inbound endpoint"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-dnsresolvers-outboundendpoints",
+        "policyDefinitionName": "naming-network-dnsresolvers-outboundendpoints",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for DNS private resolver outbound endpoint"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-azurefirewalls",
+        "policyDefinitionName": "naming-network-azurefirewalls",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Firewall"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-firewallpolicies",
+        "policyDefinitionName": "naming-network-firewallpolicies",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Firewall policy"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-expressroutecircuits",
+        "policyDefinitionName": "naming-network-expressroutecircuits",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for ExpressRoute circuit"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-expressrouteports",
+        "policyDefinitionName": "naming-network-expressrouteports",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for ExpressRoute direct"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-virtualnetworkgateways",
+        "policyDefinitionName": "naming-network-virtualnetworkgateways",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for ExpressRoute gateway"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-cdn-profiles-afdendpoints",
+        "policyDefinitionName": "naming-cdn-profiles-afdendpoints",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Front Door endpoint"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-frontdoorwebapplicationfirewallpolicies",
+        "policyDefinitionName": "naming-network-frontdoorwebapplicationfirewallpolicies",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Front Door firewall policy"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-frontdoors",
+        "policyDefinitionName": "naming-network-frontdoors",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Front Door"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-ipgroups",
+        "policyDefinitionName": "naming-network-ipgroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for IP group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-loadbalancers",
+        "policyDefinitionName": "naming-network-loadbalancers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Load balancer"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-loadbalancers-inboundnatrules",
+        "policyDefinitionName": "naming-network-loadbalancers-inboundnatrules",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Load balancer rule"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-localnetworkgateways",
+        "policyDefinitionName": "naming-network-localnetworkgateways",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Local network gateway"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-natgateways",
+        "policyDefinitionName": "naming-network-natgateways",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for NAT gateway"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-networkinterfaces",
+        "policyDefinitionName": "naming-network-networkinterfaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Network interface"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-networksecurityperimeters",
+        "policyDefinitionName": "naming-network-networksecurityperimeters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Network security perimeter"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-networksecuritygroups",
+        "policyDefinitionName": "naming-network-networksecuritygroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Network security group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-networksecuritygroups-securityrules",
+        "policyDefinitionName": "naming-network-networksecuritygroups-securityrules",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Network security group security rules"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-networkwatchers",
+        "policyDefinitionName": "naming-network-networkwatchers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Network Watcher"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-privatelinkservices",
+        "policyDefinitionName": "naming-network-privatelinkservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Private Link"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-privateendpoints",
+        "policyDefinitionName": "naming-network-privateendpoints",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Private endpoint"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-publicipaddresses",
+        "policyDefinitionName": "naming-network-publicipaddresses",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Public IP address"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-publicipprefixes",
+        "policyDefinitionName": "naming-network-publicipprefixes",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Public IP address prefix"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-routefilters",
+        "policyDefinitionName": "naming-network-routefilters",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Route filter"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-virtualhubs",
+        "policyDefinitionName": "naming-network-virtualhubs",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Route server"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-routetables",
+        "policyDefinitionName": "naming-network-routetables",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Route table"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-serviceendpointpolicies",
+        "policyDefinitionName": "naming-network-serviceendpointpolicies",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Service endpoint policy"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-trafficmanagerprofiles",
+        "policyDefinitionName": "naming-network-trafficmanagerprofiles",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Traffic Manager profile"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-routetables-routes",
+        "policyDefinitionName": "naming-network-routetables-routes",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for User defined route"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-virtualnetworks",
+        "policyDefinitionName": "naming-network-virtualnetworks",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual network"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-networkmanagers",
+        "policyDefinitionName": "naming-network-networkmanagers",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual network manager"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-virtualnetworks-virtualnetworkpeerings",
+        "policyDefinitionName": "naming-network-virtualnetworks-virtualnetworkpeerings",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual network peering"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-virtualnetworks-subnets",
+        "policyDefinitionName": "naming-network-virtualnetworks-subnets",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual network subnet"
+        },
+        "parameters": {
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-virtualwans",
+        "policyDefinitionName": "naming-network-virtualwans",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual WAN"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-bastionhosts",
+        "policyDefinitionName": "naming-network-bastionhosts",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Bastion"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-keyvault-vaults",
+        "policyDefinitionName": "naming-keyvault-vaults",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Key vault"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-keyvault-managedhsms",
+        "policyDefinitionName": "naming-keyvault-managedhsms",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Key Vault Managed HSM"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-managedidentity-userassignedidentities",
+        "policyDefinitionName": "naming-managedidentity-userassignedidentities",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Managed identity"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-compute-sshpublickeys",
+        "policyDefinitionName": "naming-compute-sshpublickeys",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for SSH key"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-vpngateways",
+        "policyDefinitionName": "naming-network-vpngateways",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for VPN Gateway"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-vpngateways-vpnconnections",
+        "policyDefinitionName": "naming-network-vpngateways-vpnconnections",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for VPN connection"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-vpngateways-vpnsites",
+        "policyDefinitionName": "naming-network-vpngateways-vpnsites",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for VPN site"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-network-firewallpolicies-rulegroups",
+        "policyDefinitionName": "naming-network-firewallpolicies-rulegroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Web Application Firewall policy rule group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dataprotection-resourceguards",
+        "policyDefinitionName": "naming-dataprotection-resourceguards",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Azure Backup Resource Guard"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dataprotection-backupvaults",
+        "policyDefinitionName": "naming-dataprotection-backupvaults",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Backup Vault"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-dataprotection-backupvaults-backuppolicies",
+        "policyDefinitionName": "naming-dataprotection-backupvaults-backuppolicies",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Backup Vault policy"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-storage-storageaccounts-fileservices-shares",
+        "policyDefinitionName": "naming-storage-storageaccounts-fileservices-shares",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for File share"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-storagesync-storagesyncservices",
+        "policyDefinitionName": "naming-storagesync-storagesyncservices",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Storage Sync Service"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-desktopvirtualization-hostpools",
+        "policyDefinitionName": "naming-desktopvirtualization-hostpools",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual desktop host pool"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-desktopvirtualization-applicationgroups",
+        "policyDefinitionName": "naming-desktopvirtualization-applicationgroups",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual desktop application group"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-desktopvirtualization-workspaces",
+        "policyDefinitionName": "naming-desktopvirtualization-workspaces",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual desktop workspace"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-desktopvirtualization-scalingplans",
+        "policyDefinitionName": "naming-desktopvirtualization-scalingplans",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Virtual desktop scaling plan"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-web-connections",
+        "policyDefinitionName": "naming-web-connections",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for API connection"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "naming-operationsmanagement-solutions",
+        "policyDefinitionName": "naming-operationsmanagement-solutions",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require naming convention for Operations Management solution"
+        },
+        "parameters": {
+          "customerAbbreviation": {
+            "value": "dlw"
+          },
+          "excludedNamePattern": {
+            "value": []
+          },
+          "effect": {
+            "value": "[parameters('effect')]"
+          }
+        }
+      }
+    ]
+  }
+}

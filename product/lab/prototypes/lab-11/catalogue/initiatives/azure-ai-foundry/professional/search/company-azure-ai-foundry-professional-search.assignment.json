@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/azure-ai-foundry/professional/search/",
+  "assignment": {
+    "name": "company-azure-ai-foundry-professional-search",
+    "displayName": "Company Azure AI Foundry Professional — Search",
+    "description": "Deployment scaffold for 5 policies. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureAiSearchServicesPrivatePrivateDnsZoneId, configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId. A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-azure-ai-foundry-professional-search",
+  "parameters": {
+    "configureAzureAiSearchServicesPrivatePrivateDnsZoneId": "<REPLACE: configureAzureAiSearchServicesPrivatePrivateDnsZoneId>",
+    "configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

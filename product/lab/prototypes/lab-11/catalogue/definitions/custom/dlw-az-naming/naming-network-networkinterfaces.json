@@ -1,0 +1,80 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "naming-network-networkinterfaces",
+  "properties": {
+    "displayName": "Require naming convention for Network interface",
+    "description": "Audits or denies Network interface (Microsoft.Network/networkInterfaces) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): nic. Example: '<parentResourceName>-nic-<instance>'. Check: name contains the '-nic-' token. Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, not every segment.",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Naming convention",
+      "version": "2.0.0",
+      "source": "getResourceName.bicep v1.5",
+      "cafCategory": "Networking",
+      "resourceType": "Microsoft.Network/networkInterfaces",
+      "abbreviations": [
+        "nic"
+      ],
+      "abbreviationSource": "module (getResourceName.bicep)",
+      "checkKind": "parentToken",
+      "conventionExample": "<parentResourceName>-nic-<instance>"
+    },
+    "parameters": {
+      "excludedNamePattern": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded name patterns",
+          "description": "Names matching any of these wildcard patterns are exempt. Example: 'rg-*, NetworkWatcherRG'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/networkInterfaces"
+          },
+          {
+            "count": {
+              "value": "[parameters('excludedNamePattern')]",
+              "name": "excluded",
+              "where": {
+                "field": "name",
+                "like": "[current('excluded')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "field": "name",
+                  "contains": "-nic-"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

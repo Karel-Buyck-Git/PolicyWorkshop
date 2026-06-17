@@ -1,0 +1,1523 @@
+{
+  "name": "company-monitoring-enterprise-monitoring",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+    "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec",
+    "/providers/microsoft.authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab",
+    "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+    "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "2465583e-4e78-4c15-b6be-a36cbc7c8b0f": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d3ba9c42-9dd5-441a-957c-274031c750c0": [
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8e3e61b3-0b32-22d5-4edf-55f87fdb5955": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "b3884c81-31aa-473d-a9bb-9466fe0ec2a0": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "db51110f-0865-4a6e-b274-e2e07a5b2cd7": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "c84e5349-db6d-4769-805e-e14037dab9b5": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "4daddf25-4823-43d4-88eb-2419eb6dcc08": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "d56a5a7c-72d7-42bc-8ceb-3baf4c0eae03": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e8d096bc-85de-4c5f-8cfb-857bd1b9d62d": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "25763a0a-5783-4f14-969e-79d4933eb74b": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ef7b61ef-b8e4-4c91-8e78-6946c6b0023f": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "1f6e93e8-6b31-41b1-83f6-36e449a42579": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bef3f64c-5290-43b7-85b0-9b254eef4c47": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a1dae6c7-13f3-48ea-a149-ff8442661f60": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "b889a06c-ec72-4b03-910a-cb169ee18721": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "c9c29499-c1d1-4195-99bd-2ec9e3a9dc89": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+    ],
+    "3d5da587-71bd-41f5-ac95-dd3330c2d58d": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "08ba64b8-738f-4918-9686-730d2ed79c7d": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6b51af03-9277-49a9-a3f8-1c69c9ff7403": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "04d53d87-841c-4f23-8a5b-21564380b55e": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "edf3780c-3d70-40fe-b17e-ab72013dafca": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "237e0f7e-b0e8-4ec4-ad46-8c12cb66d673": [
+      "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+      "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "20e491a1-11fe-4d11-ab4e-a81edd23672e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "aade2723-e7f6-46fd-b1dc-e6c2c7f7edc4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b15247e4-f83b-48b2-b34e-8ea6148a0f34": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3227dfd8-3536-4336-94c9-78633be6baa2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "e40b8f6f-0ecf-4c3b-b095-ba3562256e48": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "434b25a4-5396-41ec-97aa-1f4ae3bf269d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "47f4c5ae-1b43-4620-bcbd-65e2ee6fb7c8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "29565b0a-e1b5-49c1-94bf-b8b258656460": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a6d488fc-3520-4ec8-9cf6-c5e78d677651": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3a8ff864-d881-44ce-bed3-0c63ede634cb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "567c93f7-3661-494f-a30f-0a94d9bfebf8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6f3f5778-f809-4755-9d8f-bd5a5a7add85": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8d0726a6-abae-4b04-9d2e-1f2f67a47e6d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "4b05de63-3ad2-4f6d-b421-da21f1328f3b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2e8a8853-917a-4d26-9c3a-c92a7fa031e8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "c0d8e23a-47be-4032-961f-8b0ff3957061": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "58cb2d8e-623c-4557-bb4e-0b64cb41ec55": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "9dc3e252-1cff-4ae5-bcad-5a92b7167d43": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bfc6b185-2af1-4998-a32e-c0144792eeb2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "11638078-a29c-4cf3-ad7f-775f78327425": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "92012204-a7e4-4a95-bbe5-90d0d3e12735": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "887d1795-3d3d-4859-9ef4-9447392db2ea": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3aa571d2-2e4f-4e92-8a30-4312860efbe1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3372b9c2-d179-4190-9f0c-e6f6304d0e93": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "99b3bfad-aef0-476d-ae98-40861f8eae22": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6af023b1-4841-4b54-8f3d-69caa4e558cb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1859cd03-7f77-495d-a0ce-336a36a6830d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "79494980-ea12-4ca1-8cca-317e942b6da2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "244bcb20-b194-41f3-afcc-63aef382b64c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "140ad507-70f0-43cb-a7cb-a8964341aefa": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e488a548-7afd-43a7-a903-2a6dd36e7504": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "856331d3-0169-4dd9-9b04-cbb2ad3d1cf2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "39741c6f-5e8b-4511-bba4-6662d0e0e2ac": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d9f11fea-dd45-46aa-8908-b7a146f1e543": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "b797045a-b3cd-46e4-adc4-bbadb3381d78": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "07c818eb-df75-4465-9233-6a8667e86670": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "73fb42d8-b57f-41cd-a840-8f4dedb1dd27": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "69ab8bfc-dc5b-443d-93a7-7531551dec66": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "50cebe4c-8021-4f07-bcb2-6c80622444a9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "257954d9-4adf-410b-9751-3bb22fe9c180": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "1bd91eae-4429-4f23-b780-8c9622e023e3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9c79e60b-99f2-49f3-b08c-630d269bddc1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f231d9f4-9110-40eb-979e-e4eac6602be2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "e25bcb29-0412-42c3-a526-1ff794310a1e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5e23caa9-3cea-4f5b-a181-ba6a3bdb91ef": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a142867f-3142-4ac6-b952-ab950a29fca5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "aec4c33f-2f2a-4fd3-91cd-24a939513c60": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d3e11828-02c8-40d2-a518-ad01508bb4d7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "45c6bfc7-4520-4d64-a158-730cd92eedbc": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "322b6192-a99b-4ab6-9b40-43ca19dcd0d9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "68ba9fc9-71b9-4e6f-9cf5-ecc07722324c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0fcf2d91-8951-43be-9505-ab43dee2f580": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "aaa4560d-9580-4804-a5e5-b9ffb469d49e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "a819f227-229d-44cb-8ad6-25becdb4451f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2137dd9f-94ac-413f-93a8-d068966308c9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1aa5a06a-0cee-4598-8200-94755d500381": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "f62b9eab-b489-4388-9874-b0a62ca31327": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "de5d5895-642e-4d19-a14e-08a67b2dd152": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3ec48f10-33fc-40d2-aaf2-028c4f7bbd02": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "041fdf14-0dd4-4ce0-83ff-de5456be0c85": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "605dd1c9-db6f-496f-ba7f-841ea3e246e0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6248cb7c-e485-42ad-ba20-b1ee8fba7674": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "454c7d4b-c141-43f1-8c81-975ebb15a9b5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "50ca36f4-5306-4275-ad42-a40ca2805c77": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d16cdb9f-e2a8-4002-88f6-9eeaea1766f7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "4c9cd884-3e45-4588-ac9d-00d44be2cbcd": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1d98c506-1460-4424-9006-84210fa5214a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a9ebdeda-251a-4311-92be-5167d73b1682": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "f969646f-b6b8-45a0-b736-bf9b4bb933dc": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0f708273-cf83-4d29-b31b-ebaf8d0eb8c2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "68d95589-2f07-42e3-ae6d-80a2ae3edbc4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "75a112bc-759f-4f29-83cc-799019db39c3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1c5187ed-9863-4961-bb92-c72bc3883e24": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ae48c709-d2b4-4fad-8c5c-838524130aa4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "90c90eda-bfe7-4c67-bf26-410420ed1047": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a8de4d0a-d637-4684-b70e-6df73b74d117": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f48c1843-fc88-47c1-9b01-4527c76c890a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "d98f63ed-e319-4dc3-898f-600953a05f7e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a78631da-8506-4113-96f4-2805de193083": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "abb62520-ee66-4bdb-96d3-49ad98c66131": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0b6b8abb-7761-4e02-ae0e-2c873b5152ca": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5b67d7f3-488f-42df-ab16-e38a913fcdba": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e9b1fed8-35a2-47d0-b8aa-3834f5032862": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "305408ed-dd5a-43b9-80c1-9eea87a176bb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "96abcdc6-3c5a-4b0f-b031-9a4c1f36c9a6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5e6697bc-9d6d-4de9-95f9-898f130372df": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "a1a5f3c5-d01a-459c-8398-a3c9a79ad879": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2f6556cb-a2da-4130-a0dd-e5d05dccf9bb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "78d285d5-f767-43f8-aa36-4616daaf9d51": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "fea83f6c-a18a-4338-8f1f-80ecba4c5643": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "60af09fa-d167-44da-9bfc-21a49546a7b5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6b2899d8-5fdf-4ade-ba59-f1f82664877b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "f8352124-56fa-4f94-9441-425109cdc14b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "be9259e2-a221-4411-84fd-dd22c6691653": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "90425e88-1eab-420c-964e-fc1dc79833a6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "9fcae8ed-246a-407b-8f75-f3500ff2c9db": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "40f0d036-d73d-45a9-8c3d-f3f84d227193": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ca05d7f2-6625-4cc3-a65a-4931b45ff139": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "415eaa04-e9db-476a-ba43-092d70ebe1e7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e97f20f4-8bf0-4a35-a319-38f4144228f5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "145ff119-bfcf-443a-834c-b59859ec3ee7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "fa570aa1-acca-4eea-8e5a-233cf2c5e4c2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e76ef589-c7d6-42cf-a61a-13471f6f50cd": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "35806bc0-0260-4642-bae7-0ed677b3da44": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "39078c44-b8d4-4c7d-8579-7f021d326ebf": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1cd30d13-d34c-4cb8-8f9d-4692f7d40d97": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3d9b8097-326d-4675-8cff-cce4580c9208": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "958060c2-8d8e-478e-b3ec-d3d2249b461c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "42e5ad1f-57fd-49a7-b0e4-c7a7ae25ba3d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0628b917-d4b4-4af5-bc2b-b4f87cd173ab": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "55d1f543-d1b0-4811-9663-d6d0dbc6326d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "14e81583-c89c-47db-af0d-f9ddddcccd9f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9756f174-ca74-4d7a-a56e-7104d8a954b0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "acbb9698-46bd-4800-89da-e3473c4ab10d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b9c8d1de-593f-472f-b32a-7e2fe0c2374a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2d8b0f41-9850-4bac-b63b-96a882a0e683": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0e4325e3-228b-40f0-83ae-9c03276858c1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "18009236-18d3-48e3-bd21-4e7630153611": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3893777a-aaf0-4b74-b08a-14ca9e5a9608": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "6a664864-e2b5-413e-b930-f11caa132f16": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a26c842f-bee7-4a1f-9ae1-a973d3a0075a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "60ad0a9f-f760-45ff-ab94-4c64d7439f18": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "85779c9a-7fdf-4294-937c-ded183166fa8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "c600af08-49ff-4f7a-b5c9-0686749387b7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9ba29e83-863d-4fec-81d0-16dd87067cc3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "56288eb2-4350-461d-9ece-2bb242269dce": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "106cd3bd-50a1-466c-869f-f9c2d310477b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "cd0a772a-62ba-4295-8311-d6710ebe967b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "7e87b2cc-1e49-4e07-a651-a2f38d4667ad": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "824142d3-eccb-4b7c-8403-319610811237": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "144aa510-91a0-4de9-9800-43a7ef5e947f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "751f9297-5aae-4313-af2d-2a89226a7856": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "271ccc7b-8334-48c5-b90b-edf37dfb2d00": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d4d93413-9560-4252-a16d-b8c3bbaf5baf": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "d111f33e-5cb3-414e-aec4-427e7d1080c9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1bd3a451-9f38-43e5-aed3-bede117c3055": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "621d8969-4918-45e7-954b-2fb0b42e7059": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "dfe69c56-9c12-4271-9e62-7607ab669582": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a5385dba-3caf-43da-8804-c68174d315a7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "77c56019-5c71-4d33-9ce3-7a817f2bc7fa": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "ed251afd-72b1-4e41-b6c9-6614420f1207": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "852877d5-b61d-4741-b649-85a324bb3fd4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "72d254bb-d0ed-42f2-9160-6b11b65b599c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "a271e156-b295-4537-b01d-09675d9e7851": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f7407db8-e40d-4efd-9fff-c61298e01fd5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5305ea79-c247-456a-bdbd-dc35cef62ce1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "82b076b9-2062-4516-ae4c-37b1890eabb2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a474a6be-35da-4c8a-ae97-f97d03bbd213": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "db20d5eb-782b-4c4d-b668-06816ec72c58": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "f0d25196-1ea4-49e1-ad53-ccada27b4862": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3ce7ba9e-058f-4ce9-b4d6-22e6c1238904": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "4ce6d386-fc8e-4ac4-9bff-e5859625cea4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "e74570cf-1b7d-4bed-b79e-d1fd1117a39a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ee64264d-f9e3-4a0e-bbe2-db4319aeaf42": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a81eb966-6696-46b1-9153-bed01569a7d0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "b90ec596-faa6-4c61-9515-34085703e260": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "03a087c0-b49f-4440-9ae5-013703eccc8c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f6d5d5d5-0fa9-4257-b820-69c35016c973": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "3496f6fd-57ba-485c-8a14-183c4493b781": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f873a711-0322-4744-8322-7e62950fbec2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "99b76532-523c-44da-8d28-3af059fd7fbb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "e1bf4d43-542a-4410-918d-7e61c8e1ac21": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5edd2580-3272-4509-b121-57054b4c70c4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9cbc4c60-0db8-483c-999b-0f017a01a56b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0fff3e39-f422-45b0-b497-33a05b996d3e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "22c8a30b-c5c1-4434-b837-2772543d3c3c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f5094957-e0f7-4af2-9e14-13d60141dc4a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "46b2dd5d-3936-4347-8908-b298ea4466d3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "fcfe6bfa-dd36-40ef-ab2b-ed46f7d4abdb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "480851ae-9ff3-49d1-904c-b5bd6f83f1ec": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "441af8bf-7c88-4efc-bd24-b7be28d4acce": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e20f31d7-6b6d-4644-962a-ae513a85ab0b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "cf6ff94d-c483-4491-976a-eb784101217a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0ba93a1b-ac4d-4e7b-976a-548a18be1e52": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bb7bbee6-718c-4a71-a474-9f9f0e2a55e4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "93319447-e347-406b-953f-618c3b599554": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "c5ecf495-6caa-445c-b431-04fda56c555a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2cb215be-a09b-4623-ac2f-dfc5012b1a5b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e260a121-c160-4da3-8a0f-e2c0ff6c561e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "eb2fea88-fa7b-4531-a4c1-428c618fbcc8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1888f765-327a-4a8d-9816-968b34ea8b78": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a4490248-cb97-4504-b7fb-f906afdb7437": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "339855ce-39c1-4a70-adc9-103ea7aac99f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "5fcf46f9-194c-47ff-8889-380f57ae4617": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "50bdafe5-c7b6-4812-af5f-75dc00561aed": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "76539a09-021e-4300-953b-4c6018ac26dc": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "6201aeb7-2b5c-4671-8ab4-5d3ba4d77f3b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9f4e810a-899e-4e5e-8174-abfcf15739a3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "eb5a4c26-04cb-4ab1-81cb-726dc58df772": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "e9c56c41-d453-4a80-af93-2331afeb3d82": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d147ba9f-3e17-40b1-9c23-3bca478ba804": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e9c22e0d-1f03-44da-a9d5-a9754ea53dc4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6f95136f-6544-4722-a354-25a18ddb18a7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "059e6dd0-544a-4c93-abad-b3ad77667339": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "a7c668bd-3327-474f-8fb5-8146e3e40e40": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f55ffc18-72c5-479c-a998-dc6806a6fa89": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6b80a35d-1e9a-43ac-9e0b-4519ce9f09b4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "3d28ea18-8e88-4160-96ff-4b6af4fd94c7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b14e31e2-22d0-48bb-907e-cfb3487e2120": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "da9b245a-05a9-4c2a-acb3-5afe62658776": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "1840aef8-71df-4a30-a108-efdb4f291a7f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8464ded4-af15-4319-950f-a30400d35247": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "dfbfceaa-14b2-4a90-a679-d169fa6a6a38": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "614d9fbd-68cd-4832-96db-3362069661b2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "94d707a8-ce27-4851-9ce2-07dfe96a095b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "71153be3-4742-4aae-9aec-150f7589311b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "6b359d8f-f88d-4052-aa7c-32015963ecc1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "edf35972-ed56-4c2f-a4a1-65f0471ba702": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5d7409c0-fb8e-4052-9969-ef09f12fd166": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "5d487647-6a53-4839-8eb8-edccf5e6bf1d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "17f18067-406f-49b2-84ce-d1eb66c3fc75": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ba0ba89c-1137-407f-ae7a-19152ea7ae82": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "889bfebf-7428-426e-a86f-79e2a7de2f71": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3ca36b5c-2f29-41a0-9b1d-80e2cdf2d947": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a853abad-dfa4-4bf5-aaa1-04cb10c02d23": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "818719e5-1338-4776-9a9d-3c31e4df5986": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "fe85de62-a656-4b79-9d94-d95c89319bd9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "58e22268-dacf-4b7f-b445-338a7e56d23c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "63d1a629-735c-448b-b45f-5e3865e84cf5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f9431f54-4c78-47ef-aac9-2b37cbaeae75": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8e29fe36-d794-4c55-87d6-5a206031dde2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "b6f29e6b-4b21-4bb6-a997-38592fa02864": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0eb11858-8d9f-4525-b9ab-cc5eab07d27a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a05c2daf-be1f-4d2c-8a12-b3627d477b44": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "8d42b501-dd03-449d-a070-32d1db2e546b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bd0965d6-9544-406a-90b5-dc2d566670b8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "1abe42e1-a726-4dee-94c2-79f364dac9b7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "b88bfd90-4da5-43eb-936f-ae1481924291": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5a6186f9-04a4-4320-b6ed-a1c3f2ebbc3b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8d253bba-a338-4fd9-9752-6b6edadca1eb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "69214fad-6742-49a9-8f71-ee9d269364ab": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0925a080-ab8d-44a1-a39c-61e184b4d8f9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "73baf464-93bb-450f-bda5-209c16d28dc3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "557c828f-aa51-40d9-868a-cff8d3982818": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5798b390-1b02-47b7-88fb-90adf07e8d1b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6b4b3d79-2eeb-4612-b3d1-99ef609ffa4e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "4cabf9fc-4ed1-4990-bbaf-7248fb8751bc": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "fc66c506-9397-485e-9451-acc1525f0070": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ba00f5fb-98f7-4542-b88a-16c5ce44f26a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "234bbd1b-05f6-4639-8770-1cd5278ba2c9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9df7e623-1f7c-47fa-9db6-777c9a3f2636": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8181847d-3422-4030-b815-481934740b63": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "bbf47f27-95e4-46a0-82e1-898ce046d857": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9b6f89db-876b-4156-9f9b-f29dcf302ad2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "37d5d366-8544-498a-9106-00185b29a9e3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "2fbd2ca9-e7b2-47a0-a8b2-575f3f7607d4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "4d46b9c1-0a86-41bf-aaf2-74d0ebf8ce66": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6308bf75-8340-4bab-b2ec-2f5000697af4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "087dbf66-448d-4235-b7b8-17af48edc9db": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6f7fa8b1-4456-4d4c-94c2-1f1651b18235": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bdef6e51-210f-4dc3-87b4-eef30f2e6a17": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0509e2d8-d657-4563-a7c8-b88b9180a6e8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2eb903dd-4881-4284-a31d-4bae3f053946": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ccdd9d7c-2bb6-465b-8ea1-5584b4af072e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "c13b41e7-a45f-4600-96c0-18f84fb07771": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b70d4e3a-b1d5-4432-b058-7ea0a4c02a4e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ec51b91e-e03d-4435-b6e7-dcaffe6ba5c0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "65a1573e-cc90-412b-8db2-ba60731b0ea6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "7646801f-46d5-48d0-9e18-efb884944f3e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f3977509-4420-4dfa-b1c9-2ab38dfd530f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "167dbbbc-a03a-4ebe-8e46-c34cc67f7d9d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "4c67a1c0-8e77-4f4b-b572-5c11695aae2d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "be3ddb6b-c328-4ecd-91e8-c2804868ea9c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "7860f3fe-0db3-42d4-bf3d-7042ea5e5787": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "95f9d29c-defd-4387-b73b-5cdb4a982bf0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bd0079c6-6f2d-42f4-9cee-e23930968f10": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "5fbd326d-328c-414e-a922-2d6963998962": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "499b7900-f44e-40ea-b8d3-2f3cf75f2ca4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e1598217-5ff1-4978-b51d-f0238e100019": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "84509667-1a94-4255-9e5f-b479075c1069": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a972fe34-7882-4476-87cf-eb9631785fb5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3d7d0cc7-bd72-4f41-bf55-0be57faa3883": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "bbdbb83b-cbfe-49f7-b7d1-1126630a68b7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "69d4fcec-8426-426a-ad48-439fd3b14e9e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "13bf624e-fe24-40f0-9a7c-066e28a50871": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "041e904a-33e5-45fd-b3f6-4ac95f1f8761": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3534c358-8a1c-4601-b6ff-43d378d65efa": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "c1c0dd3c-6354-4265-a88b-801f84649944": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "ae0fc3d3-c9ce-43e8-923a-a143db56d81e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0bb5a1fb-b1ad-45fd-880e-a590f2ec8d1c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "d8a9593e-791e-4fd7-9b22-a75b76e5de17": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "064a3695-3197-4354-816b-65c7b952db9e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "10e8c93c-658d-47e8-aa6f-ed60f329c060": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ac27709a-8e3a-4abf-8122-877af1dd9209": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "30499756-47d6-493c-9e57-ee3db2d9fa96": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "7806c8b4-afc9-4a35-b9a9-3707413df35e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "12000b3e-e38b-4bef-9098-38785f06ea32": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "33835ef6-bc67-4bde-bf5f-5a857f195a57": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "84d8a69f-788a-4025-ba96-f36406cc9ee5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "cc789f91-3e63-4cfb-86f4-87565055f269": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "5cfb9e8a-2f13-40bd-a527-c89bc596d299": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "315c965f-c0d7-4397-86d3-c05a0981437a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "adeec880-527c-4def-a2bf-3053be70eef8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "d7d59290-3ee5-4c1b-b408-c38b21799aea": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a511ca63-0a10-46e3-960b-bb6431e9e1a3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0fdc6116-c747-449c-b9cc-330fcd4c5c9c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "dc1b5908-da05-4eed-a988-c5e32fdb682d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b79bf56e-c296-4829-afea-6ac9263e7687": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a08af17e-c2a3-478e-a819-94839ef02b32": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "6ee1c58c-a123-4cd6-8643-48b2f7ffb3e1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "28e2d787-b5f4-43cf-8cb7-11b54773d379": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "20a921eb-1c4b-4bb7-a78f-6653ad293dba": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0ebe872d-7029-4292-88bc-ad3e2cf3772f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "83089e56-9675-4bc8-ae7d-ca4547dc764b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b9b976cc-59ef-468a-807e-19afa2ebfd52": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "cac9e1c5-c3cb-47fa-8d4c-88b8559262d2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "00ec9865-beb6-4cfd-82ed-bd8f50756acd": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ca09affa-60d6-4cef-9037-b7372e1ac44f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "d8624de8-47fe-47c0-bea0-2d8329b628fe": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e0f5ec01-8979-49bf-9fd7-2a4eff9fa8e0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5360664a-5821-4f43-8988-3f0ed8f3f8a5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0e861bb0-d926-4cdb-b2d6-d59336b8f5b3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "aa78af66-1659-40aa-90b0-b35b616adbdc": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0dac4c0b-0ca4-4c6e-9a09-61917873b3b0": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "a9725bd4-a2ad-479f-a29b-5e163cada399": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e6421995-539a-4ce3-854b-1c88534396cf": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "64948b6b-409d-4af2-970f-3b80fea408c1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "63a8eb0d-f030-4bc6-a1e4-6998f23aa160": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b9d3f759-4cda-43cf-8f64-5b01aeb1c21a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0b726841-c441-44ed-a2cc-d321e3be3ed7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "4f925033-4d52-4619-909c-9c47a687dc51": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "005380e0-1f5b-467a-8ae8-8519938627f9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a6dd4d00-283d-4765-b3d1-44ace2ccacda": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "60579569-3633-42cb-ae6a-195080bf310d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "50d96640-65c9-42de-b79a-95c1890c6ec8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5a69fd36-760e-4a65-a621-836f1159e304": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "54c7cff6-a032-43e1-9656-d4c24665f805": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ebd6e41f-c33e-4e16-9249-cee4c68e6e8c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8af74447-9495-4245-8e49-f74723dcd231": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "14ed86b4-ea45-4b1b-98a5-eb8f5f7da726": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3c25d50c-bd5a-4f98-a0de-2495e000cfa7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "76e7a3b8-3822-4ca2-92d8-c20616fd870b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "fc2bb2e1-739a-4a03-86a2-16ad55e90bd9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "819c6fd1-432a-4516-a9cb-0c4462af610f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2308e22a-85e9-431d-8c47-36072dfa64b5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "d3abca82-2ae2-4707-bf5e-cfc765ce9ff1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "116b1633-30d0-4e9a-a665-8aea3dc906c6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "63f9b4b2-de99-4b16-ad94-1a5464ac4f7d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "887dc342-c6bd-418b-9407-ab0e27deba36": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5a1fa110-16bc-49d0-a045-29a552b67cef": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a21ac20a-4dd3-40e9-8036-b3351ecf9319": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "068e22bd-8057-466b-9642-7cd2ca476158": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "20017523-2fd1-49a8-a766-79cbc572b827": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "02f64cac-bab0-4950-bb95-51f2d3970efa": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "a83fcddb-39d0-4c21-af38-76d2c935c3ca": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8963c37c-1113-4f1b-ae2e-3a5dd960a7f1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "ffe49e3d-50dd-4137-8fe5-6877c4384b69": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "1568dd08-cca0-4073-bfd8-e08a7fdc543e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5164fdc7-cfcd-4bd8-a3e9-f4be93166cde": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "c29fe1b2-c0b0-4d92-a988-84b484801707": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "23673f24-2594-43e9-9983-60a0be21bd76": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "82333640-495e-4249-92bb-2a5e2d07b964": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "601e350d-405c-41d0-a886-72c283f8fab2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "baa4c6de-b7cf-4b12-b436-6e40ef44c8cb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0120ef84-66e7-4faf-aad8-14c36389697e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "4891dace-710e-40bd-b81f-6a0b9871b50b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "69e0da8f-ca50-479d-b1a8-33a31426c512": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0983eb33-77d7-47e5-9fa7-879f8cea012e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e2526c67-0363-4da9-96f8-a95d746cf60b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "81039988-1f84-4aa6-8039-0a64c2a301b4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2e3285f9-ae82-4f69-b83f-5b6f1ee69f3a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "cdd1dbc6-0004-4fcd-afd7-b67550de37ff": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "668e9597-4ccc-452f-80be-e9dd5b2ab897": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "7a8afaba-cc24-4306-b83f-d178f1a10ba2": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "116caf13-2666-4a2e-afca-9a5f1e671b11": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "fc602c00-2ce3-4556-b615-fa4159517103": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "1513498c-3091-461a-b321-e9b433218d28": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "39aa567d-69c2-4cc0-aaa9-76c6d4006b14": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2cc39a57-5106-4d41-b872-55c2b9d7b729": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "b55f2e8e-dc76-4262-a0e3-45f02200ff0e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a2361fd4-721d-4be2-9910-53be250b99ad": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e92686fd-65f0-420f-a52b-7da14f3cef90": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "2f4d1c08-3695-41a7-a0a0-8db4a0e25233": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b678d84d-9723-4df0-a131-82c730231f1e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "34705075-71e2-480c-a9cb-6e9387f47f0f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "56ae9f08-b8c9-4a0f-8f58-5dbcd63bef84": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2853b2ac-3ce0-4e51-a1e3-086591e7028a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "dcb324b0-3bfa-4df4-b476-64122bde219e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "8ea88471-98e1-47e4-9f63-838c990ba2f4": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e9e99d63-621a-4a33-8799-0fb53e43f162": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a12e0815-0735-48d9-b5b3-8a3b60a85b86": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "f018b68f-d953-4238-81a3-94a0f39507e3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9dbcaaa7-0c1b-4861-81c2-d340661b4382": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "971199b6-1971-4d3e-85b0-fa7639044679": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "8def4bdd-4362-4ed6-a26f-7bf8f2c58839": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "480ee186-7504-48ac-b64e-af38673aa2c6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e7c86682-34c1-488a-9aab-9cb279207992": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0277b2d5-6e6f-4d97-9929-a5c4eab56fd7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3dd58519-427e-42a4-8ffc-e415a3c716f1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "fc744b31-a930-4eb5-bc06-e81f98bf7214": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "93a604fe-0ec2-4a99-ab8c-7ef08f05555a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "0e0c742d-5031-4e65-bf96-1bee7cf55740": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9e6aee71-3781-4acd-bba7-aac4fb067dfa": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "6567d3f3-42d0-4cfb-9606-9741ba60fa07": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8656d368-0643-4374-a63f-ae0ed4da1d9a": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "5f6f2aba-e57f-42ed-9aeb-ffa7321a56db": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "8fc4ca5f-6abc-4b30-9565-0bd91ac49420": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "40654dcd-0b26-49d6-aeaf-d12d7c1e8c4d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "08240c20-e48f-47d9-9305-2a8c4da75a3e": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "e99ab54f-260e-4925-a70f-8fe0a92443ef": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "efa9bf93-28f9-4f05-8e8c-31b8875e9713": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "590b6105-4715-4e8b-8049-c5a4ae07d8e9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "2453e322-a7e5-4905-ba1e-ac6ea60ff808": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "9529ceaf-8c7e-4149-bcb6-f38f63c5e4bd": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "944eae3e-6b16-4864-86e1-1b23d58386d5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "be26ca28-761d-4538-b78a-975eb47c680c": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f48e8ce0-91bd-4d51-8aba-8990d942f999": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "2db34cad-25ef-48e3-a787-c2cd36434cd7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "1118afbc-c48d-43ae-931a-87b38956d40b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "14681907-c749-4d60-8eae-1038537fb8a3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "792f8b74-dc05-44fd-b90d-340a097b80e6": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "34c7546c-d637-4b5d-96ab-93fb6ed07af8": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "f08edf17-5de2-4966-8c62-a50a3f4368ff": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6ccd32f6-0a9a-40cf-9c5b-6cfd6aba33e9": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "ed6ae75a-828f-4fea-88fd-dead1145f1dd": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b4a9c220-1d62-4163-a17b-30db7d5b7278": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "40ce1496-89c2-40cf-80e5-3c4687d2ee4b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "3234ff41-8bec-40a3-b5cb-109c95f1c8ce": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "8d0e693f-1b54-41d1-880e-199c3caed23f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "a285df35-0164-4f4d-9e04-c39056742c55": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "c3b912c2-7f5b-47ac-bd52-8c85a7667961": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "20f21bc7-b0b8-4d57-83df-5a8a0912b934": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "3d034ef2-001c-46f6-a47b-e6e4a74ff89b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "0da6faeb-d6c6-4f6e-9f49-06277493270b": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "bf6af3d2-fbd5-458f-8a40-2556cf539b45": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "6bb23bce-54ea-4d3d-b07d-628ce0f2e4e3": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "b4545446-0cac-4af5-b591-61544b66e802": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293",
+      "/providers/Microsoft.Authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"
+    ],
+    "867c08d5-bc47-404d-9a1b-0aec7a8d34eb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "e6acdfc4-25e3-4b36-9b0c-5c5743edd1b7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ],
+    "752154a7-1e0f-45c6-a880-ac75a7e4f648": [
+      "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+    ]
+  }
+}

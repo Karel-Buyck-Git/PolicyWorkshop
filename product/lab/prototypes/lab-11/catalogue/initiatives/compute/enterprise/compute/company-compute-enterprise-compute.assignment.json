@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/compute/enterprise/compute/",
+  "assignment": {
+    "name": "company-compute-enterprise-compute",
+    "displayName": "Company Compute Enterprise — Compute",
+    "description": "Deployment scaffold for 3 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): managedDisksSpecificSetDiskEncryptionAllowedEncryptionSets. No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-compute-enterprise-compute",
+  "parameters": {
+    "managedDisksSpecificSetDiskEncryptionAllowedEncryptionSets": [
+      "<REPLACE: managedDisksSpecificSetDiskEncryptionAllowedEncryptionSets>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

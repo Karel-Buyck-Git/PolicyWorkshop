@@ -1,0 +1,76 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/storage/essential/backup/",
+  "assignment": {
+    "name": "company-storage-essential-backup",
+    "displayName": "Company Storage Essential — Backup",
+    "description": "Deployment scaffold for 28 policies. 39 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureBackupAzureDisksManagedDisksVaultLocation, configureBackupAzureDisksManagedDisksBackupPolicyId, configureBackupAzureDisksManagedDisksSnapshotResourceGroupName, configureBackupAzureDisksManagedDisksInclusionTagName, configureBackupAzureDisksManagedDisksInclusionTagValues, configureBackupAzureDisksManagedDisksVaultLocationA, …. A managed identity is required: 16 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-storage-essential-backup",
+  "parameters": {
+    "configureBackupAzureDisksManagedDisksVaultLocation": "<REPLACE: configureBackupAzureDisksManagedDisksVaultLocation>",
+    "configureBackupAzureDisksManagedDisksBackupPolicyId": "<REPLACE: configureBackupAzureDisksManagedDisksBackupPolicyId>",
+    "configureBackupAzureDisksManagedDisksSnapshotResourceGroupName": "<REPLACE: configureBackupAzureDisksManagedDisksSnapshotResourceGroupName>",
+    "configureBackupAzureDisksManagedDisksInclusionTagName": "<REPLACE: configureBackupAzureDisksManagedDisksInclusionTagName>",
+    "configureBackupAzureDisksManagedDisksInclusionTagValues": [
+      "<REPLACE: configureBackupAzureDisksManagedDisksInclusionTagValues>"
+    ],
+    "configureBackupAzureDisksManagedDisksVaultLocationA": "<REPLACE: configureBackupAzureDisksManagedDisksVaultLocationA>",
+    "configureBackupAzureDisksManagedDisksBackupPolicyIdA": "<REPLACE: configureBackupAzureDisksManagedDisksBackupPolicyIdA>",
+    "configureBackupAzureDisksManagedDisksSnapshotResourceGroupNameA": "<REPLACE: configureBackupAzureDisksManagedDisksSnapshotResourceGroupNameA>",
+    "configureBackupAzureDisksManagedDisksExclusionTagName": "<REPLACE: configureBackupAzureDisksManagedDisksExclusionTagName>",
+    "configureBackupAzureDisksManagedDisksExclusionTagValues": [
+      "<REPLACE: configureBackupAzureDisksManagedDisksExclusionTagValues>"
+    ],
+    "configureBackupAzureFilesSharesGivenVaultName": "<REPLACE: configureBackupAzureFilesSharesGivenVaultName>",
+    "configureBackupAzureFilesSharesGivenVaultLocation": "<REPLACE: configureBackupAzureFilesSharesGivenVaultLocation>",
+    "configureBackupAzureFilesSharesGivenVaultLocationA": "<REPLACE: configureBackupAzureFilesSharesGivenVaultLocationA>",
+    "configureBackupAzureFilesSharesGivenBackupPolicyId": "<REPLACE: configureBackupAzureFilesSharesGivenBackupPolicyId>",
+    "configureBackupAzureFilesSharesWithoutVaultName": "<REPLACE: configureBackupAzureFilesSharesWithoutVaultName>",
+    "configureBackupAzureFilesSharesWithoutVaultLocation": "<REPLACE: configureBackupAzureFilesSharesWithoutVaultLocation>",
+    "configureBackupAzureFilesSharesWithoutVaultLocationA": "<REPLACE: configureBackupAzureFilesSharesWithoutVaultLocationA>",
+    "configureBackupAzureFilesSharesWithoutBackupPolicyId": "<REPLACE: configureBackupAzureFilesSharesWithoutBackupPolicyId>",
+    "configureBackupBlobsStorageAccountsGivenVaultLocation": "<REPLACE: configureBackupBlobsStorageAccountsGivenVaultLocation>",
+    "configureBackupBlobsStorageAccountsGivenBackupPolicyId": "<REPLACE: configureBackupBlobsStorageAccountsGivenBackupPolicyId>",
+    "configureBackupBlobsStorageAccountsGivenInclusionTagName": "<REPLACE: configureBackupBlobsStorageAccountsGivenInclusionTagName>",
+    "configureBackupBlobsStorageAccountsGivenInclusionTagValues": [
+      "<REPLACE: configureBackupBlobsStorageAccountsGivenInclusionTagValues>"
+    ],
+    "configureBackupVirtualMachinesGivenTagVaultLocation": "<REPLACE: configureBackupVirtualMachinesGivenTagVaultLocation>",
+    "configureBackupVirtualMachinesGivenTagInclusionTagValue": [
+      "<REPLACE: configureBackupVirtualMachinesGivenTagInclusionTagValue>"
+    ],
+    "configureBackupVirtualMachinesGivenTagBackupPolicyId": "<REPLACE: configureBackupVirtualMachinesGivenTagBackupPolicyId>",
+    "configureBackupVirtualMachinesWithoutGivenVaultLocation": "<REPLACE: configureBackupVirtualMachinesWithoutGivenVaultLocation>",
+    "configureBackupVirtualMachinesWithoutGivenBackupPolicyId": "<REPLACE: configureBackupVirtualMachinesWithoutGivenBackupPolicyId>",
+    "configureBlobBackupAllStorageAccountsVaultLocation": "<REPLACE: configureBlobBackupAllStorageAccountsVaultLocation>",
+    "configureBlobBackupAllStorageAccountsBackupPolicyId": "<REPLACE: configureBlobBackupAllStorageAccountsBackupPolicyId>",
+    "configureBlobBackupAllStorageAccountsExclusionTagName": "<REPLACE: configureBlobBackupAllStorageAccountsExclusionTagName>",
+    "configureBlobBackupAllStorageAccountsExclusionTagValues": [
+      "<REPLACE: configureBlobBackupAllStorageAccountsExclusionTagValues>"
+    ],
+    "installAzureBackupExtensionAksClustersLocation": "<REPLACE: installAzureBackupExtensionAksClustersLocation>",
+    "installAzureBackupExtensionAksClustersStorageAccountId": "<REPLACE: installAzureBackupExtensionAksClustersStorageAccountId>",
+    "installAzureBackupExtensionAksClustersInclusionTagName": "<REPLACE: installAzureBackupExtensionAksClustersInclusionTagName>",
+    "installAzureBackupExtensionAksClustersInclusionTagValues": [
+      "<REPLACE: installAzureBackupExtensionAksClustersInclusionTagValues>"
+    ],
+    "installAzureBackupExtensionAksClustersLocationA": "<REPLACE: installAzureBackupExtensionAksClustersLocationA>",
+    "installAzureBackupExtensionAksClustersStorageAccountIdA": "<REPLACE: installAzureBackupExtensionAksClustersStorageAccountIdA>",
+    "installAzureBackupExtensionAksClustersExclusionTagName": "<REPLACE: installAzureBackupExtensionAksClustersExclusionTagName>",
+    "installAzureBackupExtensionAksClustersExclusionTagValues": [
+      "<REPLACE: installAzureBackupExtensionAksClustersExclusionTagValues>"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,209 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-security-essential-managed-identity",
+  "properties": {
+    "displayName": "Company Security Essential — Managed Identity",
+    "description": "**Essential** — Baseline hygiene for Managed Identity: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Managed Identity",
+      "domain": "Security",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "previewManagedIdentityFederatedCredentialsAzureAllowedTenants": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed tenants",
+          "description": "The list of allowed Azure AD tenant ID's of AKS OIDC issuers. Empty to allow all tenants."
+        }
+      },
+      "previewManagedIdentityFederatedCredentialsGithubAllowedRepoOwners": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed Repo Owners",
+          "description": "The list of allowed owners. Empty to allow all owners."
+        }
+      },
+      "assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentity": {
+        "type": "Boolean",
+        "metadata": {
+          "displayName": "Bring Your Own User-Assigned Identity",
+          "description": "Enable this to use your pre-created user-assigned managed identity. The pre-created identity MUST exist within the subscription otherwise the policy deployment will fail. If enabled, ensure that the User-Assigned Identity Name and Identity Resource Group Name parameters match the pre-created identity. If not enabled, the policy will create per subscription, per resource user-assigned managed identities in a new resource group named 'Built-In-Identity-RG'."
+        },
+        "allowedValues": [
+          true,
+          false
+        ]
+      },
+      "assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentityA": {
+        "type": "Boolean",
+        "metadata": {
+          "displayName": "Bring Your Own User-Assigned Identity",
+          "description": "Enable this to use your pre-created user-assigned managed identity. The pre-created identity MUST exist within the subscription otherwise the policy deployment will fail. If enabled, ensure that the User-Assigned Identity Name and Identity Resource Group Name parameters match the pre-created identity. If not enabled, the policy will create per subscription, per resource user-assigned managed identities in a new resource group named 'Built-In-Identity-RG'."
+        },
+        "allowedValues": [
+          true,
+          false
+        ]
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "ae62c456-33de-4dc8-b100-7ce9028a7d99",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae62c456-33de-4dc8-b100-7ce9028a7d99",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "[Preview]: Managed Identity Federated Credentials from Azure Kubernetes should be from trusted sources"
+        },
+        "parameters": {
+          "allowedTenants": {
+            "value": "[parameters('previewManagedIdentityFederatedCredentialsAzureAllowedTenants')]"
+          },
+          "allowedLocations": {
+            "value": []
+          },
+          "allowedClusterExceptions": {
+            "value": []
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fd1a8e20-2c4f-4a6c-9354-b58d786d9a1f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fd1a8e20-2c4f-4a6c-9354-b58d786d9a1f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "[Preview]: Managed Identity Federated Credentials from GitHub should be from trusted repository owners"
+        },
+        "parameters": {
+          "allowedRepoOwners": {
+            "value": "[parameters('previewManagedIdentityFederatedCredentialsGithubAllowedRepoOwners')]"
+          },
+          "allowedRepoExceptions": {
+            "value": []
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2571b7c3-3056-4a61-b00a-9bc5232234f5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2571b7c3-3056-4a61-b00a-9bc5232234f5",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "[Preview]: Managed Identity Federated Credentials should be from allowed issuer types"
+        },
+        "parameters": {
+          "allowFederatedCredentials": {
+            "value": false
+          },
+          "allowAKS": {
+            "value": false
+          },
+          "allowGitHub": {
+            "value": false
+          },
+          "allowAWS": {
+            "value": false
+          },
+          "allowGCS": {
+            "value": false
+          },
+          "allowedIssuerExceptions": {
+            "value": []
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "516187d4-ef64-4a1b-ad6b-a7348502976c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/516187d4-ef64-4a1b-ad6b-a7348502976c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Assign Built-In User-Assigned Managed Identity to Virtual Machine Scale Sets"
+        },
+        "parameters": {
+          "bringYourOwnUserAssignedManagedIdentity": {
+            "value": "[parameters('assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentity')]"
+          },
+          "restrictBringYourOwnUserAssignedIdentityToSubscription": {
+            "value": true
+          },
+          "userAssignedIdentityResourceId": {
+            "value": ""
+          },
+          "userAssignedIdentityName": {
+            "value": ""
+          },
+          "identityResourceGroup": {
+            "value": ""
+          },
+          "builtInIdentityResourceGroupLocation": {
+            "value": "eastus"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d367bd60-64ca-4364-98ea-276775bddd94",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d367bd60-64ca-4364-98ea-276775bddd94",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Assign Built-In User-Assigned Managed Identity to Virtual Machines"
+        },
+        "parameters": {
+          "bringYourOwnUserAssignedManagedIdentity": {
+            "value": "[parameters('assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentityA')]"
+          },
+          "restrictBringYourOwnUserAssignedIdentityToSubscription": {
+            "value": true
+          },
+          "userAssignedIdentityResourceId": {
+            "value": ""
+          },
+          "userAssignedIdentityName": {
+            "value": ""
+          },
+          "identityResourceGroup": {
+            "value": ""
+          },
+          "builtInIdentityResourceGroupLocation": {
+            "value": "eastus"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

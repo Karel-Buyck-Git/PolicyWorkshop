@@ -1,0 +1,24 @@
+{
+  "name": "company-monitoring-professional-monitoring",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "/providers/microsoft.authorization/roleDefinitions/ae349356-3a1b-4a5e-921d-050484c6347e",
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "dddfa1af-dcd6-42f4-b5b0-e1db01e0b405": [
+      "/providers/microsoft.authorization/roleDefinitions/ae349356-3a1b-4a5e-921d-050484c6347e"
+    ],
+    "bec5db8e-c4e3-40f9-a545-e0bd00065c82": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "437914ee-c176-4fff-8986-7e05eb971365": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "e8185402-357b-4768-8058-f620bc0ae6b5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-data-essential-stream-analytics",
+  "properties": {
+    "displayName": "Company Data Essential — Stream Analytics",
+    "description": "**Essential** — Baseline hygiene for Stream Analytics: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Stream Analytics",
+      "domain": "Data",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "fe8684d6-3c5b-45c0-a08b-fa92653c2e1c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe8684d6-3c5b-45c0-a08b-fa92653c2e1c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Stream Analytics job should connect to trusted inputs and outputs"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allowedEventHubNamespaces": {
+            "value": []
+          },
+          "allowedSQLServers": {
+            "value": []
+          },
+          "allowedStorageAccounts": {
+            "value": []
+          },
+          "allowedCosmosAccounts": {
+            "value": []
+          },
+          "allowedAzureFunctionAccounts": {
+            "value": []
+          },
+          "allowedIoTHubNamespaces": {
+            "value": []
+          },
+          "allowedMLWebServiceEndpoints": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ea6c4923-510a-4346-be26-1894919a5b97",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea6c4923-510a-4346-be26-1894919a5b97",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Stream Analytics job should use managed identity to authenticate endpoints"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

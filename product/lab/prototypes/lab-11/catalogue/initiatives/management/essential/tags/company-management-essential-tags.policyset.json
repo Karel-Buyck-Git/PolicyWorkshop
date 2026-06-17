@@ -1,0 +1,133 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-management-essential-tags",
+  "properties": {
+    "displayName": "Company Management Essential — Tags",
+    "description": "**Essential** — Baseline hygiene for Tags: the non-negotiable controls every deployment should enforce from day one. This tier delivers tagging, SKU, and naming controls for cost and ownership accountability. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Tags",
+      "domain": "Management",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "requireTagValueResourceGroupsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "requireTagValueResourceGroupsTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "requireTagValueResourcesTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "requireTagValueResourcesTagValue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Value",
+          "description": "Value of the tag, such as 'production'"
+        }
+      },
+      "requireTagResourceGroupsTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      },
+      "requireTagResourcesTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag, such as 'environment'"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "8ce3da23-7156-49e4-b145-24f95f9dcb46",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8ce3da23-7156-49e4-b145-24f95f9dcb46",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require a tag and its value on resource groups"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('requireTagValueResourceGroupsTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('requireTagValueResourceGroupsTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1e30110a-5ceb-460c-a204-c1c3969c6d62",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e30110a-5ceb-460c-a204-c1c3969c6d62",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require a tag and its value on resources"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('requireTagValueResourcesTagName')]"
+          },
+          "tagValue": {
+            "value": "[parameters('requireTagValueResourcesTagValue')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "96670d01-0a4d-4649-9c89-2d3abc0a5025",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/96670d01-0a4d-4649-9c89-2d3abc0a5025",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require a tag on resource groups"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('requireTagResourceGroupsTagName')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "871b6d14-10aa-478d-b590-94f262ecfa99",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/871b6d14-10aa-478d-b590-94f262ecfa99",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require a tag on resources"
+        },
+        "parameters": {
+          "tagName": {
+            "value": "[parameters('requireTagResourcesTagName')]"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/data/essential/cosmos-db/",
+  "assignment": {
+    "name": "company-data-essential-cosmos-db",
+    "displayName": "Company Data Essential — Cosmos DB",
+    "description": "Deployment scaffold for 6 policies. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): azureCosmosDbAllowedLocationsListOfAllowedLocations, azureCosmosDbThroughputLimitedThroughputMax. A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-essential-cosmos-db",
+  "parameters": {
+    "azureCosmosDbAllowedLocationsListOfAllowedLocations": [
+      "<REPLACE: azureCosmosDbAllowedLocationsListOfAllowedLocations>"
+    ],
+    "azureCosmosDbThroughputLimitedThroughputMax": "<REPLACE: azureCosmosDbThroughputLimitedThroughputMax>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

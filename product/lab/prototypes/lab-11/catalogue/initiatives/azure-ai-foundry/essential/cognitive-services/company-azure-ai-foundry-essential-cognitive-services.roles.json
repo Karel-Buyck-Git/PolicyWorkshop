@@ -1,0 +1,12 @@
+{
+  "name": "company-azure-ai-foundry-essential-cognitive-services",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "14de9e63-1b31-492e-a5a3-c3f7fd57f555": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

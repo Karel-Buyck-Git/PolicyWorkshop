@@ -1,0 +1,83 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "naming-network-virtualnetworks-virtualnetworkpeerings",
+  "properties": {
+    "displayName": "Require naming convention for Virtual network peering",
+    "description": "Audits or denies Virtual network peering (Microsoft.Network/virtualNetworks/virtualNetworkPeerings) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): peer. Example: 'peer-<sourceVnet>-with-<destVnet>'. Check: name begins with 'peer-'. Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, not every segment.",
+    "policyType": "Custom",
+    "mode": "All",
+    "metadata": {
+      "category": "Naming convention",
+      "version": "2.0.0",
+      "source": "getResourceName.bicep v1.5",
+      "cafCategory": "Networking",
+      "resourceType": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "abbreviations": [
+        "peer"
+      ],
+      "abbreviationSource": "module (getResourceName.bicep)",
+      "checkKind": "peering",
+      "conventionExample": "peer-<sourceVnet>-with-<destVnet>"
+    },
+    "parameters": {
+      "excludedNamePattern": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded name patterns",
+          "description": "Names matching any of these wildcard patterns are exempt. Example: 'rg-*, NetworkWatcherRG'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings"
+          },
+          {
+            "count": {
+              "value": "[parameters('excludedNamePattern')]",
+              "name": "excluded",
+              "where": {
+                "field": "name",
+                "like": "[current('excluded')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "count": {
+              "value": [
+                "peer-*"
+              ],
+              "name": "pattern",
+              "where": {
+                "field": "name",
+                "like": "[current('pattern')]"
+              }
+            },
+            "equals": 0
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

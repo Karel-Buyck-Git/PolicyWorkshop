@@ -1,0 +1,18 @@
+{
+  "name": "company-container-services-professional-kubernetes",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/5e93ba01-8f92-4c7a-b12a-801e3df23824",
+    "/providers/microsoft.authorization/roleDefinitions/8bb6f106-b146-4ee6-a3f9-b9c5a96e0ae5"
+  ],
+  "byPolicy": {
+    "708b60a6-d253-4fe0-9114-4be4c00f012c": [
+      "/providers/microsoft.authorization/roleDefinitions/5e93ba01-8f92-4c7a-b12a-801e3df23824",
+      "/providers/microsoft.authorization/roleDefinitions/8bb6f106-b146-4ee6-a3f9-b9c5a96e0ae5"
+    ],
+    "64def556-fbad-4622-930e-72d1d5589bf5": [
+      "/providers/microsoft.authorization/roleDefinitions/5e93ba01-8f92-4c7a-b12a-801e3df23824",
+      "/providers/microsoft.authorization/roleDefinitions/8bb6f106-b146-4ee6-a3f9-b9c5a96e0ae5"
+    ]
+  }
+}
