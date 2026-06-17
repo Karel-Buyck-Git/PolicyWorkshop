@@ -1,0 +1,56 @@
+{
+  "if": {
+    "field": "type",
+    "equals": "Microsoft.Network/networkSecurityGroups"
+  },
+  "then": {
+    "effect": "[parameters('effect')]",
+    "details": {
+      "type": "Microsoft.Insights/diagnosticSettings",
+      "name": "nsg-to-law",
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+      ],
+      "existenceCondition": {
+        "allOf": [
+          { "field": "Microsoft.Insights/diagnosticSettings/workspaceId", "equals": "[parameters('logAnalytics')]" }
+        ]
+      },
+      "deployment": {
+        "properties": {
+          "mode": "incremental",
+          "parameters": {
+            "nsgName": { "value": "[field('name')]" },
+            "location": { "value": "[field('location')]" },
+            "logAnalytics": { "value": "[parameters('logAnalytics')]" }
+          },
+          "template": {
+            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+              "nsgName": { "type": "string" },
+              "location": { "type": "string" },
+              "logAnalytics": { "type": "string" }
+            },
+            "resources": [
+              {
+                "type": "Microsoft.Network/networkSecurityGroups/providers/diagnosticSettings",
+                "apiVersion": "2021-05-01-preview",
+                "name": "[concat(parameters('nsgName'), '/Microsoft.Insights/nsg-to-law')]",
+                "location": "[parameters('location')]",
+                "properties": {
+                  "workspaceId": "[parameters('logAnalytics')]",
+                  "logs": [
+                    { "category": "NetworkSecurityGroupEvent", "enabled": true },
+                    { "category": "NetworkSecurityGroupRuleCounter", "enabled": true }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

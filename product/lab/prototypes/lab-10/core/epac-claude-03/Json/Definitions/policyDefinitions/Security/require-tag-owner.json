@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+    "name": "require-tag-owner",
+    "properties": {
+        "displayName": "Require 'Owner' tag on resources",
+        "policyType": "Custom",
+        "mode": "Indexed",
+        "description": "Enforces an 'Owner' tag so every resource has an accountable owner.",
+        "metadata": { "version": "1.0.0", "category": "Security" },
+        "parameters": {
+            "tagName": { "type": "String", "defaultValue": "Owner", "metadata": { "displayName": "Tag Name" } },
+            "effect": { "type": "String", "allowedValues": [ "Audit", "Deny", "Disabled" ], "defaultValue": "Audit", "metadata": { "displayName": "Effect" } }
+        },
+        "policyRule": {
+            "if": { "field": "[concat('tags[', parameters('tagName'), ']')]", "exists": "false" },
+            "then": { "effect": "[parameters('effect')]" }
+        }
+    }
+}

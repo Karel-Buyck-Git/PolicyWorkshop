@@ -1,0 +1,30 @@
+{
+    // Pre-populated by hydration-style scaffold. Edit the REPLACE- placeholders.
+    // Docs: https://azure.github.io/enterprise-azure-policy-as-code/settings-global-setting-file/
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/global-settings-schema.json",
+
+    // Generate ONE GUID; never change it. EPAC stamps it into resource metadata to track ownership.
+    "pacOwnerId": "REPLACE-WITH-A-GUID-0000-000000000000",
+
+    // Optional: override the default "deployedBy"/"assignedBy" metadata value.
+    // "managedIdentityLocations" can be set here as a global default too.
+
+    "pacEnvironments": [
+        {
+            // Main / production-managed environment (CAFv3 intermediate root).
+            "pacSelector": "tenant01",
+            "cloud": "AzureCloud",
+            "tenantId": "REPLACE-WITH-TENANT-ID",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/contoso",
+            "managedIdentityLocation": "westeurope"
+        },
+        {
+            // Isolated dev copy of the hierarchy. MUST be separate from tenant01's scope.
+            "pacSelector": "epac-dev",
+            "cloud": "AzureCloud",
+            "tenantId": "REPLACE-WITH-TENANT-ID",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/epac-dev-contoso",
+            "managedIdentityLocation": "westeurope"
+        }
+    ]
+}

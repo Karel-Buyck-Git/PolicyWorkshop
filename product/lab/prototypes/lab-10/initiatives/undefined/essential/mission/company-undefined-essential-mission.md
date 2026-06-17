@@ -1,0 +1,15 @@
+# Company undefined Essential — Mission
+
+## Tier rationale
+
+**Essential** — Baseline hygiene for Mission: the non-negotiable controls every deployment should enforce from day one. This tier delivers TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure SQL should disable or enforce restrictions for Outbound networking | eae5dab1-5078-4686-a091-fce0e1e13d3b |  | This policy applies exclusively to Mission Platform products and services; usage outside of these scopes is not supported. It enforces Azure SQL server outbound network restrictions so workloads communicate only through approved private channels and limit lateral movement risk (see https://learn.microsoft.com/azure/azure-sql/database/connectivity-architecture). | Audit, Deny, Disabled | Audit | Audit | Deny | Mission | undefined | 1.0.0 | BuiltIn | Essential | No | No |
+| 2 | Azure Virtual Desktop Host Pools should restrict RDP property configurations | f0a5beeb-4b9b-4a3f-ba85-4f4b06afb598 |  | This policy applies exclusively to Mission Platform products and services; usage outside of these scopes is not supported. Ensures that Azure Virtual Desktop Host Pools enforce approved RDP property configurations, reducing the attack surface by limiting remote desktop protocol settings. | Audit, Deny, Disabled | Audit | Audit | Deny | Mission | undefined | 1.0.0 | BuiltIn | Essential | No | No |
+| 3 | Configure managed disk network access policy to deny all | f4273bc9-d20e-438d-ad30-b72221939edc |  | This policy applies exclusively to Mission Platform products and services; usage outside of these scopes is not supported. Compute policy enforces that Managed Disks cannot be exported. | Modify, Disabled | Modify | Modify | Modify | Mission | undefined | 1.0.0 | BuiltIn | Essential | No | Yes |
+| 4 | Configure snapshot network access policy to deny all | 44a0b5ee-56f4-4285-a136-9e6dc3471011 |  | This policy applies exclusively to Mission Platform products and services; usage outside of these scopes is not supported. Compute policy denies snapshot export from the environment. | Modify, Disabled | Modify | Modify | Modify | Mission | undefined | 1.0.0 | BuiltIn | Essential | No | Yes |
+| 5 | CosmosDB should restrict external private endpoints access | ea79b84d-f538-475d-a6ef-7951747a3455 |  | This policy applies exclusively to Mission Platform products and services; usage outside of these scopes is not supported. This policy enforces restrictions on external private endpoints linked to Cosmos DB to maintain network isolation and prevent unauthorized cross-tenant access. | Audit, Deny, Disabled | Audit | Audit | Deny | Mission | undefined | 1.0.0 | BuiltIn | Essential | No | No |

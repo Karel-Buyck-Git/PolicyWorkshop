@@ -1,0 +1,27 @@
+{
+  "eval_id": 1,
+  "eval_name": "express-orders-route",
+  "prompt": "Build a Node/Express route handler for POST /orders that validates the request body (needs customerId and items array), saves the order to a database, and returns the created order.",
+  "assertions": [
+    {
+      "id": "layered-architecture",
+      "text": "Business logic is separated from HTTP concerns — there is at least a distinct service/handler layer separate from the route"
+    },
+    {
+      "id": "input-validation",
+      "text": "Request body is validated before reaching any business logic, using a schema or explicit checks"
+    },
+    {
+      "id": "error-handling",
+      "text": "Errors are explicitly caught and handled — no unhandled promise rejections or try/catch-less async"
+    },
+    {
+      "id": "no-leaked-internals",
+      "text": "Internal error details (stack traces, DB errors) are not exposed in the HTTP response"
+    },
+    {
+      "id": "correct-status-codes",
+      "text": "Returns 201 on success and 400 on validation failure (not just 200 for everything)"
+    }
+  ]
+}

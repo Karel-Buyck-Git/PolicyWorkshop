@@ -1,0 +1,90 @@
+# EPAC - GitHub Actions workflow
+# Flow: Plan -> Deploy Policy -> Deploy Roles. OIDC federated login (no secrets).
+# Copy this into .github/workflows/ to activate it.
+#
+# Configure per the App Registrations doc:
+#   - 3 app registrations with federated credentials (issuer https://token.actions.githubusercontent.com,
+#     audience api://AzureADTokenExchange, subject e.g. repo:<org>/<repo>:environment:tenant)
+#   - Repo/Environment secrets: AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID,
+#     PLAN_CLIENT_ID, POLICY_CLIENT_ID, ROLES_CLIENT_ID
+#   - GitHub Environments: epac-dev, tenant (add required reviewers on "tenant")
+
+name: EPAC Deploy (tenant)
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'Definitions/**' ]
+
+permissions:
+  id-token: write      # required for OIDC
+  contents: read
+
+env:
+  PAC_SELECTOR: tenant
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    environment: tenant-plan
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Build-DeploymentPlans
+        shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Build-DeploymentPlans -PacEnvironmentSelector "$env:PAC_SELECTOR" `
+            -DefinitionsRootFolder ./Definitions -OutputFolder ./Output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plans
+          path: ./Output
+
+  deploy-policy:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: tenant            # approval gate here
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: plans
+          path: ./Output
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.POLICY_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy-PolicyPlan
+        shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Deploy-PolicyPlan -PacEnvironmentSelector "$env:PAC_SELECTOR" `
+            -DefinitionsRootFolder ./Definitions -InputFolder ./Output
+
+  deploy-roles:
+    needs: deploy-policy
+    runs-on: ubuntu-latest
+    environment: tenant
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: plans
+          path: ./Output
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ROLES_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy-RolesPlan
+        shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Deploy-RolesPlan -PacEnvironmentSelector "$env:PAC_SELECTOR" `
+            -DefinitionsRootFolder ./Definitions -InputFolder ./Output

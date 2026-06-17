@@ -1,0 +1,10 @@
+# Professional — Hardened Virtual Datacenter
+
+Designed for production workloads, this tier introduces enhanced operational
+resilience and network hardening. It mandates the use of high-availability
+services with guaranteed SLAs, explicitly excluding "Dev/Test" SKUs. Security is
+bolstered through comprehensive auditing, centralized logging, and advanced
+diagnostics, providing the visibility required for professional monitoring and
+rapid incident response.
+
+Replace with the canonical text from product/descriptions/professional/description.md.

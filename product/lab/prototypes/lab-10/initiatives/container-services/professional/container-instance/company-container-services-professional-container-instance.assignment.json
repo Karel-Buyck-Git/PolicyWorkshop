@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/container-services/professional/container-instance/",
+  "assignment": {
+    "name": "company-container-services-professional-container-instance",
+    "displayName": "Company Container Services Professional — Container Instance",
+    "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-container-services-professional-container-instance",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

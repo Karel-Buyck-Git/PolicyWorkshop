@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "login-form-hook",
+  "prompt": "Write a custom React hook that manages form state for a login form with email and password fields, including basic validation.",
+  "assertions": [
+    {
+      "id": "single-responsibility",
+      "text": "The hook handles form state and validation only — no network calls, no rendering, no side effects beyond state"
+    },
+    {
+      "id": "descriptive-hook-name",
+      "text": "The hook has a descriptive name starting with 'use' that makes its purpose clear (e.g. useLoginForm, not useForm)"
+    },
+    {
+      "id": "validation-both-fields",
+      "text": "Both email and password fields have validation with clear rules (email format, password length/requirements)"
+    },
+    {
+      "id": "clean-return-shape",
+      "text": "The hook returns a clear, usable object with values, errors, and handler functions"
+    },
+    {
+      "id": "touched-state",
+      "text": "Validation errors are shown in a UX-aware way — errors don't appear before the user has interacted (touched state or similar)"
+    }
+  ]
+}

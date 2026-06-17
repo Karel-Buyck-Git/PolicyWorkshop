@@ -1,0 +1,14 @@
+# Company Data Professional — Azure Databricks
+
+## Tier rationale
+
+**Professional** — Active security posture for Azure Databricks: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Azure Databricks Clusters should disable public IP | 51c1490f-3319-459c-bbbc-7f391bbed753 |  | Disabling public IP of clusters in Azure Databricks Workspaces improves security by ensuring that the clusters aren't exposed on the public internet. Learn more at: https://learn.microsoft.com/azure/databricks/security/secure-cluster-connectivity. | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Databricks | Data | 1.0.1 | BuiltIn | Professional | No | No |
+| 2 | Azure Databricks Workspaces should be in a virtual network | 9c25c9e4-ee12-4882-afd2-11fb9d87893f |  | Azure Virtual Networks provide enhanced security and isolation for your Azure Databricks Workspaces, as well as subnets, access control policies, and other features to further restrict access. Learn more at: https://docs.microsoft.com/azure/databricks/administration-guide/cloud-configurations/azure/vnet-inject. | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Databricks | Data | 1.0.2 | BuiltIn | Professional | No | No |
+| 3 | Azure Databricks Workspaces should disable public network access | 0e7849de-b939-4c50-ab48-fc6b0f5eeba2 |  | Disabling public network access improves security by ensuring that the resource isn't exposed on the public internet. You can control exposure of your resources by creating private endpoints instead. Learn more at: https://learn.microsoft.com/azure/databricks/administration-guide/cloud-configurations/azure/private-link. | Audit, Deny, Disabled | Audit | Audit | Deny | Azure Databricks | Data | 1.0.1 | BuiltIn | Professional | No | No |
+| 4 | Configure Azure Databricks Workspaces with private endpoints | 09210db3-d32c-4b2b-b4e1-f72ae920eb11 |  | Private endpoints connect your virtual networks to Azure services without a public IP address at the source or destination. By mapping private endpoints to Azure Databricks Workspaces, you can reduce data leakage risks. Learn more about private links at: https://aka.ms/adbpe. | DeployIfNotExists, Disabled | DeployIfNotExists | DeployIfNotExists | DeployIfNotExists | Azure Databricks | Data | 1.0.2 | BuiltIn | Professional | Yes | Yes |

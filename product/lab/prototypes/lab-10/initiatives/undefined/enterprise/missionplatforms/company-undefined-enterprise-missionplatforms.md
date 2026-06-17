@@ -1,0 +1,12 @@
+# Company undefined Enterprise — MissionPlatforms
+
+## Tier rationale
+
+**Enterprise** — Zero-trust and regulatory alignment for MissionPlatforms: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers customer-managed keys (CMK / BYOK) for cryptographic sovereignty. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).
+
+## Policies
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier | Requires Parameters | Requires Managed Identity |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Storage Account should restrict Cross Tenant Replication | 405abc16-652e-41d1-91cc-4b44389e03a1 |  | This policy helps enforce data residency and security boundaries by preventing cross-tenant replication of storage accounts. It ensures that object replication policies do not inadvertently replicate data to storage accounts outside the intended tenant. Use exclusions to allow specific storage accounts where cross-tenant replication is explicitly approved. | Modify, Disabled | Disabled | Modify | Modify | MissionPlatforms | undefined | 1.0.0 | BuiltIn | Enterprise | No | Yes |
+| 2 | Storage accounts should use customer-managed key for encryption with DENY Effect enfrorcment | 72bd9189-863b-46e5-bc74-91cb3b25f2ed |  | Secure your blob and file storage account with greater flexibility using customer-managed keys. When you specify a customer-managed key, that key is used to protect and control access to the key that encrypts your data. Using customer-managed keys provides additional capabilities to control rotation of the key encryption key or cryptographically erase data. Custom Version which adds Deny effect. | Audit, Deny, Disabled | Audit | Audit | Deny | MissionPlatforms | undefined | 1.0.0 | BuiltIn | Enterprise | No | No |

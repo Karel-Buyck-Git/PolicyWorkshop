@@ -1,0 +1,8 @@
+{
+  "customer": "contoso",
+  "selection": [
+    "integration/essential/api-management",
+    "management/essential/tags"
+  ],
+  "parameters": {}
+}

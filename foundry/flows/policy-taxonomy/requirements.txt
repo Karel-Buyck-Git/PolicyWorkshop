@@ -1,0 +1,9 @@
+promptflow>=1.16.0
+promptflow-tools>=1.5.0
+azure-ai-inference>=1.0.0b6
+azure-identity>=1.17.0
+azure-storage-blob>=12.20.0
+pandas>=2.2.0
+pyarrow>=16.0.0
+rapidfuzz>=3.9.0
+jinja2>=3.1.4

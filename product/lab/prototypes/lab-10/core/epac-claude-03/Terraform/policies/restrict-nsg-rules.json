@@ -1,0 +1,14 @@
+{
+  "if": {
+    "allOf": [
+      { "field": "type", "equals": "Microsoft.Network/networkSecurityGroups/securityRules" },
+      { "field": "Microsoft.Network/networkSecurityGroups/securityRules/access", "equals": "Allow" },
+      { "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction", "equals": "Inbound" },
+      { "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix", "in": [ "*", "Internet", "0.0.0.0/0" ] },
+      { "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange", "in": "[parameters('deniedPorts')]" }
+    ]
+  },
+  "then": {
+    "effect": "[parameters('effect')]"
+  }
+}

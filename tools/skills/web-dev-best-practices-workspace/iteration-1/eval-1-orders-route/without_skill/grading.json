@@ -1,0 +1,33 @@
+{
+  "run_id": "eval-1-orders-route-without_skill",
+  "expectations": [
+    {
+      "text": "Business logic is separated from HTTP concerns — there is at least a distinct service/handler layer separate from the route",
+      "passed": false,
+      "evidence": "All logic (validation + db call) is inline in the route handler. db.js is a data layer but there is no service layer separating business logic from HTTP."
+    },
+    {
+      "text": "Request body is validated before reaching any business logic, using a schema or explicit checks",
+      "passed": true,
+      "evidence": "Explicit validation checks for customerId, items array, and each item's productId and quantity before calling db.orders.create"
+    },
+    {
+      "text": "Errors are explicitly caught and handled — no unhandled promise rejections or try/catch-less async",
+      "passed": true,
+      "evidence": "Entire handler wrapped in try/catch with explicit 500 response"
+    },
+    {
+      "text": "Internal error details (stack traces, DB errors) are not exposed in the HTTP response",
+      "passed": true,
+      "evidence": "catch block only logs err and returns a generic 'An unexpected error occurred' message"
+    },
+    {
+      "text": "Returns 201 on success and 400 on validation failure (not just 200 for everything)",
+      "passed": true,
+      "evidence": "res.status(201).json(order) on success; res.status(400).json({ error: ... }) on validation failure"
+    }
+  ],
+  "pass_count": 4,
+  "total_count": 5,
+  "pass_rate": 0.8
+}

@@ -1,0 +1,115 @@
+# =============================================================================
+# Customer manifest  —  INPUT CONTRACT for the scaffold assembler
+# -----------------------------------------------------------------------------
+# One file per customer. The assembler reads THIS + the generated
+# initiatives/<domain>/<tier>/<category>/ groups, builds a flavour-neutral
+# canonical model, and renders a Definitions scaffold per requested flavour.
+#
+# Nothing Azure-built-in is repeated here. Policy IDs, parameters and effects
+# live in initiatives/. This file is ONLY the customer-specific binding:
+# what they bought, where it lands, and the values for the open <REPLACE: ...>.
+# Validated against manifests/manifest.schema.json before anything runs.
+# =============================================================================
+
+schemaVersion: 1                 # manifest contract version (assembler checks this)
+customer: contoso
+prefix: contoso                  # replaces the "company" prefix in generated names
+
+# Stable identity for this EPAC instance. Stamped into resource metadata so EPAC
+# knows what it owns. Generate ONCE and never change it. If omitted, the assembler
+# generates a GUID and writes it back here (persisted for reproducibility).
+pacOwnerId: "9f2c7b14-3a55-4e8d-9c21-7b6e0a4f1d83"
+
+# --- Provenance / reproducibility -------------------------------------------
+source:
+  initiatives: ../initiatives          # where create-initiatives wrote the groups
+  catalogueVersion: "2026.06.01"       # built-in policy snapshot id (lineage)
+  hierarchyVersion: "2026.06.01"       # domain hierarchy snapshot id (lineage)
+
+# --- Output ------------------------------------------------------------------
+output:
+  root: ./generated/contoso            # base folder for the rendered scaffold
+  flavours: [json, terraform, bicep]   # which renderers to run (>=1)
+
+# --- EPAC environments -------------------------------------------------------
+# pacSelector -> scope. enforcement: Audit (observe) | hardened (enforce baked effects).
+environments:
+  - selector: epac-dev
+    tenantId: "11111111-1111-1111-1111-111111111111"
+    deploymentRootScope: /providers/Microsoft.Management/managementGroups/epac-dev-contoso
+    managedIdentityLocation: westeurope
+    enforcement: Audit
+    logAnalyticsWorkspaceId: /subscriptions/aaaaaaaa-0000-0000-0000-000000000000/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-epac-dev
+  - selector: tenant01
+    tenantId: "11111111-1111-1111-1111-111111111111"
+    deploymentRootScope: /providers/Microsoft.Management/managementGroups/contoso
+    managedIdentityLocation: westeurope
+    enforcement: hardened
+    logAnalyticsWorkspaceId: /subscriptions/bbbbbbbb-0000-0000-0000-000000000000/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-contoso
+
+# Regions the customer permits.
+allowedLocations: [westeurope, northeurope]
+
+# Scopes excluded everywhere; per-environment lists. Maps to EPAC notScopes.
+notScopes:
+  tenant01:
+    - /providers/Microsoft.Management/managementGroups/contoso-sandbox
+  epac-dev:
+    - /providers/Microsoft.Management/managementGroups/epac-dev-contoso-sandbox
+
+# --- Selection ---------------------------------------------------------------
+# tier is CUMULATIVE (professional pulls essential+professional).
+# category "*" selects all categories in that domain at the chosen tier.
+selection:
+  - domain: security
+    category: key-vault
+    tier: professional
+  - domain: security
+    category: "*"
+    tier: essential
+  - domain: storage
+    category: storage
+    tier: enterprise
+  - domain: monitoring
+    category: monitoring
+    tier: professional
+    scope:
+      tenant01: [ /providers/Microsoft.Management/managementGroups/contoso-platform ]
+
+# --- Parameter bindings ------------------------------------------------------
+# Fill the <REPLACE: ...> mocks the .assignment.json files expose. Missing
+# required parameter for a selected group => build fails.
+bindings:
+  defaults:
+    certificatesExpireNumberDaysDaysToExpire: 90
+    certificatesRsaCryptographyMinimumKeySizeMinimumRSAKeySize: 2048
+    keysMaximumValidityPeriodMaximumValidityInDays: 365
+    keysNumberDaysBeforeExpirationMinimumDaysBeforeExpiration: 30
+    secretsMaximumValidityPeriodMaximumValidityInDays: 365
+  overrides:
+    security/key-vault:
+      certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName: "Contoso Root CA"
+      certificatesIssuedOneNonIntegratedCertificateCaCommonNames: ["Contoso", "DigiCert"]
+
+# --- Effect overrides (surgical, optional) -----------------------------------
+effectOverrides:
+  - group: security/professional/key-vault
+    policyDefinitionReferenceId: d8cf8476-a2ec-4916-896e-992351803c44   # key rotation
+    effect: Audit
+
+# --- Exemptions --------------------------------------------------------------
+# Customer waivers, emitted per environment. category Waiver requires expiresOn.
+exemptions:
+  tenant01:
+    - name: sandbox-kv-waiver
+      displayName: "Sandbox Key Vault waiver"
+      category: Waiver
+      expiresOn: "2026-12-31"
+      scopes: [ /providers/Microsoft.Management/managementGroups/contoso-sandbox ]
+      group: security/essential/key-vault
+
+# --- Governance metadata (stamped into outputs + lineage.json) ---------------
+metadata:
+  owner: platform-governance@contoso.com
+  costCenterTag: CostCenter
+  contact: "Karel Buyck"
