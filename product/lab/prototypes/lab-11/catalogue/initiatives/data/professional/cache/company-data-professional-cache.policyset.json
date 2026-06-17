@@ -1,0 +1,195 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-data-professional-cache",
+  "properties": {
+    "displayName": "Company Data Professional — Cache",
+    "description": "**Professional** — Active security posture for Cache: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Cache",
+      "domain": "Data",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+        "/providers/Microsoft.Authorization/roleDefinitions/e0f68234-74aa-48ed-b826-c38b57376e17",
+        "/providers/microsoft.authorization/roleDefinitions/e0f68234-74aa-48ed-b826-c38b57376e17"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAzureCacheRedisEnterprisePrivatePrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone Id",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "description": "The resource id of the private DNS zone"
+        }
+      },
+      "configureAzureCacheRedisEnterprisePrivatePrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "privateEndpointSubnetId",
+          "description": "A subnet in the selected subscription/virtual network in which the private endpoint is configured",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      },
+      "configureAzureCacheRedisPrivateDnsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone Id",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "description": "The resource id of the private DNS zone"
+        }
+      },
+      "configureAzureCacheRedisPrivateEndpointsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "privateEndpointSubnetId",
+          "description": "A subnet in the selected subscription/virtual network in which the private endpoint is configured",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "960e650e-9ce3-4316-9590-8ee2c016ca2f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/960e650e-9ce3-4316-9590-8ee2c016ca2f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Cache for Redis Enterprise should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "470baccb-7e51-4549-8b1a-3e5be069f663",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/470baccb-7e51-4549-8b1a-3e5be069f663",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Cache for Redis should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7803067c-7d34-46e3-8c79-0ca68fc4036d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7803067c-7d34-46e3-8c79-0ca68fc4036d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Cache for Redis should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7473e756-98d9-4d10-9a22-8101ef32cd74",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7473e756-98d9-4d10-9a22-8101ef32cd74",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Cache for Redis Enterprise to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureCacheRedisEnterprisePrivatePrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1b1df1e6-d60f-4430-9390-2b0c83aae4a7",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1b1df1e6-d60f-4430-9390-2b0c83aae4a7",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Cache for Redis Enterprise with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureCacheRedisEnterprisePrivatePrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "30b3dfa5-a70d-4c8e-bed6-0083858f663d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/30b3dfa5-a70d-4c8e-bed6-0083858f663d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Cache for Redis to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e016b22b-e0eb-436d-8fd7-160c4eaed6e2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e016b22b-e0eb-436d-8fd7-160c4eaed6e2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Cache for Redis to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureCacheRedisPrivateDnsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5d8094d7-7340-465a-b6fd-e60ab7e48920",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5d8094d7-7340-465a-b6fd-e60ab7e48920",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Cache for Redis with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureCacheRedisPrivateEndpointsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

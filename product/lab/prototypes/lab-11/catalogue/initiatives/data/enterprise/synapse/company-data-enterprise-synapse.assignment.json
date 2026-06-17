@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/data/enterprise/synapse/",
+  "assignment": {
+    "name": "company-data-enterprise-synapse",
+    "displayName": "Company Data Enterprise — Synapse",
+    "description": "Deployment scaffold for 6 policies. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureSynapseWorkspacesAuditingEnabledStorageAccountsResourceGroup, configureSynapseWorkspacesAuditingEnabledLogLogAnalyticsWorkspaceId. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-enterprise-synapse",
+  "parameters": {
+    "configureSynapseWorkspacesAuditingEnabledStorageAccountsResourceGroup": "<REPLACE: configureSynapseWorkspacesAuditingEnabledStorageAccountsResourceGroup>",
+    "configureSynapseWorkspacesAuditingEnabledLogLogAnalyticsWorkspaceId": "<REPLACE: configureSynapseWorkspacesAuditingEnabledLogLogAnalyticsWorkspaceId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

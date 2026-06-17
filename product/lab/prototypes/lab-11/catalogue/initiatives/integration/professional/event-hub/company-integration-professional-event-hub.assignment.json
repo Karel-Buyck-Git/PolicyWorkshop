@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/integration/professional/event-hub/",
+  "assignment": {
+    "name": "company-integration-professional-event-hub",
+    "displayName": "Company Integration Professional — Event Hub",
+    "description": "Deployment scaffold for 4 policies. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureEventHubNamespacesPrivateDnsPrivateDnsZoneId, configureEventHubNamespacesPrivateEndpointsPrivateEndpointSubnetId. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-integration-professional-event-hub",
+  "parameters": {
+    "configureEventHubNamespacesPrivateDnsPrivateDnsZoneId": "<REPLACE: configureEventHubNamespacesPrivateDnsPrivateDnsZoneId>",
+    "configureEventHubNamespacesPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureEventHubNamespacesPrivateEndpointsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

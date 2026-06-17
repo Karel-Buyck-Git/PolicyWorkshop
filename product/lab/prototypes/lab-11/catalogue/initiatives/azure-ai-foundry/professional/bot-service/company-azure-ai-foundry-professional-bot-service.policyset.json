@@ -1,0 +1,131 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-azure-ai-foundry-professional-bot-service",
+  "properties": {
+    "displayName": "Company Azure AI Foundry Professional — Bot Service",
+    "description": "**Professional** — Active security posture for Bot Service: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Bot Service",
+      "domain": "Azure AI Foundry",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureBotserviceResourcesPrivateDnsZonesPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private Dns Zone Id",
+          "description": "The private DNS zone to deploy in a new private DNS zone group and link to the private endpoint",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "configureBotserviceResourcesPrivateEndpointsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private Endpoint Subnet Id",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "6164527b-e1ee-4882-8673-572f425f5e0a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6164527b-e1ee-4882-8673-572f425f5e0a",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Bot Service endpoint should be a valid HTTPS URI"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5e8168db-69e3-4beb-9822-57cb59202a9d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5e8168db-69e3-4beb-9822-57cb59202a9d",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Bot Service should have public network access disabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ad5621d6-a877-4407-aa93-a950b428315e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ad5621d6-a877-4407-aa93-a950b428315e",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "BotService resources should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6a4e6f44-f2af-4082-9702-033c9e88b9f8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6a4e6f44-f2af-4082-9702-033c9e88b9f8",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure BotService resources to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureBotserviceResourcesPrivateDnsZonesPrivateDnsZoneId')]"
+          },
+          "privateEndpointGroupId": {
+            "value": "Bot"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "29261f8e-efdb-4255-95b8-8215414515d6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/29261f8e-efdb-4255-95b8-8215414515d6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure BotService resources with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureBotserviceResourcesPrivateEndpointsPrivateEndpointSubnetId')]"
+          },
+          "privateEndpointGroupId": {
+            "value": "Bot"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

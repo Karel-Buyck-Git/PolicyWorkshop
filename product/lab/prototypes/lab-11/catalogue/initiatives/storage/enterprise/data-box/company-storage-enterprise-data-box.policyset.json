@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-storage-enterprise-data-box",
+  "properties": {
+    "displayName": "Company Storage Enterprise — Data Box",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Data Box: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers customer-managed keys (CMK / BYOK) for cryptographic sovereignty. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Data Box",
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "86efb160-8de7-451d-bc08-5d475b0aadae",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86efb160-8de7-451d-bc08-5d475b0aadae",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Data Box jobs should use a customer-managed key to encrypt the device unlock password"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "supportedSKUs": {
+            "value": [
+              "DataBox",
+              "DataBoxHeavy"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

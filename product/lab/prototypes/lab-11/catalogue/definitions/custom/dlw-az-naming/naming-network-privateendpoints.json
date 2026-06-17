@@ -1,0 +1,76 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "naming-network-privateendpoints",
+  "properties": {
+    "displayName": "Require naming convention for Private endpoint",
+    "description": "Audits or denies Private endpoint (Microsoft.Network/privateEndpoints) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): pep. Example: '<attachedResourceName>-pep-<loc>-<subResource>-<instance>'. Check: name contains the '-pep-' token. Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, not every segment.",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Naming convention",
+      "version": "2.0.0",
+      "source": "getResourceName.bicep v1.5",
+      "cafCategory": "Networking",
+      "resourceType": "Microsoft.Network/privateEndpoints",
+      "abbreviations": [
+        "pep"
+      ],
+      "abbreviationSource": "module (getResourceName.bicep)",
+      "checkKind": "privateEndpoint",
+      "conventionExample": "<attachedResourceName>-pep-<loc>-<subResource>-<instance>"
+    },
+    "parameters": {
+      "excludedNamePattern": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded name patterns",
+          "description": "Names matching any of these wildcard patterns are exempt. Example: 'rg-*, NetworkWatcherRG'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/privateEndpoints"
+          },
+          {
+            "count": {
+              "value": "[parameters('excludedNamePattern')]",
+              "name": "excluded",
+              "where": {
+                "field": "name",
+                "like": "[current('excluded')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "not": {
+              "field": "name",
+              "contains": "-pep-"
+            }
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

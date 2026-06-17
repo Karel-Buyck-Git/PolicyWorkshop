@@ -1,0 +1,312 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-data-essential-sql",
+  "properties": {
+    "displayName": "Company Data Essential — SQL",
+    "description": "**Essential** — Baseline hygiene for SQL: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials, TLS / HTTPS enforcement preventing in-transit interception, and encryption-at-rest with service-managed keys. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "SQL",
+      "domain": "Data",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/9b7fa17d-e63e-47b0-bb0a-15c516ac86ec"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "146412e9-005c-472b-9e48-c87b72ac229e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/146412e9-005c-472b-9e48-c87b72ac229e",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "A Microsoft Entra administrator should be provisioned for MySQL servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b4dec045-250a-48c2-b5cc-e0c4eec8b5b4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b4dec045-250a-48c2-b5cc-e0c4eec8b5b4",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "A Microsoft Entra administrator should be provisioned for PostgreSQL servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1f314764-cb73-4fc9-b863-8eca98ac36e9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f314764-cb73-4fc9-b863-8eca98ac36e9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "An Azure Active Directory administrator should be provisioned for SQL servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "40e85574-ef33-47e8-a854-7a65c7500560",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40e85574-ef33-47e8-a854-7a65c7500560",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure MySQL flexible server should have Microsoft Entra Only Authentication enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fa498b91-8a7e-4710-9578-da944c68d1fe",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fa498b91-8a7e-4710-9578-da944c68d1fe",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure PostgreSQL flexible server should have Microsoft Entra Only Authentication enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "32e6bbec-16b6-44c2-be37-c5b672d103cf",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/32e6bbec-16b6-44c2-be37-c5b672d103cf",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL Database should be running TLS version 1.2 or newer"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b3a22bc9-66de-45fb-98fa-00f5df42f41a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b3a22bc9-66de-45fb-98fa-00f5df42f41a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL Database should have Microsoft Entra-only authentication enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "abda6d70-9778-44e7-84a8-06713e6db027",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/abda6d70-9778-44e7-84a8-06713e6db027",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL logical servers should have Microsoft Entra-only authentication enabled during creation"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0c28c3fb-c244-42d5-a9bf-f35f2999577b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0c28c3fb-c244-42d5-a9bf-f35f2999577b",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL Managed Instance should have Microsoft Entra-only authentication enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "78215662-041e-49ed-a9dd-5385911b3a1f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/78215662-041e-49ed-a9dd-5385911b3a1f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure SQL Managed Instances should have Microsoft Entra-only authentication enabled during creation"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5345bb39-67dc-4960-a1bf-427e16b9a0bd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5345bb39-67dc-4960-a1bf-427e16b9a0bd",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Connection throttling should be enabled for PostgreSQL database servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "86a912f6-9a06-4e26-b447-11b16ba8659f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86a912f6-9a06-4e26-b447-11b16ba8659f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Deploy SQL DB transparent data encryption"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "eb6f77b9-bd53-4e35-a23d-7f65d5f0e446",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/eb6f77b9-bd53-4e35-a23d-7f65d5f0e446",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Disconnections should be logged for PostgreSQL database servers."
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e802a67a-daf5-4436-9ea6-f6d821dd0c5d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e802a67a-daf5-4436-9ea6-f6d821dd0c5d",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Enforce SSL connection should be enabled for MySQL database servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d158790f-bfb0-486c-8631-2dc6b4e8e6af",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d158790f-bfb0-486c-8631-2dc6b4e8e6af",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Enforce SSL connection should be enabled for PostgreSQL database servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3a58212a-c829-4f13-9872-6371df2fd0b4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a58212a-c829-4f13-9872-6371df2fd0b4",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Infrastructure encryption should be enabled for Azure Database for MySQL servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "24fba194-95d6-48c0-aea7-f65bf859c598",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/24fba194-95d6-48c0-aea7-f65bf859c598",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Infrastructure encryption should be enabled for Azure Database for PostgreSQL servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a8793640-60f7-487c-b5c3-1d37215905c4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a8793640-60f7-487c-b5c3-1d37215905c4",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "SQL Managed Instance should have the minimal TLS version of 1.2"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "17k78e20-9358-41c9-923c-fb736d382a12",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/17k78e20-9358-41c9-923c-fb736d382a12",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Transparent Data Encryption on SQL databases should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/undefined/professional/builtinpolicytest/",
+  "assignment": {
+    "name": "company-undefined-professional-builtinpolicytest",
+    "displayName": "Company undefined Professional — BuiltInPolicyTest",
+    "description": "Deployment scaffold for 1 policy. 2 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): appendTagValueResourcesBuiltCreatedTagName, appendTagValueResourcesBuiltCreatedTagValue. No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-professional-builtinpolicytest",
+  "parameters": {
+    "appendTagValueResourcesBuiltCreatedTagName": "<REPLACE: appendTagValueResourcesBuiltCreatedTagName>",
+    "appendTagValueResourcesBuiltCreatedTagValue": "<REPLACE: appendTagValueResourcesBuiltCreatedTagValue>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,368 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-azure-ai-foundry-essential-cognitive-services",
+  "properties": {
+    "displayName": "Company Azure AI Foundry Essential — Cognitive Services",
+    "description": "**Essential** — Baseline hygiene for Cognitive Services: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials and TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Cognitive Services",
+      "domain": "Azure AI Foundry",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "cognitiveServicesAgentsAllowedControlEntityKind": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Entity Kind",
+          "description": "List of allowed entity kinds for agents. Only agents with an entity kind in this list will be evaluated by the policy."
+        }
+      },
+      "cognitiveServicesAgentsAllowedControlFilterName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Content Filter",
+          "description": "Multi-severity content filter name."
+        },
+        "allowedValues": [
+          "Hate",
+          "Sexual",
+          "Violence",
+          "Selfharm"
+        ]
+      },
+      "cognitiveServicesAgentsAllowedPromptContentEntityKind": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Entity Kind",
+          "description": "List of allowed entity kinds for agents. Only agents with an entity kind in this list will be evaluated by the policy."
+        }
+      },
+      "cognitiveServicesAgentsAllowedPromptContentFilterName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Content Filter",
+          "description": "Content filter name."
+        },
+        "allowedValues": [
+          "Profanity",
+          "Jailbreak",
+          "Indirect Attack",
+          "Indirect Attack Spotlighting"
+        ]
+      },
+      "cognitiveServicesDeploymentsAllowedCompletionContentFilterName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Content Filter",
+          "description": "Content filter name."
+        },
+        "allowedValues": [
+          "Profanity",
+          "Protected Material Code",
+          "Protected Material Text"
+        ]
+      },
+      "cognitiveServicesDeploymentsAllowedControlFilterName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Content Filter",
+          "description": "Multi-severity content filter name."
+        },
+        "allowedValues": [
+          "Hate",
+          "Sexual",
+          "Violence",
+          "Selfharm"
+        ]
+      },
+      "cognitiveServicesDeploymentsAllowedPromptContentFilterName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Content Filter",
+          "description": "Content filter name."
+        },
+        "allowedValues": [
+          "Profanity",
+          "Jailbreak",
+          "Indirect Attack",
+          "Indirect Attack Spotlighting"
+        ]
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "fe3fd216-4f83-4fc1-8984-2bbec80a3418",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe3fd216-4f83-4fc1-8984-2bbec80a3418",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services accounts should use a managed identity"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "595f98a5-b562-4ab6-b9c8-2ff9f39a3f7c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/595f98a5-b562-4ab6-b9c8-2ff9f39a3f7c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services Agents should only use allowed control"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "entityKind": {
+            "value": "[parameters('cognitiveServicesAgentsAllowedControlEntityKind')]"
+          },
+          "filterName": {
+            "value": "[parameters('cognitiveServicesAgentsAllowedControlFilterName')]"
+          },
+          "allowedSeveritiesForPrompt": {
+            "value": [
+              "Medium",
+              "High"
+            ]
+          },
+          "allowedEnabledForPrompt": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForPrompt": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedSeveritiesForCompletion": {
+            "value": [
+              "Medium",
+              "High"
+            ]
+          },
+          "allowedEnabledForCompletion": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForCompletion": {
+            "value": [
+              "true"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9224c1cc-34fc-44f1-ad08-5c4b079c9ce6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9224c1cc-34fc-44f1-ad08-5c4b079c9ce6",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services Agents should only use allowed prompt content filtering"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "entityKind": {
+            "value": "[parameters('cognitiveServicesAgentsAllowedPromptContentEntityKind')]"
+          },
+          "filterName": {
+            "value": "[parameters('cognitiveServicesAgentsAllowedPromptContentFilterName')]"
+          },
+          "allowedEnabledForPrompt": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForPrompt": {
+            "value": [
+              "true"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "af253d37-136a-42f8-a1fc-30010c083d41",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/af253d37-136a-42f8-a1fc-30010c083d41",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services Deployments should only use allowed completion content filtering"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "filterName": {
+            "value": "[parameters('cognitiveServicesDeploymentsAllowedCompletionContentFilterName')]"
+          },
+          "allowedEnabledForCompletion": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForCompletion": {
+            "value": [
+              "true"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "930f48f9-f07e-427c-9494-52603581c6a9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/930f48f9-f07e-427c-9494-52603581c6a9",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services Deployments should only use allowed control"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "filterName": {
+            "value": "[parameters('cognitiveServicesDeploymentsAllowedControlFilterName')]"
+          },
+          "allowedSeveritiesForPrompt": {
+            "value": [
+              "Medium",
+              "High"
+            ]
+          },
+          "allowedEnabledForPrompt": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForPrompt": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedSeveritiesForCompletion": {
+            "value": [
+              "Medium",
+              "High"
+            ]
+          },
+          "allowedEnabledForCompletion": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForCompletion": {
+            "value": [
+              "true"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c1ad46c6-37f8-4af0-9c71-c208375c87dd",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c1ad46c6-37f8-4af0-9c71-c208375c87dd",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services Deployments Should Only Use Allowed Control Mode"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "raiPolicyMode": {
+            "value": [
+              "Default",
+              "Asynchronous_filter"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f3a9c2e0-7b4d-4d8f-9c3a-2e1f6b9a8d4e",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f3a9c2e0-7b4d-4d8f-9c3a-2e1f6b9a8d4e",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Cognitive Services Deployments should only use allowed prompt content filtering"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          },
+          "filterName": {
+            "value": "[parameters('cognitiveServicesDeploymentsAllowedPromptContentFilterName')]"
+          },
+          "allowedEnabledForPrompt": {
+            "value": [
+              "true"
+            ]
+          },
+          "allowedBlockingForPrompt": {
+            "value": [
+              "true"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "14de9e63-1b31-492e-a5a3-c3f7fd57f555",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/14de9e63-1b31-492e-a5a3-c3f7fd57f555",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure Cognitive Services accounts to disable local authentication methods"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "aafe3651-cb78-4f68-9f81-e7e41509110f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/aafe3651-cb78-4f68-9f81-e7e41509110f",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Foundry model deployments should only use approved models"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "allowedPublishers": {
+            "value": []
+          },
+          "allowedAssetIds": {
+            "value": []
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "company-container-services-essential-container-apps",
+  "properties": {
+    "displayName": "Company Container Services Essential — Container Apps",
+    "description": "**Essential** — Baseline hygiene for Container Apps: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials and TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Container Apps",
+      "domain": "Container Services",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.17",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "2b585559-a78e-4cc4-b1aa-fb169d2f6b96",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2b585559-a78e-4cc4-b1aa-fb169d2f6b96",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Authentication should be enabled on Container Apps"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "7c9f3fbb-739d-4844-8e42-97e3be6450e0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7c9f3fbb-739d-4844-8e42-97e3be6450e0",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Container App should configure with volume mount"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "783ea2a8-b8fd-46be-896a-9ae79643a0b1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/783ea2a8-b8fd-46be-896a-9ae79643a0b1",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Container Apps should disable external network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0e80e269-43a4-4ae9-b5bc-178126b8a5cb",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0e80e269-43a4-4ae9-b5bc-178126b8a5cb",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Container Apps should only be accessible over HTTPS"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b874ab2d-72dd-47f1-8cb5-4a306478a4e7",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b874ab2d-72dd-47f1-8cb5-4a306478a4e7",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Managed Identity should be enabled for Container Apps"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/undefined/essential/builtinpolicytest/",
+  "assignment": {
+    "name": "company-undefined-essential-builtinpolicytest",
+    "displayName": "Company undefined Essential — BuiltInPolicyTest",
+    "description": "Deployment scaffold for 1 policy. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): requiresResourcesSpecificTagVersioningTestTagName. No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-essential-builtinpolicytest",
+  "parameters": {
+    "requiresResourcesSpecificTagVersioningTestTagName": "<REPLACE: requiresResourcesSpecificTagVersioningTestTagName>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

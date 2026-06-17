@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/company/undefined/professional/virtualenclaves/",
+  "assignment": {
+    "name": "company-undefined-professional-virtualenclaves",
+    "displayName": "Company undefined Professional — VirtualEnclaves",
+    "description": "Deployment scaffold for 3 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId. A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-professional-virtualenclaves",
+  "parameters": {
+    "networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId": "<REPLACE: networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}
