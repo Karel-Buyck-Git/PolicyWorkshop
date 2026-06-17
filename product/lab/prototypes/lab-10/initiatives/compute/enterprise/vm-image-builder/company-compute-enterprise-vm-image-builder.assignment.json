@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/compute/enterprise/vm-image-builder/",
+  "assignment": {
+    "name": "company-compute-enterprise-vm-image-builder",
+    "displayName": "Company Compute Enterprise — VM Image Builder",
+    "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-compute-enterprise-vm-image-builder",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

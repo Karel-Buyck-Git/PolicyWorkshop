@@ -1,0 +1,232 @@
+{
+  "name": "company-security-enterprise-key-vault",
+  "properties": {
+    "displayName": "Company Security Enterprise — Key Vault",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Key Vault: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers private endpoints and private link removing the public attack surface and diagnostic settings streaming to Log Analytics / Event Hub / Sentinel. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Key Vault",
+      "domain": "Security",
+      "tier": "Enterprise"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID",
+          "description": "A private DNS zone ID to connect to the private endpoint.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "deployConfigureDiagnosticSettingsAzureKeyLogAnalytics": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Log Analytics workspace",
+          "description": "Specify the Log Analytics workspace the Key Vault should be connected to.",
+          "strongType": "omsWorkspace",
+          "assignPermissions": true
+        }
+      },
+      "deployConfigureDiagnosticSettingsEventHubEventHubRuleId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Event Hub Authorization Rule Id",
+          "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
+          "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules",
+          "assignPermissions": true
+        }
+      },
+      "deployDiagnosticSettingsKeyVaultEventEventHubRuleId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Event Hub Authorization Rule Id",
+          "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
+          "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "59fee2f4-d439-4f1b-9b9a-982e1474bfd8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/59fee2f4-d439-4f1b-9b9a-982e1474bfd8",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a6abeaec-4d90-4a02-805f-6b26c4d3fbe9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6abeaec-4d90-4a02-805f-6b26c4d3fbe9",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vaults should use private link"
+        },
+        "parameters": {
+          "audit_effect": {
+            "value": "Audit"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ac673a9a-f77d-4846-b2d8-a57f8e1c01d4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac673a9a-f77d-4846-b2d8-a57f8e1c01d4",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Key Vaults to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "951af2fa-529b-416e-ab6e-066fd85ac459",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/951af2fa-529b-416e-ab6e-066fd85ac459",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure diagnostic settings for Azure Key Vault to Log Analytics workspace"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "diagnosticsSettingNameToUse": {
+            "value": "AzureKeyVaultDiagnosticsLogsToWorkspace"
+          },
+          "logAnalytics": {
+            "value": "[parameters('deployConfigureDiagnosticSettingsAzureKeyLogAnalytics')]"
+          },
+          "AuditEventEnabled": {
+            "value": "True"
+          },
+          "AllMetricsEnabled": {
+            "value": "True"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a6d2c800-5230-4a40-bff3-8268b4987d42",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6d2c800-5230-4a40-bff3-8268b4987d42",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure diagnostic settings to an Event Hub to be enabled on Azure Key Vault Managed HSM"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "profileName": {
+            "value": "setbypolicy"
+          },
+          "eventHubRuleId": {
+            "value": "[parameters('deployConfigureDiagnosticSettingsEventHubEventHubRuleId')]"
+          },
+          "eventHubLocation": {
+            "value": ""
+          },
+          "metricsEnabled": {
+            "value": "False"
+          },
+          "logsEnabled": {
+            "value": "True"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ed7c8c13-51e7-49d1-8a43-8490431a0da2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ed7c8c13-51e7-49d1-8a43-8490431a0da2",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Deploy Diagnostic Settings for Key Vault to Event Hub"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "profileName": {
+            "value": "setbypolicy"
+          },
+          "eventHubRuleId": {
+            "value": "[parameters('deployDiagnosticSettingsKeyVaultEventEventHubRuleId')]"
+          },
+          "eventHubLocation": {
+            "value": ""
+          },
+          "metricsEnabled": {
+            "value": "False"
+          },
+          "logsEnabled": {
+            "value": "True"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a2a5b911-5617-447e-a49e-59dbe0e0434b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a2a5b911-5617-447e-a49e-59dbe0e0434b",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Resource logs in Azure Key Vault Managed HSM should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "requiredRetentionDays": {
+            "value": "365"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cf820ca0-f99e-4f3e-84fb-66e913812d21",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cf820ca0-f99e-4f3e-84fb-66e913812d21",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Resource logs in Key Vault should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "requiredRetentionDays": {
+            "value": "365"
+          }
+        }
+      }
+    ]
+  }
+}

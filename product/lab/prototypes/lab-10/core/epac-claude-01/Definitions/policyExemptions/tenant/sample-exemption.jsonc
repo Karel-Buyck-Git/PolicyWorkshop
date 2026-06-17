@@ -1,0 +1,19 @@
+{
+    // Exemptions live per EPAC environment: policyExemptions/<pacSelector>/.
+    // This sample exempts ONE policy (by definition id - "Option A") on one subscription, time-boxed.
+    // Docs: https://azure.github.io/enterprise-azure-policy-as-code/policy-exemptions/
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-exemption-schema.json",
+    "exemptions": [
+        {
+            "name": "sandbox-allowed-locations-waiver",
+            "displayName": "Sandbox waiver - allowed locations",
+            "description": "Temporary waiver for the sandbox subscription while a regional PoC runs.",
+            "exemptionCategory": "Waiver",
+            "expiresOn": "2026-12-31",
+            "scopes": [
+                "/subscriptions/00000000-0000-0000-0000-000000000000"
+            ],
+            "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+  "eval_id": 0,
+  "eval_name": "react-users-table",
+  "prompt": "Write a React component that fetches a list of users from /api/users and displays them in a table.",
+  "assertions": [
+    {
+      "id": "separate-fetch-from-render",
+      "text": "Data fetching is separated from rendering — either via a custom hook or a separate function, not inline in the component body"
+    },
+    {
+      "id": "loading-state",
+      "text": "A loading state is explicitly handled and rendered (not just undefined/null)"
+    },
+    {
+      "id": "error-state",
+      "text": "An error state is explicitly handled and rendered"
+    },
+    {
+      "id": "semantic-html",
+      "text": "Uses semantic HTML table elements (<table>, <thead>, <tbody>, <th>, <tr>, <td>)"
+    },
+    {
+      "id": "descriptive-naming",
+      "text": "Variables and functions have descriptive names that make their purpose clear without comments"
+    }
+  ]
+}

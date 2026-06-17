@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": { "value": "epac-dev" },
+    "location": { "value": "westeurope" },
+    "logAnalyticsWorkspaceId": { "value": "/subscriptions/REPLACE-DEV-SUB/resourceGroups/rg-logs/providers/Microsoft.OperationalInsights/workspaces/law-epac-dev" },
+    "allowedLocations": { "value": [ "westeurope", "northeurope" ] },
+    "sandboxManagementGroupId": { "value": "epac-dev-contoso-sandbox" },
+    "enableNist": { "value": true },
+    "enablePci": { "value": false },
+    "pciPolicySetId": { "value": "" },
+    "ownerTagEffect": { "value": "Audit" },
+    "costCenterTagName": { "value": "CostCenter" },
+    "createSampleExemption": { "value": false }
+  }
+}

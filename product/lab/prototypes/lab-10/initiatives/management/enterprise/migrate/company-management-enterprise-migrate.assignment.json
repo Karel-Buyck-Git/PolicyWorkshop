@@ -1,0 +1,23 @@
+{
+  "nodeName": "/company/management/enterprise/migrate/",
+  "assignment": {
+    "name": "company-management-enterprise-migrate",
+    "displayName": "Company Management Enterprise — Migrate",
+    "description": "Deployment scaffold for 1 policy. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureMigrateResourcesPrivateDnsPrivateDnsZoneId. A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-management-enterprise-migrate",
+  "parameters": {
+    "configureAzureMigrateResourcesPrivateDnsPrivateDnsZoneId": "<REPLACE: configureAzureMigrateResourcesPrivateDnsPrivateDnsZoneId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

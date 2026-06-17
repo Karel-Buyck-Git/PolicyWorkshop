@@ -1,0 +1,16 @@
+{
+  "nodeName": "/company/undefined/essential/virtualenclaves/",
+  "assignment": {
+    "name": "company-undefined-essential-virtualenclaves",
+    "displayName": "Company undefined Essential — VirtualEnclaves",
+    "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-undefined-essential-virtualenclaves",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

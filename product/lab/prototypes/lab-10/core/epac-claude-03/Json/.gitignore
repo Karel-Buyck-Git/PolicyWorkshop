@@ -1,0 +1,7 @@
+# EPAC generated plans - never commit
+Output/*
+!Output/.gitkeep
+
+# Hydration / local artefacts
+temp/
+*.log

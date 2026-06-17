@@ -1,0 +1,109 @@
+# Prompt Flow DAG — Azure Policy taxonomy generator.
+#
+# One run = one resource_name → one markdown taxonomy file in blob outputs/.
+# For batch generation, run this flow over a CSV of resource names with
+# `pf run create --flow . --data inputs/resources.csv`.
+#
+# Local dev:
+#   pf flow test --flow . --inputs resource_name="App Service" tier_set="essential,professional,enterprise"
+#
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+
+inputs:
+  resource_name:
+    type: string
+    default: App Service
+    description: Azure resource name as it appears in lab inputs (e.g. "App Services", "Key Vault")
+  tier_set:
+    type: string
+    default: essential,professional,enterprise
+    description: Comma-separated tiers in scope. Other tiers are dropped.
+  catalog_uri:
+    type: string
+    default: azureml://datastores/workspaceblobstore/paths/catalog/index/catalog.parquet
+    description: Path to the policy catalog Parquet (produced by the nightly ingestion job)
+  folders_uri:
+    type: string
+    default: azureml://datastores/workspaceblobstore/paths/catalog/index/folders.parquet
+    description: Path to the folder index Parquet
+  output_prefix:
+    type: string
+    default: outputs
+    description: Blob prefix where the rendered markdown is written
+
+outputs:
+  output_uri:
+    type: string
+    reference: ${render_markdown.output.output_uri}
+  row_count:
+    type: int
+    reference: ${verify.output.row_count}
+  verification_passed:
+    type: bool
+    reference: ${verify.output.passed}
+  verification_issues:
+    type: list
+    reference: ${verify.output.issues}
+
+nodes:
+  - name: resolve_resource
+    type: python
+    source:
+      type: code
+      path: resolve_resource.py
+    inputs:
+      resource_name: ${inputs.resource_name}
+      folders_uri: ${inputs.folders_uri}
+
+  - name: extract_fields
+    type: python
+    source:
+      type: code
+      path: extract_fields.py
+    inputs:
+      catalog_uri: ${inputs.catalog_uri}
+      folder: ${resolve_resource.output.folder}
+
+  - name: classify_tier
+    type: python
+    source:
+      type: code
+      path: classify_tier.py
+    inputs:
+      policies: ${extract_fields.output.policies}
+      tier_set: ${inputs.tier_set}
+      tier_rules_path: data/tier_rules.md
+      batch_size: 20
+
+  - name: align_descriptions
+    type: python
+    source:
+      type: code
+      path: align_descriptions.py
+    inputs:
+      policies: ${classify_tier.output.policies}
+      descriptions_dir: data/descriptions
+
+  - name: render_markdown
+    type: python
+    source:
+      type: code
+      path: render_markdown.py
+    inputs:
+      policies: ${align_descriptions.output.policies}
+      resource_name: ${inputs.resource_name}
+      template_path: data/table_template.md
+      output_prefix: ${inputs.output_prefix}
+
+  - name: verify
+    type: python
+    source:
+      type: code
+      path: verify.py
+    inputs:
+      policies: ${align_descriptions.output.policies}
+      output_uri: ${render_markdown.output.output_uri}
+      catalog_uri: ${inputs.catalog_uri}
+
+environment:
+  python_requirements_txt: requirements.txt

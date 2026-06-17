@@ -1,0 +1,23 @@
+{
+  "nodeName": "/company/data/enterprise/data-factory/",
+  "assignment": {
+    "name": "company-data-enterprise-data-factory",
+    "displayName": "Company Data Enterprise — Data Factory",
+    "description": "Deployment scaffold for 4 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): configurePrivateDnsZonesPrivateEndpointsPrivateDnsZoneId. A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-data-enterprise-data-factory",
+  "parameters": {
+    "configurePrivateDnsZonesPrivateEndpointsPrivateDnsZoneId": "<REPLACE: configurePrivateDnsZonesPrivateEndpointsPrivateDnsZoneId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

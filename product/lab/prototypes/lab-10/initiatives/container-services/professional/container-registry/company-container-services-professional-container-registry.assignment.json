@@ -1,0 +1,23 @@
+{
+  "nodeName": "/company/container-services/professional/container-registry/",
+  "assignment": {
+    "name": "company-container-services-professional-container-registry",
+    "displayName": "Company Container Services Professional — Container Registry",
+    "description": "Deployment scaffold for 5 policies. 1 parameter value must be supplied at assignment (shown as <REPLACE: …> mocks): configureContainerRegistriesPrivateEndpointsPrivateEndpointSubnetId. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-container-services-professional-container-registry",
+  "parameters": {
+    "configureContainerRegistriesPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureContainerRegistriesPrivateEndpointsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

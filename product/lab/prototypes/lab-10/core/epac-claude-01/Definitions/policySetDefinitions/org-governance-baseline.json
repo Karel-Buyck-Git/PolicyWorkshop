@@ -1,0 +1,67 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+    "name": "org-governance-baseline",
+    "properties": {
+        "displayName": "Org Governance Baseline",
+        "description": "Starter initiative combining built-in controls and a custom tag policy. Assign this via policyAssignments.",
+        "policyType": "Custom",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Governance"
+        },
+        "parameters": {
+            "allowedLocationsListOfAllowedLocations": {
+                "type": "Array",
+                "metadata": {
+                    "displayName": "Allowed locations",
+                    "description": "List of locations that resources can be deployed to."
+                },
+                "defaultValue": [ "westeurope", "northeurope" ]
+            },
+            "allowedLocationsEffect": {
+                "type": "String",
+                "allowedValues": [ "Audit", "Deny", "Disabled" ],
+                "defaultValue": "Deny"
+            },
+            "auditVmManagedDisksEffect": {
+                "type": "String",
+                "allowedValues": [ "Audit", "Disabled" ],
+                "defaultValue": "Audit"
+            },
+            "requireRgTagName": {
+                "type": "String",
+                "defaultValue": "CostCenter"
+            },
+            "requireRgTagEffect": {
+                "type": "String",
+                "allowedValues": [ "Audit", "Deny", "Disabled" ],
+                "defaultValue": "Audit"
+            }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionReferenceId": "AllowedLocations",
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c",
+                "parameters": {
+                    "listOfAllowedLocations": { "value": "[parameters('allowedLocationsListOfAllowedLocations')]" },
+                    "effect": { "value": "[parameters('allowedLocationsEffect')]" }
+                }
+            },
+            {
+                "policyDefinitionReferenceId": "AuditVmsWithoutManagedDisks",
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/06a78e20-9358-41c9-923c-fb736d382a4d",
+                "parameters": {
+                    "effect": { "value": "[parameters('auditVmManagedDisksEffect')]" }
+                }
+            },
+            {
+                "policyDefinitionReferenceId": "RequireTagOnResourceGroup",
+                "policyDefinitionName": "require-tag-on-resource-group",
+                "parameters": {
+                    "tagName": { "value": "[parameters('requireRgTagName')]" },
+                    "effect": { "value": "[parameters('requireRgTagEffect')]" }
+                }
+            }
+        ]
+    }
+}

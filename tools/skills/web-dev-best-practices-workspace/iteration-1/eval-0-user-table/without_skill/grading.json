@@ -1,0 +1,33 @@
+{
+  "run_id": "eval-0-user-table-without_skill",
+  "expectations": [
+    {
+      "text": "Data fetching is separated from rendering — either via a custom hook or a separate function, not inline in the component body",
+      "passed": false,
+      "evidence": "Fetch logic is directly inside useEffect in the single UserTable component — no hook or separate function extracted"
+    },
+    {
+      "text": "A loading state is explicitly handled and rendered (not just undefined/null)",
+      "passed": true,
+      "evidence": "loading state renders <p>Loading users...</p>"
+    },
+    {
+      "text": "An error state is explicitly handled and rendered",
+      "passed": true,
+      "evidence": "error state renders <p style={{ color: 'red' }}>Error: {error}</p>"
+    },
+    {
+      "text": "Uses semantic HTML table elements (<table>, <thead>, <tbody>, <th>, <tr>, <td>)",
+      "passed": true,
+      "evidence": "Uses <table>, <thead>, <tbody>, <th>, <tr>, <td> — though with inline style attributes rather than CSS classes"
+    },
+    {
+      "text": "Variables and functions have descriptive names that make their purpose clear without comments",
+      "passed": true,
+      "evidence": "loading, error, users, columns — names are clear; fetchUsers would be more explicit but the pattern is readable"
+    }
+  ],
+  "pass_count": 4,
+  "total_count": 5,
+  "pass_rate": 0.8
+}

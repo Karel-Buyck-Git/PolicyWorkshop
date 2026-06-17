@@ -1,0 +1,54 @@
+# EPAC CI - plan + deploy to epac-dev. Copy to .github/workflows/.
+# Runs on pull requests so reviewers see the diff and dev is kept current.
+name: EPAC CI (epac-dev)
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: [ 'Definitions/**' ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  PAC_SELECTOR: epac-dev
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    environment: epac-dev-plan
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Build-DeploymentPlans -PacEnvironmentSelector "$env:PAC_SELECTOR" `
+            -DefinitionsRootFolder ./Definitions -OutputFolder ./Output
+      - uses: actions/upload-artifact@v4
+        with: { name: plans-epac-dev, path: ./Output }
+
+  deploy:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: epac-dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: plans-epac-dev, path: ./Output }
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.DEV_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+          Deploy-PolicyPlan -PacEnvironmentSelector "$env:PAC_SELECTOR" -DefinitionsRootFolder ./Definitions -InputFolder ./Output
+          Deploy-RolesPlan  -PacEnvironmentSelector "$env:PAC_SELECTOR" -DefinitionsRootFolder ./Definitions -InputFolder ./Output

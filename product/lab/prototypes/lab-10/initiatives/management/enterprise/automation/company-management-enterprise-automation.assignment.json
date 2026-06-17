@@ -1,0 +1,25 @@
+{
+  "nodeName": "/company/management/enterprise/automation/",
+  "assignment": {
+    "name": "company-management-enterprise-automation",
+    "displayName": "Company Management Enterprise — Automation",
+    "description": "Deployment scaffold for 4 policies. 3 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureAzureAutomationAccountsPrivateDnsPrivateDnsZoneId, configureAzureAutomationAccountsPrivateDnsPrivateEndpointGroupId, configurePrivateEndpointConnectionsAzureAutomationPrivateEndpointSubnetId. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-management-enterprise-automation",
+  "parameters": {
+    "configureAzureAutomationAccountsPrivateDnsPrivateDnsZoneId": "<REPLACE: configureAzureAutomationAccountsPrivateDnsPrivateDnsZoneId>",
+    "configureAzureAutomationAccountsPrivateDnsPrivateEndpointGroupId": "<REPLACE: configureAzureAutomationAccountsPrivateDnsPrivateEndpointGroupId>",
+    "configurePrivateEndpointConnectionsAzureAutomationPrivateEndpointSubnetId": "<REPLACE: configurePrivateEndpointConnectionsAzureAutomationPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

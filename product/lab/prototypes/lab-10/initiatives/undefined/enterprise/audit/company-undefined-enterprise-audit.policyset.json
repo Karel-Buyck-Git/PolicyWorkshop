@@ -1,0 +1,3091 @@
+{
+  "name": "company-undefined-enterprise-audit",
+  "properties": {
+    "displayName": "Company undefined Enterprise — Audit",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Regulatory Compliance: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers confidential computing and trusted-launch attestation and direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Audit",
+      "domain": "undefined",
+      "tier": "Enterprise"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "Automated System Account Management",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated System Account Management",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1013 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Removal Of Temporary / Emergency Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Removal Of Temporary / Emergency Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1014 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Disable Inactive Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Disable Inactive Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1015 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Audit Actions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Audit Actions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1016 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Inactivity Logout",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Inactivity Logout",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1017 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Role-Based Schemes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Role-Based Schemes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1018 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Role-Based Schemes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Role-Based Schemes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1019 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Role-Based Schemes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Role-Based Schemes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1020 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Restrictions On Use Of Shared / Group Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Restrictions On Use Of Shared / Group Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1021 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Shared / Group Account Credential Termination",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Shared / Group Account Credential Termination",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1022 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Usage Conditions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Usage Conditions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1023 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Account Monitoring / Atypical Usage",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Account Monitoring / Atypical Usage",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1024 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Account Monitoring / Atypical Usage",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Account Monitoring / Atypical Usage",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1025 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Disable Accounts For High-Risk Individuals",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Disable Accounts For High-Risk Individuals",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1026 - Account Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Security Policy Filters",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Security Policy Filters",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1029 - Information Flow Enforcement \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Physical / Logical Separation Of Information Flows",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Physical / Logical Separation Of Information Flows",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1030 - Information Flow Enforcement \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Authorize Access To Security Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Authorize Access To Security Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1035 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Non-Privileged Access For Nonsecurity Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Non-Privileged Access For Nonsecurity Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1036 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Network Access To Privileged Commands",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Network Access To Privileged Commands",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1037 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Privileged Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Privileged Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1038 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Review Of User Privileges",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Review Of User Privileges",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1039 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Review Of User Privileges",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Review Of User Privileges",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1040 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Privilege Levels For Code Execution",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Privilege Levels For Code Execution",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1041 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Auditing Use Of Privileged Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Auditing Use Of Privileged Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1042 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prohibit Non-Privileged Users From Executing Privileged Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prohibit Non-Privileged Users From Executing Privileged Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1043 - Least Privilege \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Purge / Wipe Mobile Device",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Purge / Wipe Mobile Device",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1046 - Unsuccessful Logon Attempts \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Pattern-Hiding Displays",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Pattern-Hiding Displays",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1053 - Session Lock \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "User-Initiated Logouts / Message Displays",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/User-Initiated Logouts / Message Displays",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1055 - Session Termination\\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "User-Initiated Logouts / Message Displays",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/User-Initiated Logouts / Message Displays",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1056 - Session Termination \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Monitoring / Control",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Monitoring / Control",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1061 - Remote Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Protection Of Confidentiality / Integrity Using Encryption",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Protection Of Confidentiality / Integrity Using Encryption",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1062 - Remote Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Managed Access Control Points",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Managed Access Control Points",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1063 - Remote Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Privileged Commands / Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Privileged Commands / Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1064 - Remote Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Privileged Commands / Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Privileged Commands / Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1065 - Remote Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Disconnect / Disable Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Disconnect / Disable Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1066 - Remote Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Authentication And Encryption",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Authentication And Encryption",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1069 - Wireless Access Restrictions \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Disable Wireless Networking",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Disable Wireless Networking",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1070 - Wireless Access Restrictions \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Restrict Configurations By Users",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Restrict Configurations By Users",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1071 - Wireless Access Restrictions \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Antennas / Transmission Power Levels",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Antennas / Transmission Power Levels",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1072 - Wireless Access Restrictions \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Full Device / Container-Based  Encryption",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Full Device / Container-Based  Encryption",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1075 - Access Control for Portable And Mobile Systems \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Limits On Authorized Use",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Limits On Authorized Use",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1078 - Use Of External Information Systems \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Limits On Authorized Use",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Limits On Authorized Use",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1079 - Use Of External Information Systems \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Portable Storage Devices",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Portable Storage Devices",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1080 - Use Of External Information Systems \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Insider Threat",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Insider Threat",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1092 - Security Awareness \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Practical Exercises",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Practical Exercises",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1096 - Role-Based Security Training \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Suspicious Communications And Anomalous System Behavior",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Suspicious Communications And Anomalous System Behavior",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1097 - Role-Based Security Training \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Reviews And Updates",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Reviews And Updates",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1106 - Audit Events \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Additional Audit Information",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Additional Audit Information",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1108 - Content Of Audit Records \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Centralized Management Of Planned Audit Record Content",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Centralized Management Of Planned Audit Record Content",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1109 - Content Of Audit Records \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Audit Storage Capacity",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Audit Storage Capacity",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1113 - Response To Audit Processing Failures \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Real-Time Alerts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Real-Time Alerts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1114 - Response To Audit Processing Failures \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Process Integration",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Process Integration",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1117 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Correlate Audit Repositories",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Correlate Audit Repositories",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1118 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Central Review And Analysis",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Central Review And Analysis",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1119 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Integration / Scanning And Monitoring Capabilities",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Integration / Scanning And Monitoring Capabilities",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1120 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Correlation With Physical Monitoring",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Correlation With Physical Monitoring",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1121 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Permitted Actions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Permitted Actions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1122 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Audit Level Adjustment",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Audit Level Adjustment",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1123 - Audit Review, Analysis, And Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automatic Processing",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automatic Processing",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1126 - Audit Reduction And Report Generation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Synchronization With Authoritative Time Source",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Synchronization With Authoritative Time Source",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1129 - Time Stamps \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Synchronization With Authoritative Time Source",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Synchronization With Authoritative Time Source",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1130 - Time Stamps \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Audit Backup On Separate Physical Systems / Components",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Audit Backup On Separate Physical Systems / Components",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1132 - Protection Of Audit Information \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Cryptographic Protection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Cryptographic Protection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1133 - Protection Of Audit Information \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Access By Subset Of Privileged Users",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Access By Subset Of Privileged Users",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1134 - Protection Of Audit Information \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "System-Wide / Time-Correlated Audit Trail",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/System-Wide / Time-Correlated Audit Trail",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1140 - Audit Generation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Changes By Authorized Individuals",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Changes By Authorized Individuals",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1141 - Audit Generation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Independent Assessors",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Independent Assessors",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1148 - Security Assessments \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Specialized Assessments",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Specialized Assessments",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1149 - Security Assessments \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "External Organizations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/External Organizations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1150 - Security Assessments \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Unclassified Non-National Security System Connections",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Unclassified Non-National Security System Connections",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1154 - System Interconnections \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Restrictions On External System Connections",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Restrictions On External System Connections",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1155 - System Interconnections \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Independent Assessment",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Independent Assessment",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1168 - Continuous Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Trend Analyses",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Trend Analyses",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1169 - Continuous Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Independent Penetration Agent Or Team",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Independent Penetration Agent Or Team",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1171 - Penetration Testing \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Reviews And Updates",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Reviews And Updates",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1177 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Reviews And Updates",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Reviews And Updates",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1178 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Reviews And Updates",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Reviews And Updates",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1179 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automation Support For Accuracy / Currency",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automation Support For Accuracy / Currency",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1180 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Retention Of Previous Configurations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Retention Of Previous Configurations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1181 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Configure Systems, Components, Or Devices For High-Risk Areas",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Configure Systems, Components, Or Devices For High-Risk Areas",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1182 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Configure Systems, Components, Or Devices For High-Risk Areas",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Configure Systems, Components, Or Devices For High-Risk Areas",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1183 - Baseline Configuration \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Document / Notification / Prohibition Of Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Document / Notification / Prohibition Of Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1191 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Document / Notification / Prohibition Of Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Document / Notification / Prohibition Of Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1192 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Document / Notification / Prohibition Of Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Document / Notification / Prohibition Of Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1193 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Document / Notification / Prohibition Of Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Document / Notification / Prohibition Of Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1194 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Document / Notification / Prohibition Of Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Document / Notification / Prohibition Of Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1195 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Document / Notification / Prohibition Of Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Document / Notification / Prohibition Of Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1196 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Test / Validate / Document Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Test / Validate / Document Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1197 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Security Representative",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Security Representative",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1198 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Cryptography Management",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Cryptography Management",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1199 - Configuration Change Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Separate Test Environments",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Separate Test Environments",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1201 - Security Impact Analysis \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Access Enforcement / Auditing",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Access Enforcement / Auditing",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1203 - Access Restrictions For Change \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Review System Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Review System Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1204 - Access Restrictions For Change \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Signed Components",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Signed Components",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1205 - Access Restrictions For Change \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Limit Production / Operational Privileges",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Limit Production / Operational Privileges",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1206 - Access Restrictions For Change \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Limit Production / Operational Privileges",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Limit Production / Operational Privileges",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1207 - Access Restrictions For Change \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Central Management / Application / Verification",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Central Management / Application / Verification",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1212 - Configuration Settings \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Respond To Unauthorized Changes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Respond To Unauthorized Changes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1213 - Configuration Settings \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Periodic Review",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Periodic Review",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1216 - Least Functionality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Periodic Review",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Periodic Review",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1217 - Least Functionality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Program Execution",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Program Execution",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1218 - Least Functionality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Authorized Software / Whitelisting",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Authorized Software / Whitelisting",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1219 - Least Functionality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Authorized Software / Whitelisting",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Authorized Software / Whitelisting",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1220 - Least Functionality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Authorized Software / Whitelisting",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Authorized Software / Whitelisting",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1221 - Least Functionality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Updates During Installations / Removals",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Updates During Installations / Removals",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1224 - Information System Component Inventory \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Maintenance",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Maintenance",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1225 - Information System Component Inventory \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Unauthorized Component Detection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Unauthorized Component Detection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1226 - Information System Component Inventory \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Unauthorized Component Detection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Unauthorized Component Detection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1227 - Information System Component Inventory \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Accountability Information",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Accountability Information",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1228 - Information System Component Inventory \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "No Duplicate Accounting Of Components",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/No Duplicate Accounting Of Components",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1229 - Information System Component Inventory \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Open Source Software",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Open Source Software",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1237 - Software Usage Restrictions \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Alerts For Unauthorized Installations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Alerts For Unauthorized Installations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1241 - User-Installed Software \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Coordinate With Related Plans",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Coordinate With Related Plans",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1251 - Contingency Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Capacity Planning",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Capacity Planning",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1252 - Contingency Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Resume Essential Missions / Business Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Resume Essential Missions / Business Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1253 - Contingency Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Resume All Missions / Business Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Resume All Missions / Business Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1254 - Contingency Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Continue  Essential Missions / Business Functions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Continue  Essential Missions / Business Functions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1255 - Contingency Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Identify Critical Assets",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Identify Critical Assets",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1256 - Contingency Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Simulated Events",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Simulated Events",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1260 - Contingency Training \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Coordinate With Related Plans",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Coordinate With Related Plans",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1264 - Contingency Plan Testing \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Alternate Processing Site",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Alternate Processing Site",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1265 - Contingency Plan Testing \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Alternate Processing Site",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Alternate Processing Site",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1266 - Contingency Plan Testing \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Separation From Primary Site",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Separation From Primary Site",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1269 - Alternate Storage Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Recovery Time / Point Objectives",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Recovery Time / Point Objectives",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1270 - Alternate Storage Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Accessibility",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Accessibility",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1271 - Alternate Storage Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Separation From Primary Site",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Separation From Primary Site",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1275 - Alternate Processing Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Accessibility",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Accessibility",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1276 - Alternate Processing Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Priority Of Service",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Priority Of Service",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1277 - Alternate Processing Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Preparation For Use",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Preparation For Use",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1278 - Alternate Processing Site \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Priority Of Service Provisions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Priority Of Service Provisions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1280 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Priority Of Service Provisions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Priority Of Service Provisions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1281 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Single Points Of Failure",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Single Points Of Failure",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1282 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Separation Of Primary / Alternate Providers",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Separation Of Primary / Alternate Providers",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1283 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Provider Contingency Plan",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Provider Contingency Plan",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1284 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Provider Contingency Plan",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Provider Contingency Plan",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1285 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Provider Contingency Plan",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Provider Contingency Plan",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1286 - Telecommunications Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Testing For Reliability / Integrity",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Testing For Reliability / Integrity",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1291 - Information System Backup \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Test Restoration Using Sampling",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Test Restoration Using Sampling",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1292 - Information System Backup \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Separate Storage For Critical Information",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Separate Storage For Critical Information",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1293 - Information System Backup \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Transfer To Alternate Storage Site",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Transfer To Alternate Storage Site",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1294 - Information System Backup \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Transaction Recovery",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Transaction Recovery",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1296 - Information System Recovery And Reconstitution \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Restore Within Time Period",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Restore Within Time Period",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1297 - Information System Recovery And Reconstitution \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Network Access To Privileged Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Network Access To Privileged Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1301 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Network Access To Non-Privileged Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Network Access To Non-Privileged Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1302 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Local Access To Privileged Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Local Access To Privileged Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1303 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Local Access To Non-Privileged Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Local Access To Non-Privileged Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1304 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Group Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Group Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1305 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Network Access To Privileged Accounts - Replay...",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Network Access To Privileged Accounts - Replay...",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1306 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Network Access To Non-Privileged Accounts - Replay...",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Network Access To Non-Privileged Accounts - Replay...",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1307 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Remote Access  - Separate Device",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Remote Access  - Separate Device",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1308 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Acceptance Of Piv Credentials",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Acceptance Of Piv Credentials",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1309 - User Identification And Authentication \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Identify User Status",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Identify User Status",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1316 - Identifier Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Password-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Password-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1327 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Password-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Password-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1328 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Password-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Password-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1329 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Password-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Password-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1330 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Password-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Password-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1331 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Password-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Password-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1332 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Pki-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Pki-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1333 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Pki-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Pki-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1334 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Pki-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Pki-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1335 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Pki-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Pki-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1336 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "In-Person Or Trusted Third-Party Registration",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/In-Person Or Trusted Third-Party Registration",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1337 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Support  For Password Strength Determination",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Support  For Password Strength Determination",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1338 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Protection Of Authenticators",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Protection Of Authenticators",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1339 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "No Embedded Unencrypted Static Authenticators",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/No Embedded Unencrypted Static Authenticators",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1340 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Multiple Information System Accounts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Multiple Information System Accounts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1341 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Hardware Token-Based Authentication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Hardware Token-Based Authentication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1342 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Expiration Of Cached Authenticators",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Expiration Of Cached Authenticators",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1343 - Authenticator Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Acceptance Of Piv Credentials...",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Acceptance Of Piv Credentials...",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1347 - Identification And Authentication (Non-Organizational Users) \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Acceptance Of Third-Party...",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Acceptance Of Third-Party...",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1348 - Identification And Authentication (Non-Organizational Users) \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Use Of Ficam-Approved Products",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Use Of Ficam-Approved Products",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1349 - Identification And Authentication (Non-Organizational Users) \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Use Of Ficam-Issued Profiles",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Use Of Ficam-Issued Profiles",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1350 - Identification And Authentication (Non-Organizational Users) \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Simulated Events",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Simulated Events",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1356 - Incident Response Training \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Training Environments",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Training Environments",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1357 - Incident Response Training \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Coordination With Related Plans",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Coordination With Related Plans",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1359 - Incident Response Testing \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Incident Handling Processes",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Incident Handling Processes",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1363 - Incident Handling \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Dynamic Reconfiguration",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Dynamic Reconfiguration",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1364 - Incident Handling \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Continuity Of Operations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Continuity Of Operations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1365 - Incident Handling \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Information Correlation",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Information Correlation",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1366 - Incident Handling \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Insider Threats - Specific Capabilities",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Insider Threats - Specific Capabilities",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1367 - Incident Handling \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Correlation With External Organizations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Correlation With External Organizations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1368 - Incident Handling \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Tracking / Data Collection / Analysis",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Tracking / Data Collection / Analysis",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1370 - Incident Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Reporting",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Reporting",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1373 - Incident Reporting \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automation Support For Availability Of Information / Support",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automation Support For Availability Of Information / Support",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1375 - Incident Response Assistance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Coordination With External Providers",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Coordination With External Providers",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1376 - Incident Response Assistance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Coordination With External Providers",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Coordination With External Providers",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1377 - Incident Response Assistance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Responsible Personnel",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Responsible Personnel",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1390 - Information Spillage Response \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Training",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Training",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1391 - Information Spillage Response \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Post-Spill Operations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Post-Spill Operations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1392 - Information Spillage Response \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Exposure To Unauthorized Personnel",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Exposure To Unauthorized Personnel",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1393 - Information Spillage Response \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Maintenance Activities",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Maintenance Activities",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1402 - Controlled Maintenance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Maintenance Activities",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Maintenance Activities",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1403 - Controlled Maintenance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Inspect Tools",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Inspect Tools",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1405 - Maintenance Tools \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Inspect Media",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Inspect Media",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1406 - Maintenance Tools \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Unauthorized Removal",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Unauthorized Removal",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1407 - Maintenance Tools \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Unauthorized Removal",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Unauthorized Removal",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1408 - Maintenance Tools \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Unauthorized Removal",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Unauthorized Removal",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1409 - Maintenance Tools \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Unauthorized Removal",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Unauthorized Removal",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1410 - Maintenance Tools \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Document Remote Maintenance",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Document Remote Maintenance",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1416 - Remote Maintenance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Comparable Security / Sanitization",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Comparable Security / Sanitization",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1417 - Remote Maintenance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Comparable Security / Sanitization",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Comparable Security / Sanitization",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1418 - Remote Maintenance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Cryptographic Protection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Cryptographic Protection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1419 - Remote Maintenance \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Individuals Without Appropriate Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Individuals Without Appropriate Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1423 - Maintenance Personnel \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Individuals Without Appropriate Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Individuals Without Appropriate Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1424 - Maintenance Personnel \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Cryptographic Protection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Cryptographic Protection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1437 - Media Transport \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Review / Approve / Track / Document / Verify",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Review / Approve / Track / Document / Verify",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1440 - Media Sanitization And Disposal \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Equipment Testing",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Equipment Testing",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1441 - Media Sanitization And Disposal \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Nondestructive Techniques",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Nondestructive Techniques",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1442 - Media Sanitization And Disposal \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prohibit Use Without Owner",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prohibit Use Without Owner",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1444 - Media Use \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Information System Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Information System Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1458 - Physical Access Control \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Intrusion Alarms / Surveillance Equipment",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Intrusion Alarms / Surveillance Equipment",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1464 - Monitoring Physical Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Monitoring Physical Access To Information Systems",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Monitoring Physical Access To Information Systems",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1465 - Monitoring Physical Access \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Records Maintenance / Review",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Records Maintenance / Review",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1468 - Visitor Access Records \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Long-Term Alternate Power Supply - Minimal Operational Capability",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Long-Term Alternate Power Supply - Minimal Operational Capability",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1474 - Emergency Power \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Detection Devices / Systems",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Detection Devices / Systems",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1477 - Fire Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Suppression Devices / Systems",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Suppression Devices / Systems",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1478 - Fire Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automatic Fire Suppression",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automatic Fire Suppression",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1479 - Fire Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Monitoring With Alarms / Notifications",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Monitoring With Alarms / Notifications",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1482 - Temperature And Humidity Controls \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automation Support",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automation Support",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1484 - Water Damage Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Plan / Coordinate With Other Organizational Entities",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Plan / Coordinate With Other Organizational Entities",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1497 - System Security Plan \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Social Media And Networking Restrictions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Social Media And Networking Restrictions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1502 - Rules Of Behavior \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Information With Special Protection Measures",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Information With Special Protection Measures",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1513 - Personnel Screening \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Information With Special Protection Measures",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Information With Special Protection Measures",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1514 - Personnel Screening \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Notification",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Notification",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1521 - Personnel Termination \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Update Tool Capability",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Update Tool Capability",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1551 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Update By Frequency / Prior To New Scan / When Identified",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Update By Frequency / Prior To New Scan / When Identified",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1552 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Breadth / Depth Of Coverage",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Breadth / Depth Of Coverage",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1553 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Discoverable Information",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Discoverable Information",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1554 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Privileged Access",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Privileged Access",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1555 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Trend Analyses",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Trend Analyses",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1556 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Review Historic Audit Logs",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Review Historic Audit Logs",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1557 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Correlate Scanning Information",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Correlate Scanning Information",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1558 - Vulnerability Scanning \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Functional Properties Of Security Controls",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Functional Properties Of Security Controls",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1575 - Acquisitions Process \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Design / Implementation Information For Security Controls",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Design / Implementation Information For Security Controls",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1576 - Acquisitions Process \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Continuous Monitoring Plan",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Continuous Monitoring Plan",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1577 - Acquisitions Process \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Functions / Ports / Protocols / Services In Use",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Functions / Ports / Protocols / Services In Use",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1578 - Acquisitions Process \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Use Of Approved Piv Products",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Use Of Approved Piv Products",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1579 - Acquisitions Process \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Risk Assessments / Organizational Approvals",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Risk Assessments / Organizational Approvals",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1589 - External Information System Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Risk Assessments / Organizational Approvals",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Risk Assessments / Organizational Approvals",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1590 - External Information System Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Identification Of Functions / Ports / Protocols...",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Identification Of Functions / Ports / Protocols...",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1591 - External Information System Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Consistent Interests Of Consumers And Providers",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Consistent Interests Of Consumers And Providers",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1592 - External Information System Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Processing, Storage, And Service Location",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Processing, Storage, And Service Location",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1593 - External Information System Services \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Software / Firmware Integrity Verification",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Software / Firmware Integrity Verification",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1599 - Developer Configuration Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Static Code Analysis",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Static Code Analysis",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1605 - Developer Security Testing And Evaluation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Threat And Vulnerability Analyses",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Threat And Vulnerability Analyses",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1606 - Developer Security Testing And Evaluation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Dynamic Code Analysis",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Dynamic Code Analysis",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1607 - Developer Security Testing And Evaluation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Access Points",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Access Points",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1625 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "External Telecommunications Services",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/External Telecommunications Services",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1626 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "External Telecommunications Services",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/External Telecommunications Services",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1627 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "External Telecommunications Services",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/External Telecommunications Services",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1628 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "External Telecommunications Services",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/External Telecommunications Services",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1629 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "External Telecommunications Services",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/External Telecommunications Services",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1630 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Deny By Default / Allow By Exception",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Deny By Default / Allow By Exception",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1631 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Split Tunneling For Remote Devices",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Split Tunneling For Remote Devices",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1632 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Route Traffic To Authenticated Proxy Servers",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Route Traffic To Authenticated Proxy Servers",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1633 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Prevent Unauthorized Exfiltration",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Prevent Unauthorized Exfiltration",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1634 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Host-Based Protection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Host-Based Protection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1635 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Isolation Of Security Tools / Mechanisms / Support Components",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Isolation Of Security Tools / Mechanisms / Support Components",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1636 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Fail Secure",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Fail Secure",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1637 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Dynamic Isolation / Segregation",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Dynamic Isolation / Segregation",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1638 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Isolation Of Information System Components",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Isolation Of Information System Components",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1639 - Boundary Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Cryptographic Or Alternate Physical Protection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Cryptographic Or Alternate Physical Protection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1641 - Transmission Confidentiality And Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Availability",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Availability",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1644 - Cryptographic Key Establishment And Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Symmetric Keys",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Symmetric Keys",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1645 - Cryptographic Key Establishment And Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Asymmetric Keys",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Asymmetric Keys",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1646 - Cryptographic Key Establishment And Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Invalidate Session Identifiers At Logout",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Invalidate Session Identifiers At Logout",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1661 - Session Authenticity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Cryptographic Protection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Cryptographic Protection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1664 - Protection Of Information At Rest \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Central Management",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Central Management",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1672 - Flaw Remediation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Flaw Remediation Status",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Flaw Remediation Status",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1673 - Flaw Remediation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Time To Remediate Flaws / Benchmarks For Corrective Actions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Time To Remediate Flaws / Benchmarks For Corrective Actions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1674 - Flaw Remediation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Time To Remediate Flaws / Benchmarks For Corrective Actions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Time To Remediate Flaws / Benchmarks For Corrective Actions",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1675 - Flaw Remediation \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Central Management",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Central Management",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1680 - Malicious Code Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automatic Updates",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automatic Updates",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1681 - Malicious Code Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Nonsignature-Based Detection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Nonsignature-Based Detection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1682 - Malicious Code Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "System-Wide Intrusion Detection System",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/System-Wide Intrusion Detection System",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1690 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Tools For Real-Time Analysis",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Tools For Real-Time Analysis",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1691 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Inbound And Outbound Communications Traffic",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Inbound And Outbound Communications Traffic",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1692 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "System-Generated Alerts",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/System-Generated Alerts",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1693 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Analyze Communications Traffic Anomalies",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Analyze Communications Traffic Anomalies",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1694 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Wireless Intrusion Detection",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Wireless Intrusion Detection",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1695 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Correlate Monitoring Information",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Correlate Monitoring Information",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1696 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Analyze Traffic / Covert Exfiltration",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Analyze Traffic / Covert Exfiltration",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1697 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Individuals Posing Greater Risk",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Individuals Posing Greater Risk",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1698 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Privileged Users",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Privileged Users",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1699 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Unauthorized Network Services",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Unauthorized Network Services",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1700 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Host-Based Devices",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Host-Based Devices",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1701 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Indicators Of Compromise",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Indicators Of Compromise",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1702 - Information System Monitoring \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Alerts And Advisories",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Alerts And Advisories",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1707 - Security Alerts & Advisories \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Integrity Checks",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Integrity Checks",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1713 - Software & Information Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Notifications Of Integrity Violations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Notifications Of Integrity Violations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1714 - Software & Information Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automated Response To Integrity Violations",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automated Response To Integrity Violations",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1715 - Software & Information Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Integration Of Detection And Response",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Integration Of Detection And Response",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1716 - Software & Information Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Binary Or Machine Executable Code",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Binary Or Machine Executable Code",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1717 - Software & Information Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Binary Or Machine Executable Code",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Binary Or Machine Executable Code",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1718 - Software & Information Integrity \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Central Management",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Central Management",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1721 - Spam Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Automatic Updates",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Automatic Updates",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1722 - Spam Protection \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Validate PII",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Validate PII",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1825 - Data Quality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Re-Validate PII",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Re-Validate PII",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1826 - Data Quality \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Publish Agreements on Website",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Publish Agreements on Website",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1829 - Data Integrity And Data Integrity Board \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Locate/Remove/Redact/Anonymize PII",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Locate/Remove/Redact/Anonymize PII",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1833 - Minimization of Personally Identifiable Information \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "System Configuration",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/System Configuration",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1837 - Data Retention And Disposal \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Risk Minimization Techniques",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Risk Minimization Techniques",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1840 - Minimization of PII Used in Testing, Training, And Research \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Mechanisms Supporting Itemized or Tiered Consent",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Mechanisms Supporting Itemized or Tiered Consent",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1845 - Consent \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Response Times",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Response Times",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1853 - Compliant Management \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Real-Time or Layered Notice",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Real-Time or Layered Notice",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1861 - Privacy Notice \\"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "Public Website Publication",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/Public Website Publication",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Managed Control 1865 - System of Records Notices And Privacy Act Statements \\"
+        }
+      }
+    ]
+  }
+}

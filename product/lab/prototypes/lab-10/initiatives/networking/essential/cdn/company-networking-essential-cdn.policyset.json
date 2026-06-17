@@ -1,0 +1,36 @@
+{
+  "name": "company-networking-essential-cdn",
+  "properties": {
+    "displayName": "Company Networking Essential — CDN",
+    "description": "**Essential** — Baseline hygiene for CDN: the non-negotiable controls every deployment should enforce from day one. This tier delivers TLS / HTTPS enforcement preventing in-transit interception. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "CDN",
+      "domain": "Networking",
+      "tier": "Essential"
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "679da822-78a7-4eff-8fff-a899454a9970",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/679da822-78a7-4eff-8fff-a899454a9970",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Azure Front Door Standard and Premium should be running minimum TLS version of 1.2"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

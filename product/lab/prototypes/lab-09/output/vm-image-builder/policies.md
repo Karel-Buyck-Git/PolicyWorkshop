@@ -1,0 +1,13 @@
+# VM Image Builder Policies
+
+## Tier rationale
+
+**Essential** — No essential-tier policies are defined for VM Image Builder in the current built-in policy set.
+
+**Professional** — No professional-tier policies are defined for VM Image Builder in the current built-in policy set.
+
+**Enterprise** — Zero-trust and regulatory alignment for VM Image Builder: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers private endpoints and private link removing the public attack surface. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregation) and A.18 (compliance), NIST SP 800-207 (Zero Trust).
+
+| # | Policy | Policy ID | Tag | Description | Allowed Values | Default Value | Hardened Value | Category | Domain | Version | Type | Tier |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | VM Image Builder templates should use private link | 2154edb9-244f-4741-9970-660785bccdaa |  | Azure Private Link lets you connect your virtual network to Azure services without a public IP address at the source or destination. The Private Link platform handles the connectivity between the consumer and services over the Azure backbone network. By mapping private endpoints to your VM Image Builder building resources, data leakage risks are reduced. Learn more about private links at: https://docs.microsoft.com/azure/virtual-machines/linux/image-builder-networking#deploy-using-an-existing-vnet. | Audit, Disabled, Deny | Audit | Deny | VM Image Builder | Compute | 1.1.0 | BuiltIn | Enterprise |

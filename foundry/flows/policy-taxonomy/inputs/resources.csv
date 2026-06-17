@@ -1,0 +1,7 @@
+resource_name,tier_set
+App Services,"essential,professional,enterprise"
+Function Apps,"essential,professional,enterprise"
+Logic Apps,"essential,professional,enterprise"
+Key Vault,"essential,professional,enterprise"
+Storage Accounts,"essential,professional,enterprise"
+API Management,"essential,professional,enterprise"

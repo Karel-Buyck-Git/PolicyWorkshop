@@ -1,0 +1,28 @@
+{
+    // Assigns the custom Tagging Governance initiative.
+    // It includes a built-in Modify policy (tag inheritance), which needs a managed identity.
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/tagging",
+    "definitionEntry": {
+        "policySetName": "tagging-initiative",
+        "displayName": "Tagging Governance Initiative"
+    },
+    "assignment": {
+        "name": "tagging-gov",
+        "displayName": "Tagging Governance",
+        "description": "Requires Owner tag and inherits CostCenter from the resource group."
+    },
+    "metadata": { "category": "Governance" },
+    "enforcementMode": "Default",
+    "managedIdentityLocations": {
+        "*": "westeurope"
+    },
+    "parameters": {
+        "ownerTagEffect": "Audit",
+        "costCenterTagName": "CostCenter"
+    },
+    "scope": {
+        "epac-dev": [ "/providers/Microsoft.Management/managementGroups/epac-contoso" ],
+        "tenant":   [ "/providers/Microsoft.Management/managementGroups/contoso" ]
+    }
+}

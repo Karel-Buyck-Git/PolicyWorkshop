@@ -1,0 +1,26 @@
+{
+  "nodeName": "/company/compute/professional/compute/",
+  "assignment": {
+    "name": "company-compute-professional-compute",
+    "displayName": "Company Compute Professional — Compute",
+    "description": "Deployment scaffold for 3 policies. 4 parameter values must be supplied at assignment (shown as <REPLACE: …> mocks): configureDiskAccessResourcesPrivateEndpointsLocation, configureDiskAccessResourcesPrivateEndpointsPrivateEndpointSubnetId, configureManagedDisksDisablePublicNetworkLocation, configureManagedDisksDisablePublicNetworkDiskAccessId. A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "company-compute-professional-compute",
+  "parameters": {
+    "configureDiskAccessResourcesPrivateEndpointsLocation": "<REPLACE: configureDiskAccessResourcesPrivateEndpointsLocation>",
+    "configureDiskAccessResourcesPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureDiskAccessResourcesPrivateEndpointsPrivateEndpointSubnetId>",
+    "configureManagedDisksDisablePublicNetworkLocation": "<REPLACE: configureManagedDisksDisablePublicNetworkLocation>",
+    "configureManagedDisksDisablePublicNetworkDiskAccessId": "<REPLACE: configureManagedDisksDisablePublicNetworkDiskAccessId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

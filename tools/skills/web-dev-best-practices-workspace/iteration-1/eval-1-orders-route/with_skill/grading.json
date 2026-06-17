@@ -1,0 +1,33 @@
+{
+  "run_id": "eval-1-orders-route-with_skill",
+  "expectations": [
+    {
+      "text": "Business logic is separated from HTTP concerns — there is at least a distinct service/handler layer separate from the route",
+      "passed": true,
+      "evidence": "Clear 3-layer separation: controller (HTTP), service (business logic including calculateOrderTotal), repository (DB). No HTTP objects in service or repository."
+    },
+    {
+      "text": "Request body is validated before reaching any business logic, using a schema or explicit checks",
+      "passed": true,
+      "evidence": "Zod schema validates in controller before calling placeOrder service"
+    },
+    {
+      "text": "Errors are explicitly caught and handled — no unhandled promise rejections or try/catch-less async",
+      "passed": true,
+      "evidence": "Controller wraps service call in try/catch and delegates to centralized errorHandler middleware"
+    },
+    {
+      "text": "Internal error details (stack traces, DB errors) are not exposed in the HTTP response",
+      "passed": true,
+      "evidence": "error-handler.js checks isOperational flag; programmer errors respond with generic 'An unexpected error occurred'"
+    },
+    {
+      "text": "Returns 201 on success and 400 on validation failure (not just 200 for everything)",
+      "passed": true,
+      "evidence": "res.status(201).json(order) on success; ValidationError extends AppError with statusCode 400"
+    }
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0
+}
