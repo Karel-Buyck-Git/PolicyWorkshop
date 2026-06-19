@@ -164,6 +164,9 @@ tiers:
     - encrypt*
     - infrastructure encryption
     - double encryption
+    # infrastructure & double encryption are set at resource creation and are
+    # irreversible — they can't be enabled or disabled after deployment (so a
+    # remediation/deployIfNotExists policy can't retrofit them; audit/deny only).
     - service-managed key*
     - tls
     - https
