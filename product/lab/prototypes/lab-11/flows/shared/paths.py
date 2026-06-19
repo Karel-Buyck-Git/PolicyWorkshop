@@ -26,3 +26,12 @@ DOCS_DIR       = LAB_ROOT / "docs"
 NAMING_SAMPLES_FILE = CATALOGUE_DIR / "naming-samples.md"
 EPAC_NAMING_DOC     = DOCS_DIR / "epac-naming-convention.md"
 QC_REPORT_FILE      = CATALOGUE_DIR / "quality-control.json"
+
+# Customer packages (consumer side): the epac-builder reads the shared catalogue
+# and writes a customer's own scaffold here. Manifests + their schemas live under
+# customer/manifests/; rendered output defaults to customer/initiatives/.
+CUSTOMER_DIR          = LAB_ROOT / "customer"
+MANIFESTS_DIR         = CUSTOMER_DIR / "manifests"
+INPUT_SCHEMA_FILE          = MANIFESTS_DIR / "input.schema.json"
+MANIFEST_INPUT_SCHEMA_FILE = MANIFESTS_DIR / "manifest.input.schema.json"
+MANIFEST_SCHEMA_FILE       = MANIFESTS_DIR / "manifest.schema.json"
