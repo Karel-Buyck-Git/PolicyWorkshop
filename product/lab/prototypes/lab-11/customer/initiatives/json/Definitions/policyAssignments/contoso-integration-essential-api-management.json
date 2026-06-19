@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/contoso/integration/essential/api-management/",
+  "assignment": {
+    "name": "contoso-integration-essential-api-management",
+    "displayName": "Company Integration Essential — API Management",
+    "description": "Deployment scaffold for 10 policies. No parameter values are required (effects are baked; other parameters use defaults). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "contoso-integration-essential-api-management",
+  "parameters": {},
+  "scope": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  },
+  "notScopes": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso-sandbox"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  }
+}

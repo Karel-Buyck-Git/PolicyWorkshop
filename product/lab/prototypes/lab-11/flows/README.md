@@ -7,7 +7,7 @@ subpackage), joined by one contract (the **catalogue**):
 | --- | --- | --- |
 | **catalogue-builder** | [`catalogue_builder/`](catalogue_builder/) | the **producer** pipeline: `extract → enrich → create-initiatives → quality-control` |
 | **definition-gen** | [`definition_gen/`](definition_gen/) | on-demand authoring of **custom** definitions (e.g. `dlw-az-naming`) that feed the catalogue |
-| **epac-builder** | [`epac_builder/`](epac_builder/) | the **consumer / assembler** app — manifest + catalogue → IaC scaffolds (**not built yet**) |
+| **epac-builder** | [`epac_builder/`](epac_builder/) | the **consumer / assembler** app — manifest + catalogue → IaC scaffolds (EPAC/JSON · Terraform · Bicep) |
 | **shared** | [`shared/`](shared/) | libraries imported across components (`paths`, `hierarchy`, `tiers`, `mdtable`) |
 | **tools** | [`tools/`](tools/) | dev / analyst utilities (`ab_verify`, `catalogue_diff`, `summarize_categories`) |
 
@@ -20,7 +20,7 @@ The two halves joined by the catalogue:
   The fourth step (quality-control) validates and documents the catalogue the first three built.
 - **Consumer** = the *epac-builder* / assembler (runs _per customer, on demand_): expands a
   customer manifest against the catalogue and renders EPAC/JSON, Terraform and Bicep scaffolds.
-  **Not built yet** — see [`epac_builder/README.md`](epac_builder/README.md).
+  See [`epac_builder/README.md`](epac_builder/README.md).
 
 ```
 PRODUCER — catalogue-builder (catalogue_builder/)   CATALOGUE @version (the contract)
@@ -35,7 +35,6 @@ PRODUCER — catalogue-builder (catalogue_builder/)   CATALOGUE @version (the co
 CONSUMER — assembler (per customer, on demand)  ◄──────────────────────────────────────── ┘
   input.json ─► EXPAND ─► manifest ─► Resolve+Bind ─► Canonical IR ─► render {EPAC/JSON · Terraform · Bicep}
                                                                           └─► customer/initiatives/ ─► Validate ─► PR ─► Deploy
-            ░░░  TO BE BUILT — see § "epac-builder — the assembler"  ░░░
 ```
 
 ---
