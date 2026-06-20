@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/undefined/professional/internet-of-things/",
+  "assignment": {
+    "name": "undefined-pro-iot",
+    "displayName": "undefined Professional — Internet of Things",
+    "description": "Deployment scaffold for 20 policies. 8 parameter values must be supplied at assignment (e.g. configureAzureDeviceUpdateIotHubPrivateDnsZoneId, configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId, configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId, …). A managed identity is required: 12 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>,…"
+  },
+  "policySetDefinitionName": "undefined-pro-iot",
+  "parameters": {
+    "configureAzureDeviceUpdateIotHubPrivateDnsZoneId": "<REPLACE: configureAzureDeviceUpdateIotHubPrivateDnsZoneId>",
+    "configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId": "<REPLACE: configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId>",
+    "configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId": "<REPLACE: configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId>",
+    "configureIotHubDeviceProvisioningServicePrivateEndpointSubnetId": "<REPLACE: configureIotHubDeviceProvisioningServicePrivateEndpointSubnetId>",
+    "deployConfigureAzureIotHubsPrivatePrivateDnsZoneId": "<REPLACE: deployConfigureAzureIotHubsPrivatePrivateDnsZoneId>",
+    "deployConfigureAzureIotHubsPrivatePrivateEndpointSubnetId": "<REPLACE: deployConfigureAzureIotHubsPrivatePrivateEndpointSubnetId>",
+    "deployConfigureIotCentralPrivateDnsPrivateDnsZoneId": "<REPLACE: deployConfigureIotCentralPrivateDnsPrivateDnsZoneId>",
+    "deployConfigureIotCentralPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: deployConfigureIotCentralPrivateEndpointsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

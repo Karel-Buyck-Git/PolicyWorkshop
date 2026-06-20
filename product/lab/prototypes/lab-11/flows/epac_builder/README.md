@@ -41,7 +41,7 @@ manifest + same catalogue ⇒ byte-identical (apart from a generated `pacOwnerId
 | `catalogue.py` | catalogue access + selection resolution (tier roll-up, `*` expansion, `undefined` exclusion, empty-expansion hard errors). |
 | `expand.py` | `input.json → manifest` (seed `<REPLACE: …>` per required parameter). |
 | `bind.py` | parameter binding + type checks; effect posture (Audit-soften / hardened-keep) + surgical `effectOverrides`. |
-| `ir.py` | build the canonical IR (re-prefix, scopes, managed identity, role assignments, lineage). |
+| `ir.py` | build the canonical IR (customer-prefix the set name, keep the brand-neutral assignment name, scopes, managed identity, role assignments, lineage). |
 | `render_json.py` | IR → EPAC `Definitions/` (policySetDefinitions, policyAssignments, global-settings, exemptions). |
 | `render_terraform.py` / `hcl.py` | IR → `azurerm` module + per-env tfvars. |
 | `render_bicep.py` | IR → MG-scoped `main.bicep` + `loadJsonContent` sidecars + per-env parameter files. |

@@ -13,21 +13,16 @@ from epac_builder.bind import (
     apply_posture, bind_parameters, resolve_posture,
 )
 
-COMPANY_PREFIX = "company"   # the producer's default prefix in catalogue artifacts
+def set_definition_name(group_name, prefix):
+    """Customer-scoped policy set name: prepend the prefix to the brand-neutral
+    catalogue name (policy set names allow up to 64 chars)."""
+    return f"{prefix}-{group_name}"
 
 
-def reprefix(name, prefix):
-    """Swap the leading producer prefix token for the customer prefix."""
-    head, _, rest = name.partition("-")
-    return f"{prefix}-{rest}" if rest and head == COMPANY_PREFIX else name
-
-
-def reprefix_node(node_name, prefix):
-    """Swap the leading path segment of an EPAC ``nodeName`` (``/company/…`` -> ``/prefix/…``)."""
-    parts = node_name.split("/")
-    if len(parts) > 1 and parts[1] == COMPANY_PREFIX:
-        parts[1] = prefix
-    return "/".join(parts)
+def customer_node(node_name, prefix):
+    """Prepend the customer segment to the catalogue's brand-neutral nodeName
+    (`/<domain>/…/` -> `/<prefix>/<domain>/…/`)."""
+    return f"/{prefix}{node_name}"
 
 
 def manifest_hash(manifest):
@@ -69,7 +64,8 @@ def build_ir(manifest, catalogue, groups):
         dom, tier, cat = group["_slug"]
         sel = sel_by_key.get((dom, cat)) or sel_star.get(dom)
 
-        name = reprefix(group["name"], prefix)
+        group_name = group["name"]                      # brand-neutral catalogue name (<=24)
+        set_name = set_definition_name(group_name, prefix)   # customer-scoped policy set name
         posture, warn = resolve_posture(group, sel, environments)
         if warn:
             ir["warnings"].append(warn)
@@ -77,7 +73,7 @@ def build_ir(manifest, catalogue, groups):
         group_key = f"{dom}/{tier}/{cat}"
         group_overrides = [o for o in all_overrides if o.get("group") == group_key]
         policyset = copy.deepcopy(art["policyset"])
-        policyset["name"] = name
+        policyset["name"] = set_name
         apply_posture(policyset, posture, group_overrides)
 
         roles = art.get("roles") or {}
@@ -87,19 +83,22 @@ def build_ir(manifest, catalogue, groups):
         bound = bind_parameters(art, bindings)
 
         ir["initiatives"].append({
-            "name": name,
+            "name": set_name,
             "source": group["dir"],
             "policyset": policyset,
             "hasRemediation": has_remediation,
             "roleDefinitionIds": role_ids,
         })
 
+        display = policyset["properties"]["displayName"]
         scopes, not_scopes = _scopes(environments, sel, manifest.get("notScopes", {}))
         ir["assignments"].append({
-            "initiative": name,
-            "displayName": policyset["properties"]["displayName"],
-            "description": art["assignment"]["assignment"].get("description", ""),
-            "nodeName": reprefix_node(art["assignment"]["nodeName"], prefix),
+            "initiative": set_name,                      # policySetDefinitionName it references
+            "assignmentName": group_name,                # the assignment's own name (<=24, no prefix)
+            "displayName": display,
+            "description": _assignment_description(display, group.get("policyCount"),
+                                                   posture, has_remediation),
+            "nodeName": customer_node(art["assignment"]["nodeName"], prefix),
             "boundParameters": bound,
             "scopes": scopes,
             "notScopes": not_scopes,
@@ -113,19 +112,31 @@ def build_ir(manifest, catalogue, groups):
                 for scope in scopes.get(env["selector"], []):
                     for rid in role_ids:
                         ir["roleAssignments"].append({
-                            "assignment": name, "selector": env["selector"],
+                            "assignment": group_name, "selector": env["selector"],
                             "roleDefinitionId": rid, "scope": scope,
                         })
 
         ir["lineage"]["groups"].append({
             "group": group_key,
-            "name": name,
+            "name": set_name,
+            "assignmentName": group_name,
             "source": group["dir"],
             "policyCount": group.get("policyCount"),
             "hasRemediation": has_remediation,
         })
 
     return ir
+
+
+def _assignment_description(display, policy_count, posture, has_remediation):
+    """A clean, customer-facing description — the catalogue scaffold's mock-replacement
+    boilerplate no longer applies once the assembler has bound real values."""
+    count = f"{policy_count} polic{'ies' if policy_count != 1 else 'y'}" if policy_count else "policies"
+    parts = [f"{display}: {count}, effect posture '{posture}'."]
+    if has_remediation:
+        parts.append("Contains Modify/DeployIfNotExists policies — a managed identity is "
+                     "assigned and remediation runs after deployment.")
+    return " ".join(parts)
 
 
 def _env(e, manifest_not_scopes):

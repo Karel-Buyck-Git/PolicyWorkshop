@@ -1,6 +1,6 @@
 # Bicep scaffold — contoso
 
-Catalogue version `2026.06.17`. Deploy at management-group scope:
+Catalogue version `2026.06.19`. Deploy at management-group scope:
 
 ```bash
 az deployment mg create \

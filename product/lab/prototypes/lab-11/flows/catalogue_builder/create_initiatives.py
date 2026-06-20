@@ -8,7 +8,8 @@ Phase 3 for lab-11:
   - Groups every policy row by (Domain, Tier, Category) — each policy lands in
     exactly one group (tiers are treated as *exclusive*, not cumulative).
   - For each group writes four EPAC-ready artifacts to
-    `catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*`:
+    `catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<domain>-<tier>-<categoryAbbr>.*`
+    (brand-neutral, within Azure limits; names built by `shared/naming.py`):
         .md               — tier rationale + a `## Usage` deployment guide + the policy table
         .policyset.json   — an EPAC policySetDefinition (initiative) with parameter
                             values sourced from the official Azure policy repo
@@ -29,7 +30,7 @@ Run after enrich_policies.py.
 
 Usage:
     python flows/catalogue_builder/create_initiatives.py
-    python flows/catalogue_builder/create_initiatives.py --prefix company --source "<repo>" --output <dir> --initiatives <dir>
+    python flows/catalogue_builder/create_initiatives.py --source "<repo>" --output <dir> --initiatives <dir>
 """
 
 import argparse
@@ -48,12 +49,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 from shared.paths import LAB_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE, TIER_RULES_FILE  # noqa: F401,E402
 from shared.hierarchy import load_domain_map  # noqa: E402
 from shared.mdtable import md_escape, slugify, parse_table  # noqa: E402
+from shared import naming  # noqa: E402
 DEFAULT_OUTPUT = DEFINITIONS_DIR
 DEFAULT_INITIATIVES = INITIATIVES_DIR
 DEFAULT_SOURCE = (
     r"C:\GIT\Official Azure Policy\azure-policy\built-in-policies\policyDefinitions"
 )
-DEFAULT_PREFIX = "company"
 
 VALID_TIERS = ("Essential", "Professional", "Enterprise")
 
@@ -483,10 +484,10 @@ def assignment_description(rows, required_params) -> str:
 
     req = list(required_params)
     if req:
-        shown = ", ".join(req[:6]) + (", …" if len(req) > 6 else "")
+        shown = ", ".join(req[:3]) + (", …" if len(req) > 3 else "")
         parts.append(
             f"{len(req)} parameter value{'s' if len(req) != 1 else ''} must be supplied at "
-            f"assignment (shown as <REPLACE: …> mocks): {shown}."
+            f"assignment (e.g. {shown})."
         )
     else:
         parts.append(
@@ -507,11 +508,14 @@ def assignment_description(rows, required_params) -> str:
         "Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, "
         "<REPLACE: …>) before deploying."
     )
-    return " ".join(parts)
+    desc = " ".join(parts)
+    if len(desc) > naming.DESCRIPTION_MAX:                 # Azure cap (512); trim cleanly
+        desc = desc[: naming.DESCRIPTION_MAX - 1].rstrip() + "…"
+    return desc
 
 
-def build_assignment(name, display_name, prefix, domain, tier, category, rows, required_params):
-    node = f"/{prefix}/{slugify(domain)}/{slugify(tier)}/{slugify(category)}/"
+def build_assignment(name, display_name, domain, tier, category, rows, required_params):
+    node = naming.node_name(domain, tier, category)
     assignment = {
         "nodeName": node,
         "assignment": {
@@ -537,13 +541,13 @@ def build_assignment(name, display_name, prefix, domain, tier, category, rows, r
     return assignment
 
 
-def build_exemptions(name, prefix, domain, tier, category):
-    node = f"/{prefix}/{slugify(domain)}/{slugify(tier)}/{slugify(category)}/exemptions/"
+def build_exemptions(name, domain, tier, category):
+    node = naming.node_name(domain, tier, category, "exemptions")
     return {
         "nodeName": node,
         "exemptions": [
             {
-                "name": f"{name}-example-exemption",
+                "name": naming.exemption_name(name),
                 "displayName": "Example exemption — replace or remove",
                 "description": "Template stub. Set the scope/assignment id and the "
                                "policyDefinitionReferenceIds for policies that do not apply.",
@@ -651,7 +655,6 @@ def main() -> None:
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Enriched markdown folder to read")
     parser.add_argument("--initiatives", default=str(DEFAULT_INITIATIVES), help="Output root for initiatives")
     parser.add_argument("--source", default=DEFAULT_SOURCE, help="Official policy repo (parameter schema)")
-    parser.add_argument("--prefix", default=DEFAULT_PREFIX, help="Brand prefix for files and initiative names")
     parser.add_argument("--version", default=datetime.now(timezone.utc).strftime("%Y.%m.%d"),
                         help="Catalogue version label (default: today's UTC date)")
     args = parser.parse_args()
@@ -661,7 +664,6 @@ def main() -> None:
     initiatives_dir = Path(args.initiatives)
     catalogue_root = initiatives_dir.parent
     source_dir = Path(args.source)
-    prefix = args.prefix
 
     if not output_dir.exists():
         print(f"ERROR: definitions catalogue folder not found: {output_dir}", file=sys.stderr)
@@ -698,10 +700,12 @@ def main() -> None:
     file_count = 0
     for (domain, tier, category) in sorted(by_group, key=lambda k: (k[0].lower(), VALID_TIERS.index(k[1]), k[2].lower())):
         rows = by_group[(domain, tier, category)]
-        name = f"{prefix}-{slugify(domain)}-{slugify(tier)}-{slugify(category)}"
-        display_name = f"{prefix.capitalize()} {domain} {tier} — {category}"
+        name = naming.name(domain, tier, category)
+        display_name = naming.display_name(domain, tier, category)
         rationale_text = rationale_by_cat.get(category, {}).get(tier, "")
         description = rationale_text or f"{display_name}: {len(rows)} built-in policies."
+        if len(description) > naming.DESCRIPTION_MAX:       # Azure cap (512); full text stays in the .md
+            description = description[: naming.DESCRIPTION_MAX - 1].rstrip() + "…"
 
         group_dir = initiatives_dir / slugify(domain) / slugify(tier) / slugify(category)
         group_dir.mkdir(parents=True, exist_ok=True)
@@ -729,12 +733,12 @@ def main() -> None:
         })
         write_json(
             group_dir / f"{name}.assignment.json",
-            build_assignment(name, display_name, prefix, domain, tier, category, rows, required_params),
+            build_assignment(name, display_name, domain, tier, category, rows, required_params),
             SCHEMA_ASSIGNMENT,
         )
         write_json(
             group_dir / f"{name}.exemptions.json",
-            build_exemptions(name, prefix, domain, tier, category),
+            build_exemptions(name, domain, tier, category),
             SCHEMA_EXEMPTIONS,
         )
         file_count += 4

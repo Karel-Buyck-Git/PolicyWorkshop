@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/security/professional/azure-active-directory/",
+  "assignment": {
+    "name": "security-pro-aad",
+    "displayName": "Security Professional — Azure Active Directory",
+    "description": "Deployment scaffold for 3 policies. 3 parameter values must be supplied at assignment (e.g. configurePrivateLinkAzureAdPrivatePrivateDnsZoneId, configurePrivateLinkAzureAdPrivateGroupId, configurePrivateLinkAzureAdPrivatePrivateEndpointSubnetId). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) bef…"
+  },
+  "policySetDefinitionName": "security-pro-aad",
+  "parameters": {
+    "configurePrivateLinkAzureAdPrivatePrivateDnsZoneId": "<REPLACE: configurePrivateLinkAzureAdPrivatePrivateDnsZoneId>",
+    "configurePrivateLinkAzureAdPrivateGroupId": "<REPLACE: configurePrivateLinkAzureAdPrivateGroupId>",
+    "configurePrivateLinkAzureAdPrivatePrivateEndpointSubnetId": "<REPLACE: configurePrivateLinkAzureAdPrivatePrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

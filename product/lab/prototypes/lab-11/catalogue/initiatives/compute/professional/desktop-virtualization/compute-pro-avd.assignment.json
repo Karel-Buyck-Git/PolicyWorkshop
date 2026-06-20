@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/compute/professional/desktop-virtualization/",
+  "assignment": {
+    "name": "compute-pro-avd",
+    "displayName": "Compute Professional — Desktop Virtualization",
+    "description": "Deployment scaffold for 11 policies. 6 parameter values must be supplied at assignment (e.g. configureAzureVirtualDesktopHostpoolResourcesPrivateDnsZoneId, configureAzureVirtualDesktopHostpoolResourcesPrivateEndpointGroupId, configureAzureVirtualDesktopHostpoolsPrivatePrivateEndpointSubnetId, …). A managed identity is required: 7 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac…"
+  },
+  "policySetDefinitionName": "compute-pro-avd",
+  "parameters": {
+    "configureAzureVirtualDesktopHostpoolResourcesPrivateDnsZoneId": "<REPLACE: configureAzureVirtualDesktopHostpoolResourcesPrivateDnsZoneId>",
+    "configureAzureVirtualDesktopHostpoolResourcesPrivateEndpointGroupId": "<REPLACE: configureAzureVirtualDesktopHostpoolResourcesPrivateEndpointGroupId>",
+    "configureAzureVirtualDesktopHostpoolsPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureVirtualDesktopHostpoolsPrivatePrivateEndpointSubnetId>",
+    "configureAzureVirtualDesktopWorkspaceResourcesPrivateDnsZoneId": "<REPLACE: configureAzureVirtualDesktopWorkspaceResourcesPrivateDnsZoneId>",
+    "configureAzureVirtualDesktopWorkspaceResourcesPrivateEndpointGroupId": "<REPLACE: configureAzureVirtualDesktopWorkspaceResourcesPrivateEndpointGroupId>",
+    "configureAzureVirtualDesktopWorkspacesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureVirtualDesktopWorkspacesPrivatePrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

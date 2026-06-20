@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "undefined-esn-map",
+  "properties": {
+    "displayName": "undefined Essential — Maps",
+    "description": "**Essential** — Baseline hygiene for Maps: the non-negotiable controls every deployment should enforce from day one. This tier protects against credential theft, unencrypted data exposure, and accidental data loss for Maps workloads. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Maps",
+      "domain": "undefined",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "c707daa0-b93b-454d-9e1e-8ac59866316c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c707daa0-b93b-454d-9e1e-8ac59866316c",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Maps account should not process data globally."
+        },
+        "parameters": {
+          "listOfAllowedLocations": {
+            "value": []
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

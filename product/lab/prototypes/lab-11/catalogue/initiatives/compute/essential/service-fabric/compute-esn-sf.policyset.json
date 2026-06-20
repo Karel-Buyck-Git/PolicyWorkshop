@@ -1,0 +1,54 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "compute-esn-sf",
+  "properties": {
+    "displayName": "Compute Essential — Service Fabric",
+    "description": "**Essential** — Baseline hygiene for Service Fabric: the non-negotiable controls every deployment should enforce from day one. This tier delivers encryption-at-rest with service-managed keys and key and certificate lifecycle hygiene (rotation, expiration, validity). Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Service Fabric",
+      "domain": "Compute",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "617c02be-7f02-4efd-8836-3180d47b6c68",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/617c02be-7f02-4efd-8836-3180d47b6c68",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Service Fabric clusters should have the ClusterProtectionLevel property set to EncryptAndSign"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b54ed75b-3e1a-44ac-a333-05ba39b99ff0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b54ed75b-3e1a-44ac-a333-05ba39b99ff0",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Service Fabric clusters should only use Azure Active Directory for client authentication"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

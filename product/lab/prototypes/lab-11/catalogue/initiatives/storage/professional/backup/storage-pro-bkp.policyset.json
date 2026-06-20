@@ -1,0 +1,151 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "storage-pro-bkp",
+  "properties": {
+    "displayName": "Storage Professional — Backup",
+    "description": "**Professional** — Active security posture for Backup: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Backup",
+      "domain": "Storage",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/microsoft.authorization/roleDefinitions/5e467623-bb1f-42f4-a55d-6e525e11384b"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID for backup",
+          "description": "Specifies private DNS Zone ID required to resolve DNS to private IP for the Azure Backup service.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID for blobs",
+          "description": "Specifies private DNS Zone ID required to resolve DNS to private IP for the Azure Blob service.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneQueue": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID for queues",
+          "description": "Specifies private DNS Zone ID required to resolve DNS to private IP for the Azure Queue service.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "configureRecoveryServicesVaultsPrivateEndpointsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet ID",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "9ebbbba3-4d65-4da9-bb67-b22cfaaff090",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9ebbbba3-4d65-4da9-bb67-b22cfaaff090",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Recovery Services vaults should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "deeddb44-9f94-4903-9fa0-081d524406e3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/deeddb44-9f94-4903-9fa0-081d524406e3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Recovery Services vaults should use private link for backup"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "04726aae-4e8d-427c-af7d-ecf56d490022",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/04726aae-4e8d-427c-af7d-ecf56d490022",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Recovery Services vaults to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "af783da1-4ad1-42be-800d-d19c70038820",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/af783da1-4ad1-42be-800d-d19c70038820",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Recovery Services vaults to use private DNS zones for backup"
+        },
+        "parameters": {
+          "privateDnsZone-Backup": {
+            "value": "[parameters('configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup')]"
+          },
+          "privateDnsZone-Blob": {
+            "value": "[parameters('configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob')]"
+          },
+          "privateDnsZone-Queue": {
+            "value": "[parameters('configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneQueue')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8015d6ed-3641-4534-8d0b-5c67b67ff7de",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8015d6ed-3641-4534-8d0b-5c67b67ff7de",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Recovery Services vaults to use private endpoints for backup"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureRecoveryServicesVaultsPrivateEndpointsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

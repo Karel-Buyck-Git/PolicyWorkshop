@@ -1,0 +1,62 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/networking/professional/network/",
+  "assignment": {
+    "name": "networking-pro-net",
+    "displayName": "Networking Professional — Network",
+    "description": "Deployment scaffold for 42 policies. 27 parameter values must be supplied at assignment (e.g. customIpsecIkePolicyAppliedAllIPsecEncryption, customIpsecIkePolicyAppliedAllIPsecIntegrity, customIpsecIkePolicyAppliedAllIKEEncryption, …). A managed identity is required: 6 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deployi…"
+  },
+  "policySetDefinitionName": "networking-pro-net",
+  "parameters": {
+    "customIpsecIkePolicyAppliedAllIPsecEncryption": [
+      "<REPLACE: customIpsecIkePolicyAppliedAllIPsecEncryption>"
+    ],
+    "customIpsecIkePolicyAppliedAllIPsecIntegrity": [
+      "<REPLACE: customIpsecIkePolicyAppliedAllIPsecIntegrity>"
+    ],
+    "customIpsecIkePolicyAppliedAllIKEEncryption": [
+      "<REPLACE: customIpsecIkePolicyAppliedAllIKEEncryption>"
+    ],
+    "customIpsecIkePolicyAppliedAllIKEIntegrity": [
+      "<REPLACE: customIpsecIkePolicyAppliedAllIKEIntegrity>"
+    ],
+    "customIpsecIkePolicyAppliedAllDHGroup": [
+      "<REPLACE: customIpsecIkePolicyAppliedAllDHGroup>"
+    ],
+    "customIpsecIkePolicyAppliedAllPFSGroup": [
+      "<REPLACE: customIpsecIkePolicyAppliedAllPFSGroup>"
+    ],
+    "configureVirtualNetworkEnableFlowLogVnetRegion": "<REPLACE: configureVirtualNetworkEnableFlowLogVnetRegion>",
+    "configureVirtualNetworkEnableFlowLogStorageId": "<REPLACE: configureVirtualNetworkEnableFlowLogStorageId>",
+    "configureVirtualNetworkEnableFlowLogWorkspaceResourceId": "<REPLACE: configureVirtualNetworkEnableFlowLogWorkspaceResourceId>",
+    "configureVirtualNetworkEnableFlowLogWorkspaceRegion": "<REPLACE: configureVirtualNetworkEnableFlowLogWorkspaceRegion>",
+    "configureVirtualNetworkEnableFlowLogNetworkWatcherName": "<REPLACE: configureVirtualNetworkEnableFlowLogNetworkWatcherName>",
+    "configureVirtualNetworksEnforceWorkspaceStorageVnetRegion": "<REPLACE: configureVirtualNetworksEnforceWorkspaceStorageVnetRegion>",
+    "configureVirtualNetworksEnforceWorkspaceStorageStorageId": "<REPLACE: configureVirtualNetworksEnforceWorkspaceStorageStorageId>",
+    "configureVirtualNetworksEnforceWorkspaceStorageWorkspaceResourceId": "<REPLACE: configureVirtualNetworksEnforceWorkspaceStorageWorkspaceResourceId>",
+    "configureVirtualNetworksEnforceWorkspaceStorageWorkspaceRegion": "<REPLACE: configureVirtualNetworksEnforceWorkspaceStorageWorkspaceRegion>",
+    "configureVirtualNetworksEnforceWorkspaceStorageNetworkWatcherName": "<REPLACE: configureVirtualNetworksEnforceWorkspaceStorageNetworkWatcherName>",
+    "createRegionalNetworkwatcherNetworkwatcherrgVnetFlowlogsLocation": "<REPLACE: createRegionalNetworkwatcherNetworkwatcherrgVnetFlowlogsLocation>",
+    "createRegionalStorageAccountVnetFlowlogsLocation": "<REPLACE: createRegionalStorageAccountVnetFlowlogsLocation>",
+    "deployFlowLogResourceTargetNetworkNsgRegion": "<REPLACE: deployFlowLogResourceTargetNetworkNsgRegion>",
+    "deployFlowLogResourceTargetNetworkStorageId": "<REPLACE: deployFlowLogResourceTargetNetworkStorageId>",
+    "deployFlowLogResourceTargetNetworkNetworkWatcherRG": "<REPLACE: deployFlowLogResourceTargetNetworkNetworkWatcherRG>",
+    "deployFlowLogResourceTargetNetworkNetworkWatcherName": "<REPLACE: deployFlowLogResourceTargetNetworkNetworkWatcherName>",
+    "deployFlowLogResourceTargetVirtualVnetRegion": "<REPLACE: deployFlowLogResourceTargetVirtualVnetRegion>",
+    "deployFlowLogResourceTargetVirtualStorageId": "<REPLACE: deployFlowLogResourceTargetVirtualStorageId>",
+    "deployFlowLogResourceTargetVirtualNetworkWatcherName": "<REPLACE: deployFlowLogResourceTargetVirtualNetworkWatcherName>",
+    "virtualMachinesConnectedApprovedVirtualNetworkVirtualNetworkId": "<REPLACE: virtualMachinesConnectedApprovedVirtualNetworkVirtualNetworkId>",
+    "virtualNetworksVirtualNetworkGatewayVirtualNetworkGatewayId": "<REPLACE: virtualNetworksVirtualNetworkGatewayVirtualNetworkGatewayId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -4,7 +4,7 @@ Layout written under ``<out>/json/``:
 
     Definitions/
       global-settings.jsonc                 (pacEnvironments + pacOwnerId)
-      policySetDefinitions/<name>.json       (re-prefixed, posture-applied policyset)
+      policySetDefinitions/<name>.json       (customer-prefixed, posture-applied policyset)
       policyAssignments/<name>.json          (bound assignment, real scopes)
       policyExemptions/<selector>/<name>.json
     README.md
@@ -28,7 +28,7 @@ def render(ir, out_root):
         write_json(defs / "policySetDefinitions" / f"{init['name']}.json", init["policyset"])
 
     for asg in ir["assignments"]:
-        write_json(defs / "policyAssignments" / f"{asg['initiative']}.json", _assignment(ir, asg))
+        write_json(defs / "policyAssignments" / f"{asg['assignmentName']}.json", _assignment(ir, asg))
 
     for ex in ir["exemptions"]:
         write_json(
@@ -66,7 +66,7 @@ def _assignment(ir, asg):
         "$schema": f"{SCHEMA}/policy-assignment-schema.json",
         "nodeName": asg["nodeName"],
         "assignment": {
-            "name": asg["initiative"],
+            "name": asg["assignmentName"],
             "displayName": asg["displayName"],
             "description": asg["description"],
         },

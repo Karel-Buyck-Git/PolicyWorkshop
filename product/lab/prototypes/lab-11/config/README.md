@@ -9,6 +9,13 @@ second copy to drift (see each file's note in [`../flows/README.md`](../flows/RE
 |---|---|---|
 | [`azure-domain-hierachy.md`](azure-domain-hierachy.md) | Domain → resource-category taxonomy | [`../flows/shared/hierarchy.py`](../flows/shared/hierarchy.py) |
 | [`tier-rules.yaml`](tier-rules.yaml) | Essential / Professional / Enterprise classification | [`../flows/shared/tiers.py`](../flows/shared/tiers.py) |
+| [`azure-category-abbreviation.md`](azure-category-abbreviation.md) | Category → short code for brand-neutral, within-limit names (`<domain>-<tier>-<abbr>`) | [`../flows/shared/naming.py`](../flows/shared/naming.py) |
+
+The **abbreviation map** is the single source for catalogue technical names, reused by the
+producer (catalogue-builder) and the consumer (epac-builder) via `shared/naming.py`. Codes are
+CAF-aligned where the category is an Azure resource type, a readable shortname otherwise, and must
+keep the assignment name (`<domain>-<tier>-<abbr>`) ≤ 24 chars (Azure's hard limit — see
+[`../docs/epac-arm-hard-limits.md`](../docs/epac-arm-hard-limits.md)); QC enforces this.
 
 The rest of this document explains the **tier-rules design** — the priority order
 and the override model — because both have non-obvious effects.

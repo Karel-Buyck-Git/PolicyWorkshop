@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/management/essential/guest-configuration/",
+  "assignment": {
+    "name": "management-esn-gc",
+    "displayName": "Management Essential — Guest Configuration",
+    "description": "Deployment scaffold for 79 policies. 17 parameter values must be supplied at assignment (e.g. auditLinuxMachinesDonTApplicationsApplicationName, auditLinuxMachinesApplicationsInstalledApplicationName, auditWindowsMachinesMissingAnyMembersMembersToInclude, …). A managed identity is required: 12 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <RE…"
+  },
+  "policySetDefinitionName": "management-esn-gc",
+  "parameters": {
+    "auditLinuxMachinesDonTApplicationsApplicationName": "<REPLACE: auditLinuxMachinesDonTApplicationsApplicationName>",
+    "auditLinuxMachinesApplicationsInstalledApplicationName": "<REPLACE: auditLinuxMachinesApplicationsInstalledApplicationName>",
+    "auditWindowsMachinesMissingAnyMembersMembersToInclude": "<REPLACE: auditWindowsMachinesMissingAnyMembersMembersToInclude>",
+    "auditWindowsMachinesNetworkConnectivityHost": "<REPLACE: auditWindowsMachinesNetworkConnectivityHost>",
+    "auditWindowsMachinesNetworkConnectivityPort": "<REPLACE: auditWindowsMachinesNetworkConnectivityPort>",
+    "auditWindowsMachinesLogAnalyticsAgentWorkspaceId": "<REPLACE: auditWindowsMachinesLogAnalyticsAgentWorkspaceId>",
+    "auditWindowsMachinesServicesInstalledRunningServiceName": "<REPLACE: auditWindowsMachinesServicesInstalledRunningServiceName>",
+    "auditWindowsMachinesJoinedDomainDomainName": "<REPLACE: auditWindowsMachinesJoinedDomainDomainName>",
+    "auditWindowsMachinesSetTimeZoneTimeZone": "<REPLACE: auditWindowsMachinesSetTimeZoneTimeZone>",
+    "auditWindowsMachinesDoContainCertificatesCertificateThumbprints": "<REPLACE: auditWindowsMachinesDoContainCertificatesCertificateThumbprints>",
+    "auditWindowsMachinesDoWindowsPowershellExecutionPolicy": "<REPLACE: auditWindowsMachinesDoWindowsPowershellExecutionPolicy>",
+    "auditWindowsMachinesDoWindowsPowershellModules": "<REPLACE: auditWindowsMachinesDoWindowsPowershellModules>",
+    "auditWindowsMachinesDonTApplicationsInstalledApplication": "<REPLACE: auditWindowsMachinesDonTApplicationsInstalledApplication>",
+    "auditWindowsMachinesApplicationsInstalledApplicationName": "<REPLACE: auditWindowsMachinesApplicationsInstalledApplicationName>",
+    "auditWindowsMachinesMembersAdministratorsGroupMembersToExclude": "<REPLACE: auditWindowsMachinesMembersAdministratorsGroupMembersToExclude>",
+    "configureTimeZoneWindowsMachinesTimeZone": "<REPLACE: configureTimeZoneWindowsMachinesTimeZone>",
+    "linuxWorkloadsComplyOfficialCisSecurityBaselineSettings": "<REPLACE: linuxWorkloadsComplyOfficialCisSecurityBaselineSettings>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

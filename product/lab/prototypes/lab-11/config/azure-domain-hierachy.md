@@ -12,7 +12,7 @@ Microsoft Azure
   - Trusted Launch
   - VM Image Builder
 
-- Container Services
+- Containers
 
   - Container Apps
   - Container Instance
@@ -73,7 +73,7 @@ Microsoft Azure
   - Managed Grafana
   - Monitoring
 
-- Azure AI Foundry
+- AI Foundry
 
   - Azure Ai Services
   - Bot Service

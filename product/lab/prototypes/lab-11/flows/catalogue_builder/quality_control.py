@@ -45,6 +45,9 @@ from shared.paths import (  # noqa: E402
     QC_REPORT_FILE,
 )
 from shared.mdtable import parse_table  # noqa: E402  reuse shared helper
+from shared.naming import (  # noqa: E402
+    ASSIGNMENT_NAME_MAX, DEFINITION_NAME_MAX, DISPLAY_NAME_MAX, DESCRIPTION_MAX,
+)
 
 GUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.I)
 
@@ -99,6 +102,7 @@ def load_custom_definitions() -> list[dict]:
         out.append({
             "name": raw.get("name") or path.stem,
             "displayName": props.get("displayName") or "",
+            "description": props.get("description") or "",
             "resourceType": meta.get("resourceType") or "",
             "abbr": abbr[0] if abbr else "",
             "checkKind": meta.get("checkKind") or "",
@@ -146,6 +150,7 @@ def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
         initiatives.append({
             "name": raw.get("name") or path.stem,
             "displayName": props.get("displayName") or "",
+            "description": props.get("description") or "",
             "memberCount": len(defs),
             "_path": path,
             "_unreadable": False,
@@ -172,11 +177,25 @@ def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
         assignments.append({
             "name": a.get("name") or path.stem,
             "displayName": a.get("displayName") or "",
+            "description": a.get("description") or "",
             "policySet": raw.get("policySetDefinitionName") or "",
             "_path": path,
             "_unreadable": False,
         })
     return initiatives, assignments, members
+
+
+def load_exemptions() -> list[dict]:
+    """Return exemption stubs (name + path) read from initiatives/**/*.exemptions.json."""
+    out: list[dict] = []
+    for path in sorted(INITIATIVES_DIR.rglob("*.exemptions.json")):
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        for ex in raw.get("exemptions") or []:
+            out.append({"name": ex.get("name") or "", "_path": path})
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -191,7 +210,8 @@ def _rel(path: Path) -> str:
 
 
 def validate(custom: list[dict], builtins: list[dict], initiatives: list[dict],
-             assignments: list[dict], members: list[dict]) -> list[dict]:
+             assignments: list[dict], members: list[dict],
+             exemptions: list[dict] | None = None) -> list[dict]:
     """Run the QC checks and return a list of findings (severity/code/message/file)."""
     findings: list[dict] = []
 
@@ -217,14 +237,52 @@ def validate(custom: list[dict], builtins: list[dict], initiatives: list[dict],
         if not a["_unreadable"] and not a["displayName"].strip():
             add("error", "missing-displayname", f"Assignment '{a['name']}' has no displayName", a["_path"])
 
+    # Azure hard limits (docs/epac-arm-hard-limits.md) ------------------------
+    def check_limits(kind, items, name_max):
+        for x in items:
+            if x.get("_unreadable"):
+                continue
+            nm = x.get("name", "")
+            if len(nm) > name_max:
+                add("error", "name-too-long",
+                    f"{kind} name '{nm}' is {len(nm)} chars (Azure max {name_max})", x.get("_path"))
+            dn = x.get("displayName", "")
+            if len(dn) > DISPLAY_NAME_MAX:
+                add("error", "displayname-too-long",
+                    f"{kind} '{nm}' displayName is {len(dn)} chars (max {DISPLAY_NAME_MAX})", x.get("_path"))
+            desc = x.get("description", "")
+            if len(desc) > DESCRIPTION_MAX:
+                add("error", "description-too-long",
+                    f"{kind} '{nm}' description is {len(desc)} chars (max {DESCRIPTION_MAX})", x.get("_path"))
+
+    check_limits("definition", custom, DEFINITION_NAME_MAX)
+    check_limits("initiative", initiatives, DEFINITION_NAME_MAX)
+    check_limits("assignment", assignments, ASSIGNMENT_NAME_MAX)  # the strict 24-char cap
+    for ex in (exemptions or []):
+        if len(ex["name"]) > DEFINITION_NAME_MAX:
+            add("error", "name-too-long",
+                f"exemption name '{ex['name']}' is {len(ex['name'])} chars (max {DEFINITION_NAME_MAX})",
+                ex.get("_path"))
+
+    # brand-neutral catalogue (no 'company' / brand token) --------------------
+    for kind, items in (("initiative", initiatives), ("assignment", assignments)):
+        for x in items:
+            if x.get("_unreadable"):
+                continue
+            if re.search(r"(?i)\bcompany\b", f"{x.get('name','')} {x.get('displayName','')}"):
+                add("error", "brand-leak",
+                    f"{kind} '{x['name']}' still carries a 'company' brand token", x.get("_path"))
+
     # duplicate technical names ----------------------------------------------
-    for label, items in (("definition", custom), ("initiative", initiatives)):
+    for label, items, severity in (("definition", custom, "warning"),
+                                   ("initiative", initiatives, "warning"),
+                                   ("assignment", assignments, "error")):
         counts: dict[str, int] = {}
         for x in items:
             counts[x["name"]] = counts.get(x["name"], 0) + 1
         for name, c in sorted(counts.items()):
             if c > 1:
-                add("warning", "duplicate-name", f"{label} name '{name}' appears {c} times")
+                add(severity, "duplicate-name", f"{label} name '{name}' appears {c} times")
 
     # orphan assignments ------------------------------------------------------
     initiative_names = {it["name"] for it in initiatives}
@@ -401,7 +459,8 @@ Azure references them by GUID.
 
 {ctx['initiative_pairs']}
 
-> Pattern: `company-<domain>-<tier>-<service>` ↔ `Company <Domain> <Tier> — <Service>`.
+> Pattern: `<domain>-<tier>-<abbr>` ↔ `<Domain> <Tier> — <Category>` (brand-neutral; tier code
+> `esn`/`pro`/`ent`; the category abbreviation is authored in `config/azure-category-abbreviation.md`).
 
 ### D. Assignments — name ↔ displayName
 
@@ -517,7 +576,10 @@ Representative pairs pulled live from the catalogue.
 
 {ctx['initiative_pairs']}
 
-Pattern: `company-<domain>-<tier>-<service>` ↔ `Company <Domain> <Tier> — <Service>`.
+Pattern: `<domain>-<tier>-<abbr>` ↔ `<Domain> <Tier> — <Category>`. Names are **brand-neutral**
+(no `company`) and within the Azure hard limits (assignment `name` ≤ 24 chars — see
+`epac-arm-hard-limits.md`). Tier code: `esn`/`pro`/`ent`. The category abbreviation is authored
+in `config/azure-category-abbreviation.md` (CAF-aligned where the category is a resource type).
 
 ### Assignments — name ↔ displayName
 
@@ -533,7 +595,7 @@ Pattern: `company-<domain>-<tier>-<service>` ↔ `Company <Domain> <Tier> — <S
 
 - **Display names** — consistency of tone, casing and length across definitions, initiatives and
   assignments (these are the user-facing strings). Watch for casing slips.
-- **Initiative / assignment titles** — they follow `Company <Domain> <Tier> — <Service>`;
+- **Initiative / assignment titles** — they follow `<Domain> <Tier> — <Category>` (brand-neutral);
   confirm the em-dash and capitalisation are uniform.
 - **Technical names** — custom slugs are predictable (`naming-<provider>-<resource>`); built-in
   ids are GUIDs and cannot be changed.
@@ -582,9 +644,10 @@ def main() -> None:
     custom = load_custom_definitions()
     builtins = load_builtin_policies()
     initiatives, assignments, members = load_initiatives()
+    exemptions = load_exemptions()
 
     # Validate.
-    findings = validate(custom, builtins, initiatives, assignments, members)
+    findings = validate(custom, builtins, initiatives, assignments, members, exemptions)
     errors = sum(1 for f in findings if f["severity"] == "error")
     warnings = sum(1 for f in findings if f["severity"] == "warning")
     summary_line = (f"**{len(custom)}** custom defs · **{len(builtins)}** built-ins · "

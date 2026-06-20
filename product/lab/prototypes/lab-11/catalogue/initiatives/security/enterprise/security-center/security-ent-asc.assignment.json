@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/security/enterprise/security-center/",
+  "assignment": {
+    "name": "security-ent-asc",
+    "displayName": "Security Enterprise — Security Center",
+    "description": "Deployment scaffold for 21 policies. 13 parameter values must be supplied at assignment (e.g. configureArcEnabledSqlServersAutomaticallyUserWorkspaceResourceId, configureArcEnabledSqlServersAutomaticallyWorkspaceRegion, configureAzureDefenderSqlAgentVirtualAzureDefenderForSqlExtensionTypeToInstall, …). A managed identity is required: 11 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id…"
+  },
+  "policySetDefinitionName": "security-ent-asc",
+  "parameters": {
+    "configureArcEnabledSqlServersAutomaticallyUserWorkspaceResourceId": "<REPLACE: configureArcEnabledSqlServersAutomaticallyUserWorkspaceResourceId>",
+    "configureArcEnabledSqlServersAutomaticallyWorkspaceRegion": "<REPLACE: configureArcEnabledSqlServersAutomaticallyWorkspaceRegion>",
+    "configureAzureDefenderSqlAgentVirtualAzureDefenderForSqlExtensionTypeToInstall": "<REPLACE: configureAzureDefenderSqlAgentVirtualAzureDefenderForSqlExtensionTypeToInstall>",
+    "configureSqlVirtualMachinesAutomaticallyInstallUserWorkspaceResourceId": "<REPLACE: configureSqlVirtualMachinesAutomaticallyInstallUserWorkspaceResourceId>",
+    "configureSqlVirtualMachinesAutomaticallyInstallWorkspaceRegion": "<REPLACE: configureSqlVirtualMachinesAutomaticallyInstallWorkspaceRegion>",
+    "deployExportLogAnalyticsWorkspaceMicrosoftResourceGroupName": "<REPLACE: deployExportLogAnalyticsWorkspaceMicrosoftResourceGroupName>",
+    "deployExportLogAnalyticsWorkspaceMicrosoftResourceGroupLocation": "<REPLACE: deployExportLogAnalyticsWorkspaceMicrosoftResourceGroupLocation>",
+    "deployExportLogAnalyticsWorkspaceMicrosoftWorkspaceResourceId": "<REPLACE: deployExportLogAnalyticsWorkspaceMicrosoftWorkspaceResourceId>",
+    "deployWorkflowAutomationMicrosoftDefenderCloudAutomationName": "<REPLACE: deployWorkflowAutomationMicrosoftDefenderCloudAutomationName>",
+    "deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupName": "<REPLACE: deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupName>",
+    "deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupLocation": "<REPLACE: deployWorkflowAutomationMicrosoftDefenderCloudResourceGroupLocation>",
+    "deployWorkflowAutomationMicrosoftDefenderCloudLogicAppResourceId": "<REPLACE: deployWorkflowAutomationMicrosoftDefenderCloudLogicAppResourceId>",
+    "deployWorkflowAutomationMicrosoftDefenderCloudLogicAppTrigger": "<REPLACE: deployWorkflowAutomationMicrosoftDefenderCloudLogicAppTrigger>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/compute/essential/compute/",
+  "assignment": {
+    "name": "compute-esn-cmp",
+    "displayName": "Compute Essential — Compute",
+    "description": "Deployment scaffold for 13 policies. 7 parameter values must be supplied at assignment (e.g. allowedVirtualMachineSizeSkusListOfAllowedSKUs, configureDisasterRecoveryVirtualMachinesEnablingSourceRegion, configureDisasterRecoveryVirtualMachinesEnablingTargetRegion, …). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-…"
+  },
+  "policySetDefinitionName": "compute-esn-cmp",
+  "parameters": {
+    "allowedVirtualMachineSizeSkusListOfAllowedSKUs": [
+      "<REPLACE: allowedVirtualMachineSizeSkusListOfAllowedSKUs>"
+    ],
+    "configureDisasterRecoveryVirtualMachinesEnablingSourceRegion": "<REPLACE: configureDisasterRecoveryVirtualMachinesEnablingSourceRegion>",
+    "configureDisasterRecoveryVirtualMachinesEnablingTargetRegion": "<REPLACE: configureDisasterRecoveryVirtualMachinesEnablingTargetRegion>",
+    "configureDisasterRecoveryVirtualMachinesEnablingTargetResourceGroupId": "<REPLACE: configureDisasterRecoveryVirtualMachinesEnablingTargetResourceGroupId>",
+    "configureDisasterRecoveryVirtualMachinesEnablingVaultResourceGroupId": "<REPLACE: configureDisasterRecoveryVirtualMachinesEnablingVaultResourceGroupId>",
+    "configureDisasterRecoveryVirtualMachinesEnablingVaultId": "<REPLACE: configureDisasterRecoveryVirtualMachinesEnablingVaultId>",
+    "approvedVmExtensionsInstalledApprovedExtensions": [
+      "<REPLACE: approvedVmExtensionsInstalledApprovedExtensions>"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

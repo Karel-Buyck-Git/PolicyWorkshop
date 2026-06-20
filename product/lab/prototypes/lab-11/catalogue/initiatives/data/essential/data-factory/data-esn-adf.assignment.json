@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/data/essential/data-factory/",
+  "assignment": {
+    "name": "data-esn-adf",
+    "displayName": "Data Essential — Data Factory",
+    "description": "Deployment scaffold for 6 policies. 2 parameter values must be supplied at assignment (e.g. azureDataFactoryLinkedServiceResourceAllowedLinkedServiceResourceTypes, azureDataFactoryPipelinesCommunicateAllowedAllowedDomainNames). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "data-esn-adf",
+  "parameters": {
+    "azureDataFactoryLinkedServiceResourceAllowedLinkedServiceResourceTypes": [
+      "<REPLACE: azureDataFactoryLinkedServiceResourceAllowedLinkedServiceResourceTypes>"
+    ],
+    "azureDataFactoryPipelinesCommunicateAllowedAllowedDomainNames": [
+      "<REPLACE: azureDataFactoryPipelinesCommunicateAllowedAllowedDomainNames>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

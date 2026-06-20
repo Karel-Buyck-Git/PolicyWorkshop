@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/management/professional/tags/",
+  "assignment": {
+    "name": "management-pro-tags",
+    "displayName": "Management Professional — Tags",
+    "description": "Deployment scaffold for 13 policies. 21 parameter values must be supplied at assignment (e.g. addTagResourceGroupsTagName, addTagResourceGroupsTagValue, addTagResourcesTagName, …). A managed identity is required: 10 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "management-pro-tags",
+  "parameters": {
+    "addTagResourceGroupsTagName": "<REPLACE: addTagResourceGroupsTagName>",
+    "addTagResourceGroupsTagValue": "<REPLACE: addTagResourceGroupsTagValue>",
+    "addTagResourcesTagName": "<REPLACE: addTagResourcesTagName>",
+    "addTagResourcesTagValue": "<REPLACE: addTagResourcesTagValue>",
+    "addTagSubscriptionsTagName": "<REPLACE: addTagSubscriptionsTagName>",
+    "addTagSubscriptionsTagValue": "<REPLACE: addTagSubscriptionsTagValue>",
+    "addReplaceTagResourceGroupsTagName": "<REPLACE: addReplaceTagResourceGroupsTagName>",
+    "addReplaceTagResourceGroupsTagValue": "<REPLACE: addReplaceTagResourceGroupsTagValue>",
+    "addReplaceTagResourcesTagName": "<REPLACE: addReplaceTagResourcesTagName>",
+    "addReplaceTagResourcesTagValue": "<REPLACE: addReplaceTagResourcesTagValue>",
+    "addReplaceTagSubscriptionsTagName": "<REPLACE: addReplaceTagSubscriptionsTagName>",
+    "addReplaceTagSubscriptionsTagValue": "<REPLACE: addReplaceTagSubscriptionsTagValue>",
+    "appendTagValueResourceGroupTagName": "<REPLACE: appendTagValueResourceGroupTagName>",
+    "appendTagValueResourceGroupsTagName": "<REPLACE: appendTagValueResourceGroupsTagName>",
+    "appendTagValueResourceGroupsTagValue": "<REPLACE: appendTagValueResourceGroupsTagValue>",
+    "appendTagValueResourcesTagName": "<REPLACE: appendTagValueResourcesTagName>",
+    "appendTagValueResourcesTagValue": "<REPLACE: appendTagValueResourcesTagValue>",
+    "inheritTagResourceGroupTagName": "<REPLACE: inheritTagResourceGroupTagName>",
+    "inheritTagResourceGroupMissingTagName": "<REPLACE: inheritTagResourceGroupMissingTagName>",
+    "inheritTagSubscriptionTagName": "<REPLACE: inheritTagSubscriptionTagName>",
+    "inheritTagSubscriptionMissingTagName": "<REPLACE: inheritTagSubscriptionMissingTagName>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}
