@@ -17,6 +17,43 @@ CAF-aligned where the category is an Azure resource type, a readable shortname o
 keep the assignment name (`<domain>-<tier>-<abbr>`) ≤ 24 chars (Azure's hard limit — see
 [`../docs/epac-arm-hard-limits.md`](../docs/epac-arm-hard-limits.md)); QC enforces this.
 
+---
+
+## Narrative — who uses these files, why, and how
+
+Three flows touch `config/`, and they deliberately do **not** all read everything. The split
+keeps one convention shared while each flow only loads the inputs it actually needs.
+
+| File / shared module | `catalogue_builder` (producer) | `definition_gen` (`gen_dlw_naming`) | `epac_builder` (consumer) |
+|---|---|---|---|
+| `azure-domain-hierachy.md` → `shared/hierarchy.py` | **Yes** — Category→Domain on extract/enrich | No | No (reads `domainMap` from the published `index.json`) |
+| `tier-rules.yaml` → `shared/tiers.py` | **Yes** — classifies each policy into a tier | No (its output is fixed to Essential) | No |
+| `azure-category-abbreviation.md` → `shared/naming.py` | **Yes** — looks up each built-in category's code | No (its `naming` category is custom, not a resource — it supplies the code inline) | No (consumes names already in the catalogue) |
+| `shared/naming.py` *(the convention itself: tier codes `esn/pro/ent`, the name / displayName / nodeName / exemption formats, the Azure limit constants)* | **Yes** | **Yes** | **Yes** |
+
+**Why this shape.**
+
+- **`catalogue_builder`** is the only flow that *derives* taxonomy: it reads the hierarchy
+  (which domain a category belongs to), the tier rules (which tier a policy lands in), and the
+  abbreviation map (the short code for each category) to build the 186 built-in initiatives.
+- **`definition_gen`** *authors* the custom `naming-*` definitions and bundles them into one
+  `management-esn-naming` overlay. It does not classify tiers (everything it emits is Essential)
+  and its category (`Naming`) is not an Azure resource type, so it has nothing to look up in the
+  hierarchy, tier-rules, or abbreviation map. It borrows only the **naming convention** from
+  `shared/naming.py` so its EPAC asset names match the built-in ones (`management-esn-naming`,
+  `Management Essential — Naming`, `…-ex`). The *policy rule* those definitions enforce — the
+  `dlw-<abbr>-…` anchor and `customerAbbreviation` parameter — is unrelated to `config/` and is
+  intentionally left untouched.
+- **`epac_builder`** never reads `config/` at all. The catalogue is self-describing: the consumer
+  reads the published `catalogue/index.json` (groups + `domainMap`) and the artifacts, and shares
+  only `shared/naming.py` so a customer deploys exactly the names QC validated.
+
+**The one shared dependency that matters** is `shared/naming.py`: the *convention* is centralised
+(edit it once, all three flows agree), while the *data inputs* (hierarchy, tier rules, category
+codes) stay scoped to the catalogue-builder that needs them.
+
+---
+
 The rest of this document explains the **tier-rules design** — the priority order
 and the override model — because both have non-obvious effects.
 

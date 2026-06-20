@@ -8,10 +8,11 @@ mirror of the deployment-side Bicep function [`getResourceName.bicep`](https://g
 - **Outputs:**
   - `catalogue/definitions/custom/dlw-az-naming/naming-*.json` one EPAC
     policyDefinition per Azure resource type (existing `naming-*.json` are overwritten;
-  - `catalogue/initiatives/management/essential/naming/company-management-essential-naming.*`
+  - `catalogue/initiatives/management/essential/naming/management-esn-naming.*`
     a `naming` **initiative** that bundles every definition above, using the same
-    artifact set and JSON shapes the built-in producer (`flows/catalogue_builder/create_initiatives.py`)
-    emits per group.
+    artifact set, JSON shapes and brand-neutral within-limit asset naming
+    (`flows/shared/naming.py`) the built-in producer (`flows/catalogue_builder/create_initiatives.py`)
+    emits per group. (The *policy rule* / naming convention the policies enforce is unchanged.)
 
 ## Product, purpose & deployment
 
@@ -281,10 +282,10 @@ built-in producer emits per `(domain, tier, category)` group:
 
 | Artifact                                              | Notes                                                                                                                                                     |
 | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `company-management-essential-naming.policyset.json`  | `policySetDefinition`; one member per `naming-*` definition, referenced by **`policyDefinitionName`** (custom, in-repo) with `groupNames: ["Essential"]`. |
-| `company-management-essential-naming.assignment.json` | `policyAssignment` scaffold with `<root-mg-id>` / `<pac-environment-selector>` mocks.                                                                     |
-| `company-management-essential-naming.exemptions.json` | One `Waiver` exemption stub.                                                                                                                              |
-| `company-management-essential-naming.md`              | Tier rationale + Usage guide + the full member table.                                                                                                     |
+| `management-esn-naming.policyset.json`  | `policySetDefinition`; one member per `naming-*` definition, referenced by **`policyDefinitionName`** (custom, in-repo) with `groupNames: ["Essential"]`. |
+| `management-esn-naming.assignment.json` | `policyAssignment` scaffold with `<root-mg-id>` / `<pac-environment-selector>` mocks.                                                                     |
+| `management-esn-naming.exemptions.json` | One `Waiver` exemption stub.                                                                                                                              |
+| `management-esn-naming.md`              | Tier rationale + Usage guide + the full member table.                                                                                                     |
 
 No `.roles.json` is written naming policies are Audit/Deny only (no
 Modify/DeployIfNotExists), exactly as the producer omits it for non-remediating groups.
@@ -295,9 +296,12 @@ per member), this initiative **bubbles a single top-level `effect` parameter**
 from one value at assignment. Each member's other parameters (`customerAbbreviation`,
 `excludedNamePattern`) are emitted inline with their definition defaults.
 
-Placement constants live at the top of the script (`PREFIX`, `INIT_DOMAIN`, `INIT_TIER`,
-`INIT_CATEGORY`, `INIT_NAME`, `INIT_DIR`). The `catalogueVersion` stamped into the
-policyset is read from `catalogue/catalogue.json` when present, else today's UTC date.
+Placement constants live at the top of the script (`INIT_DOMAIN`, `INIT_TIER`,
+`INIT_CATEGORY`, `INIT_CAT_ABBR`, `INIT_NAME`, `INIT_DIR`). The EPAC asset names
+(`INIT_NAME` = `management-esn-naming`, displayName, nodeName, exemption name) are built by the
+shared, brand-neutral, within-limit convention in `flows/shared/naming.py` — identical to the
+built-in producer. The `catalogueVersion` stamped into the policyset is read from
+`catalogue/catalogue.json` when present, else today's UTC date.
 
 > Note: the script does **not** update the catalogue manifests
 > (`catalogue/index.json` / `catalogue/catalogue.json`) those are owned by

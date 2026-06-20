@@ -31,6 +31,8 @@ from collections import OrderedDict
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
 from shared.paths import CATALOGUE_DIR  # noqa: E402  the ONE catalogue path
+from shared.mdtable import slugify  # noqa: E402
+from shared import naming  # noqa: E402  shared EPAC-asset naming (brand-neutral, within-limit)
 
 LAB = CATALOGUE_DIR.parent
 OUT = CATALOGUE_DIR / "definitions" / "custom" / "dlw-az-naming"
@@ -43,12 +45,15 @@ CUST_DEFAULT = "dlw"
 SOURCE = "getResourceName.bicep v1.5"
 
 # ---- 'naming' initiative (placed alongside the built-in producer's output) ----
-PREFIX = "company"
+# EPAC asset names follow the shared brand-neutral, within-limit convention
+# (flows/shared/naming.py); the *policy rule* / naming convention the policies enforce
+# (the dlw- anchor, customerAbbreviation, examples) is unchanged.
 INIT_DOMAIN = "Management"
 INIT_TIER = "Essential"
 INIT_CATEGORY = "Naming"          # leaf category (folder slug = 'naming')
-INIT_NAME = f"{PREFIX}-management-essential-naming"
-INIT_DISPLAY = "Company Management Essential — Naming"
+INIT_CAT_ABBR = "naming"          # custom category code (not an Azure resource; not in the built-in map)
+INIT_NAME = f"{slugify(INIT_DOMAIN)}-{naming.tier_code(INIT_TIER)}-{INIT_CAT_ABBR}"  # brand-neutral, <=24
+INIT_DISPLAY = naming.display_name(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY)
 INIT_DIR = LAB / "catalogue" / "initiatives" / "management" / "essential" / "naming"
 INIT_RATIONALE = (
     "**Essential** — Naming-convention guardrails for every Azure resource type: audits "
@@ -473,7 +478,7 @@ def build_policyset(members, version):
 def build_assignment(members):
     return {
         "$schema": SCHEMA_ASSIGNMENT,
-        "nodeName": f"/{PREFIX}/management/essential/naming/",
+        "nodeName": naming.node_name(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY),
         "assignment": {
             "name": INIT_NAME,
             "displayName": INIT_DISPLAY,
@@ -494,10 +499,10 @@ def build_assignment(members):
 def build_exemptions():
     return {
         "$schema": SCHEMA_EXEMPTIONS,
-        "nodeName": f"/{PREFIX}/management/essential/naming/exemptions/",
+        "nodeName": naming.node_name(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY, "exemptions"),
         "exemptions": [
             {
-                "name": f"{INIT_NAME}-example-exemption",
+                "name": naming.exemption_name(INIT_NAME),
                 "displayName": "Example exemption — replace or remove",
                 "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds "
                                "(e.g. 'naming-storage-storageaccounts') for resource types that should not be governed here.",
