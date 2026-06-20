@@ -1,0 +1,69 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "apim-tls",
+  "properties": {
+    "displayName": "API Management services should use TLS version 1.2",
+    "description": "Azure API Management service should use TLS version 1.2",
+    "policyType": "Custom",
+    "mode": "All",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "API Management",
+      "source": "https://github.com/Azure/Enterprise-Scale/",
+      "alzPolicy": "Deny-APIM-TLS",
+      "alzCloudEnvironments": [
+        "AzureCloud",
+        "AzureChinaCloud",
+        "AzureUSGovernment"
+      ]
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.ApiManagement/service"
+          },
+          {
+            "anyOf": [
+              {
+                "value": "[indexof(toLower(string(field('Microsoft.ApiManagement/service/customProperties'))), '\"microsoft.windowsazure.apimanagement.gateway.security.protocols.tls10\":\"true\"')]",
+                "greater": 0
+              },
+              {
+                "value": "[indexof(toLower(string(field('Microsoft.ApiManagement/service/customProperties'))), '\"microsoft.windowsazure.apimanagement.gateway.security.protocols.tls10\":true')]",
+                "greater": 0
+              },
+              {
+                "value": "[indexof(toLower(string(field('Microsoft.ApiManagement/service/customProperties'))), '\"microsoft.windowsazure.apimanagement.gateway.security.protocols.tls11\":\"true\"')]",
+                "greater": 0
+              },
+              {
+                "value": "[indexof(toLower(string(field('Microsoft.ApiManagement/service/customProperties'))), '\"microsoft.windowsazure.apimanagement.gateway.security.protocols.tls11\":true')]",
+                "greater": 0
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
