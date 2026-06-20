@@ -13,8 +13,14 @@ Run the four steps in order from the `flows/` root; each is idempotent and defau
 python flows/catalogue_builder/extract_policies.py
 python flows/catalogue_builder/enrich_policies.py
 python flows/catalogue_builder/create_initiatives.py
+python flows/definition_gen/apply_overlays.py        # custom overlays + register (see definition_gen/)
 python flows/catalogue_builder/quality_control.py
 ```
+
+> The fourth command is the **custom-overlay step** ([`../definition_gen/`](../definition_gen/)):
+> it runs the custom-definition generators and registers their output into `index.json` /
+> `catalogue.json` *between* create-initiatives and quality-control, so the catalogue contains both
+> built-in and custom assets when QC validates it.
 
 ## At a glance
 

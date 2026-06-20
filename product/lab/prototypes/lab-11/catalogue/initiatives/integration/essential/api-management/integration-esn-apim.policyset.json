@@ -9,12 +9,13 @@
       "category": "API Management",
       "domain": "Integration",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
         "/providers/microsoft.authorization/roleDefinitions/312a565d-c81f-4fd8-895a-4e21e48d571c"
-      ]
+      ],
+      "hasCustomMembers": true
     },
     "policyDefinitionGroups": [
       {
@@ -173,6 +174,22 @@
         "parameters": {
           "effect": {
             "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "apim-tls",
+        "policyDefinitionName": "apim-tls",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "API Management services should use TLS version 1.2",
+          "custom": true
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
           }
         }
       }

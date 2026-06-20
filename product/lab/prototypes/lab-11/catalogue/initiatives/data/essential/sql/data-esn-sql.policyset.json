@@ -9,7 +9,7 @@
       "category": "SQL",
       "domain": "Data",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/9b7fa17d-e63e-47b0-bb0a-15c516ac86ec"

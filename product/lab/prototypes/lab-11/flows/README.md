@@ -38,17 +38,19 @@ PRODUCER — catalogue-builder (catalogue_builder/)   CATALOGUE @version (the co
                           ├─► ① extract ─► ② enrich ─►③ create-initiatives ─►          │
   config/ hierarchy ──────┘     dedup ·      validate    group · bake roles  │ index.json     groups·domainMap │
                                 first-pass    tier ·     · stamp version      │ initiatives/<domain>/<tier>/<cat>/ │
-                                tier          rationale                       │ definitions/   policies.md       │
-                                          ④ quality-control (validate + docs) └─────────────────────────────────┘
+                                tier          rationale  ④ apply-overlays     │ definitions/   policies.md + custom │
+                                                            (custom + register)│                                  │
+                                          ⑤ quality-control (validate + docs) └─────────────────────────────────┘
                                                                                           │
 CONSUMER — epac-builder (per customer, on demand)  ◄─────────────────────────────────────┘
   input.json ─► EXPAND ─► manifest ─► Resolve+Bind ─► Canonical IR ─► render {EPAC/JSON · Terraform · Bicep}
                                                                           └─► customer/initiatives/ ─► Validate ─► PR ─► Deploy
 ```
 
-> **definition-gen** is a side input, not a pipeline step: it authors the custom `naming-*`
-> definitions + their `management-esn-naming` initiative and overlays them into the catalogue.
-> See [`definition_gen/`](definition_gen/).
+> **definition-gen** is the **apply-overlays** step (④): it runs the custom-definition generators
+> and registers their output into the catalogue — either as new groups (`management-esn-naming`,
+> `management-esn-tagging`) or by enriching a built-in group (`apim-tls` → `integration-esn-apim`).
+> So the catalogue carries built-in **and** custom assets. See [`definition_gen/`](definition_gen/).
 
 ## Authored inputs and shared convention
 

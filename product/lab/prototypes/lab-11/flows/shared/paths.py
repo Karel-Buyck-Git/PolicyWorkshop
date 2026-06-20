@@ -21,6 +21,7 @@ CONFIG_DIR     = LAB_ROOT / "config"
 HIERARCHY_FILE = CONFIG_DIR / "azure-domain-hierachy.md"   # the ONE authored hierarchy
 TIER_RULES_FILE = CONFIG_DIR / "tier-rules.yaml"           # the ONE authored tier ruleset
 CATEGORY_ABBREV_FILE = CONFIG_DIR / "azure-category-abbreviation.md"  # authored category short codes
+DEFINITION_GENS_FILE = CONFIG_DIR / "definition-gens.md"  # authored allowlist of overlay generators
 DOCS_DIR       = LAB_ROOT / "docs"
 
 # Quality-control outputs (Phase 4): regenerated docs + machine-readable report

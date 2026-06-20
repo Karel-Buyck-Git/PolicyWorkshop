@@ -9,7 +9,7 @@
       "category": "Security Center - Granular Pricing",
       "domain": "Security",
       "tier": "Professional",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/fb1c8493-542b-48eb-b624-b4c8fea62acd"

@@ -26,21 +26,13 @@ Output: one EPAC policyDefinition JSON per ARM type under
 Usage:  python flows/definition_gen/gen_dlw_naming_definitions.py
 See gen-dlw-naming-definitions.md for the full narrative.
 """
-import glob, json, os, re, sys
+import os, re, sys
 from collections import OrderedDict
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
-from shared.paths import CATALOGUE_DIR  # noqa: E402  the ONE catalogue path
-from shared.mdtable import slugify  # noqa: E402
-from shared import naming  # noqa: E402  shared EPAC-asset naming (brand-neutral, within-limit)
+from definition_gen import scaffold  # noqa: E402
+from definition_gen.scaffold import Overlay, NewGroup  # noqa: E402
 
-LAB = CATALOGUE_DIR.parent
-OUT = CATALOGUE_DIR / "definitions" / "custom" / "dlw-az-naming"
-_EPAC_BASE = "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas"
-SCHEMA_DEF = f"{_EPAC_BASE}/policy-definition-schema.json"
-SCHEMA_POLICYSET = f"{_EPAC_BASE}/policy-set-definition-schema.json"
-SCHEMA_ASSIGNMENT = f"{_EPAC_BASE}/policy-assignment-schema.json"
-SCHEMA_EXEMPTIONS = f"{_EPAC_BASE}/policy-exemption-schema.json"
 CUST_DEFAULT = "dlw"
 SOURCE = "getResourceName.bicep v1.5"
 
@@ -52,9 +44,6 @@ INIT_DOMAIN = "Management"
 INIT_TIER = "Essential"
 INIT_CATEGORY = "Naming"          # leaf category (folder slug = 'naming')
 INIT_CAT_ABBR = "naming"          # custom category code (not an Azure resource; not in the built-in map)
-INIT_NAME = f"{slugify(INIT_DOMAIN)}-{naming.tier_code(INIT_TIER)}-{INIT_CAT_ABBR}"  # brand-neutral, <=24
-INIT_DISPLAY = naming.display_name(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY)
-INIT_DIR = LAB / "catalogue" / "initiatives" / "management" / "essential" / "naming"
 INIT_RATIONALE = (
     "**Essential** — Naming-convention guardrails for every Azure resource type: audits "
     "(or denies) resources whose names do not follow the DLW landing-zone convention defined "
@@ -404,182 +393,8 @@ def build_check(kind, abbrs):
     raise ValueError(kind)
 
 
-def md_escape(value):
-    return (value or "").replace("|", "\\|").replace("\n", " ")
-
-
-def catalogue_version():
-    """Reuse the producer's catalogue version when present, else today's UTC date."""
-    cat = LAB / "catalogue" / "catalogue.json"
-    if cat.exists():
-        try:
-            return json.loads(cat.read_text(encoding="utf-8")).get("catalogueVersion") or ""
-        except (json.JSONDecodeError, OSError):
-            pass
-    from datetime import datetime, timezone
-    return datetime.now(timezone.utc).strftime("%Y.%m.%d")
-
-
-def member_params(src_params):
-    """Mirror the producer: bubble 'effect' to the initiative parameter; emit every
-    other parameter inline with its definition default."""
-    mp = {}
-    for pname, pdef in src_params.items():
-        if pname == "effect":
-            mp["effect"] = {"value": "[parameters('effect')]"}
-        elif "defaultValue" in pdef:
-            mp[pname] = {"value": pdef["defaultValue"]}
-    return mp
-
-
-def build_policyset(members, version):
-    policy_defs = []
-    for m in members:
-        entry = {
-            "policyDefinitionReferenceId": m["ref"],
-            "policyDefinitionName": m["ref"],  # custom in-repo definition -> referenced by name
-            "groupNames": [INIT_TIER],
-            "metadata": {"policyName": m["displayName"]},
-        }
-        mp = member_params(m["src_params"])
-        if mp:
-            entry["parameters"] = mp
-        policy_defs.append(entry)
-    return {
-        "$schema": SCHEMA_POLICYSET,
-        "name": INIT_NAME,
-        "properties": {
-            "displayName": INIT_DISPLAY,
-            "description": INIT_RATIONALE,
-            "policyType": "Custom",
-            "metadata": {
-                "category": "Naming convention",
-                "domain": INIT_DOMAIN,
-                "tier": INIT_TIER,
-                "catalogueVersion": version,
-                "source": SOURCE,
-                "hasRemediation": False,
-            },
-            "policyDefinitionGroups": [{"name": INIT_TIER}],
-            "parameters": {
-                "effect": {
-                    "type": "String",
-                    "allowedValues": ["Audit", "Deny", "Disabled"],
-                    "defaultValue": "Audit",
-                    "metadata": {"displayName": "Effect",
-                                 "description": "Effect applied to every naming-convention policy in this initiative."},
-                }
-            },
-            "policyDefinitions": policy_defs,
-        },
-    }
-
-
-def build_assignment(members):
-    return {
-        "$schema": SCHEMA_ASSIGNMENT,
-        "nodeName": naming.node_name(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY),
-        "assignment": {
-            "name": INIT_NAME,
-            "displayName": INIT_DISPLAY,
-            "description": (
-                f"Deployment scaffold for {len(members)} naming-convention policies. Effects default to "
-                f"Audit via the initiative's 'effect' parameter — set it to Deny to enforce. No managed "
-                f"identity is required (no Modify/DeployIfNotExists policies). Replace all mock references "
-                f"(<root-mg-id>, <pac-environment-selector>, <sub-id>) before deploying."
-            ),
-        },
-        "policySetDefinitionName": INIT_NAME,
-        "parameters": {},  # 'effect' has a default; override here to deny
-        "scope": {"<pac-environment-selector>": ["/providers/Microsoft.Management/managementGroups/<root-mg-id>"]},
-        "notScopes": [],
-    }
-
-
-def build_exemptions():
-    return {
-        "$schema": SCHEMA_EXEMPTIONS,
-        "nodeName": naming.node_name(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY, "exemptions"),
-        "exemptions": [
-            {
-                "name": naming.exemption_name(INIT_NAME),
-                "displayName": "Example exemption — replace or remove",
-                "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds "
-                               "(e.g. 'naming-storage-storageaccounts') for resource types that should not be governed here.",
-                "exemptionCategory": "Waiver",
-                "policyAssignmentId": f"/providers/Microsoft.Management/managementGroups/<root-mg-id>"
-                                      f"/providers/Microsoft.Authorization/policyAssignments/{INIT_NAME}",
-                "policyDefinitionReferenceIds": ["<policy-reference-id>"],
-                "scope": "/subscriptions/<sub-id>",
-            }
-        ],
-    }
-
-
-_MD_HEADER = (
-    "| # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | "
-    "Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |"
-)
-_MD_SEP = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
-
-
-def build_markdown(members):
-    product = [
-        "## Product, purpose & deployment", "",
-        "**Product.** Part of DLW's Azure naming governance as code — generated by "
-        "`flows/definition_gen/gen_dlw_naming_definitions.py` from the dlw MSPE `getResourceName.bicep` convention. "
-        "This initiative bundles the custom `naming-*` definitions into one assignable set.", "",
-        "**Purpose.** Where `getResourceName.bicep` *builds* compliant names at deploy time, these "
-        "policies *verify* them at the platform — catching resources created outside the module "
-        "(portal, scripts, other IaC).", "",
-        "> ⚠️ **Ships as `Audit`. Enforcement is a decision made at the customer.**",
-        "> The initiative's top-level `effect` parameter (and every member definition) defaults to "
-        "**`Audit`** — non-compliant names are reported, nothing is blocked. To enforce the convention "
-        "in a customer tenant, set `effect` to **`Deny`** (or `Disabled` to switch a control off) "
-        "**at assignment time in the customer environment** by overriding the `effect` parameter on the "
-        "EPAC assignment. Do not bake `Deny` into the artifacts.", "",
-        "**Parameter values** (safe defaults; override per assignment / per customer):", "",
-        "| Parameter | Allowed values | Default | Notes |",
-        "|---|---|---|---|",
-        "| `effect` | `Audit`, `Deny`, `Disabled` | **`Audit`** | One top-level initiative parameter, "
-        "wired to every member. Set to `Deny` at the customer to enforce. |",
-        "| `customerAbbreviation` | string | `dlw` | Org prefix that anchors the name check (on the definitions). |",
-        "| `excludedNamePattern` | array (wildcards) | `[]` | Carve-outs; resource groups ship with "
-        "platform-managed exclusions. |", "",
-        "**Deployment.** Deploy the `naming-*` definitions and this initiative together via EPAC "
-        "(members are referenced by `policyDefinitionName`). Assign at a management-group scope; leave "
-        "`effect` at `Audit` to observe, flip to `Deny` per customer to enforce.", "",
-    ]
-    lines = [f"# {INIT_DISPLAY}", "", "## Tier rationale", "", INIT_RATIONALE, "", *product, "## Usage", "",
-             "These artifacts are [EPAC](https://azure.github.io/enterprise-azure-policy-as-code/) "
-             "(Enterprise Azure Policy as Code) definition files — deploy them via the EPAC pipeline "
-             "(`Build-DeploymentPlans` → `Deploy-PolicyPlan`) or translate them to Terraform / Bicep. "
-             "The member policies are the custom `naming-*` definitions under "
-             "`catalogue/definitions/custom/dlw-az-naming/` (referenced by `policyDefinitionName`), so deploy "
-             "those alongside this set. Each carries a `$schema` reference for editor validation.", "",
-             "| Artifact | EPAC type | What to do with it |", "|---|---|---|",
-             f"| `{INIT_NAME}.policyset.json` | `policySetDefinition` (initiative) | The naming-convention set. "
-             "Effect is bubbled to a single top-level `effect` parameter (default Audit). Place under your EPAC "
-             "`policyDefinitions/` folder. |",
-             f"| `{INIT_NAME}.assignment.json` | `policyAssignment` | Binds the initiative to a scope. Replace "
-             "`<root-mg-id>`, `<pac-environment-selector>`, `<sub-id>`; set `effect` to Deny to enforce. |",
-             f"| `{INIT_NAME}.exemptions.json` | `policyExemption` | One `Waiver` stub. Set the scope and "
-             "`policyDefinitionReferenceIds` for resource types that do not apply, or remove the file. |",
-             f"| `{INIT_NAME}.roles.json` | role assignments (lab helper) | Not present for this group (no "
-             "Modify/DeployIfNotExists policy). |", "",
-             "**Deployment order:** deploy the `naming-*` definitions → assign the initiative.", "",
-             "## Policies", "", _MD_HEADER, _MD_SEP]
-    for i, m in enumerate(sorted(members, key=lambda x: x["displayName"].lower()), start=1):
-        lines.append(
-            f"| {i} | {md_escape(m['displayName'])} | {m['ref']} |  | {md_escape(m['description'])} | "
-            f"No | No | Audit, Deny, Disabled | Audit | Audit | Audit | "
-            f"Naming convention | {INIT_DOMAIN} | {m['version']} | Custom | {INIT_TIER} |"
-        )
-    return "\n".join(lines) + "\n"
-
-
-def main():
-    OUT.mkdir(parents=True, exist_ok=True)
+def _definitions():
+    """Build the list of naming-* policy definitions (the scaffold writes them)."""
     types = OrderedDict()
     for category, resource, ns, abbr in ROWS:
         t = norm_type(ns)
@@ -588,11 +403,7 @@ def main():
             e["abbrs"].append(abbr)
         e["resources"].append(resource)
 
-    for f in glob.glob(str(OUT / "naming-*.json")):
-        os.remove(f)
-
-    written = 0
-    members = []
+    defs = []
     for t, e in types.items():
         if t in MODULE:
             abbrs, kind = MODULE[t]
@@ -621,16 +432,14 @@ def main():
             "metadata": {"displayName": "Effect", "description": "The effect of the policy (Audit, Deny or Disabled)."},
         }
 
-        desc = (f"Audits or denies {prim} ({t}) that do not follow the organisation's naming "
-                f"convention from getResourceName.bicep. Accepted abbreviation(s): {', '.join(abbrs)}. "
-                f"Example: '{example}'. Check: {check_desc}. "
-                f"Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is "
-                f"validated, not every segment.")
-        if len(desc) > 512:                      # Azure description hard limit
-            desc = desc[:511].rstrip() + "…"
+        desc = scaffold.cap(
+            f"Audits or denies {prim} ({t}) that do not follow the organisation's naming "
+            f"convention from getResourceName.bicep. Accepted abbreviation(s): {', '.join(abbrs)}. "
+            f"Example: '{example}'. Check: {check_desc}. "
+            f"Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is "
+            f"validated, not every segment.")
 
-        d = {
-            "$schema": SCHEMA_DEF,
+        defs.append({
             "name": name,
             "properties": {
                 "displayName": f"Require naming convention for {prim}",
@@ -638,15 +447,10 @@ def main():
                 "policyType": "Custom",
                 "mode": mode_for(t),
                 "metadata": {
-                    "category": "Naming convention",
-                    "version": "2.0.0",
-                    "source": SOURCE,
-                    "cafCategory": e["category"],
-                    "resourceType": t,
-                    "abbreviations": abbrs,
-                    "abbreviationSource": abbr_source,
-                    "checkKind": kind,
-                    "conventionExample": example,
+                    "category": "Naming convention", "version": "2.0.0", "source": SOURCE,
+                    "cafCategory": e["category"], "resourceType": t,
+                    "abbreviations": abbrs, "abbreviationSource": abbr_source,
+                    "checkKind": kind, "conventionExample": example,
                 },
                 "parameters": params,
                 "policyRule": {
@@ -659,31 +463,43 @@ def main():
                     "then": {"effect": "[parameters('effect')]"},
                 },
             },
-        }
-        (OUT / f"{name}.json").write_text(json.dumps(d, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        written += 1
-        members.append({"ref": name, "displayName": d["properties"]["displayName"],
-                        "description": desc, "version": "2.0.0", "src_params": params})
+        })
+    return defs
 
-    # ---- 'naming' initiative: same artifact set as the built-in producer ----
-    version = catalogue_version()
-    INIT_DIR.mkdir(parents=True, exist_ok=True)
-    (INIT_DIR / f"{INIT_NAME}.policyset.json").write_text(
-        json.dumps(build_policyset(members, version), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (INIT_DIR / f"{INIT_NAME}.assignment.json").write_text(
-        json.dumps(build_assignment(members), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (INIT_DIR / f"{INIT_NAME}.exemptions.json").write_text(
-        json.dumps(build_exemptions(), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (INIT_DIR / f"{INIT_NAME}.md").write_text(build_markdown(members), encoding="utf-8")
 
-    module_types = sum(1 for t in types if t in MODULE)
-    print(f"types: {len(types)} | files: {written} | module-aligned: {module_types} | caf-default: {len(types)-module_types}")
+USAGE_MD = [
+    "## Product, purpose & deployment", "",
+    "**Product.** DLW's Azure naming governance as code — generated by "
+    "`flows/definition_gen/gen_dlw_naming_definitions.py` from the dlw MSPE `getResourceName.bicep` "
+    "convention. One custom `naming-*` definition per Azure resource type, bundled into one initiative.", "",
+    "**Purpose.** Where `getResourceName.bicep` *builds* compliant names at deploy time, these policies "
+    "*verify* them at the platform — catching resources created outside the module.", "",
+    "> ⚠️ **Ships as `Audit`.** Set the initiative's top-level `effect` parameter to `Deny` "
+    "at assignment time to enforce. The policies validate the deterministic name **anchor** "
+    "(`customerAbbreviation` + resource abbreviation); segments after the anchor aren't enforced.", "",
+]
+
+
+def build():
+    return Overlay(
+        family="dlw-az-naming",
+        placement=NewGroup(INIT_DOMAIN, INIT_TIER, INIT_CATEGORY, INIT_CAT_ABBR, INIT_RATIONALE,
+                           metadata_category="Naming convention"),
+        definitions=_definitions(),
+        source=SOURCE,
+        usage_md=USAGE_MD,
+    )
+
+
+def main():
+    overlay = build()
+    result = scaffold.apply(overlay)
     kinds = {}
-    for t in types:
-        k = MODULE[t][1] if t in MODULE else "default"
+    for d in overlay.definitions:
+        k = d["properties"]["metadata"]["checkKind"]
         kinds[k] = kinds.get(k, 0) + 1
+    print(f"[dlw-az-naming] {len(overlay.definitions)} definitions -> {result['kind']} group '{result['name']}'")
     print("by checkKind:", kinds)
-    print(f"initiative: {INIT_NAME} ({len(members)} members, catalogueVersion {version}) -> {INIT_DIR}")
 
 
 if __name__ == "__main__":

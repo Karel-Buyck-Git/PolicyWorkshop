@@ -74,10 +74,19 @@ def category_abbr(category: str) -> str:
     return mapping[key]
 
 
+def compose_name(domain: str, tier: str, abbr: str) -> str:
+    """Build a group name `<domain>-<tier>-<abbr>` from an explicit abbreviation.
+
+    Used by custom overlays whose category is not in the built-in abbreviation map
+    (they declare their own short code), so every catalogue name still comes from here.
+    """
+    return f"{slugify(domain)}-{tier_code(tier)}-{abbr}"
+
+
 def name(domain: str, tier: str, category: str) -> str:
     """The canonical group name `<domain>-<tier>-<abbr>` (<=24), used for the policy
     set, the assignment and the file basenames."""
-    return f"{slugify(domain)}-{tier_code(tier)}-{category_abbr(category)}"
+    return compose_name(domain, tier, category_abbr(category))
 
 
 def exemption_name(group_name: str) -> str:

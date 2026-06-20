@@ -1,5 +1,5 @@
 {
-  "catalogueVersion": "2026.06.19",
+  "catalogueVersion": "2026.06.20",
   "tiers": [
     "Essential",
     "Professional",
@@ -829,8 +829,9 @@
       "category": "API Management",
       "name": "integration-esn-apim",
       "dir": "initiatives/integration/essential/api-management",
-      "policyCount": 10,
-      "hasRemediation": true
+      "policyCount": 11,
+      "hasRemediation": true,
+      "hasCustomMembers": true
     },
     {
       "domain": "Integration",
@@ -1060,11 +1061,31 @@
     {
       "domain": "Management",
       "tier": "Essential",
+      "category": "Naming",
+      "name": "management-esn-naming",
+      "dir": "initiatives/management/essential/naming",
+      "policyCount": 169,
+      "hasRemediation": false,
+      "custom": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
       "category": "Portal",
       "name": "management-esn-prtl",
       "dir": "initiatives/management/essential/portal",
       "policyCount": 1,
       "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Tagging",
+      "name": "management-esn-tagging",
+      "dir": "initiatives/management/essential/tagging",
+      "policyCount": 1,
+      "hasRemediation": false,
+      "custom": true
     },
     {
       "domain": "Management",

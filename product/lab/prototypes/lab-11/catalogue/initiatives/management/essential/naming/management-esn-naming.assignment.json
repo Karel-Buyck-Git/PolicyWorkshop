@@ -4,7 +4,7 @@
   "assignment": {
     "name": "management-esn-naming",
     "displayName": "Management Essential — Naming",
-    "description": "Deployment scaffold for 169 naming-convention policies. Effects default to Audit via the initiative's 'effect' parameter — set it to Deny to enforce. No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>) before deploying."
+    "description": "Deployment scaffold for 169 custom policies (dlw-az-naming). Tune via the initiative's 'effect' parameter. No managed identity is required. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>) before deploying."
   },
   "policySetDefinitionName": "management-esn-naming",
   "parameters": {},

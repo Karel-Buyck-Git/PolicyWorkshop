@@ -10,6 +10,7 @@ second copy to drift (see each file's note in [`../flows/README.md`](../flows/RE
 | [`azure-domain-hierachy.md`](azure-domain-hierachy.md) | Domain → resource-category taxonomy | [`../flows/shared/hierarchy.py`](../flows/shared/hierarchy.py) |
 | [`tier-rules.yaml`](tier-rules.yaml) | Essential / Professional / Enterprise classification | [`../flows/shared/tiers.py`](../flows/shared/tiers.py) |
 | [`azure-category-abbreviation.md`](azure-category-abbreviation.md) | Category → short code for brand-neutral, within-limit names (`<domain>-<tier>-<abbr>`) | [`../flows/shared/naming.py`](../flows/shared/naming.py) |
+| [`definition-gens.md`](definition-gens.md) | Allowlist of custom-definition generators to run (Enabled = yes) | [`../flows/definition_gen/apply_overlays.py`](../flows/definition_gen/apply_overlays.py) |
 
 The **abbreviation map** is the single source for catalogue technical names, reused by the
 producer (catalogue-builder) and the consumer (epac-builder) via `shared/naming.py`. Codes are
@@ -29,6 +30,7 @@ keeps one convention shared while each flow only loads the inputs it actually ne
 | `azure-domain-hierachy.md` → `shared/hierarchy.py` | **Yes** — Category→Domain on extract/enrich | No | No (reads `domainMap` from the published `index.json`) |
 | `tier-rules.yaml` → `shared/tiers.py` | **Yes** — classifies each policy into a tier | No (its output is fixed to Essential) | No |
 | `azure-category-abbreviation.md` → `shared/naming.py` | **Yes** — looks up each built-in category's code | No (its `naming` category is custom, not a resource — it supplies the code inline) | No (consumes names already in the catalogue) |
+| `definition-gens.md` → `definition_gen/apply_overlays.py` | **Yes** — the apply-overlays step reads it to know which generators to run | (it *is* the registry of these generators) | No |
 | `shared/naming.py` *(the convention itself: tier codes `esn/pro/ent`, the name / displayName / nodeName / exemption formats, the Azure limit constants)* | **Yes** | **Yes** | **Yes** |
 
 **Why this shape.**

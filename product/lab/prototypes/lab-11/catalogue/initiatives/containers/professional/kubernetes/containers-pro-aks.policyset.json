@@ -9,7 +9,7 @@
       "category": "Kubernetes",
       "domain": "Containers",
       "tier": "Professional",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/5e93ba01-8f92-4c7a-b12a-801e3df23824",

@@ -9,7 +9,7 @@
       "category": "Logic Apps",
       "domain": "Integration",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

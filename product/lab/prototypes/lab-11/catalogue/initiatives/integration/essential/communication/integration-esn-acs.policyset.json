@@ -9,7 +9,7 @@
       "category": "Communication",
       "domain": "Integration",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/09976791-48a7-449e-bb21-39d1a415f350"

@@ -39,6 +39,7 @@ from shared.paths import (  # noqa: E402
     DEFINITIONS_DIR,
     INITIATIVES_DIR,
     CATALOGUE_FILE,
+    INDEX_FILE,
     DOCS_DIR,
     NAMING_SAMPLES_FILE,
     EPAC_NAMING_DOC,
@@ -152,6 +153,7 @@ def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
             "displayName": props.get("displayName") or "",
             "description": props.get("description") or "",
             "memberCount": len(defs),
+            "custom": bool((props.get("metadata") or {}).get("custom")),
             "_path": path,
             "_unreadable": False,
         })
@@ -272,6 +274,31 @@ def validate(custom: list[dict], builtins: list[dict], initiatives: list[dict],
             if re.search(r"(?i)\bcompany\b", f"{x.get('name','')} {x.get('displayName','')}"):
                 add("error", "brand-leak",
                     f"{kind} '{x['name']}' still carries a 'company' brand token", x.get("_path"))
+
+    # governance: definition_gen overlays ------------------------------------
+    member_refs = {m["ref"] for m in members}
+    for d in custom:
+        if not d["_unreadable"] and d["name"] not in member_refs:
+            add("error", "orphan-custom-definition",
+                f"Custom definition '{d['name']}' is not a member of any initiative "
+                f"(no overlay references it)", d["_path"])
+
+    try:
+        index_names = {g["name"] for g in json.loads(INDEX_FILE.read_text(encoding="utf-8")).get("groups", [])}
+    except (OSError, json.JSONDecodeError):
+        index_names = None
+    if index_names is not None:
+        for it in initiatives:
+            if it.get("custom") and it["name"] not in index_names:
+                add("error", "unregistered-custom-group",
+                    f"Custom overlay '{it['name']}' is not registered in index.json "
+                    f"(run apply_overlays.py)", it["_path"])
+
+    gen_dir = Path(__file__).resolve().parent.parent / "definition_gen"
+    for gen in sorted(gen_dir.glob("gen_*.py")):
+        if not gen.with_suffix(".md").exists():
+            add("error", "missing-generator-doc",
+                f"Generator '{gen.name}' has no companion '{gen.stem}.md'", gen)
 
     # duplicate technical names ----------------------------------------------
     for label, items, severity in (("definition", custom, "warning"),
