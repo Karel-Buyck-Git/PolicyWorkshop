@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/management/essential/tagging/",
+  "assignment": {
+    "name": "management-esn-tagging",
+    "displayName": "Management Essential — Tagging",
+    "description": "Deployment scaffold for 1 mandatory-tag policy. Effects default to Audit via the initiative's 'effect' parameter — set it to Deny to enforce. No managed identity is required. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>) before deploying."
+  },
+  "policySetDefinitionName": "management-esn-tagging",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}
