@@ -9,9 +9,10 @@
       "category": "Tagging",
       "domain": "Management",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "source": "getResourceTags.bicep",
-      "hasRemediation": false
+      "hasRemediation": false,
+      "custom": true
     },
     "policyDefinitionGroups": [
       {
@@ -29,7 +30,7 @@
         "defaultValue": "Audit",
         "metadata": {
           "displayName": "Effect",
-          "description": "Effect applied to every tagging policy in this initiative."
+          "description": "Effect applied to every policy in this initiative."
         }
       }
     },
@@ -41,7 +42,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require mandatory tags on resources"
+          "policyName": "Require mandatory tags on resources",
+          "custom": true
         },
         "parameters": {
           "excludedResourceTypes": {

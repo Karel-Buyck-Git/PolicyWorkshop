@@ -9,9 +9,10 @@
       "category": "Naming convention",
       "domain": "Management",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "source": "getResourceName.bicep v1.5",
-      "hasRemediation": false
+      "hasRemediation": false,
+      "custom": true
     },
     "policyDefinitionGroups": [
       {
@@ -29,7 +30,7 @@
         "defaultValue": "Audit",
         "metadata": {
           "displayName": "Effect",
-          "description": "Effect applied to every naming-convention policy in this initiative."
+          "description": "Effect applied to every policy in this initiative."
         }
       }
     },
@@ -41,7 +42,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for AI Search"
+          "policyName": "Require naming convention for AI Search",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -62,7 +64,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Foundry Tools"
+          "policyName": "Require naming convention for Foundry Tools",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -83,7 +86,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Foundry account project"
+          "policyName": "Require naming convention for Foundry account project",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -104,7 +108,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Foundry hub"
+          "policyName": "Require naming convention for Foundry hub",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -125,7 +130,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure AI Video Indexer"
+          "policyName": "Require naming convention for Azure AI Video Indexer",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -146,7 +152,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Bot service"
+          "policyName": "Require naming convention for Bot service",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -167,7 +174,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Analysis Services server"
+          "policyName": "Require naming convention for Azure Analysis Services server",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -188,7 +196,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Databricks Access Connector"
+          "policyName": "Require naming convention for Azure Databricks Access Connector",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -209,7 +218,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Databricks workspace"
+          "policyName": "Require naming convention for Azure Databricks workspace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -230,7 +240,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Data Explorer cluster"
+          "policyName": "Require naming convention for Azure Data Explorer cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -251,7 +262,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Data Explorer cluster database"
+          "policyName": "Require naming convention for Azure Data Explorer cluster database",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -272,7 +284,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Data Factory"
+          "policyName": "Require naming convention for Azure Data Factory",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -293,7 +306,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Digital Twin instance"
+          "policyName": "Require naming convention for Azure Digital Twin instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -314,7 +328,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Stream Analytics"
+          "policyName": "Require naming convention for Azure Stream Analytics",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -335,7 +350,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Synapse Analytics private link hub"
+          "policyName": "Require naming convention for Azure Synapse Analytics private link hub",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -356,7 +372,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Synapse Analytics SQL Dedicated Pool"
+          "policyName": "Require naming convention for Azure Synapse Analytics SQL Dedicated Pool",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -377,7 +394,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Synapse Analytics Spark Pool"
+          "policyName": "Require naming convention for Azure Synapse Analytics Spark Pool",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -398,7 +416,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Synapse Analytics workspaces"
+          "policyName": "Require naming convention for Azure Synapse Analytics workspaces",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -419,7 +438,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Data Lake Store account"
+          "policyName": "Require naming convention for Data Lake Store account",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -440,7 +460,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event Hubs namespace"
+          "policyName": "Require naming convention for Event Hubs namespace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -461,7 +482,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event hub"
+          "policyName": "Require naming convention for Event hub",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -482,7 +504,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event Grid domain"
+          "policyName": "Require naming convention for Event Grid domain",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -503,7 +526,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event Grid namespace"
+          "policyName": "Require naming convention for Event Grid namespace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -524,7 +548,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event Grid subscriptions"
+          "policyName": "Require naming convention for Event Grid subscriptions",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -545,7 +570,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event Grid topic"
+          "policyName": "Require naming convention for Event Grid topic",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -566,7 +592,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Event Grid system topic"
+          "policyName": "Require naming convention for Event Grid system topic",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -587,7 +614,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Fabric Capacity"
+          "policyName": "Require naming convention for Fabric Capacity",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -608,7 +636,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for HDInsight - Hadoop cluster"
+          "policyName": "Require naming convention for HDInsight - Hadoop cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -629,7 +658,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for IoT hub"
+          "policyName": "Require naming convention for IoT hub",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -650,7 +680,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Provisioning services"
+          "policyName": "Require naming convention for Provisioning services",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -671,7 +702,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Provisioning services certificate"
+          "policyName": "Require naming convention for Provisioning services certificate",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -692,7 +724,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Power BI Embedded"
+          "policyName": "Require naming convention for Power BI Embedded",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -713,7 +746,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Time Series Insights environment"
+          "policyName": "Require naming convention for Time Series Insights environment",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -734,7 +768,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for App Service environment"
+          "policyName": "Require naming convention for App Service environment",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -755,7 +790,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for App Service plan"
+          "policyName": "Require naming convention for App Service plan",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -776,7 +812,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Load Testing instance"
+          "policyName": "Require naming convention for Azure Load Testing instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -797,7 +834,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Availability set"
+          "policyName": "Require naming convention for Availability set",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -818,7 +856,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Arc enabled server"
+          "policyName": "Require naming convention for Azure Arc enabled server",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -839,7 +878,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Arc enabled Kubernetes cluster"
+          "policyName": "Require naming convention for Azure Arc enabled Kubernetes cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -860,7 +900,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Arc private link scope"
+          "policyName": "Require naming convention for Azure Arc private link scope",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -881,7 +922,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Arc gateway"
+          "policyName": "Require naming convention for Azure Arc gateway",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -902,7 +944,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Batch accounts"
+          "policyName": "Require naming convention for Batch accounts",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -923,7 +966,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Cloud service"
+          "policyName": "Require naming convention for Cloud service",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -944,7 +988,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Communication Services"
+          "policyName": "Require naming convention for Communication Services",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -965,7 +1010,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Disk encryption set"
+          "policyName": "Require naming convention for Disk encryption set",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -986,7 +1032,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Function app"
+          "policyName": "Require naming convention for Function app",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1007,7 +1054,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Gallery"
+          "policyName": "Require naming convention for Gallery",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1028,7 +1076,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Image template"
+          "policyName": "Require naming convention for Image template",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1049,7 +1098,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Managed disk"
+          "policyName": "Require naming convention for Managed disk",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -1067,7 +1117,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Notification Hubs"
+          "policyName": "Require naming convention for Notification Hubs",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1088,7 +1139,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Notification Hubs namespace"
+          "policyName": "Require naming convention for Notification Hubs namespace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1109,7 +1161,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Proximity placement group"
+          "policyName": "Require naming convention for Proximity placement group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1130,7 +1183,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Restore point collection"
+          "policyName": "Require naming convention for Restore point collection",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1151,7 +1205,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Snapshot"
+          "policyName": "Require naming convention for Snapshot",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -1169,7 +1224,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Static web app"
+          "policyName": "Require naming convention for Static web app",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1190,7 +1246,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual machine"
+          "policyName": "Require naming convention for Virtual machine",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -1208,7 +1265,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual machine scale set"
+          "policyName": "Require naming convention for Virtual machine scale set",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1229,7 +1287,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual machine maintenance configuration"
+          "policyName": "Require naming convention for Virtual machine maintenance configuration",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1250,7 +1309,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for VM storage account"
+          "policyName": "Require naming convention for VM storage account",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1271,7 +1331,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for AKS cluster"
+          "policyName": "Require naming convention for AKS cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1292,7 +1353,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for AKS system node pool"
+          "policyName": "Require naming convention for AKS system node pool",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1313,7 +1375,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Container apps"
+          "policyName": "Require naming convention for Container apps",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1334,7 +1397,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Container apps environment"
+          "policyName": "Require naming convention for Container apps environment",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1355,7 +1419,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Container apps job"
+          "policyName": "Require naming convention for Container apps job",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1376,7 +1441,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Container registry"
+          "policyName": "Require naming convention for Container registry",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1397,7 +1463,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Container instance"
+          "policyName": "Require naming convention for Container instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1418,7 +1485,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service Fabric cluster"
+          "policyName": "Require naming convention for Service Fabric cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1439,7 +1507,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service Fabric managed cluster"
+          "policyName": "Require naming convention for Service Fabric managed cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1460,7 +1529,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Cosmos DB database"
+          "policyName": "Require naming convention for Azure Cosmos DB database",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1481,7 +1551,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Cosmos DB for Apache Cassandra account"
+          "policyName": "Require naming convention for Azure Cosmos DB for Apache Cassandra account",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1502,7 +1573,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Cosmos DB PostgreSQL cluster"
+          "policyName": "Require naming convention for Azure Cosmos DB PostgreSQL cluster",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1523,7 +1595,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Managed Redis"
+          "policyName": "Require naming convention for Azure Managed Redis",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1544,7 +1617,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure SQL Database server"
+          "policyName": "Require naming convention for Azure SQL Database server",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1565,7 +1639,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure SQL database"
+          "policyName": "Require naming convention for Azure SQL database",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1586,7 +1661,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure SQL Elastic Job agent"
+          "policyName": "Require naming convention for Azure SQL Elastic Job agent",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1607,7 +1683,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure SQL Elastic Pool"
+          "policyName": "Require naming convention for Azure SQL Elastic Pool",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1628,7 +1705,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for MySQL database"
+          "policyName": "Require naming convention for MySQL database",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1649,7 +1727,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for PostgreSQL database"
+          "policyName": "Require naming convention for PostgreSQL database",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1670,7 +1749,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for SQL Managed Instance"
+          "policyName": "Require naming convention for SQL Managed Instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1691,7 +1771,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for App Configuration store"
+          "policyName": "Require naming convention for App Configuration store",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1712,7 +1793,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Maps account"
+          "policyName": "Require naming convention for Maps account",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1733,7 +1815,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for SignalR"
+          "policyName": "Require naming convention for SignalR",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1754,7 +1837,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for WebPubSub"
+          "policyName": "Require naming convention for WebPubSub",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1775,7 +1859,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Managed Grafana"
+          "policyName": "Require naming convention for Azure Managed Grafana",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1796,7 +1881,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Managed DevOps Pools"
+          "policyName": "Require naming convention for Managed DevOps Pools",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1817,7 +1903,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for API management service instance"
+          "policyName": "Require naming convention for API management service instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1838,7 +1925,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Integration account"
+          "policyName": "Require naming convention for Integration account",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1859,7 +1947,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Logic app"
+          "policyName": "Require naming convention for Logic app",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1880,7 +1969,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service Bus namespace"
+          "policyName": "Require naming convention for Service Bus namespace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1901,7 +1991,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service Bus queue"
+          "policyName": "Require naming convention for Service Bus queue",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1922,7 +2013,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service Bus topic"
+          "policyName": "Require naming convention for Service Bus topic",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1943,7 +2035,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service Bus topic subscription"
+          "policyName": "Require naming convention for Service Bus topic subscription",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1964,7 +2057,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Automation account"
+          "policyName": "Require naming convention for Automation account",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -1985,7 +2079,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Application Insights"
+          "policyName": "Require naming convention for Application Insights",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2006,7 +2101,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Monitor action group"
+          "policyName": "Require naming convention for Azure Monitor action group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2027,7 +2123,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Monitor data collection rule"
+          "policyName": "Require naming convention for Azure Monitor data collection rule",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2048,7 +2145,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Monitor alert processing rule"
+          "policyName": "Require naming convention for Azure Monitor alert processing rule",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2069,7 +2167,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Data collection endpoint"
+          "policyName": "Require naming convention for Data collection endpoint",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2090,7 +2189,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Deployment scripts"
+          "policyName": "Require naming convention for Deployment scripts",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2111,7 +2211,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Log Analytics workspace"
+          "policyName": "Require naming convention for Log Analytics workspace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2132,7 +2233,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Log Analytics query packs"
+          "policyName": "Require naming convention for Log Analytics query packs",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2153,7 +2255,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Microsoft Purview instance"
+          "policyName": "Require naming convention for Microsoft Purview instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2174,7 +2277,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Resource group"
+          "policyName": "Require naming convention for Resource group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2200,7 +2304,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Template specs"
+          "policyName": "Require naming convention for Template specs",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2221,7 +2326,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Migrate project"
+          "policyName": "Require naming convention for Azure Migrate project",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2242,7 +2348,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Database Migration Service instance"
+          "policyName": "Require naming convention for Database Migration Service instance",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2263,7 +2370,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Recovery Services vault"
+          "policyName": "Require naming convention for Recovery Services vault",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2284,7 +2392,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Application gateway"
+          "policyName": "Require naming convention for Application gateway",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2305,7 +2414,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Application security group"
+          "policyName": "Require naming convention for Application security group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2326,7 +2436,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for CDN profile"
+          "policyName": "Require naming convention for CDN profile",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2347,7 +2458,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for CDN endpoint"
+          "policyName": "Require naming convention for CDN endpoint",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2368,7 +2480,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Connections"
+          "policyName": "Require naming convention for Connections",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2389,7 +2502,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for DNS forwarding ruleset"
+          "policyName": "Require naming convention for DNS forwarding ruleset",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2410,7 +2524,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for DNS private resolver"
+          "policyName": "Require naming convention for DNS private resolver",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2431,7 +2546,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for DNS private resolver inbound endpoint"
+          "policyName": "Require naming convention for DNS private resolver inbound endpoint",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2452,7 +2568,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for DNS private resolver outbound endpoint"
+          "policyName": "Require naming convention for DNS private resolver outbound endpoint",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2473,7 +2590,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Firewall"
+          "policyName": "Require naming convention for Firewall",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2494,7 +2612,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Firewall policy"
+          "policyName": "Require naming convention for Firewall policy",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2515,7 +2634,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for ExpressRoute circuit"
+          "policyName": "Require naming convention for ExpressRoute circuit",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2536,7 +2656,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for ExpressRoute direct"
+          "policyName": "Require naming convention for ExpressRoute direct",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2557,7 +2678,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for ExpressRoute gateway"
+          "policyName": "Require naming convention for ExpressRoute gateway",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2578,7 +2700,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Front Door endpoint"
+          "policyName": "Require naming convention for Front Door endpoint",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2599,7 +2722,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Front Door firewall policy"
+          "policyName": "Require naming convention for Front Door firewall policy",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2620,7 +2744,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Front Door"
+          "policyName": "Require naming convention for Front Door",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2641,7 +2766,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for IP group"
+          "policyName": "Require naming convention for IP group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2662,7 +2788,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Load balancer"
+          "policyName": "Require naming convention for Load balancer",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2683,7 +2810,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Load balancer rule"
+          "policyName": "Require naming convention for Load balancer rule",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2704,7 +2832,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Local network gateway"
+          "policyName": "Require naming convention for Local network gateway",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2725,7 +2854,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for NAT gateway"
+          "policyName": "Require naming convention for NAT gateway",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2746,7 +2876,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Network interface"
+          "policyName": "Require naming convention for Network interface",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -2764,7 +2895,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Network security perimeter"
+          "policyName": "Require naming convention for Network security perimeter",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2785,7 +2917,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Network security group"
+          "policyName": "Require naming convention for Network security group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2806,7 +2939,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Network security group security rules"
+          "policyName": "Require naming convention for Network security group security rules",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2827,7 +2961,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Network Watcher"
+          "policyName": "Require naming convention for Network Watcher",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2848,7 +2983,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Private Link"
+          "policyName": "Require naming convention for Private Link",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2869,7 +3005,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Private endpoint"
+          "policyName": "Require naming convention for Private endpoint",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -2887,7 +3024,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Public IP address"
+          "policyName": "Require naming convention for Public IP address",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2908,7 +3046,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Public IP address prefix"
+          "policyName": "Require naming convention for Public IP address prefix",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2929,7 +3068,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Route filter"
+          "policyName": "Require naming convention for Route filter",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2950,7 +3090,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Route server"
+          "policyName": "Require naming convention for Route server",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2971,7 +3112,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Route table"
+          "policyName": "Require naming convention for Route table",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -2992,7 +3134,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Service endpoint policy"
+          "policyName": "Require naming convention for Service endpoint policy",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3013,7 +3156,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Traffic Manager profile"
+          "policyName": "Require naming convention for Traffic Manager profile",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3034,7 +3178,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for User defined route"
+          "policyName": "Require naming convention for User defined route",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3055,7 +3200,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual network"
+          "policyName": "Require naming convention for Virtual network",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3076,7 +3222,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual network manager"
+          "policyName": "Require naming convention for Virtual network manager",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3097,7 +3244,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual network peering"
+          "policyName": "Require naming convention for Virtual network peering",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -3115,7 +3263,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual network subnet"
+          "policyName": "Require naming convention for Virtual network subnet",
+          "custom": true
         },
         "parameters": {
           "excludedNamePattern": {
@@ -3133,7 +3282,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual WAN"
+          "policyName": "Require naming convention for Virtual WAN",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3154,7 +3304,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Bastion"
+          "policyName": "Require naming convention for Azure Bastion",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3175,7 +3326,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Key vault"
+          "policyName": "Require naming convention for Key vault",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3196,7 +3348,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Key Vault Managed HSM"
+          "policyName": "Require naming convention for Key Vault Managed HSM",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3217,7 +3370,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Managed identity"
+          "policyName": "Require naming convention for Managed identity",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3238,7 +3392,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for SSH key"
+          "policyName": "Require naming convention for SSH key",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3259,7 +3414,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for VPN Gateway"
+          "policyName": "Require naming convention for VPN Gateway",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3280,7 +3436,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for VPN connection"
+          "policyName": "Require naming convention for VPN connection",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3301,7 +3458,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for VPN site"
+          "policyName": "Require naming convention for VPN site",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3322,7 +3480,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Web Application Firewall policy rule group"
+          "policyName": "Require naming convention for Web Application Firewall policy rule group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3343,7 +3502,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Azure Backup Resource Guard"
+          "policyName": "Require naming convention for Azure Backup Resource Guard",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3364,7 +3524,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Backup Vault"
+          "policyName": "Require naming convention for Backup Vault",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3385,7 +3546,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Backup Vault policy"
+          "policyName": "Require naming convention for Backup Vault policy",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3406,7 +3568,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for File share"
+          "policyName": "Require naming convention for File share",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3427,7 +3590,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Storage Sync Service"
+          "policyName": "Require naming convention for Storage Sync Service",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3448,7 +3612,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual desktop host pool"
+          "policyName": "Require naming convention for Virtual desktop host pool",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3469,7 +3634,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual desktop application group"
+          "policyName": "Require naming convention for Virtual desktop application group",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3490,7 +3656,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual desktop workspace"
+          "policyName": "Require naming convention for Virtual desktop workspace",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3511,7 +3678,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Virtual desktop scaling plan"
+          "policyName": "Require naming convention for Virtual desktop scaling plan",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3532,7 +3700,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for API connection"
+          "policyName": "Require naming convention for API connection",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {
@@ -3553,7 +3722,8 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Require naming convention for Operations Management solution"
+          "policyName": "Require naming convention for Operations Management solution",
+          "custom": true
         },
         "parameters": {
           "customerAbbreviation": {

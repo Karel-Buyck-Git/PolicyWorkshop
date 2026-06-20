@@ -5,7 +5,7 @@
     {
       "name": "management-esn-naming-ex",
       "displayName": "Example exemption — replace or remove",
-      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds (e.g. 'naming-storage-storageaccounts') for resource types that should not be governed here.",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
       "exemptionCategory": "Waiver",
       "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/management-esn-naming",
       "policyDefinitionReferenceIds": [

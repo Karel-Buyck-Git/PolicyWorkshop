@@ -9,7 +9,7 @@
       "category": "ChangeTrackingAndInventory",
       "domain": "Monitoring",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.19",
+      "catalogueVersion": "2026.06.20",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/cd570a14-e51a-42ad-bac8-bafd67325302",

@@ -1,12 +1,12 @@
 {
-  "catalogueVersion": "2026.06.19",
-  "generatedAt": "2026-06-20T18:52:02Z",
+  "catalogueVersion": "2026.06.20",
+  "generatedAt": "2026-06-20T21:35:51Z",
   "counts": {
     "customDefinitions": 171,
     "builtinPolicies": 2452,
     "initiatives": 188,
     "assignments": 188,
-    "members": 3454,
+    "members": 3455,
     "errors": 0,
     "warnings": 0
   },
