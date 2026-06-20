@@ -3,7 +3,7 @@
   "name": "naming-documentdb-databaseaccounts",
   "properties": {
     "displayName": "Require naming convention for Azure Cosmos DB for Apache Cassandra account",
-    "description": "Audits or denies Azure Cosmos DB for Apache Cassandra account (Microsoft.DocumentDB/databaseAccounts) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): coscas, cosgrm, cosmon, cosno, costab. Example: 'dlw-coscas-<service>-<env>-<loc>-<instance>'. Check: name begins with the '{customerAbbreviation}-coscas-' anchor (customer + resource abbreviation). Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, not every segment.",
+    "description": "Audits or denies Azure Cosmos DB for Apache Cassandra account (Microsoft.DocumentDB/databaseAccounts) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): coscas, cosgrm, cosmon, cosno, costab. Example: 'dlw-coscas-<service>-<env>-<loc>-<instance>'. Check: name begins with the '{customerAbbreviation}-coscas-' anchor (customer + resource abbreviation). Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, n…",
     "policyType": "Custom",
     "mode": "Indexed",
     "metadata": {

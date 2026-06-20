@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/compute/professional/batch/",
+  "assignment": {
+    "name": "compute-pro-ba",
+    "displayName": "Compute Professional — Batch",
+    "description": "Deployment scaffold for 5 policies. 2 parameter values must be supplied at assignment (e.g. configureBatchAccountsPrivateEndpointsPrivateEndpointSubnetId, deployConfigurePrivateDnsZonesPrivatePrivateDnsZoneId). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "compute-pro-ba",
+  "parameters": {
+    "configureBatchAccountsPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureBatchAccountsPrivateEndpointsPrivateEndpointSubnetId>",
+    "deployConfigurePrivateDnsZonesPrivatePrivateDnsZoneId": "<REPLACE: deployConfigurePrivateDnsZonesPrivatePrivateDnsZoneId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

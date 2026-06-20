@@ -1,0 +1,98 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "ai-foundry-pro-cog",
+  "properties": {
+    "displayName": "AI Foundry Professional — Cognitive Services",
+    "description": "**Professional** — Active security posture for Cognitive Services: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Cognitive Services",
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/25fbc0a9-bd7c-42a3-aa1a-3b75d497ee68",
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureCognitiveServicesAccountsPrivateDnsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID for Cognitive Services account",
+          "description": "The private DNS zone name required for Cognitive Services to resolve a private DNS Zone to your Cognitive Services account.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "configureCognitiveServicesAccountsPrivateEndpointsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet ID",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "47ba1dd7-28d9-4b07-a8d5-9813bed64e0c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/47ba1dd7-28d9-4b07-a8d5-9813bed64e0c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Cognitive Services accounts to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c4bc6f10-cb41-49eb-b000-d5ab82e2a091",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c4bc6f10-cb41-49eb-b000-d5ab82e2a091",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Cognitive Services accounts to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureCognitiveServicesAccountsPrivateDnsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "db630ad5-52e9-4f4d-9c44-53912fe40053",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/db630ad5-52e9-4f4d-9c44-53912fe40053",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Cognitive Services accounts with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureCognitiveServicesAccountsPrivateEndpointsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "integration-esn-sb",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/090c5cfd-751d-490a-894a-3ce6f1109419"
+  ],
+  "byPolicy": {
+    "910711a6-8aa2-4f15-ae62-1e5b2ed3ef9e": [
+      "/providers/microsoft.authorization/roleDefinitions/090c5cfd-751d-490a-894a-3ce6f1109419"
+    ]
+  }
+}

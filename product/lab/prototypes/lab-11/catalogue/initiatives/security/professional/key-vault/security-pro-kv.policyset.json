@@ -1,0 +1,226 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "security-pro-kv",
+  "properties": {
+    "displayName": "Security Professional — Key Vault",
+    "description": "**Professional** — Active security posture for Key Vault: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Key Vault",
+      "domain": "Security",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/18500a29-7fe2-46b2-a342-b16a415e101d",
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/f25e0fa2-a7c8-4377-a976-54943a77a395"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAzureKeyVaultManagedHsmPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      },
+      "configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS Zone ID",
+          "description": "A private DNS zone ID to connect to the private endpoint.",
+          "strongType": "Microsoft.Network/privateDnsZones",
+          "assignPermissions": true
+        }
+      },
+      "configureAzureKeyVaultsPrivateEndpointsPrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet id",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "19ea9d63-adee-4431-a95e-1913c6c1c75f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/19ea9d63-adee-4431-a95e-1913c6c1c75f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "59fee2f4-d439-4f1b-9b9a-982e1474bfd8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/59fee2f4-d439-4f1b-9b9a-982e1474bfd8",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault Managed HSM should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "405c5871-3e91-4644-8a63-58e19d68ff5b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/405c5871-3e91-4644-8a63-58e19d68ff5b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "55615ac9-af46-4a59-874e-391cc3dfb490",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/55615ac9-af46-4a59-874e-391cc3dfb490",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vault should have firewall enabled or public network access disabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "restrictIPAddresses": {
+            "value": "No"
+          },
+          "allowedIPAddresses": {
+            "value": []
+          },
+          "forbiddenIPAddresses": {
+            "value": []
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a6abeaec-4d90-4a02-805f-6b26c4d3fbe9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6abeaec-4d90-4a02-805f-6b26c4d3fbe9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure Key Vaults should use private link"
+        },
+        "parameters": {
+          "audit_effect": {
+            "value": "Audit"
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "84d327c3-164a-4685-b453-900478614456",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/84d327c3-164a-4685-b453-900478614456",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Key Vault Managed HSM to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "d1d6d8bb-cc7c-420f-8c7d-6f6f5279a844",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d1d6d8bb-cc7c-420f-8c7d-6f6f5279a844",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Key Vault Managed HSM with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureKeyVaultManagedHsmPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ac673a9a-f77d-4846-b2d8-a57f8e1c01d4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac673a9a-f77d-4846-b2d8-a57f8e1c01d4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Key Vaults to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9d4fad1f-5189-4a42-b29e-cf7929c6b6df",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9d4fad1f-5189-4a42-b29e-cf7929c6b6df",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure Key Vaults with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureKeyVaultsPrivateEndpointsPrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ac673a9a-f77d-4846-b2d8-a57f8e1c01dc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac673a9a-f77d-4846-b2d8-a57f8e1c01dc",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure key vaults to enable firewall"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      }
+    ]
+  }
+}

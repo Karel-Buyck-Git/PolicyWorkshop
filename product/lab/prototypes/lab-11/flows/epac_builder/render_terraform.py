@@ -69,7 +69,7 @@ def _assignment(init, asg):
     ident = tf_ident(init["name"])
     lines = [
         f'resource "azurerm_management_group_policy_assignment" "{ident}" {{',
-        f'  name                 = {hcl_str(_short_name(init["name"]))}',
+        f'  name                 = {hcl_str(asg["assignmentName"])}',
         '  management_group_id  = var.management_group_id',
         f'  policy_definition_id = azurerm_policy_set_definition.{ident}.id',
         f'  display_name         = {hcl_str(asg["displayName"])}',
@@ -106,11 +106,6 @@ def _role_assignments(ir):
                 '',
             ]))
     return "\n".join(blocks)
-
-
-def _short_name(name):
-    """Assignment names are limited to 24 chars by Azure; truncate deterministically."""
-    return name if len(name) <= 24 else name[:24]
 
 
 def _variables_tf():

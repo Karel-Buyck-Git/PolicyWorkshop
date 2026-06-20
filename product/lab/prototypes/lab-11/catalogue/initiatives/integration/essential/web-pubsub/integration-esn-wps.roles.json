@@ -1,0 +1,12 @@
+{
+  "name": "integration-esn-wps",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"
+  ],
+  "byPolicy": {
+    "17f9d984-90c8-43dd-b7a6-76cb694815c1": [
+      "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"
+    ]
+  }
+}

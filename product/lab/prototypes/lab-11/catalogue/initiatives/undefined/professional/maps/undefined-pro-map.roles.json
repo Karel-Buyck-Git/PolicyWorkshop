@@ -1,0 +1,16 @@
+{
+  "name": "undefined-pro-map",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/microsoft.authorization/roleDefinitions/dba33070-676a-4fb0-87fa-064dc56ff7fb"
+  ],
+  "byPolicy": {
+    "bf9b1f7c-41ee-4de9-8eab-e3eb43aeea40": [
+      "/providers/microsoft.authorization/roleDefinitions/dba33070-676a-4fb0-87fa-064dc56ff7fb"
+    ],
+    "a58f2efa-faf4-434a-8fe9-2dca18adb5f5": [
+      "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ]
+  }
+}

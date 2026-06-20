@@ -101,7 +101,7 @@ The script reads all enriched `policies.md` files from the `catalogue/definition
 (on its **Policy ID**) against a parameter index built from the official policy repo. It groups
 every policy row by `(Domain, Tier, Category)` — tiers are **exclusive**, so each policy lands in
 exactly one group — and writes up to five EPAC-ready artifacts per group to
-`catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<prefix>-<domain>-<tier>-<category>.*` (default prefix `company`):
+`catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<domain>-<tier>-<categoryAbbr>.*` (brand-neutral names built by `flows/shared/naming.py`, within Azure hard limits — assignment names ≤24 chars; category abbreviations from `config/azure-category-abbreviation.md`):
 
 - `.md` — the matching tier's rationale paragraph plus the full 16-column policy table (`#` restarts at 1).
 - `.policyset.json` — an EPAC `policySetDefinition` (initiative). Each member entry carries

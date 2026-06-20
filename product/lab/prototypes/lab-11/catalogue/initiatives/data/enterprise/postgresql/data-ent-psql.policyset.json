@@ -1,0 +1,140 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "data-ent-psql",
+  "properties": {
+    "displayName": "Data Enterprise — PostgreSQL",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for PostgreSQL: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel, customer-managed keys (CMK / BYOK) for cryptographic sovereignty, and direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Arti…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "PostgreSQL",
+      "domain": "Data",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "deployDiagnosticSettingsPostgresqlFlexibleServersLogAnalytics": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Log Analytics workspace",
+          "description": "Select Log Analytics workspace from dropdown list. If this workspace is outside of the scope of the assignment you must manually grant 'Log Analytics Contributor' permissions (or similar) to the policy assignment's principal ID.",
+          "strongType": "omsWorkspace",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "4eb5e667-e871-4292-9c5d-8bbb94e0c908",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4eb5e667-e871-4292-9c5d-8bbb94e0c908",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Auditing with PgAudit should be enabled for PostgreSQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "78ed47da-513e-41e9-a088-e829b373281d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/78ed47da-513e-41e9-a088-e829b373281d",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Deploy Diagnostic Settings for PostgreSQL flexible servers to Log Analytics workspace"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "profileName": {
+            "value": "setbypolicy_logAnalytics"
+          },
+          "logAnalytics": {
+            "value": "[parameters('deployDiagnosticSettingsPostgresqlFlexibleServersLogAnalytics')]"
+          },
+          "metricsEnabled": {
+            "value": false
+          },
+          "logsEnabled": {
+            "value": true
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cee2f9fd-3968-44be-a863-bd62c9884423",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cee2f9fd-3968-44be-a863-bd62c9884423",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Geo-redundant backup should be enabled for Azure Database for PostgreSQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "70be9e12-c935-49ac-9bd8-fd64b85c1f87",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/70be9e12-c935-49ac-9bd8-fd64b85c1f87",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Log checkpoints should be enabled for PostgreSQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "086709ac-11b5-478d-a893-9567a16d2ae3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/086709ac-11b5-478d-a893-9567a16d2ae3",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Log connections should be enabled for PostgreSQL flexible servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "12c74c95-0efd-48da-b8d9-2a7d68470c92",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/12c74c95-0efd-48da-b8d9-2a7d68470c92",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "PostgreSQL flexible servers should use customer-managed keys to encrypt data at rest"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

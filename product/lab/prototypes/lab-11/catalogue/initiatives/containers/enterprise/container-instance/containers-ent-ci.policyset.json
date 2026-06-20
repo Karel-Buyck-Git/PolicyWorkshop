@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "containers-ent-ci",
+  "properties": {
+    "displayName": "Containers Enterprise — Container Instance",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Container Instance: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel and customer-managed keys (CMK / BYOK) for cryptographic sovereignty. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network se…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Container Instance",
+      "domain": "Containers",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "configureDiagnosticSettingsContainerGroupsLogLogAnalytics": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Log Analytics workspace",
+          "description": "Select Log Analytics workspace from dropdown list. If this workspace is outside of the scope of the assignment you must manually grant 'Log Analytics Contributor' permissions (or similar) to the policy assignment's principal ID.",
+          "strongType": "omsWorkspace",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "0aa61e00-0a01-4a3c-9945-e93cffedf0e6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0aa61e00-0a01-4a3c-9945-e93cffedf0e6",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Container Instance container group should use customer-managed key for encryption"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "41ebf9df-66cb-48e9-a8d0-98afb4e150ce",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/41ebf9df-66cb-48e9-a8d0-98afb4e150ce",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Configure diagnostic settings for container groups to Log Analytics workspace"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "profileName": {
+            "value": "containerInstanceDiagnosticsLogsToWorkspace"
+          },
+          "logAnalytics": {
+            "value": "[parameters('configureDiagnosticSettingsContainerGroupsLogLogAnalytics')]"
+          },
+          "logsEnabled": {
+            "value": true
+          }
+        }
+      }
+    ]
+  }
+}

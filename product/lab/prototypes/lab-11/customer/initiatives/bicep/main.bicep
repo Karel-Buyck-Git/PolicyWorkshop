@@ -4,53 +4,53 @@ targetScope = 'managementGroup'
 @description('Location for system-assigned identities (remediation).')
 param location string = deployment().location
 
-resource ps_contoso_integration_essential_api_management 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = {
-  name: 'contoso-integration-essential-api-management'
-  properties: loadJsonContent('policies/contoso-integration-essential-api-management.policyset.json')
+resource ps_contoso_integration_esn_apim 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = {
+  name: 'contoso-integration-esn-apim'
+  properties: loadJsonContent('policies/contoso-integration-esn-apim.policyset.json')
 }
 
-resource ps_contoso_management_essential_tags 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = {
-  name: 'contoso-management-essential-tags'
-  properties: loadJsonContent('policies/contoso-management-essential-tags.policyset.json')
+resource ps_contoso_management_esn_tags 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = {
+  name: 'contoso-management-esn-tags'
+  properties: loadJsonContent('policies/contoso-management-esn-tags.policyset.json')
 }
 
-resource asg_contoso_integration_essential_api_management 'Microsoft.Authorization/policyAssignments@2022-06-01' = {
-  name: 'contoso-integration-esse'
+resource asg_contoso_integration_esn_apim 'Microsoft.Authorization/policyAssignments@2022-06-01' = {
+  name: 'integration-esn-apim'
   location: location
   identity: {
     type: 'SystemAssigned'
   }
   properties: {
-    policyDefinitionId: ps_contoso_integration_essential_api_management.id
-    displayName: 'Company Integration Essential — API Management'
+    policyDefinitionId: ps_contoso_integration_esn_apim.id
+    displayName: 'Integration Essential — API Management'
     notScopes: [ '/providers/Microsoft.Management/managementGroups/contoso-sandbox' ]
   }
 }
 
-resource asg_contoso_management_essential_tags 'Microsoft.Authorization/policyAssignments@2022-06-01' = {
-  name: 'contoso-management-essen'
+resource asg_contoso_management_esn_tags 'Microsoft.Authorization/policyAssignments@2022-06-01' = {
+  name: 'management-esn-tags'
   properties: {
-    policyDefinitionId: ps_contoso_management_essential_tags.id
-    displayName: 'Company Management Essential — Tags'
-    parameters: loadJsonContent('policies/contoso-management-essential-tags.params.json')
+    policyDefinitionId: ps_contoso_management_esn_tags.id
+    displayName: 'Management Essential — Tags'
+    parameters: loadJsonContent('policies/contoso-management-esn-tags.params.json')
     notScopes: [ '/providers/Microsoft.Management/managementGroups/contoso-sandbox' ]
   }
 }
 
-resource ra_contoso_integration_essential_api_management_0 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(managementGroup().id, 'contoso-integration-essential-api-management', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
+resource ra_contoso_integration_esn_apim_0 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(managementGroup().id, 'contoso-integration-esn-apim', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
   properties: {
     roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
-    principalId: asg_contoso_integration_essential_api_management.identity.principalId
+    principalId: asg_contoso_integration_esn_apim.identity.principalId
     principalType: 'ServicePrincipal'
   }
 }
 
-resource ra_contoso_integration_essential_api_management_1 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(managementGroup().id, 'contoso-integration-essential-api-management', '312a565d-c81f-4fd8-895a-4e21e48d571c')
+resource ra_contoso_integration_esn_apim_1 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(managementGroup().id, 'contoso-integration-esn-apim', '312a565d-c81f-4fd8-895a-4e21e48d571c')
   properties: {
     roleDefinitionId: '/providers/microsoft.authorization/roleDefinitions/312a565d-c81f-4fd8-895a-4e21e48d571c'
-    principalId: asg_contoso_integration_essential_api_management.identity.principalId
+    principalId: asg_contoso_integration_esn_apim.identity.principalId
     principalType: 'ServicePrincipal'
   }
 }

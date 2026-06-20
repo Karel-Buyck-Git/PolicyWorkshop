@@ -1,6 +1,6 @@
 # Terraform scaffold — contoso
 
-Catalogue version `2026.06.17`. Pick an environment with
+Catalogue version `2026.06.19`. Pick an environment with
 `-var-file`:
 
 ```bash

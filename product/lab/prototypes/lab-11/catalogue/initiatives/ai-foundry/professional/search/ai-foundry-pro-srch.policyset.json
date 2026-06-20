@@ -1,0 +1,126 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "ai-foundry-pro-srch",
+  "properties": {
+    "displayName": "AI Foundry Professional — Search",
+    "description": "**Professional** — Active security posture for Search: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Search",
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/7ca78c08-252a-4471-8644-bb5ff32d4ba0"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAzureAiSearchServicesPrivatePrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private DNS zone ID",
+          "description": "Specifies the private DNS zone to use to configure private endpoint",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      },
+      "configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private endpoint subnet ID",
+          "description": "A subnet with private endpoint network policies disabled.",
+          "strongType": "Microsoft.Network/virtualNetworks/subnets"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "a049bf77-880b-470f-ba6d-9f21c530cf83",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a049bf77-880b-470f-ba6d-9f21c530cf83",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure AI Search service should use a SKU that supports private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ee980b6d-0eca-4501-8d54-f6290fd512c3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ee980b6d-0eca-4501-8d54-f6290fd512c3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Azure AI Search services should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9cee519f-d9c1-4fd9-9f79-24ec3449ed30",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9cee519f-d9c1-4fd9-9f79-24ec3449ed30",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure AI Search services to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fbc14a67-53e4-4932-abcc-2049c6706009",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fbc14a67-53e4-4932-abcc-2049c6706009",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure AI Search services to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAzureAiSearchServicesPrivatePrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b698b005-b660-4837-b833-a7aaab26ddba",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b698b005-b660-4837-b833-a7aaab26ddba",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Azure AI Search services with private endpoints"
+        },
+        "parameters": {
+          "privateEndpointSubnetId": {
+            "value": "[parameters('configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/contoso/management/essential/tags/",
+  "assignment": {
+    "name": "management-esn-tags",
+    "displayName": "Management Essential — Tags",
+    "description": "Management Essential — Tags: 4 policies, effect posture 'hardened'."
+  },
+  "policySetDefinitionName": "contoso-management-esn-tags",
+  "parameters": {
+    "requireTagValueResourceGroupsTagName": "environment",
+    "requireTagValueResourceGroupsTagValue": "production",
+    "requireTagValueResourcesTagName": "environment",
+    "requireTagValueResourcesTagValue": "production",
+    "requireTagResourceGroupsTagName": "costCenter",
+    "requireTagResourcesTagName": "costCenter"
+  },
+  "scope": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  },
+  "notScopes": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso-sandbox"
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "storage-ent-bkp",
+  "properties": {
+    "displayName": "Storage Enterprise — Backup",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Backup: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel, customer-managed keys (CMK / BYOK) for cryptographic sovereignty, zone-redundant deployments backing the 99.99% SLA, and direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Backup",
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.19",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "deployDiagnosticSettingsRecoveryServicesVaultLogAnalytics": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Log Analytics workspace",
+          "description": "Select Log Analytics workspace from dropdown list. If this workspace is outside of the scope of the assignment you must manually grant 'Log Analytics Contributor' permissions (or similar) to the policy assignment's principal ID.",
+          "strongType": "omsWorkspace",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "d6588149-9f06-462c-a076-56aece45b5ba",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d6588149-9f06-462c-a076-56aece45b5ba",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Backup Vaults should use customer-managed keys for encrypting backup data. Also an option to enforce Infra Encryption."
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "checkInfrastructureEncryption": {
+            "value": false
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2e94d99a-8a36-4563-bc77-810d8893b671",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2e94d99a-8a36-4563-bc77-810d8893b671",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Recovery Services vaults should use customer-managed keys for encrypting backup data"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "enableDoubleEncryption": {
+            "value": false
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c717fb0c-d118-4c43-ab3d-ece30ac81fb3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c717fb0c-d118-4c43-ab3d-ece30ac81fb3",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Deploy Diagnostic Settings for Recovery Services Vault to Log Analytics workspace for resource specific categories."
+        },
+        "parameters": {
+          "profileName": {
+            "value": "setbypolicy_logAnalytics"
+          },
+          "logAnalytics": {
+            "value": "[parameters('deployDiagnosticSettingsRecoveryServicesVaultLogAnalytics')]"
+          },
+          "tagName": {
+            "value": ""
+          },
+          "tagValue": {
+            "value": ""
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8f09fda1-91a2-4e14-96a2-67c6281158f7",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8f09fda1-91a2-4e14-96a2-67c6281158f7",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Do not allow creation of Recovery Services vaults of chosen storage redundancy."
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "BackupStorageRedundancy": {
+            "value": "GeoRedundant"
+          }
+        }
+      }
+    ]
+  }
+}

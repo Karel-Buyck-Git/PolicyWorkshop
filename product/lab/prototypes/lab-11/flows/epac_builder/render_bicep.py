@@ -69,7 +69,7 @@ def _policy_set(init):
 
 def _assignment(init, asg):
     sym = _bsym(init["name"])
-    name = _short_name(init["name"])
+    name = asg["assignmentName"]
     not_scopes = sorted({s for lst in asg["notScopes"].values() for s in lst})
     lines = [f"resource asg_{sym} 'Microsoft.Authorization/policyAssignments@{ASG_API}' = {{",
              f"  name: '{name}'"]
@@ -114,10 +114,6 @@ def _role_assignments(init):
 
 def _role_guid(role_id):
     return role_id.rstrip("/").split("/")[-1]
-
-
-def _short_name(name):
-    return name if len(name) <= 24 else name[:24]
 
 
 def _bstr(value):

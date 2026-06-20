@@ -1,0 +1,19 @@
+{
+  "name": "storage-esn-st",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab",
+    "/providers/microsoft.authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+  ],
+  "byPolicy": {
+    "f81e3117-0093-4b17-8a60-82363134f0eb": [
+      "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+    ],
+    "9fbd64e3-67b8-489b-98e5-fa0007d17e76": [
+      "/providers/microsoft.authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+    ],
+    "978deb5d-c9a7-41f8-b4b2-b76880d0de1f": [
+      "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+    ]
+  }
+}

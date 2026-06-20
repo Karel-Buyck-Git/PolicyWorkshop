@@ -9,8 +9,8 @@
 
   "source": {
     "initiatives": "../../catalogue/initiatives",
-    "catalogueVersion": "2026.06.17",
-    "hierarchyVersion": "2026.06.17"
+    "catalogueVersion": "2026.06.19",
+    "hierarchyVersion": "2026.06.19"
   },
 
   "output": {

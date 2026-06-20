@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/security/essential/key-vault/",
+  "assignment": {
+    "name": "security-esn-kv",
+    "displayName": "Security Essential — Key Vault",
+    "description": "Deployment scaffold for 34 policies. 15 parameter values must be supplied at assignment (e.g. certificatesIssuedOneNonIntegratedCertificateCaCommonNames, certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName, certificatesLifetimeActionTriggersMaximumPercentageLife, …). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "security-esn-kv",
+  "parameters": {
+    "certificatesIssuedOneNonIntegratedCertificateCaCommonNames": [
+      "<REPLACE: certificatesIssuedOneNonIntegratedCertificateCaCommonNames>"
+    ],
+    "certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName": "<REPLACE: certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName>",
+    "certificatesLifetimeActionTriggersMaximumPercentageLife": "<REPLACE: certificatesLifetimeActionTriggersMaximumPercentageLife>",
+    "certificatesLifetimeActionTriggersMinimumDaysBeforeExpiry": "<REPLACE: certificatesLifetimeActionTriggersMinimumDaysBeforeExpiry>",
+    "certificatesExpireNumberDaysDaysToExpire": "<REPLACE: certificatesExpireNumberDaysDaysToExpire>",
+    "certificatesRsaCryptographyMinimumKeySizeMinimumRSAKeySize": "<REPLACE: certificatesRsaCryptographyMinimumKeySizeMinimumRSAKeySize>",
+    "keysRotationPolicyEnsuringRotationScheduledMaximumDaysToRotate": "<REPLACE: keysRotationPolicyEnsuringRotationScheduledMaximumDaysToRotate>",
+    "keysNumberDaysBeforeExpirationMinimumDaysBeforeExpiration": "<REPLACE: keysNumberDaysBeforeExpirationMinimumDaysBeforeExpiration>",
+    "keysMaximumValidityPeriodMaximumValidityInDays": "<REPLACE: keysMaximumValidityPeriodMaximumValidityInDays>",
+    "keysActiveLongerNumberDaysMaximumValidityInDays": "<REPLACE: keysActiveLongerNumberDaysMaximumValidityInDays>",
+    "keysAesCryptographyMinimumKeySizeMinimumOCTKeySize": "<REPLACE: keysAesCryptographyMinimumKeySizeMinimumOCTKeySize>",
+    "keysRsaCryptographyMinimumKeySizeMinimumRSAKeySize": "<REPLACE: keysRsaCryptographyMinimumKeySizeMinimumRSAKeySize>",
+    "secretsNumberDaysBeforeExpirationMinimumDaysBeforeExpiration": "<REPLACE: secretsNumberDaysBeforeExpirationMinimumDaysBeforeExpiration>",
+    "secretsMaximumValidityPeriodMaximumValidityInDays": "<REPLACE: secretsMaximumValidityPeriodMaximumValidityInDays>",
+    "secretsActiveLongerNumberDaysMaximumValidityInDays": "<REPLACE: secretsActiveLongerNumberDaysMaximumValidityInDays>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -64,7 +64,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 │ • emit 4 artifacts per group                   │
 └──────────────────────────┬───────────────────┘
                            ▼
-    catalogue/initiatives/<domain>/<tier>/<category>/company-<domain>-<tier>-<category>.*
+    catalogue/initiatives/<domain>/<tier>/<category>/<domain>-<tier>-<categoryAbbr>.*  (brand-neutral, ≤24)
     ┌─────────────────────────────────────────────────────────────┐
     │  .md              table + tier rationale (human spec)        │
     │  .policyset.json  EPAC initiative — effect=hardened,         │

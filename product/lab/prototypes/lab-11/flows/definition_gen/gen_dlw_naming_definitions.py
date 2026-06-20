@@ -621,6 +621,8 @@ def main():
                 f"Example: '{example}'. Check: {check_desc}. "
                 f"Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is "
                 f"validated, not every segment.")
+        if len(desc) > 512:                      # Azure description hard limit
+            desc = desc[:511].rstrip() + "…"
 
         d = {
             "$schema": SCHEMA_DEF,

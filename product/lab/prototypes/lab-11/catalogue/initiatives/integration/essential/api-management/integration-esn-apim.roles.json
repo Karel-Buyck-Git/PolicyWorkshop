@@ -1,0 +1,16 @@
+{
+  "name": "integration-esn-apim",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "/providers/microsoft.authorization/roleDefinitions/312a565d-c81f-4fd8-895a-4e21e48d571c"
+  ],
+  "byPolicy": {
+    "7ca8c8ac-3a6e-493d-99ba-c5fa35347ff2": [
+      "/providers/microsoft.authorization/roleDefinitions/312a565d-c81f-4fd8-895a-4e21e48d571c"
+    ],
+    "1b0d74ac-4b43-4c39-a15f-594385adc38d": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

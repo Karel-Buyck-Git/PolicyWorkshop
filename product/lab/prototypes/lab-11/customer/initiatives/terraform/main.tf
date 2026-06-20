@@ -13,10 +13,10 @@ provider "azurerm" {
   tenant_id = var.tenant_id
 }
 
-resource "azurerm_policy_set_definition" "contoso-integration-essential-api-management" {
-  name                = "contoso-integration-essential-api-management"
+resource "azurerm_policy_set_definition" "contoso-integration-esn-apim" {
+  name                = "contoso-integration-esn-apim"
   policy_type         = "Custom"
-  display_name        = "Company Integration Essential — API Management"
+  display_name        = "Integration Essential — API Management"
   management_group_id = var.management_group_id
 
   policy_definition_reference {
@@ -124,10 +124,10 @@ resource "azurerm_policy_set_definition" "contoso-integration-essential-api-mana
   }
 }
 
-resource "azurerm_policy_set_definition" "contoso-management-essential-tags" {
-  name                = "contoso-management-essential-tags"
+resource "azurerm_policy_set_definition" "contoso-management-esn-tags" {
+  name                = "contoso-management-esn-tags"
   policy_type         = "Custom"
-  display_name        = "Company Management Essential — Tags"
+  display_name        = "Management Essential — Tags"
   management_group_id = var.management_group_id
 
   policy_definition_reference {
@@ -178,11 +178,11 @@ resource "azurerm_policy_set_definition" "contoso-management-essential-tags" {
   }
 }
 
-resource "azurerm_management_group_policy_assignment" "contoso-integration-essential-api-management" {
-  name                 = "contoso-integration-esse"
+resource "azurerm_management_group_policy_assignment" "contoso-integration-esn-apim" {
+  name                 = "integration-esn-apim"
   management_group_id  = var.management_group_id
-  policy_definition_id = azurerm_policy_set_definition.contoso-integration-essential-api-management.id
-  display_name         = "Company Integration Essential — API Management"
+  policy_definition_id = azurerm_policy_set_definition.contoso-integration-esn-apim.id
+  display_name         = "Integration Essential — API Management"
   not_scopes           = ["/providers/Microsoft.Management/managementGroups/contoso-sandbox"]
   location             = var.managed_identity_location
   identity {
@@ -190,11 +190,11 @@ resource "azurerm_management_group_policy_assignment" "contoso-integration-essen
   }
 }
 
-resource "azurerm_management_group_policy_assignment" "contoso-management-essential-tags" {
-  name                 = "contoso-management-essen"
+resource "azurerm_management_group_policy_assignment" "contoso-management-esn-tags" {
+  name                 = "management-esn-tags"
   management_group_id  = var.management_group_id
-  policy_definition_id = azurerm_policy_set_definition.contoso-management-essential-tags.id
-  display_name         = "Company Management Essential — Tags"
+  policy_definition_id = azurerm_policy_set_definition.contoso-management-esn-tags.id
+  display_name         = "Management Essential — Tags"
   parameters           = jsonencode({
     "requireTagValueResourceGroupsTagName" = {
       "value" = "environment"
@@ -218,14 +218,14 @@ resource "azurerm_management_group_policy_assignment" "contoso-management-essent
   not_scopes           = ["/providers/Microsoft.Management/managementGroups/contoso-sandbox"]
 }
 
-resource "azurerm_role_assignment" "contoso-integration-essential-api-management_0" {
+resource "azurerm_role_assignment" "contoso-integration-esn-apim_0" {
   scope              = var.management_group_id
   role_definition_id = "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
-  principal_id       = azurerm_management_group_policy_assignment.contoso-integration-essential-api-management.identity[0].principal_id
+  principal_id       = azurerm_management_group_policy_assignment.contoso-integration-esn-apim.identity[0].principal_id
 }
 
-resource "azurerm_role_assignment" "contoso-integration-essential-api-management_1" {
+resource "azurerm_role_assignment" "contoso-integration-esn-apim_1" {
   scope              = var.management_group_id
   role_definition_id = "/providers/microsoft.authorization/roleDefinitions/312a565d-c81f-4fd8-895a-4e21e48d571c"
-  principal_id       = azurerm_management_group_policy_assignment.contoso-integration-essential-api-management.identity[0].principal_id
+  principal_id       = azurerm_management_group_policy_assignment.contoso-integration-esn-apim.identity[0].principal_id
 }
