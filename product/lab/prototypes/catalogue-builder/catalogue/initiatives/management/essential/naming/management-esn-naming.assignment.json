@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/management/essential/naming/",
+  "assignment": {
+    "name": "management-esn-naming",
+    "displayName": "Management Essential — Naming",
+    "description": "Deployment scaffold for 169 custom policies (dlw-az-naming). Tune via the initiative's 'effect' parameter. No managed identity is required. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>) before deploying."
+  },
+  "policySetDefinitionName": "management-esn-naming",
+  "parameters": {},
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

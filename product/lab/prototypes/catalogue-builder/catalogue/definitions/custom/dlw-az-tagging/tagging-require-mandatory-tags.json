@@ -1,0 +1,123 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "tagging-require-mandatory-tags",
+  "properties": {
+    "displayName": "Require mandatory tags on resources",
+    "description": "Audits or denies resources missing (or with an empty value for) any mandatory tag (environment, costCenter, workload, owner, creationDate, service). Validates tag PRESENCE only — the values are supplied by the deploying Bicep; description is optional and not validated, and extra tags are allowed. Land as 'Audit' for brownfield discovery, then 'Deny' to enforce on new deployments (Deny gates create/update only — it never touches existing resources).",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Tags",
+      "version": "1.0.0",
+      "source": "getResourceTags.bicep",
+      "cafCategory": "Governance",
+      "checkKind": "presence",
+      "mandatoryTags": [
+        "environment",
+        "costCenter",
+        "workload",
+        "owner",
+        "creationDate",
+        "service"
+      ],
+      "optionalTags": [
+        "description"
+      ]
+    },
+    "parameters": {
+      "excludedResourceTypes": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded resource types",
+          "description": "Resource types matching any of these wildcard patterns are exempt from the tag check. Useful for child/proxy resource types that do not support tags. Example: 'Microsoft.Network/*/*, Microsoft.Insights/diagnosticSettings'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "count": {
+              "value": "[parameters('excludedResourceTypes')]",
+              "name": "excludedType",
+              "where": {
+                "field": "type",
+                "like": "[current('excludedType')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "anyOf": [
+              {
+                "field": "tags['environment']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['environment']",
+                "equals": ""
+              },
+              {
+                "field": "tags['costCenter']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['costCenter']",
+                "equals": ""
+              },
+              {
+                "field": "tags['workload']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['workload']",
+                "equals": ""
+              },
+              {
+                "field": "tags['owner']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['owner']",
+                "equals": ""
+              },
+              {
+                "field": "tags['creationDate']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['creationDate']",
+                "equals": ""
+              },
+              {
+                "field": "tags['service']",
+                "exists": "false"
+              },
+              {
+                "field": "tags['service']",
+                "equals": ""
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

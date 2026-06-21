@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "integration-ent-sb",
+  "properties": {
+    "displayName": "Integration Enterprise — Service Bus",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Service Bus: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel and customer-managed keys (CMK / BYOK) for cryptographic sovereignty. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Articles 21–23, ISO 27001 A.13.1.3 (network segregati…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Service Bus",
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.21",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "f8d36e2f-389b-4ee4-898d-21aeb69a0f45",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f8d36e2f-389b-4ee4-898d-21aeb69a0f45",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Resource logs in Service Bus should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "requiredRetentionDays": {
+            "value": "365"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "295fc8b1-dc9f-4f53-9c61-3f313ceab40a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/295fc8b1-dc9f-4f53-9c61-3f313ceab40a",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Service Bus Premium namespaces should use a customer-managed key for encryption"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      }
+    ]
+  }
+}

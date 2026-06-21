@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/ai-foundry/professional/bot-service/",
+  "assignment": {
+    "name": "ai-foundry-pro-bot",
+    "displayName": "AI Foundry Professional — Bot Service",
+    "description": "Deployment scaffold for 5 policies. 2 parameter values must be supplied at assignment (e.g. configureBotserviceResourcesPrivateDnsZonesPrivateDnsZoneId, configureBotserviceResourcesPrivateEndpointsPrivateEndpointSubnetId). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "ai-foundry-pro-bot",
+  "parameters": {
+    "configureBotserviceResourcesPrivateDnsZonesPrivateDnsZoneId": "<REPLACE: configureBotserviceResourcesPrivateDnsZonesPrivateDnsZoneId>",
+    "configureBotserviceResourcesPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureBotserviceResourcesPrivateEndpointsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/ai-foundry/essential/cognitive-services/",
+  "assignment": {
+    "name": "ai-foundry-esn-cog",
+    "displayName": "AI Foundry Essential — Cognitive Services",
+    "description": "Deployment scaffold for 9 policies. 7 parameter values must be supplied at assignment (e.g. cognitiveServicesAgentsAllowedControlEntityKind, cognitiveServicesAgentsAllowedControlFilterName, cognitiveServicesAgentsAllowedPromptContentEntityKind, …). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) be…"
+  },
+  "policySetDefinitionName": "ai-foundry-esn-cog",
+  "parameters": {
+    "cognitiveServicesAgentsAllowedControlEntityKind": [
+      "<REPLACE: cognitiveServicesAgentsAllowedControlEntityKind>"
+    ],
+    "cognitiveServicesAgentsAllowedControlFilterName": "<REPLACE: cognitiveServicesAgentsAllowedControlFilterName>",
+    "cognitiveServicesAgentsAllowedPromptContentEntityKind": [
+      "<REPLACE: cognitiveServicesAgentsAllowedPromptContentEntityKind>"
+    ],
+    "cognitiveServicesAgentsAllowedPromptContentFilterName": "<REPLACE: cognitiveServicesAgentsAllowedPromptContentFilterName>",
+    "cognitiveServicesDeploymentsAllowedCompletionContentFilterName": "<REPLACE: cognitiveServicesDeploymentsAllowedCompletionContentFilterName>",
+    "cognitiveServicesDeploymentsAllowedControlFilterName": "<REPLACE: cognitiveServicesDeploymentsAllowedControlFilterName>",
+    "cognitiveServicesDeploymentsAllowedPromptContentFilterName": "<REPLACE: cognitiveServicesDeploymentsAllowedPromptContentFilterName>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

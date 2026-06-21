@@ -1,0 +1,91 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "naming-network-networksecurityperimeters",
+  "properties": {
+    "displayName": "Require naming convention for Network security perimeter",
+    "description": "Audits or denies Network security perimeter (Microsoft.Network/networkSecurityPerimeters) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): nsp. Example: 'dlw-nsp-<service>-<env>-<loc>-<instance>'. Check: name begins with the '{customerAbbreviation}-nsp-' anchor (customer + resource abbreviation). Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, not every segment.",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Naming convention",
+      "version": "2.0.0",
+      "source": "getResourceName.bicep v1.5",
+      "cafCategory": "Networking",
+      "resourceType": "Microsoft.Network/networkSecurityPerimeters",
+      "abbreviations": [
+        "nsp"
+      ],
+      "abbreviationSource": "CAF abbreviation page",
+      "checkKind": "default",
+      "conventionExample": "dlw-nsp-<service>-<env>-<loc>-<instance>"
+    },
+    "parameters": {
+      "customerAbbreviation": {
+        "type": "String",
+        "defaultValue": "dlw",
+        "metadata": {
+          "displayName": "Customer abbreviation",
+          "description": "Organization/customer abbreviation that prefixes the name (e.g. 'dlw')."
+        }
+      },
+      "excludedNamePattern": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded name patterns",
+          "description": "Names matching any of these wildcard patterns are exempt. Example: 'rg-*, NetworkWatcherRG'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/networkSecurityPerimeters"
+          },
+          {
+            "count": {
+              "value": "[parameters('excludedNamePattern')]",
+              "name": "excluded",
+              "where": {
+                "field": "name",
+                "like": "[current('excluded')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "count": {
+              "value": [
+                "[concat(parameters('customerAbbreviation'), '-nsp-*')]"
+              ],
+              "name": "pattern",
+              "where": {
+                "field": "name",
+                "like": "[current('pattern')]"
+              }
+            },
+            "equals": 0
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

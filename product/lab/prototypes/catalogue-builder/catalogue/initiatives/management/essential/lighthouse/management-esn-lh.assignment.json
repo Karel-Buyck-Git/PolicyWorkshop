@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/management/essential/lighthouse/",
+  "assignment": {
+    "name": "management-esn-lh",
+    "displayName": "Management Essential — Lighthouse",
+    "description": "Deployment scaffold for 2 policies. 1 parameter value must be supplied at assignment (e.g. allowManagingTenantIdsOnboardThroughListOfAllowedTenants). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "management-esn-lh",
+  "parameters": {
+    "allowManagingTenantIdsOnboardThroughListOfAllowedTenants": [
+      "<REPLACE: allowManagingTenantIdsOnboardThroughListOfAllowedTenants>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

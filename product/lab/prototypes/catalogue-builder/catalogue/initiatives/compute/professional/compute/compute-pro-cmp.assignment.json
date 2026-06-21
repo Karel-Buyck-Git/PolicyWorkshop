@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/compute/professional/compute/",
+  "assignment": {
+    "name": "compute-pro-cmp",
+    "displayName": "Compute Professional — Compute",
+    "description": "Deployment scaffold for 5 policies. 5 parameter values must be supplied at assignment (e.g. configureDiskAccessResourcesPrivateDnsPrivateDnsZoneId, configureDiskAccessResourcesPrivateEndpointsLocation, configureDiskAccessResourcesPrivateEndpointsPrivateEndpointSubnetId, …). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>,…"
+  },
+  "policySetDefinitionName": "compute-pro-cmp",
+  "parameters": {
+    "configureDiskAccessResourcesPrivateDnsPrivateDnsZoneId": "<REPLACE: configureDiskAccessResourcesPrivateDnsPrivateDnsZoneId>",
+    "configureDiskAccessResourcesPrivateEndpointsLocation": "<REPLACE: configureDiskAccessResourcesPrivateEndpointsLocation>",
+    "configureDiskAccessResourcesPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureDiskAccessResourcesPrivateEndpointsPrivateEndpointSubnetId>",
+    "configureManagedDisksDisablePublicNetworkLocation": "<REPLACE: configureManagedDisksDisablePublicNetworkLocation>",
+    "configureManagedDisksDisablePublicNetworkDiskAccessId": "<REPLACE: configureManagedDisksDisablePublicNetworkDiskAccessId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

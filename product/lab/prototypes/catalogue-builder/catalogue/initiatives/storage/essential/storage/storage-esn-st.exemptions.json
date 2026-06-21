@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-exemption-schema.json",
+  "nodeName": "/storage/essential/storage/exemptions/",
+  "exemptions": [
+    {
+      "name": "storage-esn-st-ex",
+      "displayName": "Example exemption — replace or remove",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/storage-esn-st",
+      "policyDefinitionReferenceIds": [
+        "<policy-reference-id>"
+      ],
+      "scope": "/subscriptions/<sub-id>"
+    }
+  ]
+}

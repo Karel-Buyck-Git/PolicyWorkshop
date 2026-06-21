@@ -1,0 +1,28 @@
+{
+  "name": "networking-pro-net",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "3e9965dc-cc13-47ca-8259-a4252fd0cf7b": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "052c180e-287d-44c3-86ef-01aeae2d9774": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "6f4374d1-455b-4f14-83d9-3bf5133c5bb5": [
+      "/providers/microsoft.authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+    ],
+    "1c46fa74-ad5c-46e4-9cf3-6bf88e3adcba": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "0db34a60-64f4-4bf6-bd44-f95c16cf34b9": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "cd6f7aff-2845-4dab-99f2-6d1754a754b0": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

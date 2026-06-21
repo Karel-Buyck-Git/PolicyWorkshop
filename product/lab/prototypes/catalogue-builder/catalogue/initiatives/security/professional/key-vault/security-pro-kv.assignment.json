@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/security/professional/key-vault/",
+  "assignment": {
+    "name": "security-pro-kv",
+    "displayName": "Security Professional — Key Vault",
+    "description": "Deployment scaffold for 10 policies. 3 parameter values must be supplied at assignment (e.g. configureAzureKeyVaultManagedHsmPrivateEndpointSubnetId, configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId, configureAzureKeyVaultsPrivateEndpointsPrivateEndpointSubnetId). A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>…"
+  },
+  "policySetDefinitionName": "security-pro-kv",
+  "parameters": {
+    "configureAzureKeyVaultManagedHsmPrivateEndpointSubnetId": "<REPLACE: configureAzureKeyVaultManagedHsmPrivateEndpointSubnetId>",
+    "configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId": "<REPLACE: configureAzureKeyVaultsPrivateDnsPrivateDnsZoneId>",
+    "configureAzureKeyVaultsPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureAzureKeyVaultsPrivateEndpointsPrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

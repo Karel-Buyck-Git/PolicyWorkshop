@@ -1,0 +1,116 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "compute-esn-labs",
+  "properties": {
+    "displayName": "Compute Essential — Lab Services",
+    "description": "**Essential** — Baseline hygiene for Lab Services: the non-negotiable controls every deployment should enforce from day one. This tier delivers tagging, SKU, and naming controls for cost and ownership accountability. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Lab Services",
+      "domain": "Compute",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.21",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "a6e9cf2d-7d76-440e-b795-8da246bd3aab",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6e9cf2d-7d76-440e-b795-8da246bd3aab",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Lab Services should enable all options for auto shutdown"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "excludeLabPlanId": {
+            "value": ""
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "e8a5a3eb-1ab6-4657-a701-7ae432cf14e1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e8a5a3eb-1ab6-4657-a701-7ae432cf14e1",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Lab Services should not allow template virtual machines for labs"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "excludeLabPlanId": {
+            "value": ""
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0fd9915e-cab3-4f24-b200-6e20e1aa276a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0fd9915e-cab3-4f24-b200-6e20e1aa276a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Lab Services should require non-admin user for labs"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "excludeLabPlanId": {
+            "value": ""
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3e13d504-9083-4912-b935-39a085db2249",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3e13d504-9083-4912-b935-39a085db2249",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Lab Services should restrict allowed virtual machine SKU sizes"
+        },
+        "parameters": {
+          "allowedSkus": {
+            "value": [
+              "Standard_Fsv2_2_4GB_64_S_SSD",
+              "Standard_Fsv2_2_4GB_128_S_SSD",
+              "Classic_Fsv2_2_4GB_128_S_SSD",
+              "Classic_Fsv2_4_8GB_128_S_SSD",
+              "Classic_Fsv2_8_16GB_128_S_SSD",
+              "Standard_Dsv4_2_8GB_128_S_SSD",
+              "Standard_Dsv4_4_16GB_128_S_SSD",
+              "Standard_Dsv4_4_16GB_128_P_SSD",
+              "Standard_Dsv4_8_32GB_128_S_SSD",
+              "Standard_Dsv4_8_32GB_128_P_SSD",
+              "Classic_Dsv4_4_16GB_128_P_SSD",
+              "Classic_Dsv4_8_32GB_128_P_SSD",
+              "Classic_NVv4_8_28GB_128_S_SSD",
+              "Classic_NVv4_16_56GB_128_S_SSD",
+              "Standard_Esv4_4_32GB_128_S_SSD",
+              "Standard_Esv4_4_32GB_128_P_SSD"
+            ]
+          },
+          "excludeLabPlanId": {
+            "value": ""
+          },
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}

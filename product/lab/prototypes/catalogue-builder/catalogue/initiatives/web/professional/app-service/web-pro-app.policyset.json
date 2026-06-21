@@ -1,0 +1,462 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "web-pro-app",
+  "properties": {
+    "displayName": "Web Professional — App Service",
+    "description": "**Professional** — Active security posture for App Service: controls that produce signals an operations team must act on. This tier delivers network hardening (public access disabled, VNet integration, firewall rules). Together these policies protect against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "App Service",
+      "domain": "Web",
+      "tier": "Professional",
+      "catalogueVersion": "2026.06.21",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/Microsoft.Authorization/roleDefinitions/f1a07417-d97a-45cb-824c-7a7467783830",
+        "/providers/microsoft.authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7",
+        "/providers/microsoft.authorization/roleDefinitions/de139f84-1756-47ae-9be6-808fbbe84772"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {
+      "configureAppServiceAppsPrivateDnsPrivateDnsZoneId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Private Dns Zone Id",
+          "description": "The private DNS zone to deploy in a new private DNS zone group and link to the private endpoint",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "24b7a1c6-44fe-40cc-a2e6-242d2ef70e98",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/24b7a1c6-44fe-40cc-a2e6-242d2ef70e98",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service app slots should be injected into a virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "701a595d-38fb-4a66-ae6d-fb3735217622",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/701a595d-38fb-4a66-ae6d-fb3735217622",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service app slots should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5747353b-1ca9-42c1-a4dd-b874b894f3d4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5747353b-1ca9-42c1-a4dd-b874b894f3d4",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service app slots should enable configuration routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f5c0bfb3-acea-47b1-b477-b0edcdf6edc1",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f5c0bfb3-acea-47b1-b477-b0edcdf6edc1",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service app slots should enable outbound application traffic routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cae7c12e-764b-4c87-841a-fdc6675d196f",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cae7c12e-764b-4c87-841a-fdc6675d196f",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service app slots should not have CORS configured to allow every resource to access your apps"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "72d04c29-f87d-4575-9731-419ff16a2757",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/72d04c29-f87d-4575-9731-419ff16a2757",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should be injected into a virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1b5ef780-c53c-4a64-87f3-bb9c8c8094ba",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1b5ef780-c53c-4a64-87f3-bb9c8c8094ba",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "801543d1-1953-4a90-b8b0-8cf6d41473a5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/801543d1-1953-4a90-b8b0-8cf6d41473a5",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should enable configuration routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a691eacb-474d-47e4-b287-b4813ca44222",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a691eacb-474d-47e4-b287-b4813ca44222",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should enable outbound application traffic routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5744710e-cc2f-4ee8-8809-3b11e89f4bc9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5744710e-cc2f-4ee8-8809-3b11e89f4bc9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should not have CORS configured to allow every resource to access your apps"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "546fe8d2-368d-4029-a418-6af48a7f61e5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/546fe8d2-368d-4029-a418-6af48a7f61e5",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should use a SKU that supports private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "687aa49d-0982-40f8-bf6b-66d1da97a04b",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/687aa49d-0982-40f8-bf6b-66d1da97a04b",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service apps should use private link"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2d048aca-6479-4923-88f5-e2ac295d9af3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2d048aca-6479-4923-88f5-e2ac295d9af3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "App Service Environment apps should not be reachable over public internet"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c6c3e00e-d414-4ca4-914f-406699bb8eee",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c6c3e00e-d414-4ca4-914f-406699bb8eee",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure App Service app slots to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2374605e-3e0b-492b-9046-229af202562c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2374605e-3e0b-492b-9046-229af202562c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure App Service apps to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "b318f84a-b872-429b-ac6d-a01b96814452",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b318f84a-b872-429b-ac6d-a01b96814452",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure App Service apps to use private DNS zones"
+        },
+        "parameters": {
+          "privateDnsZoneId": {
+            "value": "[parameters('configureAppServiceAppsPrivateDnsPrivateDnsZoneId')]"
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "242222f3-4985-4e99-b5ef-086d6a6cb01c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/242222f3-4985-4e99-b5ef-086d6a6cb01c",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Function app slots to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cd794351-e536-40f4-9750-503a463d8cad",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd794351-e536-40f4-9750-503a463d8cad",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Configure Function apps to disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "3e90a76f-8f87-4753-9f18-b40f206c2653",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3e90a76f-8f87-4753-9f18-b40f206c2653",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function app slots should be injected into a virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "11c82d0c-db9f-4d7b-97c5-f3f9aa957da2",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/11c82d0c-db9f-4d7b-97c5-f3f9aa957da2",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function app slots should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f380edf5-de79-4862-bd57-ee407d8bd8b6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f380edf5-de79-4862-bd57-ee407d8bd8b6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function app slots should enable configuration routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "75c42c42-dfb3-453d-8fd5-9f978e1b1106",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/75c42c42-dfb3-453d-8fd5-9f978e1b1106",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function app slots should enable outbound application traffic routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "a1a22235-dd10-4062-bd55-7d62778f41b0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a1a22235-dd10-4062-bd55-7d62778f41b0",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function app slots should not have CORS configured to allow every resource to access your apps"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "904152e4-4038-48ae-9f41-b67ff81eda26",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/904152e4-4038-48ae-9f41-b67ff81eda26",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function apps should be injected into a virtual network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "969ac98b-88a8-449f-883c-2e9adb123127",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/969ac98b-88a8-449f-883c-2e9adb123127",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function apps should disable public network access"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "5e57f5ad-995a-485b-9f42-4748935ee5d9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5e57f5ad-995a-485b-9f42-4748935ee5d9",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function apps should enable configuration routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "32a913ec-5ed7-4b31-a5b0-198450d8fb13",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/32a913ec-5ed7-4b31-a5b0-198450d8fb13",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function apps should enable outbound application traffic routing to Azure Virtual Network"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0820b7b9-23aa-4725-a1ce-ae4558f718e5",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0820b7b9-23aa-4725-a1ce-ae4558f718e5",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Function apps should not have CORS configured to allow every resource to access your apps"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      }
+    ]
+  }
+}

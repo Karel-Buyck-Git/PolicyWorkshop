@@ -1,0 +1,12 @@
+{
+  "name": "data-esn-redis",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/e0f68234-74aa-48ed-b826-c38b57376e17"
+  ],
+  "byPolicy": {
+    "766f5de3-c6c0-4327-9f4d-042ab8ae846c": [
+      "/providers/microsoft.authorization/roleDefinitions/e0f68234-74aa-48ed-b826-c38b57376e17"
+    ]
+  }
+}

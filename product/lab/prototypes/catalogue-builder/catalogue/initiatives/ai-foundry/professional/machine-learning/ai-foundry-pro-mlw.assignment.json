@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/ai-foundry/professional/machine-learning/",
+  "assignment": {
+    "name": "ai-foundry-pro-mlw",
+    "displayName": "AI Foundry Professional — Machine Learning",
+    "description": "Deployment scaffold for 7 policies. 2 parameter values must be supplied at assignment (e.g. configureAzureMachineLearningWorkspacePrivatePrivateDnsZoneId, configureAzureMachineLearningWorkspacesPrivatePrivateEndpointSubnetId). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "ai-foundry-pro-mlw",
+  "parameters": {
+    "configureAzureMachineLearningWorkspacePrivatePrivateDnsZoneId": "<REPLACE: configureAzureMachineLearningWorkspacePrivatePrivateDnsZoneId>",
+    "configureAzureMachineLearningWorkspacesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureMachineLearningWorkspacesPrivatePrivateEndpointSubnetId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

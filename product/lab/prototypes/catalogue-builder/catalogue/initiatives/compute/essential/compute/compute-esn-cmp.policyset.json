@@ -1,0 +1,610 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "compute-esn-cmp",
+  "properties": {
+    "displayName": "Compute Essential — Compute",
+    "description": "**Essential** — Baseline hygiene for Compute: the non-negotiable controls every deployment should enforce from day one. This tier delivers RBAC and managed-identity controls eliminating shared credentials, TLS / HTTPS enforcement preventing in-transit interception, encryption-at-rest with service-managed keys, and tagging, SKU, and naming controls for cost and ownership accountability. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Compute",
+      "domain": "Compute",
+      "tier": "Essential",
+      "catalogueVersion": "2026.06.21",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+        "/providers/microsoft.authorization/roleDefinitions/9980e02c-c2be-4d73-94e8-173b1dc7cf3c",
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Essential"
+      }
+    ],
+    "parameters": {
+      "allowedVirtualMachineSizeSkusListOfAllowedSKUs": {
+        "type": "Array",
+        "metadata": {
+          "description": "The list of size SKUs that can be specified for virtual machines.",
+          "displayName": "Allowed Size SKUs",
+          "strongType": "VMSKUs"
+        }
+      },
+      "configureDisasterRecoveryVirtualMachinesEnablingSourceRegion": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Source Region",
+          "description": "Region in which the source virtual machine is deployed",
+          "strongType": "location",
+          "serviceName": "ASR"
+        }
+      },
+      "configureDisasterRecoveryVirtualMachinesEnablingTargetRegion": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Target Region",
+          "description": "Region to be used to deploy the virtual machine in case of a disaster",
+          "strongType": "location",
+          "serviceName": "ASR"
+        }
+      },
+      "configureDisasterRecoveryVirtualMachinesEnablingTargetResourceGroupId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Target Resource Group",
+          "description": "Resource group to be used to create the virtual machine in the target region",
+          "strongType": "existingResourceGroups",
+          "assignPermissions": true,
+          "serviceName": "ASR"
+        }
+      },
+      "configureDisasterRecoveryVirtualMachinesEnablingVaultResourceGroupId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Vault Resource Group",
+          "description": "The resource group containing the recovery services vault used for disaster recovery configurations",
+          "strongType": "existingResourceGroups",
+          "assignPermissions": true,
+          "serviceName": "ASR"
+        }
+      },
+      "configureDisasterRecoveryVirtualMachinesEnablingVaultId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Recovery Services Vault",
+          "description": "Recovery services vault to be used for disaster recovery configurations",
+          "strongType": "Microsoft.RecoveryServices/vaults",
+          "serviceName": "ASR"
+        }
+      },
+      "approvedVmExtensionsInstalledApprovedExtensions": {
+        "type": "Array",
+        "metadata": {
+          "description": "The list of approved extension types that can be installed. Example: AzureDiskEncryption",
+          "displayName": "Approved extensions"
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "e87a87f5-e6dd-4919-be21-abb0a4ea4630",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e87a87f5-e6dd-4919-be21-abb0a4ea4630",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Add a tag to Network Virtual Appliances (NVAs) VMs and VMSS for MANA support"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          },
+          "tagValue": {
+            "value": ""
+          },
+          "allowedPublishers": {
+            "value": [
+              "a10networks*",
+              "arista-networks",
+              "asdivertissementinc1617837708654",
+              "avi-networks",
+              "aviatrix-systems",
+              "barracudanetworks",
+              "bluecat",
+              "checkpoint",
+              "cisco",
+              "citrix",
+              "cohesive",
+              "daceitdbasensetrafficpulse1579892024934",
+              "ergoninformatikag1581586464404",
+              "f5-networks",
+              "fatalsecurity1604924013537",
+              "fortinet",
+              "haproxy-technologies",
+              "heimdall-data",
+              "hillstone-networks",
+              "imperva",
+              "ivanti-vadc",
+              "juniper-networks",
+              "kemptech",
+              "netapp",
+              "netgate",
+              "netskope",
+              "nttltd",
+              "paloaltonetworks",
+              "pulse-secure",
+              "radware",
+              "riverbed",
+              "silver-peak-systems",
+              "sonicwall-inc",
+              "sophos",
+              "technicheltd1606969724100",
+              "trendmicro",
+              "twistlock",
+              "velocloud",
+              "versanetworks",
+              "virtualpulsesro1607008728942",
+              "vmware-inc",
+              "voleatechgmbh1636966911943",
+              "watchguard-technologies",
+              "zscaler*"
+            ]
+          },
+          "allowedOffers": {
+            "value": [
+              "2021-04-16-11",
+              "2022-saas*",
+              "3223_edge*",
+              "a10training*",
+              "a10-vthunder*",
+              "active_directory*",
+              "ad_certificate*",
+              "adcvpxfips*",
+              "adm-onprem*",
+              "ai-native-networking",
+              "airlock-gateway*",
+              "airs-flex",
+              "aks-cngfw",
+              "almalinux*",
+              "aruba_edgeconnect*",
+              "automation_test_vmseries*",
+              "aviatrix*",
+              "avi-vantage*",
+              "avx-sec*",
+              "awake-security*",
+              "aws_cli*",
+              "azure*",
+              "azure_cli*",
+              "azure-sentinel-checkpoint*",
+              "barracuda*",
+              "basic_datacenter*",
+              "basic_linux*",
+              "bluecat*",
+              "calls-voip*",
+              "centos*",
+              "checkpoint-*",
+              "check-point*",
+              "checkpoint_wapp",
+              "checkpoint-sentinel*",
+              "cisco_business*",
+              "cisco_cloud*",
+              "cisco_secure*",
+              "cisco_smart*",
+              "cisco_thousandeyes*",
+              "cisco-aci*",
+              "cisco-adaptive*",
+              "cisco-asav",
+              "cisco-c8000v*",
+              "cisco-catalyst*",
+              "cisco-ccv",
+              "cisco-csr*",
+              "cisco-dna*",
+              "cisco-firepower*",
+              "cisco-fmcv*",
+              "cisco-ftdv",
+              "cisco-ise*",
+              "cisco-meraki*",
+              "cisco-multicloud*",
+              "cisco-nexus*",
+              "cisco-ngfwv*",
+              "cisco-resource*",
+              "cisco-sdwan*",
+              "cisco-spaces*",
+              "cisco-tdv*",
+              "cisco-vcube",
+              "cisco-waas*",
+              "cisco-wlc*",
+              "citrix*",
+              "client-accelerator-controller",
+              "cloud-*",
+              "cloudedge-virtual-ngfw*",
+              "cloudeos-router*",
+              "cloud-ngfw-private-offer",
+              "cloudngfw-sentinel-solution",
+              "cohesive*",
+              "connector-appliance",
+              "cortex_xsoar",
+              "cp_saas*",
+              "cpcgcspm",
+              "cp-vwan*",
+              "ctx*",
+              "dace2it_public*",
+              "datacenter*",
+              "debian*",
+              "debiasn_12*",
+              "deep-security*",
+              "dii_*",
+              "dmf-controller*",
+              "dns_server*",
+              "docker*",
+              "euc-appvolumes*",
+              "euc-hcs*",
+              "f5_big*",
+              "f5_networks*",
+              "f5_threat*",
+              "f5-big*",
+              "f5-distributed*",
+              "f5-nginx*",
+              "f5-web*",
+              "f5xc*",
+              "fgt*",
+              "filezilla*",
+              "firebox*",
+              "flexible-buying-program",
+              "flowgateway",
+              "forti*",
+              "free_vpn*",
+              "ftp*",
+              "git_server*",
+              "gitea_git*",
+              "gogs_git*",
+              "hapee*",
+              "heimdall-data",
+              "hmail_server*",
+              "hyper_v*",
+              "icecast_streaming*",
+              "imperva*",
+              "infinity-gw",
+              "instaclustr*",
+              "iperf3-server*",
+              "isvalent-networking*",
+              "ivanti-*",
+              "jenkins_min*",
+              "jenkins_windows*",
+              "kem360*",
+              "limux_stream*",
+              "linux_7_9*",
+              "linux_8*",
+              "linux_8_3*",
+              "linux_8_4*",
+              "linux_8_5*",
+              "linux_oracle*",
+              "linux_stream*",
+              "linux_suse*",
+              "linux-7-9*",
+              "linux-8-3*",
+              "livewire-vm",
+              "mediawiki_server*",
+              "micetro*",
+              "minecraft*",
+              "minecrft*",
+              "minimal*",
+              "multi-port-forward-server",
+              "neo4j*",
+              "netapp*",
+              "netgate*",
+              "netprofiler",
+              "netscaler*",
+              "netskope*",
+              "network-security*",
+              "nfs*",
+              "nginx*",
+              "nsx-cloud*",
+              "nsx-policy*",
+              "nsx-public*",
+              "obs*",
+              "openfire*",
+              "openvpn*",
+              "oracle*",
+              "packer*",
+              "pan_swfw_cloud_ngfw",
+              "panorama",
+              "pan-prisma*",
+              "pcce_twistlock",
+              "pfsense*",
+              "playfab_xr*",
+              "postgresql*",
+              "preview*",
+              "prisma*",
+              "pro*",
+              "prod-ccb*",
+              "prod-email*",
+              "prod-zt*",
+              "pulse*",
+              "pureftp*",
+              "radware*",
+              "red*",
+              "riverbed*",
+              "riyoa*",
+              "rocky*",
+              "rusrdesk*",
+              "rustdesk*",
+              "saas-workshop",
+              "safety-gear*",
+              "secure*",
+              "secureaccess_mpo",
+              "secure-connect_endpoint",
+              "securesphere*",
+              "security-director-onprem-test",
+              "sense-traffic*",
+              "server*",
+              "server2025*",
+              "service-gateway*",
+              "session-smart-networking-payg",
+              "sftp*",
+              "sg2",
+              "sharefile*",
+              "silver_peak*",
+              "silver-peak*",
+              "sma*",
+              "softether*",
+              "sol-42222*",
+              "sonicwall*",
+              "sophos*",
+              "squid*",
+              "statseeker*",
+              "steelapp*",
+              "stp-vehicle*",
+              "suse*",
+              "tanzu*",
+              "teamspeak*",
+              "terraform*",
+              "test_saas",
+              "tkg-capi*",
+              "tnsr*",
+              "trac*",
+              "trend_micro*",
+              "trend-vision*",
+              "twistlock",
+              "ubuntu*",
+              "velocloud*",
+              "veos-router*",
+              "versa*",
+              "virtual-network*",
+              "virtualpulsesro1607008728942",
+              "vlm-azure",
+              "vm*",
+              "vm-firebox*",
+              "vmseries*",
+              "vmware*",
+              "vmware_sdwan*",
+              "vmx-*",
+              "vns3*",
+              "voip*",
+              "vrealize*",
+              "vsec",
+              "vsrx-*",
+              "vtair",
+              "vthunder*",
+              "vwaas-azure",
+              "vwan-managed-nva",
+              "waf*",
+              "wamp*",
+              "watchguard_firebox*",
+              "web*",
+              "webissues*",
+              "win*",
+              "windows*",
+              "xampp*",
+              "xdr_xpr",
+              "xenapp*",
+              "zdx*",
+              "zero-trust*",
+              "zia*",
+              "zscaler*",
+              "ztna*"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "cccc23c7-8427-4f53-ad12-b6a63eb452b3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cccc23c7-8427-4f53-ad12-b6a63eb452b3",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Allowed virtual machine size SKUs"
+        },
+        "parameters": {
+          "listOfAllowedSKUs": {
+            "value": "[parameters('allowedVirtualMachineSizeSkusListOfAllowedSKUs')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Audit virtual machines without disaster recovery configured"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "06a78e20-9358-41c9-923c-fb736d382a4d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/06a78e20-9358-41c9-923c-fb736d382a4d",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Audit VMs that do not use managed disks"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "ac34a73f-9fa5-4067-9247-a3ecae514468",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac34a73f-9fa5-4067-9247-a3ecae514468",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Configure disaster recovery on virtual machines by enabling replication via Azure Site Recovery"
+        },
+        "parameters": {
+          "sourceRegion": {
+            "value": "[parameters('configureDisasterRecoveryVirtualMachinesEnablingSourceRegion')]"
+          },
+          "targetRegion": {
+            "value": "[parameters('configureDisasterRecoveryVirtualMachinesEnablingTargetRegion')]"
+          },
+          "targetResourceGroupId": {
+            "value": "[parameters('configureDisasterRecoveryVirtualMachinesEnablingTargetResourceGroupId')]"
+          },
+          "vaultResourceGroupId": {
+            "value": "[parameters('configureDisasterRecoveryVirtualMachinesEnablingVaultResourceGroupId')]"
+          },
+          "vaultId": {
+            "value": "[parameters('configureDisasterRecoveryVirtualMachinesEnablingVaultId')]"
+          },
+          "recoveryNetworkId": {
+            "value": ""
+          },
+          "targetZone": {
+            "value": ""
+          },
+          "cacheStorageAccountId": {
+            "value": ""
+          },
+          "tagName": {
+            "value": ""
+          },
+          "tagValue": {
+            "value": []
+          },
+          "tagType": {
+            "value": ""
+          },
+          "effect": {
+            "value": "DeployIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2835b622-407b-4114-9198-6f7064cbe0dc",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2835b622-407b-4114-9198-6f7064cbe0dc",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Deploy default Microsoft IaaSAntimalware extension for Windows Server"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c43e4a30-77cb-48ab-a4dd-93f175c63b57",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c43e4a30-77cb-48ab-a4dd-93f175c63b57",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Microsoft Antimalware for Azure should be configured to automatically update protection signatures"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "9b597639-28e4-48eb-b506-56b05d366257",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9b597639-28e4-48eb-b506-56b05d366257",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Microsoft IaaSAntimalware extension should be deployed on Windows servers"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c0e996f8-39cf-4af9-9f45-83fbde810432",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c0e996f8-39cf-4af9-9f45-83fbde810432",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Only approved VM extensions should be installed"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "approvedExtensions": {
+            "value": "[parameters('approvedVmExtensionsInstalledApprovedExtensions')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "c3921d55-b741-4d16-8d56-7f16e99e6892",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c3921d55-b741-4d16-8d56-7f16e99e6892",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Protect your data with authentication requirements when exporting or uploading to a disk or snapshot."
+        },
+        "parameters": {
+          "effect": {
+            "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "465f0161-0087-490a-9ad9-ad6217f4f43a",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/465f0161-0087-490a-9ad9-ad6217f4f43a",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Require automatic OS image patching on Virtual Machine Scale Sets"
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "fc4d8e41-e223-45ea-9bf5-eada37891d87",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fc4d8e41-e223-45ea-9bf5-eada37891d87",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Virtual machines and virtual machine scale sets should have encryption at host enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "1d84d5fb-01f6-4d12-ba4f-4a26081d403d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1d84d5fb-01f6-4d12-ba4f-4a26081d403d",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Virtual machines should be migrated to new Azure Resource Manager resources"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      }
+    ]
+  }
+}
