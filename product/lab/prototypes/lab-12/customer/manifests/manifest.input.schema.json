@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contoso.dev/epac/manifest.input.schema.json",
+  "title": "EPAC manifest \u2014 INPUT (structure lock, values free)",
+  "description": "Validates structure only: every container forbids additional properties, so humans may edit VALUES but never add/rename/remove keys. Placeholders <REPLACE: \u2026> are allowed here. The strict manifest.schema.json enforces values at the build gate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "customer",
+    "prefix",
+    "source",
+    "output",
+    "environments",
+    "selection"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Manifest contract version. The assembler refuses versions it does not understand."
+    },
+    "customer": {
+      "type": "string",
+      "description": "Customer short name (used in folder/lineage)."
+    },
+    "prefix": {
+      "type": "string",
+      "description": "Replaces the 'company' prefix in generated names. Lowercase slug, <=24 chars."
+    },
+    "pacOwnerId": {
+      "type": "string",
+      "description": "Stable GUID identifying this EPAC instance. Optional: if omitted the assembler generates one and writes it back to the manifest."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "initiatives"
+      ],
+      "properties": {
+        "initiatives": {
+          "type": "string",
+          "description": "Path to the generated initiatives/ tree."
+        },
+        "catalogueVersion": {
+          "type": "string",
+          "description": "Built-in policy snapshot id (lineage)."
+        },
+        "hierarchyVersion": {
+          "type": "string",
+          "description": "Domain hierarchy snapshot id (lineage)."
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "root",
+        "flavours"
+      ],
+      "properties": {
+        "root": {
+          "type": "string",
+          "description": "Base folder for the rendered scaffold."
+        },
+        "flavours": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {},
+          "description": "Which renderers to run."
+        }
+      }
+    },
+    "environments": {
+      "type": "array",
+      "minItems": 1,
+      "description": "EPAC environments (pacSelector -> scope) and per-environment posture.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "selector",
+          "tenantId",
+          "deploymentRootScope",
+          "enforcement"
+        ],
+        "properties": {
+          "selector": {
+            "type": "string",
+            "description": "pacSelector, e.g. epac-dev / tenant01."
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "deploymentRootScope": {
+            "type": "string",
+            "description": "Management group resource id (intermediate root)."
+          },
+          "managedIdentityLocation": {
+            "type": "string",
+            "description": "Default location for DINE/Modify managed identities."
+          },
+          "enforcement": {
+            "description": "Audit = observe only; hardened = enforce the baked effects (Deny/DINE/Modify)."
+          },
+          "logAnalyticsWorkspaceId": {
+            "type": "string",
+            "description": "Workspace resource id for diagnostics/DINE policies in this environment."
+          }
+        }
+      }
+    },
+    "allowedLocations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Regions the customer permits."
+    },
+    "notScopes": {
+      "type": "object",
+      "description": "Scopes excluded, keyed by pacSelector.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "selection": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Which (domain, tier, category) initiative groups to deploy.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "domain",
+          "category",
+          "tier"
+        ],
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain slug from the hierarchy."
+          },
+          "category": {
+            "type": "string",
+            "description": "Category slug, or '*' for all categories in the domain."
+          },
+          "tier": {
+            "description": "Cumulative: professional pulls essential+professional; enterprise pulls all three."
+          },
+          "scope": {
+            "type": "object",
+            "description": "Optional per-selection scope override, keyed by pacSelector.",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "enforcement": {
+            "description": "Optional per-selection posture override."
+          },
+          "notScopes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Values for the <REPLACE: \u2026> mocks exposed by assignment files.",
+      "properties": {
+        "defaults": {
+          "type": "object",
+          "description": "Global parameter values, keyed by bubbled-up parameter name.",
+          "additionalProperties": true
+        },
+        "overrides": {
+          "type": "object",
+          "description": "Per domain/category overrides, key = '<domain>/<category>'.",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "effectOverrides": {
+      "type": "array",
+      "description": "Surgical per-policy effect overrides.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "group",
+          "policyDefinitionReferenceId",
+          "effect"
+        ],
+        "properties": {
+          "group": {
+            "type": "string",
+            "description": "<domain>/<tier>/<category>."
+          },
+          "policyDefinitionReferenceId": {
+            "type": "string"
+          },
+          "effect": {
+            "type": "string",
+            "description": "Target effect, e.g. Audit/Deny/Disabled."
+          }
+        }
+      }
+    },
+    "exemptions": {
+      "type": "object",
+      "description": "Customer waivers, keyed by pacSelector.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "category",
+            "scopes"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "category": {},
+            "expiresOn": {
+              "type": "string",
+              "description": "Required for Waiver."
+            },
+            "scopes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "group": {
+              "type": "string",
+              "description": "<domain>/<tier>/<category> to exempt (whole initiative)."
+            },
+            "policyDefinitionReferenceId": {
+              "type": "string",
+              "description": "Optional: exempt one member policy."
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "category": {
+                    "const": "Waiver"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "expiresOn"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Fixed governance keys. No additional properties permitted.",
+      "properties": {
+        "owner": {
+          "type": "string"
+        },
+        "costCenterTag": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
