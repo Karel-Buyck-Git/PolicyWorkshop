@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/global-settings-schema.json",
+  "pacOwnerId": "11111111-2222-3333-4444-555555555555",
+  "pacEnvironments": [
+    {
+      "pacSelector": "epac-dev",
+      "cloud": "AzureCloud",
+      "tenantId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/contoso",
+      "managedIdentityLocation": "westeurope",
+      "globalNotScopes": [
+        "/providers/Microsoft.Management/managementGroups/contoso-sandbox"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/contoso/ai-foundry/essential/azure-ai-services/",
+  "assignment": {
+    "name": "ai-foundry-esn-ais",
+    "displayName": "AI Foundry Essential — Azure Ai Services",
+    "description": "AI Foundry Essential — Azure Ai Services: 3 policies, effect posture 'hardened'. Contains Modify/DeployIfNotExists policies — a managed identity is assigned and remediation runs after deployment."
+  },
+  "policySetDefinitionName": "contoso-ai-foundry-esn-ais",
+  "parameters": {},
+  "scope": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  },
+  "notScopes": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso-sandbox"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  }
+}
