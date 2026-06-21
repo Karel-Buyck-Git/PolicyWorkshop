@@ -11,7 +11,7 @@ Each component has its own README with the detail; this page is the map.
 
 | Component | Dir | What it is |
 | --- | --- | --- |
-| **catalogue-builder** | [`catalogue_builder/`](catalogue_builder/) | the **producer** pipeline: `extract → enrich → create-initiatives → quality-control` → the catalogue |
+| **catalogue-builder** | [`catalogue_builder/`](catalogue_builder/) | the **producer** pipeline: `extract → enrich → create-initiatives → apply-overlays → quality-control` → the catalogue |
 | **epac-builder** | [`epac_builder/`](epac_builder/) | the **consumer / assembler**: manifest + catalogue → IaC scaffolds (EPAC/JSON · Terraform · Bicep) |
 | **definition-gen** | [`definition_gen/`](definition_gen/) | on-demand **custom-definition generators** (`dlw-az-naming`, `dlw-az-tagging`, `az-apim`, …) overlaid into the catalogue |
 | **shared** | [`shared/`](shared/) | the internal API imported across components (`paths`, `hierarchy`, `tiers`, `naming`, `mdtable`) |

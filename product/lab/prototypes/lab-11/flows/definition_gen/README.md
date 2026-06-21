@@ -47,23 +47,26 @@ def build():
 folder path matches the declared placement; a `NewGroup` name must not collide with a built-in; an
 `Enrich` target must exist. The *policy rule* the definitions enforce is the generator's own.
 
-## How it runs — a producer step
+## How it runs — producer Phase ④ (and the catalogue finalizer)
 
-Generators are part of the build, run by [`apply_overlays.py`](apply_overlays.py) **after**
-`create_initiatives.py` (so built-in groups + a first `index.json` exist) and **before**
-`quality_control.py`:
+[`apply_overlays.py`](apply_overlays.py) is **producer Phase ④**, run **after** `create_initiatives.py`
+(so built-in groups exist — `Enrich` patches them) and **before** `quality_control.py` (⑤):
 
 ```
-extract → enrich → create-initiatives → apply-overlays → quality-control
+extract ① → enrich ② → create-initiatives ③ → apply-overlays ④ → quality-control ⑤
 ```
 
-`apply_overlays.py` runs every generator the registry **`config/definition-gens.md`** lists with
-`Enabled = yes` (a config allowlist, not a hard-coded Python list — it imports each module
-dynamically), then **registers** the customs into the catalogue contract so they are first-class:
+It runs every generator the registry **`config/definition-gens.md`** lists with `Enabled = yes` (a
+config allowlist, not a hard-coded Python list — it imports each module dynamically), then
+**registers** the customs into the catalogue contract:
 
 - **NewGroup** overlays are added to `index.json[groups]` with `custom: true`;
-- **Enrich** overlays bump the target group's `policyCount` and set `hasCustomMembers: true`;
-- `catalogue.json` is re-stamped (`counts`, `contentHash`).
+- **Enrich** overlays bump the target group's `policyCount` and set `hasCustomMembers: true`.
+
+It is also the **catalogue finalizer**: `create_initiatives` leaves `catalogue.json.contentHash` as
+`sha256:pending`, and apply-overlays writes the **authoritative** stamp — the real `contentHash` over
+the whole catalogue, plus `inputs.definitionGensHash` and `tools.applyOverlays` (so generator/registry
+changes show up in drift detection). QC ⑤ fails with `catalogue-not-finalized` if this step is skipped.
 
 ```
 python flows/definition_gen/apply_overlays.py          # run all generators + register

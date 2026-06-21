@@ -126,7 +126,8 @@ Finally, two catalogue manifests are written at the catalogue root:
 - `catalogue/index.json` — the group list + `domainMap` (category → domain) + tiers, stamped with `catalogueVersion`.
 - `catalogue/catalogue.json` — the version stamp: `catalogueVersion`, `generatedAt`, `inputs`
   (built-ins git ref, hierarchy hash, tier-rules hash), `counts`, `tools`, and a `contentHash`
-  fingerprint over every catalogue file.
+  fingerprint. At this point the `contentHash` is **`sha256:pending`** — Phase 4 (apply-overlays)
+  writes the authoritative fingerprint over the whole catalogue (built-in + custom).
 
 The EPAC shapes follow `docs/azure-policy-assignment-requirements.html` (§9.3, §10.2.1, §12.3–12.4).
 
@@ -137,7 +138,40 @@ Review the generated files and verify:
 - Policies with Domain `undefined` are collected under `catalogue/initiatives/undefined/<tier>/...`
   and flagged for manual domain assignment in a follow-up task.
 
-## Phase 4 — Quality control output (producer step ④)
+> **Provisional stamp.** Phase 3 writes `catalogue.json` with `contentHash: "sha256:pending"`. The
+> catalogue is **not finalized** until **Phase 4 (apply-overlays)** stamps the authoritative
+> `contentHash` over the whole catalogue. Running Phase 5 on a `pending` catalogue fails with
+> `catalogue-not-finalized`.
+
+## Phase 4 — Apply custom overlays
+
+Run the following script:
+"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\definition_gen\apply_overlays.py"
+
+- If the script exits with an error, report the error message and stop.
+- If it completes successfully, note the summary line (new groups / enriched / catalogue groups).
+
+This is the **custom-overlay** step of the producer. It reads the authored allowlist
+[`config/definition-gens.md`](../config/definition-gens.md) — only generators with **Enabled = yes**
+run — and applies each via the shared scaffold (`flows/definition_gen/scaffold.py`). Each generator
+declares a **placement**:
+
+- **NewGroup** — the custom definitions get their own initiative in a fresh `(domain, tier, category)`
+  slot (e.g. `management-esn-naming`, `management-esn-tagging`).
+- **Enrich** — the custom definitions are added as **members of an existing built-in initiative**
+  (e.g. `apim-tls` → `integration-esn-apim`).
+
+It then **registers** the customs into the catalogue contract — NewGroup overlays are added to
+`index.json` (`custom: true`); Enrich bumps the target group's `policyCount` and sets
+`hasCustomMembers: true` — and writes the **authoritative** `catalogue.json` stamp (the real
+`contentHash` over built-in + custom, plus `inputs.definitionGensHash` and `tools.applyOverlays`).
+The custom definitions live under `catalogue/definitions/custom/<family>/`; the policy *rule* each
+generator enforces is its own — see [`flows/definition_gen/README.md`](../flows/definition_gen/README.md).
+
+To build a **built-in-only** catalogue, set every row in `config/definition-gens.md` to
+`Enabled = no`; apply-overlays then applies nothing but still finalizes the stamp.
+
+## Phase 5 — Quality control output (producer step ⑤)
 
 Run the following script:
 "C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\product\lab\prototypes\lab-11\flows\catalogue_builder\quality_control.py"
@@ -145,8 +179,8 @@ Run the following script:
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the summary line it prints (counts + findings).
 
-> **Scope note.** This QC step is the **fourth and final step of the *producer* (the
-> *catalogue-builder*)** — it validates and documents the catalogue the first three steps built.
+> **Scope note.** This QC step is the **fifth and final step of the *producer*** — it validates and
+> documents the catalogue the first four steps built (built-in + custom overlays).
 > It is *not* the "assembler". The **epac-builder** (consumer / assembler) is a separate,
 > not-yet-built app that consumes the published catalogue; see
 > [`flows/epac_builder/README.md`](../flows/epac_builder/README.md).
@@ -163,10 +197,13 @@ artifacts), runs a validation pass, and regenerates three outputs:
 - `catalogue/quality-control.json` — a machine-readable report: `catalogueVersion`,
   `generatedAt`, `counts`, and the `findings` list.
 
-The validation pass flags: missing `displayName` (definitions, initiatives, assignments),
-duplicate technical names, empty initiatives (zero members), orphan assignments (referencing a
-missing policy set), and members without a `metadata.policyName`. The script **exits non-zero
-when any `error`-level finding is present** — treat that as a stop condition and resolve the
+The validation pass flags: missing `displayName`, duplicate technical names, empty initiatives,
+orphan assignments, members without a `metadata.policyName`, the **Azure hard limits** (assignment
+name ≤24, definition/set/exemption ≤64, displayName ≤128, description ≤512 — see
+`docs/epac-arm-hard-limits.md`), a **brand-neutral** guard, the **custom-overlay governance**
+(orphan custom definitions, unregistered custom groups, a companion `.md` per generator), and the
+**finalize gate** (`catalogue-not-finalized` if Phase 4 didn't stamp the catalogue). The script
+**exits non-zero when any `error`-level finding is present** — treat that as a stop condition and resolve the
 findings before the run is considered complete. The two markdown files are generated artifacts
 (a banner says so); edit the templates in `flows/catalogue_builder/quality_control.py`, not the files. Output is
 deterministic — re-running on an unchanged catalogue is byte-identical apart from `generatedAt`.
@@ -180,6 +217,11 @@ corrections applied, and rationale sections added.
 All EPAC-ready initiative artifacts have been generated under `catalogue/initiatives/` — one markdown spec
 plus policyset, assignment, exemptions (and a `.roles.json` for remediating groups) per
 `(domain, tier, category)` group — and verified for completeness and correctness.
+
+The custom overlays have been applied (Phase 4): the generators enabled in
+`config/definition-gens.md` have run, their custom definitions/initiatives are registered in
+`catalogue/index.json` (`custom` / `hasCustomMembers`), and `catalogue/catalogue.json` carries the
+**authoritative** `contentHash` (no longer `pending`).
 
 The catalogue manifests `catalogue/index.json` and `catalogue/catalogue.json` have been written and
 carry the `catalogueVersion` stamp.

@@ -9,7 +9,7 @@
       "category": "Internet of Things",
       "domain": "undefined",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.20",
+      "catalogueVersion": "2026.06.21",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"

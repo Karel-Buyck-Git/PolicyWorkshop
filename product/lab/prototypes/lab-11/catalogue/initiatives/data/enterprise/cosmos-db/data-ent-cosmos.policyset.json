@@ -9,7 +9,7 @@
       "category": "Cosmos DB",
       "domain": "Data",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.06.20",
+      "catalogueVersion": "2026.06.21",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

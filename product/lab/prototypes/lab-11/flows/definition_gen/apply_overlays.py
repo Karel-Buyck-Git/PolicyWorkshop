@@ -14,12 +14,14 @@ import hashlib
 import importlib
 import json
 import os
+import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
-from shared.paths import CATALOGUE_DIR, INDEX_FILE, CATALOGUE_FILE, DEFINITION_GENS_FILE  # noqa: E402
+from shared.paths import (  # noqa: E402
+    CATALOGUE_DIR, DEFINITIONS_DIR, INDEX_FILE, CATALOGUE_FILE, DEFINITION_GENS_FILE)
 from definition_gen import scaffold  # noqa: E402
 
 VALID_TIERS = ["Essential", "Professional", "Enterprise"]
@@ -59,9 +61,12 @@ def load_generators():
         if not hasattr(mod, "build"):
             raise SystemExit(f"ERROR: generator '{name}' has no build() function.")
         gens.append((name, mod))
-    if not gens:
-        raise SystemExit(f"ERROR: no enabled generators in {DEFINITION_GENS_FILE.name}.")
-    return gens
+    return gens   # may be empty — that's a valid built-in-only build (apply-overlays still finalizes)
+
+
+def _sha256_file(path):
+    p = Path(path)
+    return "sha256:" + hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else ""
 
 
 def _content_hash(root, exclude):
@@ -91,8 +96,11 @@ def main():
 
     generators = load_generators()
     applied = []
+    applied_families = set()
     for _name, gen in generators:
-        result = scaffold.apply(gen.build(), version=version)
+        overlay = gen.build()
+        applied_families.add(overlay.family)
+        result = scaffold.apply(overlay, version=version)
         applied.append(result)
         if result["kind"] == "new":
             rec = result["record"]
@@ -109,24 +117,45 @@ def main():
             rec["policyCount"] = result["member_count"]     # actual count -> idempotent
             rec["hasCustomMembers"] = True
 
+    # Prune custom-definition families whose generator is no longer enabled, so a disabled
+    # generator (or a fully built-in-only build) leaves no orphaned definitions behind.
+    pruned = []
+    custom_root = DEFINITIONS_DIR / "custom"
+    if custom_root.exists():
+        for fam in sorted(custom_root.iterdir()):
+            if fam.is_dir() and fam.name not in applied_families:
+                shutil.rmtree(fam)
+                pruned.append(fam.name)
+
     groups.sort(key=lambda r: (r["domain"].lower(), VALID_TIERS.index(r["tier"]), r["category"].lower()))
     index["groups"] = groups
     _write(INDEX_FILE, index)
 
+    # Authoritative stamp (Phase ④ finalize): create_initiatives left contentHash 'pending';
+    # apply_overlays writes the one true hash over the whole catalogue (built-in + custom) and
+    # fingerprints the custom layer so drift detection (catalogue_diff) sees generator changes.
     catalogue = json.loads(CATALOGUE_FILE.read_text(encoding="utf-8"))
     catalogue.setdefault("counts", {})["groups"] = len(groups)
+    catalogue.setdefault("inputs", {})["definitionGensHash"] = _sha256_file(DEFINITION_GENS_FILE)
+    catalogue.setdefault("tools", {})["applyOverlays"] = _sha256_file(Path(__file__))
     catalogue["generatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    catalogue["contentHash"] = _content_hash(CATALOGUE_DIR, exclude={"catalogue.json"})
+    # Fingerprint the *substantive* catalogue (definitions + initiatives + index.json), not the
+    # version stamp itself nor the timestamped QC reports — so the hash is deterministic and
+    # reflects content, not when QC last ran.
+    catalogue["contentHash"] = _content_hash(
+        CATALOGUE_DIR, exclude={"catalogue.json", "quality-control.json", "naming-samples.md"})
     _write(CATALOGUE_FILE, catalogue)
 
     new = [r for r in applied if r["kind"] == "new"]
     enr = [r for r in applied if r["kind"] == "enrich"]
     print(f"[apply-overlays] {len(applied)} overlay(s): {len(new)} new group(s), {len(enr)} enriched "
-          f"— {len(groups)} catalogue groups, manifests re-stamped")
+          f"— {len(groups)} catalogue groups, catalogue finalized")
     for r in new:
         print(f"  + new group   {r['name']} ({r['record']['policyCount']} policies)")
     for r in enr:
         print(f"  ~ enriched    {r['target_name']} (+{len(r['added'])} custom member(s))")
+    if pruned:
+        print(f"  - pruned disabled families: {', '.join(pruned)}")
 
 
 if __name__ == "__main__":

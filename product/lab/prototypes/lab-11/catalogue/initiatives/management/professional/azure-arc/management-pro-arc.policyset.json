@@ -9,7 +9,7 @@
       "category": "Azure Arc",
       "domain": "Management",
       "tier": "Professional",
-      "catalogueVersion": "2026.06.20",
+      "catalogueVersion": "2026.06.21",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/34e09817-6cbe-4d01-b1a2-e0eac5743d41",

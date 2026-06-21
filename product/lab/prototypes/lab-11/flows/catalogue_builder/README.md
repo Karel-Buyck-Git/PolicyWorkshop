@@ -6,7 +6,7 @@ definitions into the versioned, shared **catalogue** that the consumer
 when the built-ins or the taxonomy change — and is the **only** flow that derives taxonomy
 (domain, tier) and stamps the catalogue version.
 
-Run the four steps in order from the `flows/` root; each is idempotent and defaults to this lab
+Run the five steps in order from the `flows/` root; each is idempotent and defaults to this lab
 (via [`../shared/paths.py`](../shared/paths.py)), so no flags are needed for a normal run:
 
 ```
@@ -29,9 +29,10 @@ python flows/catalogue_builder/quality_control.py
 | [`extract_policies.py`](extract_policies.py) | ① extract | official built-in policy JSON; the hierarchy | one `policies.md` table per category under `catalogue/definitions/` |
 | [`enrich_policies.py`](enrich_policies.py) | ② enrich | every `policies.md`; `tier-rules.yaml` | the same files, re-tiered + rationale added |
 | [`create_initiatives.py`](create_initiatives.py) | ③ create-initiatives | enriched `policies.md`; the policy repo (params/roles); the abbreviation map | `initiatives/**` artifacts + `index.json` + `catalogue.json` |
-| [`quality_control.py`](quality_control.py) | ④ quality-control | the freshly built catalogue | validation report + regenerated naming docs |
+| [`../definition_gen/apply_overlays.py`](../definition_gen/apply_overlays.py) | ④ apply-overlays | enabled generators (`config/definition-gens.md`) | custom groups/members + the authoritative `catalogue.json` stamp |
+| [`quality_control.py`](quality_control.py) | ⑤ quality-control | the freshly built catalogue | validation report + regenerated naming docs |
 
-## The four steps
+## The five steps
 
 ### ① [`extract_policies.py`](extract_policies.py)
 **Reads** the official built-in policy JSON (`--source`, default the shared *Official Azure Policy*
@@ -71,9 +72,16 @@ All technical names are **brand-neutral and within the Azure hard limits**, buil
 displayName. Finally it writes the two catalogue manifests — **`index.json`** (groups + `domainMap`
 + tiers) and **`catalogue.json`** (the version stamp: `catalogueVersion`, `inputs`, `counts`,
 `tools`, `contentHash`) — which, with `initiatives/` + `definitions/`, are the **catalogue
-contract** the consumer depends on.
+contract** the consumer depends on. At this point `catalogue.json.contentHash` is **`sha256:pending`**
+— the catalogue isn't finalized until Phase ④ (apply-overlays) stamps the authoritative hash.
 
-### ④ [`quality_control.py`](quality_control.py)
+### ④ apply-overlays — [`../definition_gen/apply_overlays.py`](../definition_gen/apply_overlays.py)
+The **custom-overlay** step (owned by [`../definition_gen/`](../definition_gen/), run here as a
+producer phase): runs the generators enabled in `config/definition-gens.md`, registers their custom
+groups/members into `index.json`, and writes the **authoritative** `catalogue.json` stamp (the real
+`contentHash` over built-in + custom). Built-in-only? Disable every generator in the registry.
+
+### ⑤ [`quality_control.py`](quality_control.py)
 **Reads** the freshly built catalogue, runs a **validation pass**, and regenerates documentation
 from live data — the repeatable QC gate at the end of every run. It validates: missing
 `displayName`, duplicate technical names, empty initiatives, orphan assignments, members without a
