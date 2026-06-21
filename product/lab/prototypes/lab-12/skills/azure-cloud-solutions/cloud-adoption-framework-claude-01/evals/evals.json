@@ -1,0 +1,66 @@
+{
+  "skill_name": "cloud-adoption-framework",
+  "description": "Representative prompts for the governance-leaning CAF skill (Ready + Govern/Secure/Manage). Each is something a real architect or governance lead would type. This is the regression suite: when the skill gives a weak answer to a real task, add that task here. 'expected_output' describes a good answer for human review, not a string match. Note eval 5 and 10 specifically test the boundary with the epac skill.",
+  "evals": [
+    {
+      "id": 1,
+      "tier": "1-ready",
+      "prompt": "We're starting a new Azure environment for a mid-size customer. Walk me through the CAF Ready design areas we need to decide on, and which ones matter most for governance.",
+      "expected_output": "Walks the environment + compliance design areas in order, explains each decision/trade-off, flags resource-organization (MGs) and the governance/security/management compliance areas as governance-critical, anchors on the reference architecture. Cites CAF Ready. Notes implementation can be EPAC-managed."
+    },
+    {
+      "id": 2,
+      "tier": "2-govern",
+      "prompt": "How do we actually stand up cloud governance? We have nothing formal today.",
+      "expected_output": "The 5-step govern model as a continuous cycle: build a small cross-functional exec-sponsored team (offer RACI), assess risks, document policy statements tied to risks, enforce, monitor and loop back. Recommends a governance MVP. Cites CAF Govern."
+    },
+    {
+      "id": 3,
+      "tier": "2-govern",
+      "prompt": "Help me write our first set of cloud governance policy statements. Our biggest worries are data exposure and uncontrolled spend.",
+      "expected_output": "Risk-first: derives policy statements from the two risks, uses the policy-statement template (risk addressed, statement, scope, enforcement intent, compliance metric), keeps it to an MVP. Explicitly hands implementation to the epac skill. Markdown deliverable."
+    },
+    {
+      "id": 4,
+      "tier": "3-secure",
+      "prompt": "Our CISO wants our cloud security aligned to Zero Trust. Where does that fit in CAF and what should we focus on?",
+      "expected_output": "Frames Secure as end-to-end across phases, the four pillars (modernize posture, incident readiness, CIA triad, sustain), alignment to Zero Trust adoption framework and Defender secure score. Design-level guidance; routes specific control enforcement to govern→epac. Cites CAF Secure."
+    },
+    {
+      "id": 5,
+      "tier": "boundary",
+      "prompt": "Great, now write me the actual Azure Policy JSON that denies storage accounts with public network access and set it up in our pipeline.",
+      "expected_output": "Recognizes this is implementation, not CAF design. Gives the governance framing briefly (risk, policy statement, scope/effect intent) then explicitly hands off to the epac skill for the policy JSON and EPAC deployment, rather than authoring policy here. Tests the boundary."
+    },
+    {
+      "id": 6,
+      "tier": "4-manage",
+      "prompt": "How should we think about operations and making sure everything is monitored and backed up across the estate?",
+      "expected_output": "Management baseline (whole estate: inventory, monitoring to central Log Analytics, patching, backup) vs per-workload business commitments (criticality, SLA, RTO/RPO), then protect & recover. Design here; enforcement of diagnostics/backup via epac DINE policies. Cites CAF Manage."
+    },
+    {
+      "id": 7,
+      "tier": "2-govern",
+      "prompt": "Leadership wants to know if our governance is working. What should we measure and report?",
+      "expected_output": "Step 5 monitoring: compliance levels, policy violations, incident response times, user satisfaction; regular review feeding back into risk assessment. Offers the compliance-report deliverable. Notes epac can generate policy documentation / non-compliance reports. Cites CAF."
+    },
+    {
+      "id": 8,
+      "tier": "cross",
+      "prompt": "Draft a one-page charter for our new cloud governance team including a RACI.",
+      "expected_output": "Markdown charter using the template: function, members (small/cross-functional), authority/exec sponsor, scope, and a RACI table. Concrete, not placeholder. Cites CAF build-the-team."
+    },
+    {
+      "id": 9,
+      "tier": "1-ready",
+      "prompt": "Should we use a single subscription or many, and how do management groups fit in for a company with separate prod and non-prod and a security team that wants oversight?",
+      "expected_output": "Resource-organization design area: MG hierarchy reasoning, subscription strategy (prod/non-prod separation), how governance inherits down the MG tree, security-team oversight via MG-level guardrails. Design rationale; implementation via epac. Cites CAF resource-org."
+    },
+    {
+      "id": 10,
+      "tier": "negative",
+      "prompt": "Can you debug why my deployIfNotExists policy isn't remediating existing VMs? The managed identity seems set up.",
+      "expected_output": "Near-miss: this is hands-on Azure Policy troubleshooting, which is the epac skill's domain, not CAF methodology. The CAF skill should recognize this and route to epac rather than forcing a CAF framing. Tests that it doesn't over-trigger."
+    }
+  ]
+}

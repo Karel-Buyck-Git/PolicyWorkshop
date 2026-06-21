@@ -1,0 +1,63 @@
+{
+  // Filled test manifest (real values) — exercises the assembler end-to-end.
+  // Covers a remediating group with 0 required params (api-management) and a
+  // group with 6 required params (tags).
+  "schemaVersion": 1,
+  "customer": "contoso",
+  "prefix": "contoso",
+  "pacOwnerId": "11111111-2222-3333-4444-555555555555",
+
+  "source": {
+    "initiatives": "../../catalogue/initiatives",
+    "catalogueVersion": "2026.06.19",
+    "hierarchyVersion": "2026.06.19"
+  },
+
+  "output": {
+    "root": "../initiatives",
+    "flavours": ["json"]
+  },
+
+  "environments": [
+    {
+      "selector": "epac-dev",
+      "tenantId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/contoso",
+      "managedIdentityLocation": "westeurope",
+      "enforcement": "hardened",
+      "logAnalyticsWorkspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-mon/providers/Microsoft.OperationalInsights/workspaces/contoso-law"
+    }
+  ],
+
+  "allowedLocations": ["westeurope", "northeurope"],
+
+  "notScopes": {
+    "epac-dev": ["/providers/Microsoft.Management/managementGroups/contoso-sandbox"]
+  },
+
+  "selection": [
+    { "domain": "integration", "category": "api-management", "tier": "essential" },
+    { "domain": "management",  "category": "tags",           "tier": "essential" }
+  ],
+
+  "bindings": {
+    "defaults": {
+      "requireTagValueResourceGroupsTagName": "environment",
+      "requireTagValueResourceGroupsTagValue": "production",
+      "requireTagValueResourcesTagName": "environment",
+      "requireTagValueResourcesTagValue": "production",
+      "requireTagResourceGroupsTagName": "costCenter",
+      "requireTagResourcesTagName": "costCenter"
+    },
+    "overrides": {}
+  },
+
+  "effectOverrides": [],
+  "exemptions": {},
+
+  "metadata": {
+    "owner": "platform@contoso.com",
+    "costCenterTag": "CC-1234",
+    "contact": "Jane Platform"
+  }
+}

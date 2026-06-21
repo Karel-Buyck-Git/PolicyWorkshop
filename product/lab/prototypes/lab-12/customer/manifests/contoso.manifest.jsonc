@@ -1,0 +1,81 @@
+{
+  // ===========================================================================
+  // Customer manifest (JSONC)  —  assembler input
+  // EDIT RULE: change VALUES only. Do NOT add, remove or rename keys, and do
+  // not introduce new objects/arrays. Structure is locked by
+  // manifest.input.schema.json (additionalProperties:false everywhere).
+  // Fill every <REPLACE: ...> before the build gate (manifest.schema.json).
+  // ===========================================================================
+
+  "schemaVersion": 1,
+
+  // --- Customer identity (from the input form) ---
+  "customer": "contoso",
+  "prefix": "<REPLACE: prefix-slug>",            // defaults to customer if left blank
+  "pacOwnerId": "<REPLACE: pacOwnerId-guid>",    // or leave for the assembler to generate
+
+  // --- Provenance / lineage ---
+  "source": {
+    "initiatives": "../../catalogue/initiatives",
+    "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
+    "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>"
+  },
+
+  // --- Output ---
+  "output": {
+    "root": "../initiatives",                    // resolves to customer/initiatives (relative to this manifest)
+    "flavours": ["json"]                         // any of: json | terraform | bicep
+  },
+
+  // --- EPAC environments (pacSelector -> scope). enforcement: Audit | hardened ---
+  "environments": [
+    {
+      "selector": "<REPLACE: pacSelector>",
+      "tenantId": "<REPLACE: tenantId-guid>",
+      "deploymentRootScope": "<REPLACE: /providers/Microsoft.Management/managementGroups/root-mg-id>",
+      "managedIdentityLocation": "<REPLACE: location>",   // required: a selected initiative has DINE/Modify
+      "enforcement": "<REPLACE: Audit-or-hardened>",
+      "logAnalyticsWorkspaceId": "<REPLACE: log-analytics-workspace-resource-id>"
+    }
+  ],
+
+  "allowedLocations": ["<REPLACE: location>"],
+
+  // Excluded scopes, keyed by pacSelector
+  "notScopes": {
+    "<REPLACE: pacSelector>": ["<REPLACE: scope-resource-id>"]
+  },
+
+  // --- Selection (from the input form: domain/tier/category). Locked here. ---
+  "selection": [
+    { "domain": "integration", "category": "api-management", "tier": "essential" },
+    { "domain": "management",  "category": "tags",           "tier": "essential" }
+  ],
+
+  // --- Parameter bindings: one key per required parameter of the selected
+  //     initiatives (generated). Fill the VALUES only. ---
+  "bindings": {
+    "defaults": {
+      "requireTagResourceGroupsTagName": "<REPLACE: requireTagResourceGroupsTagName>",
+      "requireTagResourcesTagName": "<REPLACE: requireTagResourcesTagName>",
+      "requireTagValueResourceGroupsTagName": "<REPLACE: requireTagValueResourceGroupsTagName>",
+      "requireTagValueResourceGroupsTagValue": "<REPLACE: requireTagValueResourceGroupsTagValue>",
+      "requireTagValueResourcesTagName": "<REPLACE: requireTagValueResourcesTagName>",
+      "requireTagValueResourcesTagValue": "<REPLACE: requireTagValueResourcesTagValue>"
+    },
+    "overrides": {}
+  },
+
+  // Surgical per-policy effect overrides (optional; leave [] if unused)
+  "effectOverrides": [],
+
+  // Customer waivers per pacSelector (optional; leave {} if unused)
+  "exemptions": {},
+
+  // --- Governance metadata (fixed keys) ---
+  "metadata": {
+    "owner": "<REPLACE: owner-email>",
+    "costCenterTag": "<REPLACE: cost-center-tag>",
+    "contact": "<REPLACE: contact-name>"
+  }
+}

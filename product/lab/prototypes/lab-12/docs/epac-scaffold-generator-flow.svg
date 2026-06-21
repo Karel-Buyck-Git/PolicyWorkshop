@@ -1,0 +1,160 @@
+<svg viewBox="0 0 980 900" xmlns="http://www.w3.org/2000/svg" role="img"
+     font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <title>EPAC catalogue producer / consumer flow</title>
+  <desc>A producer pipeline (extract, enrich, create-initiatives) builds a versioned catalogue (catalogue.json, index.json, initiative groups with baked roles, definitions). A separate consumer — the assembler — expands a customer input into a manifest, resolves and binds against the catalogue, builds a canonical model, and renders EPAC/JSON, Terraform and Bicep scaffolds, then validates, reviews and deploys.</desc>
+  <style>
+    svg{--ink:#1f2328;--sub:#5b6470;--line:#c4cad2;--panel:#f3f5f8;--panelLine:#d3d9e0;--acc:#4f46e5;--accBg:#ecedfb;--accLine:#b9bbf3;}
+    @media (prefers-color-scheme:dark){svg{--ink:#e8ebef;--sub:#a3acb9;--line:#3a424d;--panel:#171b21;--panelLine:#2b323b;--acc:#9b95f5;--accBg:#23223a;--accLine:#3d3a66;}}
+    .b{fill:var(--panel);stroke:var(--panelLine);stroke-width:1.5;}
+    .c{fill:var(--accBg);stroke:var(--accLine);stroke-width:1.5;}
+    .cat{fill:var(--panel);stroke:var(--accLine);stroke-width:1.5;}
+    .wrap{fill:none;stroke:var(--accLine);stroke-width:1.5;stroke-dasharray:5 3;}
+    .t{fill:var(--ink);font-weight:700;}
+    .s{fill:var(--sub);}
+    .band{fill:var(--sub);font-weight:700;letter-spacing:.06em;}
+    .e{fill:none;stroke:var(--line);stroke-width:1.6;}
+    .ae{fill:none;stroke:var(--acc);stroke-width:1.8;}
+  </style>
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--line)"/></marker>
+    <marker id="aah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--acc)"/></marker>
+  </defs>
+
+  <!-- legend -->
+  <rect class="b" x="612" y="30" width="13" height="13" rx="3"/><text class="s" x="630" y="40" font-size="10.5">producer</text>
+  <rect class="c" x="700" y="30" width="13" height="13" rx="3"/><text class="s" x="718" y="40" font-size="10.5">consumer</text>
+  <rect class="cat" x="792" y="30" width="13" height="13" rx="3"/><text class="s" x="810" y="40" font-size="10.5">catalogue</text>
+
+  <!-- ===================== PRODUCER ===================== -->
+  <text class="band" x="60" y="24" font-size="11">PRODUCER — TAXONOMY PIPELINE (OCCASIONAL)</text>
+
+  <rect class="b" x="60" y="40" width="250" height="46" rx="9"/>
+  <text class="t" x="185" y="62" text-anchor="middle" font-size="12.5">Azure built-in policies</text>
+  <text class="s" x="185" y="78" text-anchor="middle" font-size="10">source of truth</text>
+
+  <rect class="b" x="330" y="40" width="250" height="46" rx="9"/>
+  <text class="t" x="455" y="62" text-anchor="middle" font-size="12.5">config/ hierarchy</text>
+  <text class="s" x="455" y="78" text-anchor="middle" font-size="10">the ONE authored source</text>
+
+  <path class="e" d="M185,86 V108" marker-end="url(#ah)"/>
+  <path class="e" d="M455,86 V108" marker-end="url(#ah)"/>
+
+  <rect class="b" x="60" y="108" width="250" height="52" rx="9"/>
+  <text class="t" x="185" y="131" text-anchor="middle" font-size="12.5">Extract</text>
+  <text class="s" x="185" y="148" text-anchor="middle" font-size="10">dedup · first-pass tier</text>
+
+  <rect class="b" x="345" y="108" width="250" height="52" rx="9"/>
+  <text class="t" x="470" y="131" text-anchor="middle" font-size="12.5">Enrich</text>
+  <text class="s" x="470" y="148" text-anchor="middle" font-size="10">validate tier · rationale</text>
+
+  <rect class="b" x="630" y="108" width="290" height="52" rx="9"/>
+  <text class="t" x="775" y="131" text-anchor="middle" font-size="12.5">Create-initiatives</text>
+  <text class="s" x="775" y="148" text-anchor="middle" font-size="10">group · bake roles · stamp version</text>
+
+  <path class="e" d="M310,134 H345" marker-end="url(#ah)"/>
+  <path class="e" d="M595,134 H630" marker-end="url(#ah)"/>
+  <path class="e" d="M775,160 V206" marker-end="url(#ah)"/>
+
+  <!-- ===================== CATALOGUE (contract) ===================== -->
+  <text class="band" x="60" y="198" font-size="11" fill="var(--acc)">CATALOGUE @version — THE CONTRACT</text>
+  <rect class="wrap" x="50" y="206" width="870" height="92" rx="11"/>
+
+  <rect class="cat" x="66" y="222" width="198" height="60" rx="8"/>
+  <text class="t" x="165" y="246" text-anchor="middle" font-size="11.5">catalogue.json</text>
+  <text class="s" x="165" y="262" text-anchor="middle" font-size="9.5">version · contentHash</text>
+  <text class="s" x="165" y="274" text-anchor="middle" font-size="9.5">inputs · counts · tools</text>
+
+  <rect class="cat" x="278" y="222" width="198" height="60" rx="8"/>
+  <text class="t" x="377" y="246" text-anchor="middle" font-size="11.5">index.json</text>
+  <text class="s" x="377" y="262" text-anchor="middle" font-size="9.5">groups · domainMap</text>
+  <text class="s" x="377" y="274" text-anchor="middle" font-size="9.5">tiers</text>
+
+  <rect class="cat" x="490" y="222" width="250" height="60" rx="8"/>
+  <text class="t" x="615" y="244" text-anchor="middle" font-size="11">initiatives/&lt;domain&gt;/&lt;tier&gt;/&lt;cat&gt;/</text>
+  <text class="s" x="615" y="260" text-anchor="middle" font-size="9.3">.policyset · .assignment · .exemptions</text>
+  <text class="s" x="615" y="273" text-anchor="middle" font-size="9.3">.roles · .md   (roles baked)</text>
+
+  <rect class="cat" x="754" y="222" width="150" height="60" rx="8"/>
+  <text class="t" x="829" y="246" text-anchor="middle" font-size="11.5">definitions/</text>
+  <text class="s" x="829" y="262" text-anchor="middle" font-size="9.5">policies.md</text>
+  <text class="s" x="829" y="274" text-anchor="middle" font-size="9.5">(lineage)</text>
+
+  <!-- ===================== CONSUMER ===================== -->
+  <text class="band" x="60" y="330" font-size="11" fill="var(--acc)">CONSUMER — ASSEMBLER (PER CUSTOMER, ON DEMAND)</text>
+
+  <rect class="c" x="60" y="344" width="250" height="56" rx="9"/>
+  <text class="t" x="185" y="368" text-anchor="middle" font-size="12.5">input.example.json</text>
+  <text class="s" x="185" y="385" text-anchor="middle" font-size="10">customer · selection · parameters</text>
+
+  <rect class="c" x="370" y="344" width="240" height="56" rx="9"/>
+  <text class="t" x="490" y="368" text-anchor="middle" font-size="12.5">EXPAND</text>
+  <text class="s" x="490" y="385" text-anchor="middle" font-size="10">seed params from index.json</text>
+
+  <path class="ae" d="M310,372 H370" marker-end="url(#aah)"/>
+
+  <rect class="c" x="370" y="424" width="240" height="54" rx="9"/>
+  <text class="t" x="490" y="446" text-anchor="middle" font-size="12.5">contoso.manifest.jsonc</text>
+  <text class="s" x="490" y="463" text-anchor="middle" font-size="10">placeholders → human fills values</text>
+
+  <rect class="c" x="370" y="502" width="240" height="54" rx="9"/>
+  <text class="t" x="490" y="524" text-anchor="middle" font-size="12.5">Resolve + Bind</text>
+  <text class="s" x="490" y="541" text-anchor="middle" font-size="10">tier roll-up · bind · effect</text>
+
+  <rect class="c" x="370" y="580" width="240" height="54" rx="9"/>
+  <text class="t" x="490" y="602" text-anchor="middle" font-size="12.5">Canonical IR</text>
+  <text class="s" x="490" y="619" text-anchor="middle" font-size="10">flavour-neutral model</text>
+
+  <path class="ae" d="M490,400 V424" marker-end="url(#aah)"/>
+  <path class="ae" d="M490,478 V502" marker-end="url(#aah)"/>
+  <path class="ae" d="M490,556 V580" marker-end="url(#aah)"/>
+
+  <!-- catalogue feeds the consumer -->
+  <path class="ae" d="M300,298 V322 H430 V344" marker-end="url(#aah)"/>
+  <text class="s" x="306" y="316" font-size="9.5">index.json</text>
+  <path class="ae" d="M700,298 V529 H612" marker-end="url(#aah)"/>
+  <text class="s" x="706" y="420" font-size="9.5">groups + roles @version</text>
+
+  <!-- fan-out to renderers -->
+  <path class="ae" d="M470,634 V648 H180 V662" marker-end="url(#aah)"/>
+  <path class="ae" d="M490,634 V662" marker-end="url(#aah)"/>
+  <path class="ae" d="M510,634 V648 H780 V662" marker-end="url(#aah)"/>
+
+  <rect class="c" x="60" y="662" width="240" height="52" rx="9"/>
+  <text class="t" x="180" y="684" text-anchor="middle" font-size="12">EPAC / JSON renderer</text>
+  <text class="s" x="180" y="700" text-anchor="middle" font-size="9.5">reference target</text>
+
+  <rect class="c" x="360" y="662" width="240" height="52" rx="9"/>
+  <text class="t" x="480" y="684" text-anchor="middle" font-size="12">Terraform renderer</text>
+  <text class="s" x="480" y="700" text-anchor="middle" font-size="9.5">azurerm</text>
+
+  <rect class="c" x="660" y="662" width="240" height="52" rx="9"/>
+  <text class="t" x="780" y="684" text-anchor="middle" font-size="12">Bicep renderer</text>
+  <text class="s" x="780" y="700" text-anchor="middle" font-size="9.5">MG-scoped</text>
+
+  <!-- merge to scaffold -->
+  <path class="ae" d="M180,714 V727 H480 V740" marker-end="url(#aah)"/>
+  <path class="ae" d="M480,714 V740" marker-end="url(#aah)"/>
+  <path class="ae" d="M780,714 V727 H480 V740" marker-end="url(#aah)"/>
+
+  <rect class="c" x="330" y="740" width="300" height="56" rx="9"/>
+  <text class="t" x="480" y="763" text-anchor="middle" font-size="12">customer/initiatives/</text>
+  <text class="s" x="480" y="780" text-anchor="middle" font-size="9.5">json · terraform · bicep + lineage.json</text>
+
+  <!-- validate / pr / deploy -->
+  <path class="ae" d="M480,796 V810 H180 V824" marker-end="url(#aah)"/>
+
+  <rect class="b" x="60" y="824" width="240" height="50" rx="9"/>
+  <text class="t" x="180" y="846" text-anchor="middle" font-size="12">Validate</text>
+  <text class="s" x="180" y="862" text-anchor="middle" font-size="9.5">plan / what-if in dev</text>
+
+  <rect class="b" x="360" y="824" width="240" height="50" rx="9"/>
+  <text class="t" x="480" y="846" text-anchor="middle" font-size="12">PR review</text>
+  <text class="s" x="480" y="862" text-anchor="middle" font-size="9.5">governance gate · CODEOWNERS</text>
+
+  <rect class="b" x="660" y="824" width="240" height="50" rx="9"/>
+  <text class="t" x="780" y="846" text-anchor="middle" font-size="12">Deploy</text>
+  <text class="s" x="780" y="862" text-anchor="middle" font-size="9.5">approval → production</text>
+
+  <path class="e" d="M300,849 H360" marker-end="url(#ah)"/>
+  <path class="e" d="M600,849 H660" marker-end="url(#ah)"/>
+</svg>

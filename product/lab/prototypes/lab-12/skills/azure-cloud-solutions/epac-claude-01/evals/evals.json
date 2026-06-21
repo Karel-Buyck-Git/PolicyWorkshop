@@ -1,0 +1,76 @@
+{
+  "skill_name": "epac",
+  "description": "Representative prompts spanning the four jobs and four tiers. Each is something a real Azure team member would type. Treat these as the regression suite: when the skill gives a weak answer to a real task, add that task here. 'expected_output' describes what a good answer looks like; it is guidance for human review, not a string match.",
+  "evals": [
+    {
+      "id": 1,
+      "tier": "1-foundations",
+      "job": "architecture",
+      "prompt": "I'm new to the team. Explain how Azure Policy actually gets enforced and how management groups, subscriptions and RBAC fit together. Why do we keep saying 'assign guardrails high'?",
+      "expected_output": "Clear conceptual explanation of the scope hierarchy and downward inheritance, RBAC vs Policy distinction, evaluation on create/update vs periodic scan, and the 'highest scope where it's universally true' principle. Grounded, cites Learn docs."
+    },
+    {
+      "id": 2,
+      "tier": "2-caf-alz",
+      "job": "architecture",
+      "prompt": "We're standing up a new landing zone for a customer. Propose the management group hierarchy and tell me which guardrails belong at the Corp vs Online management groups.",
+      "expected_output": "CAF-aligned MG tree (intermediate root, Platform/Management/Identity/Connectivity, Landing Zones/Corp/Online, Sandbox, Decommissioned), guardrail placement reasoning, audit-first rollout, references ALZ baseline (aka.ms/alz/policies). Cites CAF."
+    },
+    {
+      "id": 3,
+      "tier": "3-networking",
+      "job": "authoring",
+      "prompt": "Write a policy that denies any network interface with a public IP, except in our Online management group. Audit first, then we'll flip it to deny.",
+      "expected_output": "Checks for a built-in first; provides valid definition/assignment JSON with a parameterized effect (Audit default, Deny allowed, Disabled), correct alias (flagged to verify live), notes placement/altitude and notScopes/exclusion for Online, and the audit-first-then-deny path. EPAC placement noted."
+    },
+    {
+      "id": 4,
+      "tier": "3-networking",
+      "job": "authoring",
+      "prompt": "How do we make sure every Application Gateway uses WAF in prevention mode and only accepts HTTPS?",
+      "expected_output": "Identifies WAF SKU + associated WAF policy in Prevention, HTTPS-only listeners with min TLS; looks for built-ins/ALZ baseline; gives effect + altitude (Online MG); flags Known Issues caveats. Cites repo / WAF docs."
+    },
+    {
+      "id": 5,
+      "tier": "4-epac",
+      "job": "epac-ops",
+      "prompt": "Walk me through deploying this new deny policy with EPAC, from where the files go to actually applying it in production. We have epac-dev and tenant01.",
+      "expected_output": "definition file under policyDefinitions/, assignment under policyAssignments/ scoped via pacSelector, Build-DeploymentPlans against epac-dev, review plan, deploy, validate, promote to tenant01 with approvals. Surfaces desired-state-deletes and don't-root-at-tenant cautions. Cites EPAC docs."
+    },
+    {
+      "id": 6,
+      "tier": "4-epac",
+      "job": "epac-ops",
+      "prompt": "Our DINE policy that should deploy diagnostic settings says compliant but nothing actually got deployed to existing storage accounts. What's wrong?",
+      "expected_output": "Debug walk: DINE only auto-acts on new resources; existing need a remediation task (New-AzRemediationTasks); managed identity must hold roles in roleDefinitionIds; check existenceCondition and evaluation timing; cross-check Known Issues. Cites effects/remediation docs."
+    },
+    {
+      "id": 7,
+      "tier": "4-epac",
+      "job": "epac-ops",
+      "prompt": "Someone deleted a policy assignment from Azure that we still see in our repo, and now another one we created in the portal disappeared after the pipeline ran. Explain.",
+      "expected_output": "Explains EPAC desired state: it deletes policy resources at deploymentRootScope not defined in the repo; the portal-created one wasn't in the repo so it was removed; repo is source of truth; how to scope desired state. Cites desired-state doc."
+    },
+    {
+      "id": 8,
+      "tier": "cross",
+      "job": "docs",
+      "prompt": "Draft a remediation runbook for our 'deploy diagnostic settings to Log Analytics' initiative that the on-call engineer can follow.",
+      "expected_output": "Markdown runbook using the template: purpose, scope, pre-checks (identity/roles, compliance count), procedure with New-AzRemediationTasks, verification, rollback/safety, sources. Concrete, not placeholder."
+    },
+    {
+      "id": 9,
+      "tier": "cross",
+      "job": "docs",
+      "prompt": "Write an onboarding page explaining to a new engineer how we manage Azure Policy here so they don't make changes in the portal.",
+      "expected_output": "Markdown onboarding explainer: we manage policy as code with EPAC, repo is source of truth (portal changes get deleted), folder layout, the change workflow, safety rules (intermediate root, epac-dev, audit-first), where to look things up."
+    },
+    {
+      "id": 10,
+      "tier": "negative",
+      "job": "n/a",
+      "prompt": "Can you write me a Terraform module to deploy an AKS cluster with a node pool and autoscaling?",
+      "expected_output": "This is a near-miss: it's Azure IaC but NOT Azure Policy / governance / EPAC. The skill should not force policy framing onto it. Acceptable to answer plainly or note it's outside the skill's governance focus. Used to check the skill doesn't over-trigger."
+    }
+  ]
+}
