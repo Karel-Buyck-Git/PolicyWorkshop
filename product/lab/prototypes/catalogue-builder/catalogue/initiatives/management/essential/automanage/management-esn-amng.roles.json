@@ -1,0 +1,15 @@
+{
+  "name": "management-esn-amng",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+  ],
+  "byPolicy": {
+    "f889cab7-da27-4c41-a3b0-de1f6f87c550": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ],
+    "b025cfb4-3702-47c2-9110-87fe0cfcc99b": [
+      "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+  }
+}

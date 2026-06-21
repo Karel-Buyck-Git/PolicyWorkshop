@@ -1,0 +1,1802 @@
+{
+  "catalogueVersion": "2026.06.21",
+  "tiers": [
+    "Essential",
+    "Professional",
+    "Enterprise"
+  ],
+  "domainMap": {
+    "Azure Local": "Compute",
+    "Batch": "Compute",
+    "Compute": "Compute",
+    "Desktop Virtualization": "Compute",
+    "Lab Services": "Compute",
+    "Service Fabric": "Compute",
+    "Stack HCI": "Compute",
+    "Trusted Launch": "Compute",
+    "VM Image Builder": "Compute",
+    "Container Apps": "Containers",
+    "Container Instance": "Containers",
+    "Container Instances": "Containers",
+    "Container Registry": "Containers",
+    "Kubernetes": "Containers",
+    "CDN": "Networking",
+    "Network": "Networking",
+    "Attestation": "Security",
+    "Azure Active Directory": "Security",
+    "Key Vault": "Security",
+    "Managed Identity": "Security",
+    "Security Center": "Security",
+    "Security Center - Granular Pricing": "Security",
+    "Backup": "Storage",
+    "Data Box": "Storage",
+    "ElasticSan": "Storage",
+    "Resilience": "Storage",
+    "Site Recovery": "Storage",
+    "Storage": "Storage",
+    "Azure Data Explorer": "Data",
+    "Azure Databricks": "Data",
+    "Azure Purview": "Data",
+    "Cache": "Data",
+    "Cosmos DB": "Data",
+    "Data Factory": "Data",
+    "Data Lake": "Data",
+    "HDInsight": "Data",
+    "PostgreSQL": "Data",
+    "SQL": "Data",
+    "SQL Managed Instance": "Data",
+    "SQL Server": "Data",
+    "Stream Analytics": "Data",
+    "Synapse": "Data",
+    "Azure Load Testing": "DevOps",
+    "Custom Provider": "DevOps",
+    "DevCenter": "DevOps",
+    "DevOpsInfrastructure": "DevOps",
+    "ChangeTrackingAndInventory": "Monitoring",
+    "Managed Grafana": "Monitoring",
+    "Monitoring": "Monitoring",
+    "Azure Ai Services": "AI Foundry",
+    "Bot Service": "AI Foundry",
+    "Cognitive Services": "AI Foundry",
+    "Health Bot": "AI Foundry",
+    "Machine Learning": "AI Foundry",
+    "Search": "AI Foundry",
+    "Automanage": "Management",
+    "Automatic Update": "Management",
+    "Automation": "Management",
+    "Azure Arc": "Management",
+    "Azure Update Manager": "Management",
+    "General": "Management",
+    "Guest Configuration": "Management",
+    "Lighthouse": "Management",
+    "Managed Application": "Management",
+    "Migrate": "Management",
+    "Portal": "Management",
+    "Regulatory Compliance": "Management",
+    "Tags": "Management",
+    "App Configuration": "Web",
+    "App Platform": "Web",
+    "App Service": "Web",
+    "API Management": "Integration",
+    "Communication": "Integration",
+    "Durable Task": "Integration",
+    "Event Grid": "Integration",
+    "Event Hub": "Integration",
+    "Fluid Relay": "Integration",
+    "Logic Apps": "Integration",
+    "Service Bus": "Integration",
+    "SignalR": "Integration",
+    "Web PubSub": "Integration",
+    "API for FHIR": "Undefined",
+    "audit": "Undefined",
+    "Azure Edge Hardware Center": "Undefined",
+    "Azure Stack Edge": "Undefined",
+    "BuiltInPolicyTest": "Undefined",
+    "Health Data Services workspace": "Undefined",
+    "Health Deidentification Service": "Undefined",
+    "Healthcare APIs": "Undefined",
+    "Internet of Things": "Undefined",
+    "Maps": "Undefined",
+    "Mission": "Undefined",
+    "MissionPlatforms": "Undefined",
+    "Planetary Computer": "Undefined",
+    "VirtualEnclaves": "Undefined"
+  },
+  "groups": [
+    {
+      "domain": "AI Foundry",
+      "tier": "Essential",
+      "category": "Azure Ai Services",
+      "name": "ai-foundry-esn-ais",
+      "dir": "initiatives/ai-foundry/essential/azure-ai-services",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Essential",
+      "category": "Bot Service",
+      "name": "ai-foundry-esn-bot",
+      "dir": "initiatives/ai-foundry/essential/bot-service",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Essential",
+      "category": "Cognitive Services",
+      "name": "ai-foundry-esn-cog",
+      "dir": "initiatives/ai-foundry/essential/cognitive-services",
+      "policyCount": 9,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Essential",
+      "category": "Machine Learning",
+      "name": "ai-foundry-esn-mlw",
+      "dir": "initiatives/ai-foundry/essential/machine-learning",
+      "policyCount": 14,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Essential",
+      "category": "Search",
+      "name": "ai-foundry-esn-srch",
+      "dir": "initiatives/ai-foundry/essential/search",
+      "policyCount": 2,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "category": "Azure Ai Services",
+      "name": "ai-foundry-pro-ais",
+      "dir": "initiatives/ai-foundry/professional/azure-ai-services",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "category": "Bot Service",
+      "name": "ai-foundry-pro-bot",
+      "dir": "initiatives/ai-foundry/professional/bot-service",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "category": "Cognitive Services",
+      "name": "ai-foundry-pro-cog",
+      "dir": "initiatives/ai-foundry/professional/cognitive-services",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "category": "Machine Learning",
+      "name": "ai-foundry-pro-mlw",
+      "dir": "initiatives/ai-foundry/professional/machine-learning",
+      "policyCount": 7,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Professional",
+      "category": "Search",
+      "name": "ai-foundry-pro-srch",
+      "dir": "initiatives/ai-foundry/professional/search",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Enterprise",
+      "category": "Azure Ai Services",
+      "name": "ai-foundry-ent-ais",
+      "dir": "initiatives/ai-foundry/enterprise/azure-ai-services",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Enterprise",
+      "category": "Bot Service",
+      "name": "ai-foundry-ent-bot",
+      "dir": "initiatives/ai-foundry/enterprise/bot-service",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Enterprise",
+      "category": "Cognitive Services",
+      "name": "ai-foundry-ent-cog",
+      "dir": "initiatives/ai-foundry/enterprise/cognitive-services",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Enterprise",
+      "category": "Health Bot",
+      "name": "ai-foundry-ent-hbot",
+      "dir": "initiatives/ai-foundry/enterprise/health-bot",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Enterprise",
+      "category": "Machine Learning",
+      "name": "ai-foundry-ent-mlw",
+      "dir": "initiatives/ai-foundry/enterprise/machine-learning",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "AI Foundry",
+      "tier": "Enterprise",
+      "category": "Search",
+      "name": "ai-foundry-ent-srch",
+      "dir": "initiatives/ai-foundry/enterprise/search",
+      "policyCount": 3,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Azure Local",
+      "name": "compute-esn-azl",
+      "dir": "initiatives/compute/essential/azure-local",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Batch",
+      "name": "compute-esn-ba",
+      "dir": "initiatives/compute/essential/batch",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Compute",
+      "name": "compute-esn-cmp",
+      "dir": "initiatives/compute/essential/compute",
+      "policyCount": 13,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Lab Services",
+      "name": "compute-esn-labs",
+      "dir": "initiatives/compute/essential/lab-services",
+      "policyCount": 4,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Service Fabric",
+      "name": "compute-esn-sf",
+      "dir": "initiatives/compute/essential/service-fabric",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Stack HCI",
+      "name": "compute-esn-hci",
+      "dir": "initiatives/compute/essential/stack-hci",
+      "policyCount": 3,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Trusted Launch",
+      "name": "compute-esn-tl",
+      "dir": "initiatives/compute/essential/trusted-launch",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Professional",
+      "category": "Batch",
+      "name": "compute-pro-ba",
+      "dir": "initiatives/compute/professional/batch",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Compute",
+      "tier": "Professional",
+      "category": "Compute",
+      "name": "compute-pro-cmp",
+      "dir": "initiatives/compute/professional/compute",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Compute",
+      "tier": "Professional",
+      "category": "Desktop Virtualization",
+      "name": "compute-pro-avd",
+      "dir": "initiatives/compute/professional/desktop-virtualization",
+      "policyCount": 11,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Compute",
+      "tier": "Professional",
+      "category": "Stack HCI",
+      "name": "compute-pro-hci",
+      "dir": "initiatives/compute/professional/stack-hci",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Professional",
+      "category": "VM Image Builder",
+      "name": "compute-pro-aib",
+      "dir": "initiatives/compute/professional/vm-image-builder",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Enterprise",
+      "category": "Batch",
+      "name": "compute-ent-ba",
+      "dir": "initiatives/compute/enterprise/batch",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Enterprise",
+      "category": "Compute",
+      "name": "compute-ent-cmp",
+      "dir": "initiatives/compute/enterprise/compute",
+      "policyCount": 3,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Containers",
+      "tier": "Essential",
+      "category": "Container Apps",
+      "name": "containers-esn-ca",
+      "dir": "initiatives/containers/essential/container-apps",
+      "policyCount": 5,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Containers",
+      "tier": "Essential",
+      "category": "Container Registry",
+      "name": "containers-esn-cr",
+      "dir": "initiatives/containers/essential/container-registry",
+      "policyCount": 9,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Containers",
+      "tier": "Essential",
+      "category": "Kubernetes",
+      "name": "containers-esn-aks",
+      "dir": "initiatives/containers/essential/kubernetes",
+      "policyCount": 109,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Containers",
+      "tier": "Professional",
+      "category": "Container Apps",
+      "name": "containers-pro-ca",
+      "dir": "initiatives/containers/professional/container-apps",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Containers",
+      "tier": "Professional",
+      "category": "Container Instance",
+      "name": "containers-pro-ci",
+      "dir": "initiatives/containers/professional/container-instance",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Containers",
+      "tier": "Professional",
+      "category": "Container Registry",
+      "name": "containers-pro-cr",
+      "dir": "initiatives/containers/professional/container-registry",
+      "policyCount": 8,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Containers",
+      "tier": "Professional",
+      "category": "Kubernetes",
+      "name": "containers-pro-aks",
+      "dir": "initiatives/containers/professional/kubernetes",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Containers",
+      "tier": "Enterprise",
+      "category": "Container Instance",
+      "name": "containers-ent-ci",
+      "dir": "initiatives/containers/enterprise/container-instance",
+      "policyCount": 2,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Containers",
+      "tier": "Enterprise",
+      "category": "Container Instances",
+      "name": "containers-ent-cis",
+      "dir": "initiatives/containers/enterprise/container-instances",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Containers",
+      "tier": "Enterprise",
+      "category": "Container Registry",
+      "name": "containers-ent-cr",
+      "dir": "initiatives/containers/enterprise/container-registry",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Containers",
+      "tier": "Enterprise",
+      "category": "Kubernetes",
+      "name": "containers-ent-aks",
+      "dir": "initiatives/containers/enterprise/kubernetes",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Azure Data Explorer",
+      "name": "data-esn-adx",
+      "dir": "initiatives/data/essential/azure-data-explorer",
+      "policyCount": 3,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Cache",
+      "name": "data-esn-redis",
+      "dir": "initiatives/data/essential/cache",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Cosmos DB",
+      "name": "data-esn-cosmos",
+      "dir": "initiatives/data/essential/cosmos-db",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Data Factory",
+      "name": "data-esn-adf",
+      "dir": "initiatives/data/essential/data-factory",
+      "policyCount": 6,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Data Lake",
+      "name": "data-esn-dls",
+      "dir": "initiatives/data/essential/data-lake",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "HDInsight",
+      "name": "data-esn-hdi",
+      "dir": "initiatives/data/essential/hdinsight",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "PostgreSQL",
+      "name": "data-esn-psql",
+      "dir": "initiatives/data/essential/postgresql",
+      "policyCount": 10,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "SQL",
+      "name": "data-esn-sql",
+      "dir": "initiatives/data/essential/sql",
+      "policyCount": 19,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "SQL Managed Instance",
+      "name": "data-esn-sqlmi",
+      "dir": "initiatives/data/essential/sql-managed-instance",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "SQL Server",
+      "name": "data-esn-sqls",
+      "dir": "initiatives/data/essential/sql-server",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Stream Analytics",
+      "name": "data-esn-asa",
+      "dir": "initiatives/data/essential/stream-analytics",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
+      "category": "Synapse",
+      "name": "data-esn-syn",
+      "dir": "initiatives/data/essential/synapse",
+      "policyCount": 8,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Azure Data Explorer",
+      "name": "data-pro-adx",
+      "dir": "initiatives/data/professional/azure-data-explorer",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Azure Databricks",
+      "name": "data-pro-dbw",
+      "dir": "initiatives/data/professional/azure-databricks",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Azure Purview",
+      "name": "data-pro-pvw",
+      "dir": "initiatives/data/professional/azure-purview",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Cache",
+      "name": "data-pro-redis",
+      "dir": "initiatives/data/professional/cache",
+      "policyCount": 8,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Cosmos DB",
+      "name": "data-pro-cosmos",
+      "dir": "initiatives/data/professional/cosmos-db",
+      "policyCount": 8,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Data Factory",
+      "name": "data-pro-adf",
+      "dir": "initiatives/data/professional/data-factory",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "HDInsight",
+      "name": "data-pro-hdi",
+      "dir": "initiatives/data/professional/hdinsight",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "PostgreSQL",
+      "name": "data-pro-psql",
+      "dir": "initiatives/data/professional/postgresql",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "SQL",
+      "name": "data-pro-sql",
+      "dir": "initiatives/data/professional/sql",
+      "policyCount": 27,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Synapse",
+      "name": "data-pro-syn",
+      "dir": "initiatives/data/professional/synapse",
+      "policyCount": 9,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Azure Data Explorer",
+      "name": "data-ent-adx",
+      "dir": "initiatives/data/enterprise/azure-data-explorer",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Azure Databricks",
+      "name": "data-ent-dbw",
+      "dir": "initiatives/data/enterprise/azure-databricks",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Cache",
+      "name": "data-ent-redis",
+      "dir": "initiatives/data/enterprise/cache",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Cosmos DB",
+      "name": "data-ent-cosmos",
+      "dir": "initiatives/data/enterprise/cosmos-db",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Data Factory",
+      "name": "data-ent-adf",
+      "dir": "initiatives/data/enterprise/data-factory",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Data Lake",
+      "name": "data-ent-dls",
+      "dir": "initiatives/data/enterprise/data-lake",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "HDInsight",
+      "name": "data-ent-hdi",
+      "dir": "initiatives/data/enterprise/hdinsight",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "PostgreSQL",
+      "name": "data-ent-psql",
+      "dir": "initiatives/data/enterprise/postgresql",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "SQL",
+      "name": "data-ent-sql",
+      "dir": "initiatives/data/enterprise/sql",
+      "policyCount": 22,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "SQL Managed Instance",
+      "name": "data-ent-sqlmi",
+      "dir": "initiatives/data/enterprise/sql-managed-instance",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Stream Analytics",
+      "name": "data-ent-asa",
+      "dir": "initiatives/data/enterprise/stream-analytics",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Synapse",
+      "name": "data-ent-syn",
+      "dir": "initiatives/data/enterprise/synapse",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "DevOps",
+      "tier": "Essential",
+      "category": "Custom Provider",
+      "name": "devops-esn-cp",
+      "dir": "initiatives/devops/essential/custom-provider",
+      "policyCount": 1,
+      "hasRemediation": true
+    },
+    {
+      "domain": "DevOps",
+      "tier": "Essential",
+      "category": "DevCenter",
+      "name": "devops-esn-dc",
+      "dir": "initiatives/devops/essential/devcenter",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "DevOps",
+      "tier": "Professional",
+      "category": "Azure Load Testing",
+      "name": "devops-pro-lt",
+      "dir": "initiatives/devops/professional/azure-load-testing",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "DevOps",
+      "tier": "Professional",
+      "category": "DevOpsInfrastructure",
+      "name": "devops-pro-doi",
+      "dir": "initiatives/devops/professional/devopsinfrastructure",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "DevOps",
+      "tier": "Enterprise",
+      "category": "Azure Load Testing",
+      "name": "devops-ent-lt",
+      "dir": "initiatives/devops/enterprise/azure-load-testing",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "API Management",
+      "name": "integration-esn-apim",
+      "dir": "initiatives/integration/essential/api-management",
+      "policyCount": 11,
+      "hasRemediation": true,
+      "hasCustomMembers": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Communication",
+      "name": "integration-esn-acs",
+      "dir": "initiatives/integration/essential/communication",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Durable Task",
+      "name": "integration-esn-dtk",
+      "dir": "initiatives/integration/essential/durable-task",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Event Grid",
+      "name": "integration-esn-evg",
+      "dir": "initiatives/integration/essential/event-grid",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Event Hub",
+      "name": "integration-esn-evh",
+      "dir": "initiatives/integration/essential/event-hub",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Service Bus",
+      "name": "integration-esn-sb",
+      "dir": "initiatives/integration/essential/service-bus",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "SignalR",
+      "name": "integration-esn-sigr",
+      "dir": "initiatives/integration/essential/signalr",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Web PubSub",
+      "name": "integration-esn-wps",
+      "dir": "initiatives/integration/essential/web-pubsub",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "API Management",
+      "name": "integration-pro-apim",
+      "dir": "initiatives/integration/professional/api-management",
+      "policyCount": 4,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "Event Grid",
+      "name": "integration-pro-evg",
+      "dir": "initiatives/integration/professional/event-grid",
+      "policyCount": 15,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "Event Hub",
+      "name": "integration-pro-evh",
+      "dir": "initiatives/integration/professional/event-hub",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "Service Bus",
+      "name": "integration-pro-sb",
+      "dir": "initiatives/integration/professional/service-bus",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "SignalR",
+      "name": "integration-pro-sigr",
+      "dir": "initiatives/integration/professional/signalr",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "Web PubSub",
+      "name": "integration-pro-wps",
+      "dir": "initiatives/integration/professional/web-pubsub",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "category": "Event Hub",
+      "name": "integration-ent-evh",
+      "dir": "initiatives/integration/enterprise/event-hub",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "category": "Fluid Relay",
+      "name": "integration-ent-fr",
+      "dir": "initiatives/integration/enterprise/fluid-relay",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "category": "Logic Apps",
+      "name": "integration-ent-logic",
+      "dir": "initiatives/integration/enterprise/logic-apps",
+      "policyCount": 3,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "category": "Service Bus",
+      "name": "integration-ent-sb",
+      "dir": "initiatives/integration/enterprise/service-bus",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Automanage",
+      "name": "management-esn-amng",
+      "dir": "initiatives/management/essential/automanage",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Automation",
+      "name": "management-esn-aa",
+      "dir": "initiatives/management/essential/automation",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Azure Arc",
+      "name": "management-esn-arc",
+      "dir": "initiatives/management/essential/azure-arc",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Azure Update Manager",
+      "name": "management-esn-aum",
+      "dir": "initiatives/management/essential/azure-update-manager",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "General",
+      "name": "management-esn-gen",
+      "dir": "initiatives/management/essential/general",
+      "policyCount": 12,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Guest Configuration",
+      "name": "management-esn-gc",
+      "dir": "initiatives/management/essential/guest-configuration",
+      "policyCount": 79,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Lighthouse",
+      "name": "management-esn-lh",
+      "dir": "initiatives/management/essential/lighthouse",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Managed Application",
+      "name": "management-esn-mapp",
+      "dir": "initiatives/management/essential/managed-application",
+      "policyCount": 1,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Naming",
+      "name": "management-esn-naming",
+      "dir": "initiatives/management/essential/naming",
+      "policyCount": 169,
+      "hasRemediation": false,
+      "custom": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Portal",
+      "name": "management-esn-prtl",
+      "dir": "initiatives/management/essential/portal",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Tagging",
+      "name": "management-esn-tagging",
+      "dir": "initiatives/management/essential/tagging",
+      "policyCount": 1,
+      "hasRemediation": false,
+      "custom": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Essential",
+      "category": "Tags",
+      "name": "management-esn-tags",
+      "dir": "initiatives/management/essential/tags",
+      "policyCount": 4,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Professional",
+      "category": "Automation",
+      "name": "management-pro-aa",
+      "dir": "initiatives/management/professional/automation",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Professional",
+      "category": "Azure Arc",
+      "name": "management-pro-arc",
+      "dir": "initiatives/management/professional/azure-arc",
+      "policyCount": 9,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Professional",
+      "category": "General",
+      "name": "management-pro-gen",
+      "dir": "initiatives/management/professional/general",
+      "policyCount": 1,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Professional",
+      "category": "Guest Configuration",
+      "name": "management-pro-gc",
+      "dir": "initiatives/management/professional/guest-configuration",
+      "policyCount": 7,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Professional",
+      "category": "Migrate",
+      "name": "management-pro-migr",
+      "dir": "initiatives/management/professional/migrate",
+      "policyCount": 1,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Professional",
+      "category": "Tags",
+      "name": "management-pro-tags",
+      "dir": "initiatives/management/professional/tags",
+      "policyCount": 13,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Enterprise",
+      "category": "Automatic Update",
+      "name": "management-ent-au",
+      "dir": "initiatives/management/enterprise/automatic-update",
+      "policyCount": 1,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Management",
+      "tier": "Enterprise",
+      "category": "Automation",
+      "name": "management-ent-aa",
+      "dir": "initiatives/management/enterprise/automation",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Enterprise",
+      "category": "Guest Configuration",
+      "name": "management-ent-gc",
+      "dir": "initiatives/management/enterprise/guest-configuration",
+      "policyCount": 9,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Enterprise",
+      "category": "Managed Application",
+      "name": "management-ent-mapp",
+      "dir": "initiatives/management/enterprise/managed-application",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Management",
+      "tier": "Enterprise",
+      "category": "Regulatory Compliance",
+      "name": "management-ent-reg",
+      "dir": "initiatives/management/enterprise/regulatory-compliance",
+      "policyCount": 1389,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Monitoring",
+      "tier": "Essential",
+      "category": "ChangeTrackingAndInventory",
+      "name": "monitoring-esn-cti",
+      "dir": "initiatives/monitoring/essential/changetrackingandinventory",
+      "policyCount": 12,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Monitoring",
+      "tier": "Essential",
+      "category": "Managed Grafana",
+      "name": "monitoring-esn-amg",
+      "dir": "initiatives/monitoring/essential/managed-grafana",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Monitoring",
+      "tier": "Essential",
+      "category": "Monitoring",
+      "name": "monitoring-esn-mon",
+      "dir": "initiatives/monitoring/essential/monitoring",
+      "policyCount": 39,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Monitoring",
+      "tier": "Professional",
+      "category": "Managed Grafana",
+      "name": "monitoring-pro-amg",
+      "dir": "initiatives/monitoring/professional/managed-grafana",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Monitoring",
+      "tier": "Professional",
+      "category": "Monitoring",
+      "name": "monitoring-pro-mon",
+      "dir": "initiatives/monitoring/professional/monitoring",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Monitoring",
+      "tier": "Enterprise",
+      "category": "Monitoring",
+      "name": "monitoring-ent-mon",
+      "dir": "initiatives/monitoring/enterprise/monitoring",
+      "policyCount": 473,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Networking",
+      "tier": "Essential",
+      "category": "CDN",
+      "name": "networking-esn-cdn",
+      "dir": "initiatives/networking/essential/cdn",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Networking",
+      "tier": "Essential",
+      "category": "Network",
+      "name": "networking-esn-net",
+      "dir": "initiatives/networking/essential/network",
+      "policyCount": 11,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Networking",
+      "tier": "Professional",
+      "category": "CDN",
+      "name": "networking-pro-cdn",
+      "dir": "initiatives/networking/professional/cdn",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Networking",
+      "tier": "Professional",
+      "category": "Network",
+      "name": "networking-pro-net",
+      "dir": "initiatives/networking/professional/network",
+      "policyCount": 42,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Networking",
+      "tier": "Enterprise",
+      "category": "Network",
+      "name": "networking-ent-net",
+      "dir": "initiatives/networking/enterprise/network",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Essential",
+      "category": "Azure Active Directory",
+      "name": "security-esn-aad",
+      "dir": "initiatives/security/essential/azure-active-directory",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Security",
+      "tier": "Essential",
+      "category": "Key Vault",
+      "name": "security-esn-kv",
+      "dir": "initiatives/security/essential/key-vault",
+      "policyCount": 34,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Security",
+      "tier": "Essential",
+      "category": "Managed Identity",
+      "name": "security-esn-id",
+      "dir": "initiatives/security/essential/managed-identity",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Essential",
+      "category": "Security Center",
+      "name": "security-esn-asc",
+      "dir": "initiatives/security/essential/security-center",
+      "policyCount": 46,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
+      "category": "Attestation",
+      "name": "security-pro-att",
+      "dir": "initiatives/security/professional/attestation",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
+      "category": "Azure Active Directory",
+      "name": "security-pro-aad",
+      "dir": "initiatives/security/professional/azure-active-directory",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
+      "category": "Key Vault",
+      "name": "security-pro-kv",
+      "dir": "initiatives/security/professional/key-vault",
+      "policyCount": 10,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
+      "category": "Security Center",
+      "name": "security-pro-asc",
+      "dir": "initiatives/security/professional/security-center",
+      "policyCount": 75,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
+      "category": "Security Center - Granular Pricing",
+      "name": "security-pro-ascg",
+      "dir": "initiatives/security/professional/security-center-granular-pricing",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Enterprise",
+      "category": "Key Vault",
+      "name": "security-ent-kv",
+      "dir": "initiatives/security/enterprise/key-vault",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Enterprise",
+      "category": "Security Center",
+      "name": "security-ent-asc",
+      "dir": "initiatives/security/enterprise/security-center",
+      "policyCount": 21,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Essential",
+      "category": "Backup",
+      "name": "storage-esn-bkp",
+      "dir": "initiatives/storage/essential/backup",
+      "policyCount": 28,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Essential",
+      "category": "Data Box",
+      "name": "storage-esn-dbox",
+      "dir": "initiatives/storage/essential/data-box",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Storage",
+      "tier": "Essential",
+      "category": "Storage",
+      "name": "storage-esn-st",
+      "dir": "initiatives/storage/essential/storage",
+      "policyCount": 21,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Professional",
+      "category": "Backup",
+      "name": "storage-pro-bkp",
+      "dir": "initiatives/storage/professional/backup",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Professional",
+      "category": "ElasticSan",
+      "name": "storage-pro-esan",
+      "dir": "initiatives/storage/professional/elasticsan",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Storage",
+      "tier": "Professional",
+      "category": "Site Recovery",
+      "name": "storage-pro-asr",
+      "dir": "initiatives/storage/professional/site-recovery",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Professional",
+      "category": "Storage",
+      "name": "storage-pro-st",
+      "dir": "initiatives/storage/professional/storage",
+      "policyCount": 29,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "category": "Backup",
+      "name": "storage-ent-bkp",
+      "dir": "initiatives/storage/enterprise/backup",
+      "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "category": "Data Box",
+      "name": "storage-ent-dbox",
+      "dir": "initiatives/storage/enterprise/data-box",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "category": "ElasticSan",
+      "name": "storage-ent-esan",
+      "dir": "initiatives/storage/enterprise/elasticsan",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "category": "Resilience",
+      "name": "storage-ent-resl",
+      "dir": "initiatives/storage/enterprise/resilience",
+      "policyCount": 34,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Storage",
+      "tier": "Enterprise",
+      "category": "Storage",
+      "name": "storage-ent-st",
+      "dir": "initiatives/storage/enterprise/storage",
+      "policyCount": 11,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "Azure Edge Hardware Center",
+      "name": "undefined-esn-ehc",
+      "dir": "initiatives/undefined/essential/azure-edge-hardware-center",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "Azure Stack Edge",
+      "name": "undefined-esn-ase",
+      "dir": "initiatives/undefined/essential/azure-stack-edge",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "BuiltInPolicyTest",
+      "name": "undefined-esn-test",
+      "dir": "initiatives/undefined/essential/builtinpolicytest",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "Internet of Things",
+      "name": "undefined-esn-iot",
+      "dir": "initiatives/undefined/essential/internet-of-things",
+      "policyCount": 2,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "Maps",
+      "name": "undefined-esn-map",
+      "dir": "initiatives/undefined/essential/maps",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "Mission",
+      "name": "undefined-esn-msn",
+      "dir": "initiatives/undefined/essential/mission",
+      "policyCount": 17,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "MissionPlatforms",
+      "name": "undefined-esn-msnp",
+      "dir": "initiatives/undefined/essential/missionplatforms",
+      "policyCount": 3,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "Planetary Computer",
+      "name": "undefined-esn-plc",
+      "dir": "initiatives/undefined/essential/planetary-computer",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Essential",
+      "category": "VirtualEnclaves",
+      "name": "undefined-esn-ve",
+      "dir": "initiatives/undefined/essential/virtualenclaves",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "API for FHIR",
+      "name": "undefined-pro-fhir",
+      "dir": "initiatives/undefined/professional/api-for-fhir",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "BuiltInPolicyTest",
+      "name": "undefined-pro-test",
+      "dir": "initiatives/undefined/professional/builtinpolicytest",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Health Data Services workspace",
+      "name": "undefined-pro-hds",
+      "dir": "initiatives/undefined/professional/health-data-services-workspace",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Health Deidentification Service",
+      "name": "undefined-pro-hdid",
+      "dir": "initiatives/undefined/professional/health-deidentification-service",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Healthcare APIs",
+      "name": "undefined-pro-hapi",
+      "dir": "initiatives/undefined/professional/healthcare-apis",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Internet of Things",
+      "name": "undefined-pro-iot",
+      "dir": "initiatives/undefined/professional/internet-of-things",
+      "policyCount": 20,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Maps",
+      "name": "undefined-pro-map",
+      "dir": "initiatives/undefined/professional/maps",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Mission",
+      "name": "undefined-pro-msn",
+      "dir": "initiatives/undefined/professional/mission",
+      "policyCount": 29,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "MissionPlatforms",
+      "name": "undefined-pro-msnp",
+      "dir": "initiatives/undefined/professional/missionplatforms",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "Privileged Identity Management",
+      "name": "undefined-pro-pim",
+      "dir": "initiatives/undefined/professional/privileged-identity-management",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Professional",
+      "category": "VirtualEnclaves",
+      "name": "undefined-pro-ve",
+      "dir": "initiatives/undefined/professional/virtualenclaves",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Enterprise",
+      "category": "API for FHIR",
+      "name": "undefined-ent-fhir",
+      "dir": "initiatives/undefined/enterprise/api-for-fhir",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Enterprise",
+      "category": "Healthcare APIs",
+      "name": "undefined-ent-hapi",
+      "dir": "initiatives/undefined/enterprise/healthcare-apis",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Enterprise",
+      "category": "Internet of Things",
+      "name": "undefined-ent-iot",
+      "dir": "initiatives/undefined/enterprise/internet-of-things",
+      "policyCount": 4,
+      "hasRemediation": false
+    },
+    {
+      "domain": "undefined",
+      "tier": "Enterprise",
+      "category": "Mission",
+      "name": "undefined-ent-msn",
+      "dir": "initiatives/undefined/enterprise/mission",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "undefined",
+      "tier": "Enterprise",
+      "category": "MissionPlatforms",
+      "name": "undefined-ent-msnp",
+      "dir": "initiatives/undefined/enterprise/missionplatforms",
+      "policyCount": 2,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Web",
+      "tier": "Essential",
+      "category": "App Configuration",
+      "name": "web-esn-appcs",
+      "dir": "initiatives/web/essential/app-configuration",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Web",
+      "tier": "Essential",
+      "category": "App Service",
+      "name": "web-esn-app",
+      "dir": "initiatives/web/essential/app-service",
+      "policyCount": 87,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Web",
+      "tier": "Professional",
+      "category": "App Configuration",
+      "name": "web-pro-appcs",
+      "dir": "initiatives/web/professional/app-configuration",
+      "policyCount": 6,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Web",
+      "tier": "Professional",
+      "category": "App Platform",
+      "name": "web-pro-spr",
+      "dir": "initiatives/web/professional/app-platform",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Web",
+      "tier": "Professional",
+      "category": "App Service",
+      "name": "web-pro-app",
+      "dir": "initiatives/web/professional/app-service",
+      "policyCount": 28,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Web",
+      "tier": "Enterprise",
+      "category": "App Configuration",
+      "name": "web-ent-appcs",
+      "dir": "initiatives/web/enterprise/app-configuration",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Web",
+      "tier": "Enterprise",
+      "category": "App Platform",
+      "name": "web-ent-spr",
+      "dir": "initiatives/web/enterprise/app-platform",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Web",
+      "tier": "Enterprise",
+      "category": "App Service",
+      "name": "web-ent-app",
+      "dir": "initiatives/web/enterprise/app-service",
+      "policyCount": 4,
+      "hasRemediation": false
+    }
+  ]
+}

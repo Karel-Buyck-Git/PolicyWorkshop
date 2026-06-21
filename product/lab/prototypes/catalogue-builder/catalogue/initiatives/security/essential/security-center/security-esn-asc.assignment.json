@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/security/essential/security-center/",
+  "assignment": {
+    "name": "security-esn-asc",
+    "displayName": "Security Essential — Security Center",
+    "description": "Deployment scaffold for 46 policies. 5 parameter values must be supplied at assignment (e.g. deployConfigureSuppressionRulesAzureSecurityAlertType, deployConfigureSuppressionRulesAzureSecuritySuppressionRuleName, deployConfigureSuppressionRulesAzureSecurityReason, …). A managed identity is required: 19 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub…"
+  },
+  "policySetDefinitionName": "security-esn-asc",
+  "parameters": {
+    "deployConfigureSuppressionRulesAzureSecurityAlertType": "<REPLACE: deployConfigureSuppressionRulesAzureSecurityAlertType>",
+    "deployConfigureSuppressionRulesAzureSecuritySuppressionRuleName": "<REPLACE: deployConfigureSuppressionRulesAzureSecuritySuppressionRuleName>",
+    "deployConfigureSuppressionRulesAzureSecurityReason": "<REPLACE: deployConfigureSuppressionRulesAzureSecurityReason>",
+    "deployConfigureSuppressionRulesAzureSecurityExpirationDate": "<REPLACE: deployConfigureSuppressionRulesAzureSecurityExpirationDate>",
+    "enableSecurityCenterSAutoProvisioningLogAnalytics": "<REPLACE: enableSecurityCenterSAutoProvisioningLogAnalytics>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,18 @@
+{
+  "name": "integration-esn-evg",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/microsoft.authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de"
+  ],
+  "byPolicy": {
+    "8ac2748f-3bf1-4c02-a3b6-92ae68cf75b1": [
+      "/providers/microsoft.authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de"
+    ],
+    "2dd0e8b9-4289-4bb0-b813-1883298e9924": [
+      "/providers/microsoft.authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de"
+    ],
+    "1c8144d9-746a-4501-b08c-093c8d29ad04": [
+      "/providers/microsoft.authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "integration-esn-acs",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/09976791-48a7-449e-bb21-39d1a415f350"
+  ],
+  "byPolicy": {
+    "145408bc-d134-468a-ae3b-1eaf3b9e5ac7": [
+      "/providers/Microsoft.Authorization/roleDefinitions/09976791-48a7-449e-bb21-39d1a415f350"
+    ]
+  }
+}

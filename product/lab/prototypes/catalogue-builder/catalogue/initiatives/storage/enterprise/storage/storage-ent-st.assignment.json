@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/storage/enterprise/storage/",
+  "assignment": {
+    "name": "storage-ent-st",
+    "displayName": "Storage Enterprise — Storage",
+    "description": "Deployment scaffold for 11 policies. 5 parameter values must be supplied at assignment (e.g. configureDiagnosticSettingsBlobServicesLogLogAnalytics, configureDiagnosticSettingsFileServicesLogLogAnalytics, configureDiagnosticSettingsQueueServicesLogLogAnalytics, …). A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>…"
+  },
+  "policySetDefinitionName": "storage-ent-st",
+  "parameters": {
+    "configureDiagnosticSettingsBlobServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsBlobServicesLogLogAnalytics>",
+    "configureDiagnosticSettingsFileServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsFileServicesLogLogAnalytics>",
+    "configureDiagnosticSettingsQueueServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsQueueServicesLogLogAnalytics>",
+    "configureDiagnosticSettingsStorageAccountsLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsStorageAccountsLogLogAnalytics>",
+    "configureDiagnosticSettingsTableServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsTableServicesLogLogAnalytics>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

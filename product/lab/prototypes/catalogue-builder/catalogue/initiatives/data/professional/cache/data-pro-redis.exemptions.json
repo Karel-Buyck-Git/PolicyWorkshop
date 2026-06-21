@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-exemption-schema.json",
+  "nodeName": "/data/professional/cache/exemptions/",
+  "exemptions": [
+    {
+      "name": "data-pro-redis-ex",
+      "displayName": "Example exemption — replace or remove",
+      "description": "Template stub. Set the scope/assignment id and the policyDefinitionReferenceIds for policies that do not apply.",
+      "exemptionCategory": "Waiver",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/<root-mg-id>/providers/Microsoft.Authorization/policyAssignments/data-pro-redis",
+      "policyDefinitionReferenceIds": [
+        "<policy-reference-id>"
+      ],
+      "scope": "/subscriptions/<sub-id>"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/management/essential/azure-update-manager/",
+  "assignment": {
+    "name": "management-esn-aum",
+    "displayName": "Management Essential — Azure Update Manager",
+    "description": "Deployment scaffold for 5 policies. 1 parameter value must be supplied at assignment (e.g. scheduleRecurringUpdatesAzureUpdateManagerMaintenanceConfigurationResourceId). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "management-esn-aum",
+  "parameters": {
+    "scheduleRecurringUpdatesAzureUpdateManagerMaintenanceConfigurationResourceId": "<REPLACE: scheduleRecurringUpdatesAzureUpdateManagerMaintenanceConfigurationResourceId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

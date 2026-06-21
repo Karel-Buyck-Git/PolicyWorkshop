@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/data/enterprise/sql/",
+  "assignment": {
+    "name": "data-ent-sql",
+    "displayName": "Data Enterprise — SQL",
+    "description": "Deployment scaffold for 22 policies. 7 parameter values must be supplied at assignment (e.g. configureAzureSqlDatabaseServersDiagnosticLogAnalyticsWorkspaceId, configureSqlServersAuditingEnabledStorageAccountsResourceGroup, configureSqlServersAuditingEnabledEventEventHubName, …). A managed identity is required: 6 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-sele…"
+  },
+  "policySetDefinitionName": "data-ent-sql",
+  "parameters": {
+    "configureAzureSqlDatabaseServersDiagnosticLogAnalyticsWorkspaceId": "<REPLACE: configureAzureSqlDatabaseServersDiagnosticLogAnalyticsWorkspaceId>",
+    "configureSqlServersAuditingEnabledStorageAccountsResourceGroup": "<REPLACE: configureSqlServersAuditingEnabledStorageAccountsResourceGroup>",
+    "configureSqlServersAuditingEnabledEventEventHubName": "<REPLACE: configureSqlServersAuditingEnabledEventEventHubName>",
+    "configureSqlServersAuditingEnabledEventEventHubRuleId": "<REPLACE: configureSqlServersAuditingEnabledEventEventHubRuleId>",
+    "configureSqlServersAuditingEnabledLogLogAnalyticsWorkspaceId": "<REPLACE: configureSqlServersAuditingEnabledLogLogAnalyticsWorkspaceId>",
+    "deployConfigureDiagnosticSettingsSqlDatabasesLogAnalytics": "<REPLACE: deployConfigureDiagnosticSettingsSqlDatabasesLogAnalytics>",
+    "deployDiagnosticSettingsAzureSqlDatabaseEventHubRuleId": "<REPLACE: deployDiagnosticSettingsAzureSqlDatabaseEventHubRuleId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/integration/essential/communication/",
+  "assignment": {
+    "name": "integration-esn-acs",
+    "displayName": "Integration Essential — Communication",
+    "description": "Deployment scaffold for 4 policies. 1 parameter value must be supplied at assignment (e.g. communicationServiceResourceAllowListedDataAllowedDataLocations). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "integration-esn-acs",
+  "parameters": {
+    "communicationServiceResourceAllowListedDataAllowedDataLocations": [
+      "<REPLACE: communicationServiceResourceAllowListedDataAllowedDataLocations>"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "containers-ent-aks",
+  "properties": {
+    "displayName": "Containers Enterprise — Kubernetes",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Kubernetes: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel, customer-managed keys (CMK / BYOK) for cryptographic sovereignty, and direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to NIS2 Arti…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Kubernetes",
+      "domain": "Containers",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.06.21",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+      ]
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {
+      "deployConfigureDiagnosticSettingsAzureKubernetesLogAnalytics": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Log Analytics workspace",
+          "description": "Specify the Log Analytics workspace the Azure Kubernetes Service should be connected to",
+          "strongType": "omsWorkspace",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "7d7be79c-23ba-4033-84dd-45e2a5ccdd67",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7d7be79c-23ba-4033-84dd-45e2a5ccdd67",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Both operating systems and data disks in Azure Kubernetes Service clusters should be encrypted by customer-managed keys"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "6c66c325-74c8-42fd-a286-a74b0e2939d8",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c66c325-74c8-42fd-a286-a74b0e2939d8",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Deploy - Configure diagnostic settings for Azure Kubernetes Service to Log Analytics workspace"
+        },
+        "parameters": {
+          "effect": {
+            "value": "DeployIfNotExists"
+          },
+          "diagnosticsSettingNameToUse": {
+            "value": "AzureKubernetesDiagnosticsLogsToWorkspace"
+          },
+          "logAnalytics": {
+            "value": "[parameters('deployConfigureDiagnosticSettingsAzureKubernetesLogAnalytics')]"
+          },
+          "AllMetrics": {
+            "value": "True"
+          },
+          "kube-apiserver": {
+            "value": "True"
+          },
+          "kube-audit": {
+            "value": "True"
+          },
+          "kube-controller-manager": {
+            "value": "True"
+          },
+          "kube-scheduler": {
+            "value": "True"
+          },
+          "cluster-autoscaler": {
+            "value": "True"
+          },
+          "kube-audit-admin": {
+            "value": "True"
+          },
+          "guard": {
+            "value": "True"
+          },
+          "cloud-controller-manager": {
+            "value": "True"
+          },
+          "csi-azuredisk-controller": {
+            "value": "True"
+          },
+          "csi-azurefile-controller": {
+            "value": "True"
+          },
+          "csi-snapshot-controller": {
+            "value": "True"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "245fc9df-fa96-4414-9a0b-3738c2f7341c",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/245fc9df-fa96-4414-9a0b-3738c2f7341c",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Resource logs in Azure Kubernetes Service should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "requiredRetentionDays": {
+            "value": "365"
+          }
+        }
+      }
+    ]
+  }
+}

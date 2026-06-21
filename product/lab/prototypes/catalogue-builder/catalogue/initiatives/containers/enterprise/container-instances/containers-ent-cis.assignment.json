@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/containers/enterprise/container-instances/",
+  "assignment": {
+    "name": "containers-ent-cis",
+    "displayName": "Containers Enterprise — Container Instances",
+    "description": "Deployment scaffold for 1 policy. 2 parameter values must be supplied at assignment (e.g. configureDiagnosticsContainerGroupLogAnalyticsWorkspaceId, configureDiagnosticsContainerGroupLogAnalyticsWorkspaceKey). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
+  },
+  "policySetDefinitionName": "containers-ent-cis",
+  "parameters": {
+    "configureDiagnosticsContainerGroupLogAnalyticsWorkspaceId": "<REPLACE: configureDiagnosticsContainerGroupLogAnalyticsWorkspaceId>",
+    "configureDiagnosticsContainerGroupLogAnalyticsWorkspaceKey": "<REPLACE: configureDiagnosticsContainerGroupLogAnalyticsWorkspaceKey>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

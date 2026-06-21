@@ -1,0 +1,12 @@
+{
+  "name": "data-esn-cosmos",
+  "hasRemediation": true,
+  "roleDefinitionIds": [
+    "/providers/Microsoft.Authorization/roleDefinitions/5bd9cd88-fe45-4216-938b-f97437e15450"
+  ],
+  "byPolicy": {
+    "dc2d41d1-4ab1-4666-a3e1-3d51c43e0049": [
+      "/providers/Microsoft.Authorization/roleDefinitions/5bd9cd88-fe45-4216-938b-f97437e15450"
+    ]
+  }
+}

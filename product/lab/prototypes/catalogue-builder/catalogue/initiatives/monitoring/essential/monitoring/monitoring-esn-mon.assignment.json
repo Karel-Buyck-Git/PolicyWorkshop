@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/monitoring/essential/monitoring/",
+  "assignment": {
+    "name": "monitoring-esn-mon",
+    "displayName": "Monitoring Essential — Monitoring",
+    "description": "Deployment scaffold for 39 policies. 17 parameter values must be supplied at assignment (e.g. activityLogAlertExistSpecificAdministrativeOperationName, activityLogAlertExistSpecificPolicyOperationName, activityLogAlertExistSpecificSecurityOperationName, …). A managed identity is required: 20 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPL…"
+  },
+  "policySetDefinitionName": "monitoring-esn-mon",
+  "parameters": {
+    "activityLogAlertExistSpecificAdministrativeOperationName": "<REPLACE: activityLogAlertExistSpecificAdministrativeOperationName>",
+    "activityLogAlertExistSpecificPolicyOperationName": "<REPLACE: activityLogAlertExistSpecificPolicyOperationName>",
+    "activityLogAlertExistSpecificSecurityOperationName": "<REPLACE: activityLogAlertExistSpecificSecurityOperationName>",
+    "configureLinuxArcMachinesAssociatedDataDcrResourceId": "<REPLACE: configureLinuxArcMachinesAssociatedDataDcrResourceId>",
+    "configureLinuxMachinesAssociatedDataCollectionDcrResourceId": "<REPLACE: configureLinuxMachinesAssociatedDataCollectionDcrResourceId>",
+    "configureLinuxVirtualMachineScaleSetsDcrResourceId": "<REPLACE: configureLinuxVirtualMachineScaleSetsDcrResourceId>",
+    "configureLinuxVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity": "<REPLACE: configureLinuxVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity>",
+    "configureLinuxVirtualMachinesAssociatedDataDcrResourceId": "<REPLACE: configureLinuxVirtualMachinesAssociatedDataDcrResourceId>",
+    "configureLinuxVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity": "<REPLACE: configureLinuxVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity>",
+    "configureWindowsArcMachinesAssociatedDataDcrResourceId": "<REPLACE: configureWindowsArcMachinesAssociatedDataDcrResourceId>",
+    "configureWindowsMachinesAssociatedDataCollectionDcrResourceId": "<REPLACE: configureWindowsMachinesAssociatedDataCollectionDcrResourceId>",
+    "configureWindowsVirtualMachineScaleSetsDcrResourceId": "<REPLACE: configureWindowsVirtualMachineScaleSetsDcrResourceId>",
+    "configureWindowsVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity": "<REPLACE: configureWindowsVirtualMachineScaleSetsBringYourOwnUserAssignedManagedIdentity>",
+    "configureWindowsVirtualMachinesAssociatedDataDcrResourceId": "<REPLACE: configureWindowsVirtualMachinesAssociatedDataDcrResourceId>",
+    "configureWindowsVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity": "<REPLACE: configureWindowsVirtualMachinesRunAzureBringYourOwnUserAssignedManagedIdentity>",
+    "dataCollectionRulesTargetSpecificWorkspaceWorkspaceResourceId": "<REPLACE: dataCollectionRulesTargetSpecificWorkspaceWorkspaceResourceId>",
+    "dataCollectionRulesTargetSpecificWorkspaceDceResourceId": "<REPLACE: dataCollectionRulesTargetSpecificWorkspaceDceResourceId>"
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

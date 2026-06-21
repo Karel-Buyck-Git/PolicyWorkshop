@@ -1,0 +1,74 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+  "name": "naming-compute-virtualmachines",
+  "properties": {
+    "displayName": "Require naming convention for Virtual machine",
+    "description": "Audits or denies Virtual machine (Microsoft.Compute/virtualMachines) that do not follow the organisation's naming convention from getResourceName.bicep. Accepted abbreviation(s): vm. Example: '<service><env><loc><role><instance>'. Check: name is compact (contains no hyphens). NOTE: the Windows computer-name 15-char limit applies to the computerName, not the resource name, so length is not enforced here. Note: Azure Policy 'like' allows a single wildcard, so only the deterministic anchor is validated, not e…",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Naming convention",
+      "version": "2.0.0",
+      "source": "getResourceName.bicep v1.5",
+      "cafCategory": "Compute and web",
+      "resourceType": "Microsoft.Compute/virtualMachines",
+      "abbreviations": [
+        "vm"
+      ],
+      "abbreviationSource": "module (getResourceName.bicep)",
+      "checkKind": "vmCompact",
+      "conventionExample": "<service><env><loc><role><instance>"
+    },
+    "parameters": {
+      "excludedNamePattern": {
+        "type": "Array",
+        "defaultValue": [],
+        "metadata": {
+          "displayName": "Excluded name patterns",
+          "description": "Names matching any of these wildcard patterns are exempt. Example: 'rg-*, NetworkWatcherRG'."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "The effect of the policy (Audit, Deny or Disabled)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Compute/virtualMachines"
+          },
+          {
+            "count": {
+              "value": "[parameters('excludedNamePattern')]",
+              "name": "excluded",
+              "where": {
+                "field": "name",
+                "like": "[current('excluded')]"
+              }
+            },
+            "equals": 0
+          },
+          {
+            "field": "name",
+            "contains": "-"
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
