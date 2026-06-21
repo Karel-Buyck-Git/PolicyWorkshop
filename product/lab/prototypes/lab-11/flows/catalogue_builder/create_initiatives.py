@@ -644,8 +644,10 @@ def write_catalogue_manifests(catalogue_root, records, version, source_dir,
             "enrich": _sha256_file(flows_dir / "enrich_policies.py"),
             "createInitiatives": _sha256_file(flows_dir / "create_initiatives.py"),
         },
-        # fingerprint over the whole catalogue except catalogue.json itself
-        "contentHash": _content_hash(catalogue_root, exclude={"catalogue.json"}),
+        # Provisional — Phase ④ (apply_overlays) applies the custom overlays and writes the one
+        # authoritative contentHash over the whole catalogue. A 'pending' stamp here means the
+        # catalogue is built but not finalized; QC (Phase ⑤) fails until apply_overlays has run.
+        "contentHash": "sha256:pending",
     }
     write_json(catalogue_root / "catalogue.json", catalogue)
 

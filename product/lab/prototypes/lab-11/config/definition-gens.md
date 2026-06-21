@@ -7,7 +7,9 @@
 >
 > **To add a generator:** write `flows/definition_gen/<module>.py` (a `build()` returning an
 > `Overlay`) + its `<module>.md`, then add a row here and set Enabled = yes.
-> **To disable one:** set Enabled = no (the module stays in the repo but is skipped).
+> **To disable one:** set Enabled = no (the module stays in the repo but is skipped, and its
+> `definitions/custom/<family>/` folder is pruned on the next run so nothing is left orphaned). Set
+> every row to `no` for a **built-in-only** catalogue — apply-overlays still finalizes the stamp.
 >
 > The **Module** column is the Python module name under `flows/definition_gen/` (the file stem,
 > no `.py`). Family / Placement are informational. Order is the order generators are applied;
