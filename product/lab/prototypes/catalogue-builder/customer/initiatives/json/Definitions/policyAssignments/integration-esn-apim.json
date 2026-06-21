@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/contoso/integration/essential/api-management/",
+  "assignment": {
+    "name": "integration-esn-apim",
+    "displayName": "Integration Essential — API Management",
+    "description": "Integration Essential — API Management: 11 policies, effect posture 'hardened'. Contains Modify/DeployIfNotExists policies — a managed identity is assigned and remediation runs after deployment."
+  },
+  "policySetDefinitionName": "contoso-integration-esn-apim",
+  "parameters": {},
+  "scope": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  },
+  "notScopes": {
+    "epac-dev": [
+      "/providers/Microsoft.Management/managementGroups/contoso-sandbox"
+    ]
+  },
+  "managedIdentityLocations": {
+    "westeurope": [
+      "/providers/Microsoft.Management/managementGroups/contoso"
+    ]
+  }
+}

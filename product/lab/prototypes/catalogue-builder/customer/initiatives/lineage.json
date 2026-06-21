@@ -1,0 +1,51 @@
+{
+  "customer": "contoso",
+  "pacOwnerId": "11111111-2222-3333-4444-555555555555",
+  "manifestHash": "sha256:7d7149ad28c65076be220fc8300c8b9d3487235b3fb6ae9c627875c40898f16a",
+  "catalogueVersion": "2026.06.21",
+  "flavours": [
+    "json"
+  ],
+  "groups": [
+    {
+      "group": "integration/essential/api-management",
+      "name": "contoso-integration-esn-apim",
+      "assignmentName": "integration-esn-apim",
+      "source": "initiatives/integration/essential/api-management",
+      "policyCount": 11,
+      "hasRemediation": true
+    },
+    {
+      "group": "management/essential/tags",
+      "name": "contoso-management-esn-tags",
+      "assignmentName": "management-esn-tags",
+      "source": "initiatives/management/essential/tags",
+      "policyCount": 4,
+      "hasRemediation": false
+    },
+    {
+      "group": "management/essential/naming",
+      "name": "contoso-management-esn-naming",
+      "assignmentName": "management-esn-naming",
+      "source": "initiatives/management/essential/naming",
+      "policyCount": 169,
+      "hasRemediation": false
+    },
+    {
+      "group": "ai-foundry/essential/azure-ai-services",
+      "name": "contoso-ai-foundry-esn-ais",
+      "assignmentName": "ai-foundry-esn-ais",
+      "source": "initiatives/ai-foundry/essential/azure-ai-services",
+      "policyCount": 3,
+      "hasRemediation": true
+    },
+    {
+      "group": "compute/essential/compute",
+      "name": "contoso-compute-esn-cmp",
+      "assignmentName": "compute-esn-cmp",
+      "source": "initiatives/compute/essential/compute",
+      "policyCount": 13,
+      "hasRemediation": true
+    }
+  ]
+}
