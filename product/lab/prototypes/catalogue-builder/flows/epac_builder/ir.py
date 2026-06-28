@@ -12,6 +12,8 @@ import json
 from epac_builder.bind import (
     apply_posture, bind_parameters, resolve_posture,
 )
+from epac_builder.catalogue import ResolveError
+from epac_builder.mgscopes import PLACEHOLDER_SCOPE, HierarchyError, resolve as resolve_mgs
 
 def set_definition_name(group_name, prefix):
     """Customer-scoped policy set name: prepend the prefix to the brand-neutral
@@ -30,8 +32,9 @@ def manifest_hash(manifest):
     return "sha256:" + hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
-def build_ir(manifest, catalogue, groups):
+def build_ir(manifest, catalogue, groups, mg_index=None):
     prefix = manifest["prefix"]
+    mg_index = mg_index or {}
     environments = manifest["environments"]
     bindings = manifest.get("bindings", {}) or {}
     all_overrides = manifest.get("effectOverrides", []) or []
@@ -48,6 +51,7 @@ def build_ir(manifest, catalogue, groups):
         "catalogueVersion": catalogue.version,
         "environments": [_env(e, manifest.get("notScopes", {})) for e in environments],
         "initiatives": [],
+        "definitions": [],
         "assignments": [],
         "roleAssignments": [],
         "exemptions": _exemptions(manifest),
@@ -91,7 +95,8 @@ def build_ir(manifest, catalogue, groups):
         })
 
         display = policyset["properties"]["displayName"]
-        scopes, not_scopes = _scopes(environments, sel, manifest.get("notScopes", {}))
+        scopes, not_scopes = _scopes(environments, sel, manifest.get("notScopes", {}),
+                                     mg_index, group_key, ir["warnings"])
         ir["assignments"].append({
             "initiative": set_name,                      # policySetDefinitionName it references
             "assignmentName": group_name,                # the assignment's own name (<=24, no prefix)
@@ -125,7 +130,35 @@ def build_ir(manifest, catalogue, groups):
             "hasRemediation": has_remediation,
         })
 
+    ir["definitions"] = _collect_definitions(ir["initiatives"], catalogue)
     return ir
+
+
+def _collect_definitions(initiatives, catalogue):
+    """Custom policy definitions the selected initiatives reference by name.
+
+    Policyset members are either built-in (``policyDefinitionId``) or custom
+    (``policyDefinitionName``); the latter need their definition body shipped in the
+    package. Returns the deduped bodies, sorted by name. A referenced name with no
+    catalogue definition is a hard error (the package would not deploy)."""
+    out, seen = [], set()
+    for init in initiatives:
+        for m in init["policyset"]["properties"].get("policyDefinitions", []):
+            if "policyDefinitionId" in m:
+                continue
+            name = m.get("policyDefinitionName")
+            if not name or name in seen:
+                continue
+            seen.add(name)
+            body = catalogue.load_definition(name)
+            if body is None:
+                raise ResolveError(
+                    f"initiative '{init['name']}' references custom policy '{name}', but no "
+                    f"definition was found under catalogue/definitions/custom/. The package "
+                    f"would not deploy — regenerate the catalogue or fix the policyset."
+                )
+            out.append(body)
+    return sorted(out, key=lambda d: d["name"])
 
 
 def _assignment_description(display, policy_count, posture, has_remediation):
@@ -151,17 +184,52 @@ def _env(e, manifest_not_scopes):
     }
 
 
-def _scopes(environments, sel, manifest_not_scopes):
-    """Per-selector scope + notScope maps for one group."""
+def _scopes(environments, sel, manifest_not_scopes, mg_index, group_key, warnings):
+    """Per-selector scope + notScope maps for one group.
+
+    Precedence per selector: explicit ``selection.scope`` (power-user) > management
+    groups resolved from ``selection.managementGroup`` > a placeholder scope (+ warning).
+    There is intentionally **no** fall-back to ``deploymentRootScope`` — an unmapped
+    selection must fail at deploy until the author sets a target or removes it.
+    """
+    sel = sel or {}
+    sel_scope = sel.get("scope") or {}
+    sel_not = sel.get("notScopes") or {}
+
+    mg_names = sel.get("managementGroup")
+    if isinstance(mg_names, str):
+        mg_names = [mg_names]
+    resolved = None
+    if mg_names:
+        resolved, unknown = resolve_mgs(mg_names, mg_index)
+        if unknown:
+            available = ", ".join(sorted(mg_index)) or "(hierarchy empty or not provided)"
+            raise HierarchyError(
+                f"selection '{group_key}': unknown managementGroup name(s) {unknown} — "
+                f"not found in the hierarchy. Available: {available}."
+            )
+
     scopes, not_scopes = {}, {}
-    sel_scope = (sel or {}).get("scope") or {}
-    sel_not = (sel or {}).get("notScopes") or {}
+    placeholder_used = False
     for e in environments:
         selector = e["selector"]
-        scopes[selector] = sel_scope.get(selector, [e["deploymentRootScope"]])
+        if selector in sel_scope:
+            scopes[selector] = list(sel_scope[selector])
+        elif resolved:
+            scopes[selector] = list(resolved)
+        else:
+            scopes[selector] = [PLACEHOLDER_SCOPE]
+            placeholder_used = True
         merged = list(manifest_not_scopes.get(selector, [])) + list(sel_not.get(selector, []))
         if merged:
             not_scopes[selector] = merged
+
+    if placeholder_used:
+        warnings.append(
+            f"{group_key}: no managementGroup or scope set — emitted placeholder scope "
+            f"'{PLACEHOLDER_SCOPE}'. Set selection.managementGroup (or selection.scope), or "
+            f"remove this selection; Azure will reject the placeholder at deploy."
+        )
     return scopes, not_scopes
 
 

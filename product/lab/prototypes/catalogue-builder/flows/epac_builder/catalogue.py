@@ -39,6 +39,7 @@ class Catalogue:
             raise ResolveError(f"catalogue index not found: {index_file}")
         self.index = json.loads(index_file.read_text(encoding="utf-8"))
         self.version = self.index.get("catalogueVersion", "")
+        self._def_paths = None         # lazy {name: path} for definitions/custom/
         self.by_triple = {}            # (domain, tier, category) slug -> group record
         for g in self.index.get("groups", []):
             parts = g["dir"].split("/")          # initiatives/<domain>/<tier>/<category>
@@ -105,6 +106,24 @@ class Catalogue:
                     seen.add(g["name"])
                     picked.append(g)
         return picked
+
+    def load_definition(self, name):
+        """Load a custom policy definition body by name from ``definitions/custom/``.
+
+        Policyset members reference custom (generated) policies by ``policyDefinitionName``;
+        the body (Azure policy schema: name + properties.policyRule …) is shipped in the
+        catalogue under ``definitions/custom/<group>/<name>.json``. Returns the parsed dict,
+        or ``None`` if no such definition exists.
+        """
+        if self._def_paths is None:
+            custom = self.dir / "definitions" / "custom"
+            self._def_paths = (
+                {p.stem: p for p in custom.rglob("*.json")} if custom.is_dir() else {}
+            )
+        path = self._def_paths.get(name)
+        if path is None:
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
 
     def group_dir(self, group):
         return self.dir / group["dir"]

@@ -50,6 +50,10 @@
         "hierarchyVersion": {
           "type": "string",
           "description": "Domain hierarchy snapshot id (lineage)."
+        },
+        "managementGroups": {
+          "type": "string",
+          "description": "Optional path (relative to the manifest) to the management-group hierarchy file used to resolve selection.managementGroup names to scope ids."
         }
       }
     },
@@ -153,6 +157,13 @@
           },
           "tier": {
             "description": "Cumulative: professional pulls essential+professional; enterprise pulls all three."
+          },
+          "managementGroup": {
+            "description": "Target management group name(s) from the hierarchy; resolved to scope ids.",
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array", "items": { "type": "string" } }
+            ]
           },
           "scope": {
             "type": "object",

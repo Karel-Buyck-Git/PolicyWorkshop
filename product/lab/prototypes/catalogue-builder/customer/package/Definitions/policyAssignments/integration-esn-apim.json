@@ -10,7 +10,7 @@
   "parameters": {},
   "scope": {
     "epac-dev": [
-      "/providers/Microsoft.Management/managementGroups/contoso"
+      "/providers/Microsoft.Management/managementGroups/mg-lv2-integration"
     ]
   },
   "notScopes": {
@@ -20,7 +20,7 @@
   },
   "managedIdentityLocations": {
     "westeurope": [
-      "/providers/Microsoft.Management/managementGroups/contoso"
+      "/providers/Microsoft.Management/managementGroups/mg-lv2-integration"
     ]
   }
 }

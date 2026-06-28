@@ -25,7 +25,7 @@ run locally or in CI:
 
 ```
 python flows/assemble_scaffold.py --manifest customer/manifests/contoso.manifest.jsonc
-# optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: customer/initiatives/)
+# optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: customer/package/)
 ```
 
 Chain: `app / human → manifest → assembler → Definitions scaffold (×flavour) → CI validate → deploy`.
@@ -211,20 +211,28 @@ report(ir):  write lineage.json + coverage/validation summary
 
 ## 7. Outputs
 
+Each selected flavour is rendered as a **self-contained, deployable package** (IaC content +
+GitHub Actions pipeline + `docs/` hierarchy diagram + deploy `README.md` + `lineage.json` +
+`report.md`). **One** flavour renders FLAT at `output.root`; **several** render one sub-folder
+per flavour (`json` → `epac`):
+
 ```
-customer/initiatives/                # = output.root  (per-customer; default)
-├── json/        Definitions/{global-settings.jsonc, policySetDefinitions/, policyAssignments/, policyExemptions/<selector>/}
-│                + pipelines/ + README.md
-├── terraform/   *.tf + environments/<selector>.tfvars + policies/ + pipelines/ + README.md
-├── bicep/       main.bicep + modules/ + main.parameters.<selector>.json + pipelines/ + README.md
-├── lineage.json # manifest hash, snapshot versions, group→file→policyId map
-└── report.md    # coverage: groups selected, params bound, exemptions, warnings
+customer/package/                    # = output.root  (per-customer; default)
+
+# one flavour (e.g. json) -> FLAT:
+├── Definitions/   global-settings.jsonc, policySetDefinitions/, policyAssignments/, policyExemptions/<selector>/
+├── .github/workflows/epac.yml       # plan -> deploy-policy -> deploy-roles
+├── docs/<customer>-mgmt-groups.*.svg
+└── README.md  lineage.json  report.md
+
+# several flavours -> one full package per flavour:
+customer/package/{epac, terraform, bicep}/
 ```
 
 **Input vs output:** the assembler READS the shared `catalogue/` and WRITES the customer's own
-`customer/initiatives/` (the `output.root`). Catalogue is never modified. Paths in `source.*` and
+`customer/package/` (the `output.root`). Catalogue is never modified. Paths in `source.*` and
 `output.root` are resolved **relative to the manifest file**, so `../../catalogue/initiatives`
-(read) and `../initiatives` (write) both resolve from `customer/manifests/`.
+(read) and `../package` (write) both resolve from `customer/manifests/`.
 
 Determinism: stable key ordering and sorted iteration so re-runs produce clean diffs.
 

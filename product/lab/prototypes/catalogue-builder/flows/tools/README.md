@@ -12,6 +12,7 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 | [`ab_verify.py`](ab_verify.py) | "was my refactor of step ③ additive-only?" | after changing `create_initiatives.py` |
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
 | [`summarize_categories.py`](summarize_categories.py) | "what categories exist and how big are they?" | when reviewing the taxonomy |
+| [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
 
 ## The tools
 
@@ -48,4 +49,19 @@ the companion [`summarize_categories.md`](summarize_categories.md)).
 
 ```
 python flows/tools/summarize_categories.py [--source <folder>] [--md <file>]
+```
+
+### [`svg-gen/management-groups/`](svg-gen/management-groups/)
+A **consumer-facing** generator (the exception to the "not consumed by clients" note above)
+that turns an Azure **management-group / scope hierarchy** into theme-aware SVGs — a
+`minimal-` (names only) and a `rich-` (scope ids, subscriptions, resource groups) variant.
+The hierarchy can be given as indented text, `Parent -> Child` edges, canonical JSON, or a
+real tenant inventory export (`.csv` / `.xlsx`) — all auto-detected. It is **self-contained**
+(unlike the other tools here it doesn't import `../shared/`): SVGs default into its own
+`output/` folder. See the folder's own [`README.md`](svg-gen/management-groups/README.md).
+
+```
+# picks up every file in the tool's input/ folder (or pass --input <path>)
+python flows/tools/svg-gen/management-groups/generate_svg.py \
+    [--input <path>] [--format auto|indent|edges|json|csv|xlsx] [--variant both|minimal|rich] [--out-dir <dir>]
 ```

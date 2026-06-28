@@ -51,7 +51,7 @@ def expand(input_data, catalogue: Catalogue):
             "catalogueVersion": catalogue.version,
             "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>",
         },
-        "output": {"root": "../initiatives", "flavours": ["json"]},
+        "output": {"root": "../package", "flavours": ["json"]},
         "environments": [{
             "selector": "<REPLACE: pacSelector>",
             "tenantId": "<REPLACE: tenantId-guid>",

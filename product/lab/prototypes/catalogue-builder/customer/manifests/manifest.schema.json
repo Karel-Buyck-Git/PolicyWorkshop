@@ -53,6 +53,10 @@
         "hierarchyVersion": {
           "type": "string",
           "description": "Domain hierarchy snapshot id (lineage)."
+        },
+        "managementGroups": {
+          "type": "string",
+          "description": "Optional path (relative to the manifest) to the management-group hierarchy file (json/csv/xlsx/indent/edges) used to resolve selection.managementGroup names to scope ids."
         }
       }
     },
@@ -175,9 +179,16 @@
             ],
             "description": "Cumulative: professional pulls essential+professional; enterprise pulls all three."
           },
+          "managementGroup": {
+            "description": "Target management group name(s) from the hierarchy (source.managementGroups); resolved to scope ids. With no managementGroup and no scope, the selection gets a placeholder scope that Azure rejects.",
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array", "items": { "type": "string" } }
+            ]
+          },
           "scope": {
             "type": "object",
-            "description": "Optional per-selection scope override, keyed by pacSelector.",
+            "description": "Optional per-selection scope override, keyed by pacSelector (takes precedence over managementGroup).",
             "additionalProperties": {
               "type": "array",
               "items": {

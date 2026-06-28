@@ -44,7 +44,7 @@ PRODUCER — catalogue-builder (catalogue_builder/)   CATALOGUE @version (the co
                                                                                           │
 CONSUMER — epac-builder (per customer, on demand)  ◄─────────────────────────────────────┘
   input.json ─► EXPAND ─► manifest ─► Resolve+Bind ─► Canonical IR ─► render {EPAC/JSON · Terraform · Bicep}
-                                                                          └─► customer/initiatives/ ─► Validate ─► PR ─► Deploy
+                                                                          └─► customer/package/ ─► Validate ─► PR ─► Deploy
 ```
 
 > **definition-gen** is the **apply-overlays** step (④): it runs the custom-definition generators

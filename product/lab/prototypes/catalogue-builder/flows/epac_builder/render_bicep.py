@@ -1,32 +1,50 @@
-"""Bicep renderer: IR -> a management-group-scoped Bicep module.
+"""Bicep renderer: IR -> a management-group-scoped Bicep module at the package root.
 
-Layout written under ``<out>/bicep/``:
+Layout written under the package dir (``pkg_dir``):
 
-    main.bicep                         policySetDefinitions + assignments + role assignments
-    policies/<name>.policyset.json     the policyset `properties` (loaded via loadJsonContent)
+    main.bicep                         policyDefinitions + policySetDefinitions + assignments + roles
+    policies/<name>.definition.json    a custom member policy's `properties` (loadJsonContent)
+    policies/<name>.policyset.json     policyset `properties` minus policyDefinitions (loadJsonContent)
     policies/<name>.params.json        bound assignment parameters (when any)
     main.parameters.<selector>.json    per-environment parameter file
-    README.md
 
-JSON content is loaded with ``loadJsonContent`` so no Bicep object literal emitter is
-needed and the member arrays stay readable. Deterministic output (stable order).
+The deploy README + pipeline + provenance are added by the packaging step (package.py).
+Static JSON is loaded with ``loadJsonContent``; the policyset's ``policyDefinitions`` array
+is built inline so custom members can reference the deployed definition resources' ids.
+Deterministic output (stable order).
 """
+import re
 from pathlib import Path
 
 from epac_builder.writeutil import write_json, write_text
 
+PD_API = "2021-06-01"
 PS_API = "2021-06-01"
 ASG_API = "2022-06-01"
 RA_API = "2022-04-01"
 
+_IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
-def render(ir, out_root):
-    root = Path(out_root) / "bicep"
+
+def render(ir, pkg_dir):
+    """Write the Bicep module at the package root (``pkg_dir``).
+
+    The deploy README + pipeline + provenance are added by the packaging step.
+    """
+    root = Path(pkg_dir)
     asg_by_init = {a["initiative"]: a for a in ir["assignments"]}
 
+    # Custom member-policy bodies (loaded by their own resources).
+    for defn in ir["definitions"]:
+        write_json(root / "policies" / f"{defn['name']}.definition.json", defn["properties"])
+
     for init in ir["initiatives"]:
-        write_json(root / "policies" / f"{init['name']}.policyset.json",
-                   init["policyset"]["properties"])
+        # The policyset's policyDefinitions array is built inline in main.bicep (members
+        # may reference custom definition resource ids), so the loaded JSON holds the
+        # static remainder only.
+        meta = {k: v for k, v in init["policyset"]["properties"].items()
+                if k != "policyDefinitions"}
+        write_json(root / "policies" / f"{init['name']}.policyset.json", meta)
         asg = asg_by_init[init["name"]]
         if asg["boundParameters"]:
             params = {k: {"value": v} for k, v in asg["boundParameters"].items()}
@@ -35,7 +53,6 @@ def render(ir, out_root):
     write_text(root / "main.bicep", _main_bicep(ir, asg_by_init))
     for env in ir["environments"]:
         write_json(root / f"main.parameters.{env['selector']}.json", _param_file(env))
-    write_text(root / "README.md", _readme(ir))
     return root
 
 
@@ -47,6 +64,8 @@ def _bsym(name):
 
 def _main_bicep(ir, asg_by_init):
     out = [_HEADER]
+    for defn in ir["definitions"]:
+        out.append(_policy_definition(defn))
     for init in ir["initiatives"]:
         out.append(_policy_set(init))
     for init in ir["initiatives"]:
@@ -56,15 +75,75 @@ def _main_bicep(ir, asg_by_init):
     return "\n".join(p for p in out if p)
 
 
-def _policy_set(init):
-    sym = _bsym(init["name"])
+def _policy_definition(defn):
+    sym = _bsym(defn["name"])
     return "\n".join([
-        f"resource ps_{sym} 'Microsoft.Authorization/policySetDefinitions@{PS_API}' = {{",
-        f"  name: '{init['name']}'",
-        f"  properties: loadJsonContent('policies/{init['name']}.policyset.json')",
+        f"resource pd_{sym} 'Microsoft.Authorization/policyDefinitions@{PD_API}' = {{",
+        f"  name: '{defn['name']}'",
+        f"  properties: loadJsonContent('policies/{defn['name']}.definition.json')",
         "}",
         "",
     ])
+
+
+def _policy_set(init):
+    sym = _bsym(init["name"])
+    members = init["policyset"]["properties"].get("policyDefinitions", [])
+    return "\n".join([
+        f"resource ps_{sym} 'Microsoft.Authorization/policySetDefinitions@{PS_API}' = {{",
+        f"  name: '{init['name']}'",
+        f"  properties: union(loadJsonContent('policies/{init['name']}.policyset.json'), {{",
+        f"    policyDefinitions: {_members_bicep(members)}",
+        "  })",
+        "}",
+        "",
+    ])
+
+
+def _members_bicep(members):
+    """The policyDefinitions array as a Bicep literal: built-in members keep their id
+    string; custom members reference the deployed ``pd_<name>`` resource's ``.id``."""
+    objs = []
+    for m in members:
+        if "policyDefinitionId" in m:
+            id_expr = _bstr(m["policyDefinitionId"])
+        else:
+            id_expr = f'pd_{_bsym(m["policyDefinitionName"])}.id'
+        lines = [
+            "      {",
+            f"        policyDefinitionReferenceId: {_bstr(m['policyDefinitionReferenceId'])}",
+            f"        policyDefinitionId: {id_expr}",
+        ]
+        if m.get("parameters"):
+            lines.append(f"        parameters: {_bval(m['parameters'], 4)}")
+        if m.get("groupNames"):
+            lines.append(f"        groupNames: {_bval(m['groupNames'], 4)}")
+        lines.append("      }")
+        objs.append("\n".join(lines))
+    return "[\n" + "\n".join(objs) + "\n    ]"
+
+
+def _bval(x, level=0):
+    """Emit a Python value as a Bicep literal (objects/arrays use newline separators)."""
+    pad, pad2 = "  " * level, "  " * (level + 1)
+    if isinstance(x, dict):
+        if not x:
+            return "{}"
+        items = [f"{pad2}{k if _IDENT.match(k) else _bstr(k)}: {_bval(v, level + 1)}"
+                 for k, v in x.items()]
+        return "{\n" + "\n".join(items) + f"\n{pad}}}"
+    if isinstance(x, list):
+        if not x:
+            return "[]"
+        items = [f"{pad2}{_bval(v, level + 1)}" for v in x]
+        return "[\n" + "\n".join(items) + f"\n{pad}]"
+    if isinstance(x, bool):
+        return "true" if x else "false"
+    if x is None:
+        return "null"
+    if isinstance(x, (int, float)):
+        return str(x)
+    return _bstr(x)
 
 
 def _assignment(init, asg):
@@ -129,25 +208,6 @@ def _param_file(env):
         "contentVersion": "1.0.0.0",
         "parameters": params,
     }
-
-
-def _readme(ir):
-    selectors = ", ".join(e["selector"] for e in ir["environments"])
-    return "\n".join([
-        f"# Bicep scaffold — {ir['identity']['customer']}",
-        "",
-        f"Catalogue version `{ir['catalogueVersion']}`. Deploy at management-group scope:",
-        "",
-        "```bash",
-        "az deployment mg create \\",
-        "  --management-group-id <root-mg-id> --location <loc> \\",
-        "  --template-file main.bicep \\",
-        f"  --parameters main.parameters.<selector>.json    # {selectors}",
-        "```",
-        "",
-        "Generated by the epac-builder. Re-run the assembler to regenerate; do not hand-edit.",
-        "",
-    ])
 
 
 _HEADER = "\n".join([

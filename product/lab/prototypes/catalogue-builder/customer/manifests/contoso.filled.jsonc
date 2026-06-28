@@ -9,12 +9,13 @@
 
   "source": {
     "initiatives": "../../catalogue/initiatives",
-    "catalogueVersion": "2026.06.19",
-    "hierarchyVersion": "2026.06.19"
+    "catalogueVersion": "2026.06.21",
+    "hierarchyVersion": "2026.06.21",
+    "managementGroups": "../designs/contoso-mgmt-groups.json"
   },
 
   "output": {
-    "root": "../initiatives",
+    "root": "../package",
     "flavours": ["json"]
   },
 
@@ -36,7 +37,12 @@
   },
 
   "selection": [
-    { "domain": "integration", "category": "api-management", "tier": "essential" },
+    // api-management (remediating) -> targeted at the integration landing-zone MG;
+    // its managed identity + role assignments follow this scope.
+    { "domain": "integration", "category": "api-management", "tier": "essential",
+      "managementGroup": "mg-lv2-integration" },
+    // tags -> intentionally left unmapped: it renders a placeholder scope + a warning,
+    // forcing a decision (set a managementGroup or drop it) before deployment.
     { "domain": "management",  "category": "tags",           "tier": "essential" }
   ],
 

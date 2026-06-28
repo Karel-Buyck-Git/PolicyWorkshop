@@ -1,0 +1,7 @@
+# Dev working area: ignore source files dropped in input/ and generated SVGs in
+# output/, but keep the folders themselves (via .gitkeep). Committed examples
+# live in samples/ and stay tracked.
+input/*
+output/*
+!input/.gitkeep
+!output/.gitkeep

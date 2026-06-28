@@ -1,0 +1,25 @@
+# Edges format: structure via "Parent -> Child" (chains allowed).
+# Optional attribute lines "Name | kind | scopeId" set a node's kind/scope id.
+# Lines starting with # are comments. Roots are nodes that are never a child.
+# Mirrors the in-scope nodes of template/input-mgmt-groups.xlsx.
+
+# --- structure ---
+Tenant Root Group -> mg-lv1-platform
+Tenant Root Group -> mg-lv1-landingzones
+mg-lv1-platform -> sub-connectivity-p
+mg-lv1-platform -> sub-management-p
+mg-lv1-landingzones -> mg-lv2-corp
+mg-lv1-landingzones -> mg-lv2-online
+mg-lv2-corp -> sub-corp-prod
+mg-lv2-online -> sub-online-prod
+
+# --- attributes (kind + scope id) ---
+Tenant Root Group   | mg | /providers/Microsoft.Management/managementGroups/cc814b9c-9a99-44a2-bc5c-f7f275945ba5
+mg-lv1-platform     | mg | /providers/Microsoft.Management/managementGroups/mg-lv1-platform
+mg-lv1-landingzones | mg | /providers/Microsoft.Management/managementGroups/mg-lv1-landingzones
+mg-lv2-corp         | mg | /providers/Microsoft.Management/managementGroups/mg-lv2-corp
+mg-lv2-online       | mg | /providers/Microsoft.Management/managementGroups/mg-lv2-online
+sub-connectivity-p  | sub | /subscriptions/11111111-1111-1111-1111-111111111111
+sub-management-p    | sub | /subscriptions/22222222-2222-2222-2222-222222222222
+sub-corp-prod       | sub | /subscriptions/33333333-3333-3333-3333-333333333333
+sub-online-prod     | sub | /subscriptions/44444444-4444-4444-4444-444444444444

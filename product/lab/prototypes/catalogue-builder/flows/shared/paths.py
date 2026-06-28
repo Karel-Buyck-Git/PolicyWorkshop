@@ -31,7 +31,7 @@ QC_REPORT_FILE      = CATALOGUE_DIR / "quality-control.json"
 
 # Customer packages (consumer side): the epac-builder reads the shared catalogue
 # and writes a customer's own scaffold here. Manifests + their schemas live under
-# customer/manifests/; rendered output defaults to customer/initiatives/.
+# customer/manifests/; the deployable package defaults to customer/package/.
 CUSTOMER_DIR          = PROJECT_ROOT / "customer"
 MANIFESTS_DIR         = CUSTOMER_DIR / "manifests"
 INPUT_SCHEMA_FILE          = MANIFESTS_DIR / "input.schema.json"

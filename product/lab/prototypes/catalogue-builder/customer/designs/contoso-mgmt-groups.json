@@ -1,0 +1,182 @@
+{
+  "name": "Tenant Root Group",
+  "kind": "mg",
+  "scopeId": "/providers/Microsoft.Management/managementGroups/10000000-0000-0000-0000-000000000000",
+  "children": [
+    {
+      "name": "mg-lv1-platform",
+      "kind": "mg",
+      "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv1-platform",
+      "children": [
+        {
+          "name": "mg-lv2-networking",
+          "kind": "mg",
+          "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv2-networking",
+          "children": [
+            {
+              "name": "sub-net-hub-p",
+              "kind": "sub",
+              "scopeId": "/subscriptions/00000001-0000-0000-0000-000000000000"
+            },
+            {
+              "name": "sub-net-vwan-p",
+              "kind": "sub",
+              "scopeId": "/subscriptions/00000002-0000-0000-0000-000000000000"
+            }
+          ]
+        },
+        {
+          "name": "mg-lv2-integration",
+          "kind": "mg",
+          "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv2-integration",
+          "children": [
+            {
+              "name": "sub-integration-p",
+              "kind": "sub",
+              "scopeId": "/subscriptions/00000003-0000-0000-0000-000000000000"
+            }
+          ]
+        },
+        {
+          "name": "mg-lv2-security",
+          "kind": "mg",
+          "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv2-security",
+          "children": [
+            {
+              "name": "sub-security-p",
+              "kind": "sub",
+              "scopeId": "/subscriptions/00000004-0000-0000-0000-000000000000"
+            }
+          ]
+        },
+        {
+          "name": "mg-lv2-management",
+          "kind": "mg",
+          "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv2-management",
+          "children": [
+            {
+              "name": "sub-management-p",
+              "kind": "sub",
+              "scopeId": "/subscriptions/00000005-0000-0000-0000-000000000000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg-lv1-landingzones",
+      "kind": "mg",
+      "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv1-landingzones",
+      "children": [
+        {
+          "name": "mg-lv2-corp",
+          "kind": "mg",
+          "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv2-corp",
+          "children": [
+            {
+              "name": "mg-lv3-finance",
+              "kind": "mg",
+              "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv3-finance",
+              "children": [
+                {
+                  "name": "sub-finance-prod",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/00000006-0000-0000-0000-000000000000"
+                },
+                {
+                  "name": "sub-finance-dev",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/00000007-0000-0000-0000-000000000000"
+                }
+              ]
+            },
+            {
+              "name": "mg-lv3-crm",
+              "kind": "mg",
+              "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv3-crm",
+              "children": [
+                {
+                  "name": "sub-crm-prod",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/00000008-0000-0000-0000-000000000000"
+                }
+              ]
+            },
+            {
+              "name": "mg-lv3-erp",
+              "kind": "mg",
+              "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv3-erp",
+              "children": [
+                {
+                  "name": "sub-erp-prod",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/00000009-0000-0000-0000-000000000000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mg-lv2-online",
+          "kind": "mg",
+          "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv2-online",
+          "children": [
+            {
+              "name": "mg-lv3-web",
+              "kind": "mg",
+              "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv3-web",
+              "children": [
+                {
+                  "name": "sub-web-prod",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/0000000a-0000-0000-0000-000000000000"
+                }
+              ]
+            },
+            {
+              "name": "mg-lv3-dataplatform",
+              "kind": "mg",
+              "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv3-dataplatform",
+              "children": [
+                {
+                  "name": "sub-data-prod",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/0000000b-0000-0000-0000-000000000000"
+                },
+                {
+                  "name": "sub-data-lake-p",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/0000000c-0000-0000-0000-000000000000"
+                }
+              ]
+            },
+            {
+              "name": "mg-lv3-aks",
+              "kind": "mg",
+              "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv3-aks",
+              "children": [
+                {
+                  "name": "sub-aks-prod",
+                  "kind": "sub",
+                  "scopeId": "/subscriptions/0000000d-0000-0000-0000-000000000000"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg-lv1-sandbox",
+      "kind": "mg",
+      "scopeId": "/providers/Microsoft.Management/managementGroups/mg-lv1-sandbox",
+      "children": [
+        {
+          "name": "sub-sandbox-dev",
+          "kind": "sub",
+          "scopeId": "/subscriptions/0000000e-0000-0000-0000-000000000000"
+        }
+      ]
+    }
+  ]
+}

@@ -28,7 +28,7 @@ source:
 
 # --- Output ------------------------------------------------------------------
 output:
-  root: ../initiatives                 # customer/initiatives (relative to this manifest)
+  root: ../package                     # customer/package (relative to this manifest)
   flavours: [json, terraform, bicep]   # which renderers to run (>=1)
 
 # --- EPAC environments -------------------------------------------------------

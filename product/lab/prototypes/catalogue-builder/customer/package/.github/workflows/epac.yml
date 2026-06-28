@@ -1,0 +1,85 @@
+# Enterprise Policy as Code (EPAC) — deploy this policy package.
+# Three-phase flow with least-privilege identities:
+#   plan (Reader) -> deploy-policy (Resource Policy Contributor) -> deploy-roles (RBAC Administrator)
+name: EPAC deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      pacEnvironment:
+        description: pacSelector to target
+        default: "epac-dev"
+  push:
+    branches: [ main ]
+    paths: [ "Definitions/**" ]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  DEFINITIONS: Definitions
+  OUTPUT: Output
+  PAC_ENVIRONMENT: ${{ github.event.inputs.pacEnvironment || 'epac-dev' }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install EPAC
+        shell: pwsh
+        run: Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+      - name: Azure login (Reader)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Build deployment plans
+        shell: pwsh
+        run: Build-DeploymentPlans -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -OutputFolder "$env:OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with: { name: epac-plans, path: Output }
+
+  deploy-policy:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: epac-policy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: epac-plans, path: Output }
+      - name: Install EPAC
+        shell: pwsh
+        run: Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+      - name: Azure login (Resource Policy Contributor)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.POLICY_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy policy plan
+        shell: pwsh
+        run: Deploy-PolicyPlan -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -InputFolder "$env:OUTPUT"
+
+  deploy-roles:
+    needs: deploy-policy
+    runs-on: ubuntu-latest
+    environment: epac-roles
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: epac-plans, path: Output }
+      - name: Install EPAC
+        shell: pwsh
+        run: Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+      - name: Azure login (RBAC Administrator)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ROLES_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy roles plan
+        shell: pwsh
+        run: Deploy-RolesPlan -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -InputFolder "$env:OUTPUT"

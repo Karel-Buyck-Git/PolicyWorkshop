@@ -23,7 +23,8 @@ It **expands** an `input.json` into a manifest (seeding one `<REPLACE: …>` per
 parameter), **validates** (structure lock → strict build gate → resolves/generates
 `pacOwnerId`), **resolves + binds** the selection against the catalogue (tier roll-up,
 parameter binding, effect posture), builds a flavour-neutral **canonical IR**, and **renders**
-EPAC/JSON + Terraform + Bicep into `customer/initiatives/`, plus `lineage.json` + `report.md`.
+EPAC/JSON + Terraform + Bicep into `customer/package/` as deployable packages (each with a
+pipeline + docs + `README.md` + `lineage.json` + `report.md`).
 Roles are already baked by the producer's step ③, so it reads the catalogue only and never
 touches the policy repo.
 

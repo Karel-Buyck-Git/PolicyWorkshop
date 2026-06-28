@@ -40,7 +40,7 @@ Paths in the manifest are resolved **relative to the manifest file**:
 | ------------------------- | ----------------------------- | ------------------------------------------------------------------------ |
 | `source.initiatives`      | `../../catalogue/initiatives` | the shared catalogue (read)                                              |
 | `source.catalogueVersion` | e.g. `2026.06.10`             | pins the catalogue snapshot used (must match `catalogue/catalogue.json`) |
-| `output.root`             | `../initiatives`              | `customer/initiatives/` — the rendered scaffold (write)                  |
+| `output.root`             | `../package`                  | `customer/package/` — the deployable package (write)                    |
 
 The assembler reads `catalogue/index.json` to validate the selection and expand
 `category:"*"`, and reads each group's baked `roleDefinitionIds` (policyset metadata +
@@ -64,5 +64,6 @@ form (customer + selections)
   -> assembler expands -> contoso.manifest.jsonc (placeholders, structure-locked)
   -> human fills values (value-only edits)
   -> strict schema validates + catalogueVersion verified
-  -> render -> customer/initiatives/{json,terraform,bicep} + lineage.json
+  -> render + package -> customer/package/ (flat if one flavour, else {epac,terraform,bicep}/)
+       each a deployable package: content + .github/workflows + docs/ + README + lineage.json + report.md
 ```

@@ -23,7 +23,7 @@
 
   // --- Output ---
   "output": {
-    "root": "../initiatives",                    // resolves to customer/initiatives (relative to this manifest)
+    "root": "../package",                        // resolves to customer/package (relative to this manifest)
     "flavours": ["json"]                         // any of: json | terraform | bicep
   },
 

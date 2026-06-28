@@ -17,7 +17,7 @@
   },
   "scope": {
     "epac-dev": [
-      "/providers/Microsoft.Management/managementGroups/contoso"
+      "/providers/Microsoft.Management/managementGroups/REPLACE-set-managementGroup-in-manifest"
     ]
   },
   "notScopes": {

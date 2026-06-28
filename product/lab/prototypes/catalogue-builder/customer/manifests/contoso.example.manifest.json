@@ -9,7 +9,7 @@
     "hierarchyVersion": "2026.06.21"
   },
   "output": {
-    "root": "../initiatives",
+    "root": "../package",
     "flavours": [
       "json"
     ]

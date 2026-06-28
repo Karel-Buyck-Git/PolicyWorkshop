@@ -6,10 +6,11 @@
   "source": {
     "initiatives": "../../catalogue/initiatives",
     "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
-    "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>"
+    "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>",
+    "managementGroups": "../designs/contoso-mgmt-groups.json"
   },
   "output": {
-    "root": "../initiatives",
+    "root": "../package",
     "flavours": [
       "<REPLACE: flavour: json | terraform | bicep>"
     ]
@@ -36,7 +37,8 @@
     {
       "domain": "integration",
       "category": "api-management",
-      "tier": "essential"
+      "tier": "essential",
+      "managementGroup": "<REPLACE: target management group name from the hierarchy, e.g. mg-lv2-integration>"
     },
     {
       "domain": "management",
