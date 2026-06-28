@@ -18,7 +18,8 @@
   "source": {
     "initiatives": "../../catalogue/initiatives",
     "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
-    "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>"
+    "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>",
+    "managementGroups": "../designs/contoso-mgmt-groups.json"   // resolves selection.managementGroup NAMES -> scope ids
   },
 
   // --- Output ---
@@ -48,7 +49,8 @@
 
   // --- Selection (from the input form: domain/tier/category). Locked here. ---
   "selection": [
-    { "domain": "integration", "category": "api-management", "tier": "essential" },
+    { "domain": "integration", "category": "api-management", "tier": "essential",
+      "managementGroup": "<REPLACE: target MG name from the design, e.g. mg-lv2-integration>" },
     { "domain": "management",  "category": "tags",           "tier": "essential" }
   ],
 

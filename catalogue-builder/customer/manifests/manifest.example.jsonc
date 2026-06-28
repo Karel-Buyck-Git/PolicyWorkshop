@@ -1,7 +1,9 @@
 {
-  // Filled test manifest (real values) — exercises the assembler end-to-end.
-  // Covers a remediating group with 0 required params (api-management) and a
-  // group with 6 required params (tags).
+  // Canonical worked example (real values) — the filled manifest that builds
+  // customer/package/. Exercises the assembler end-to-end: a remediating group
+  // with 0 required params (api-management, mapped to mg-lv2-integration) and a
+  // group with 6 required params (tags, intentionally unmapped -> placeholder
+  // scope + warning, to show the "set a managementGroup or drop it" decision).
   "schemaVersion": 1,
   "customer": "contoso",
   "prefix": "contoso",

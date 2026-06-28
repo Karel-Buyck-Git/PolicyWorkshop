@@ -2,10 +2,14 @@
   "customer": "contoso",
   "selection": [
     "integration/essential/api-management",
-    "management/essential/tags",
-    "management/essential/naming",
-    "ai-foundry/essential/azure-ai-services",
-    "compute/essential/compute"
+    "management/essential/tags"
   ],
-  "parameters": {}
+  "parameters": {
+    "requireTagValueResourceGroupsTagName": "environment",
+    "requireTagValueResourceGroupsTagValue": "production",
+    "requireTagValueResourcesTagName": "environment",
+    "requireTagValueResourcesTagValue": "production",
+    "requireTagResourceGroupsTagName": "costCenter",
+    "requireTagResourcesTagName": "costCenter"
+  }
 }

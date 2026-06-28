@@ -165,7 +165,7 @@ def _do_expand(args):
     cat_dir = Path(__file__).resolve().parents[2] / "catalogue"
     catalogue = Catalogue(cat_dir)
     manifest = expand(json.loads(input_path.read_text(encoding="utf-8")), catalogue)
-    out_path = Path(args.out) if args.out else input_path.parent / f"{manifest['customer']}.manifest.json"
+    out_path = Path(args.out) if args.out else input_path.parent / f"{manifest['customer']}.manifest.jsonc"
     out_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"[expand] wrote manifest -> {out_path}")
     return 0

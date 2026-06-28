@@ -24,7 +24,7 @@ The manifest is authored by a human SE **or** emitted by the upstream app. The a
 run locally or in CI:
 
 ```
-python flows/assemble_scaffold.py --manifest customer/manifests/contoso.manifest.jsonc
+python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/manifest.example.jsonc
 # optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: customer/package/)
 ```
 
@@ -133,13 +133,13 @@ Each renderer is a pure function `IR → files`. Adding a fourth flavour = one n
 ## 5. Algorithm (step pseudocode)
 
 ```text
-expand_input_to_manifest(input):                 # input.example.json -> contoso.manifest.jsonc
+expand_input_to_manifest(input):                 # input.example.json -> <customer>.manifest.jsonc
     data = parse_json(input_path)
     jsonschema.validate(data, input.schema.json)        # FAIL FAST (structure/value-only)
     groups = resolve_selection(data)                    # see below
     required = union(required_params(g) for g in groups)# from each group's .assignment.json
     seed parameters{} / bindings.defaults{} with one <REPLACE: k> per required param k
-    emit contoso.manifest.jsonc (fixed shape, placeholders); structure-locked by
+    emit <customer>.manifest.jsonc (fixed shape, placeholders); structure-locked by
     manifest.input.schema.json. Humans then fill VALUES only.
 
 load_and_validate(manifest):
