@@ -2,3 +2,7 @@
 __pycache__/
 *.py[cod]
 *.pyo
+
+# Fetched official Azure Policy source (materialised from config/policy-source.json
+# by flows/tools/fetch_policy_source.py). Reproducible on demand — never committed.
+catalogue-builder/.policy-source/

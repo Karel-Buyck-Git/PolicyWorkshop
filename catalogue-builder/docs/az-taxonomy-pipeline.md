@@ -143,16 +143,22 @@ rule); it is simply not settable in the initiative.
 ## Running it (flag-free)
 
 Defaults derive from each script's location, so the whole pipeline targets this project with no
-arguments — **except** the external official policy repo, which varies per machine. Point at your
-clone once via the `AZURE_POLICY_REPO` env var (or pass `--source` per run):
+arguments — **except** the external official policy repo. Rather than have everyone point at a
+different local clone (which would make catalogues non-reproducible), fetch the **pinned** version
+once; the producer then finds it automatically:
 
 ```
-export AZURE_POLICY_REPO=/path/to/azure-policy/built-in-policies/policyDefinitions   # or set it on Windows
+python flows/tools/fetch_policy_source.py               # materialise the pinned source (config/policy-source.json)
 python flows/catalogue_builder/extract_policies.py     # Phase 1 → catalogue/definitions/
 python flows/catalogue_builder/enrich_policies.py      # Phase 2 → catalogue/definitions/ (in place)
 python flows/catalogue_builder/create_initiatives.py   # Phase 3 → catalogue/initiatives/
 python flows/catalogue_builder/quality_control.py      # Phase 4 → validate + regenerate docs
 ```
 
-Overridable flags: `--source` (policy repo; default `$AZURE_POLICY_REPO`), `--out` / `--output`, `--hierarchy`,
-`--initiatives`, `--prefix` (default `company`).
+The fetch populates a gitignored `.policy-source/` cache pinned to the commit in
+[`config/policy-source.json`](../config/policy-source.json); `fetch_policy_source.py --check` reports
+when upstream `master` has moved past the pin. To build against your own clone instead, set the
+`AZURE_POLICY_REPO` env var or pass `--source` — both override the pinned cache.
+
+Overridable flags: `--source` (policy repo; default: the pinned `.policy-source/` cache, or
+`$AZURE_POLICY_REPO`), `--out` / `--output`, `--hierarchy`, `--initiatives`, `--prefix` (default `company`).

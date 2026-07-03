@@ -1,0 +1,7 @@
+{
+  "repo": "https://github.com/Azure/azure-policy.git",
+  "branch": "master",
+  "commit": "04989912c4660389bef9abb8fd2e55c7445bdfa7",
+  "subdir": "built-in-policies/policyDefinitions",
+  "fetchedAt": "2026-07-04"
+}

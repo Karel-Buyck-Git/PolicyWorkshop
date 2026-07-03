@@ -9,12 +9,28 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 
 | Tool | What it answers | When to run |
 | --- | --- | --- |
+| [`fetch_policy_source.py`](fetch_policy_source.py) | "give me the pinned official policy source everyone builds against" | before a build, or on a schedule |
 | [`ab_verify.py`](ab_verify.py) | "was my refactor of step ③ additive-only?" | after changing `create_initiatives.py` |
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
 | [`summarize_categories.py`](summarize_categories.py) | "what categories exist and how big are they?" | when reviewing the taxonomy |
 | [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
 
 ## The tools
+
+### [`fetch_policy_source.py`](fetch_policy_source.py)
+The one utility here that **feeds the build** rather than audits it: it materialises the official
+Azure Policy source the producer reads. To keep catalogues reproducible, everyone builds against the
+**same** upstream commit, pinned in [`../../config/policy-source.json`](../../config/policy-source.json).
+`--sync` (default) fetches exactly that commit into a gitignored `.policy-source/` cache (partial +
+sparse — only the pinned `policyDefinitions` subdir); [`../shared/paths.py`](../shared/paths.py)'s
+`official_policy_source()` then resolves the producer's `--source` default to it. `--check` reports
+when upstream `master` has drifted past the pin (exit ≠ 0), without touching the cache — the
+reproducible-checkout + drift-signal kernel of a future daily-sync job.
+
+```
+python flows/tools/fetch_policy_source.py            # --sync: materialise the pinned source
+python flows/tools/fetch_policy_source.py --check     # report drift vs upstream master (no changes)
+```
 
 ### [`ab_verify.py`](ab_verify.py)
 A **regression / diff-check harness** that proves a past refactor of `create_initiatives.py` is
