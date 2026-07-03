@@ -1,0 +1,4 @@
+# Python bytecode / cache — regenerated locally, must never be committed.
+__pycache__/
+*.py[cod]
+*.pyo
