@@ -46,15 +46,20 @@ from pathlib import Path
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # flows/ root
 
-from shared.paths import PROJECT_ROOT, DEFINITIONS_DIR, INITIATIVES_DIR, HIERARCHY_FILE, TIER_RULES_FILE  # noqa: F401,E402
+from shared.paths import (  # noqa: F401,E402
+    PROJECT_ROOT,
+    DEFINITIONS_DIR,
+    INITIATIVES_DIR,
+    HIERARCHY_FILE,
+    TIER_RULES_FILE,
+    OFFICIAL_POLICY_REPO_ENV,
+    official_policy_source,
+)
 from shared.hierarchy import load_domain_map  # noqa: E402
 from shared.mdtable import md_escape, slugify, parse_table  # noqa: E402
 from shared import naming  # noqa: E402
 DEFAULT_OUTPUT = DEFINITIONS_DIR
 DEFAULT_INITIATIVES = INITIATIVES_DIR
-DEFAULT_SOURCE = (
-    r"C:\GIT\Official Azure Policy\azure-policy\built-in-policies\policyDefinitions"
-)
 
 VALID_TIERS = ("Essential", "Professional", "Enterprise")
 
@@ -596,7 +601,9 @@ def _content_hash(root: Path, exclude: set[str]) -> str:
     return "sha256:" + h.hexdigest()
 
 
-def _git_ref(source_dir: Path) -> str:
+def _git_ref(source_dir: Path | None) -> str:
+    if not source_dir:
+        return "unavailable"
     try:
         out = subprocess.run(["git", "-C", str(source_dir), "rev-parse", "HEAD"],
                              capture_output=True, text=True, timeout=10)
@@ -656,7 +663,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Phase 3 — build per-tier EPAC-ready initiatives.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Enriched markdown folder to read")
     parser.add_argument("--initiatives", default=str(DEFAULT_INITIATIVES), help="Output root for initiatives")
-    parser.add_argument("--source", default=DEFAULT_SOURCE, help="Official policy repo (parameter schema)")
+    parser.add_argument("--source", default=official_policy_source(), help="Official policy repo (parameter schema); default: AZURE_POLICY_REPO env var")
     parser.add_argument("--version", default=datetime.now(timezone.utc).strftime("%Y.%m.%d"),
                         help="Catalogue version label (default: today's UTC date)")
     args = parser.parse_args()
@@ -665,19 +672,23 @@ def main() -> None:
     output_dir = Path(args.output)
     initiatives_dir = Path(args.initiatives)
     catalogue_root = initiatives_dir.parent
-    source_dir = Path(args.source)
+    source_dir = Path(args.source) if args.source else None
 
     if not output_dir.exists():
         print(f"ERROR: definitions catalogue folder not found: {output_dir}", file=sys.stderr)
         raise SystemExit(1)
 
-    if source_dir.exists():
+    if source_dir and source_dir.exists():
         param_index = build_param_index(source_dir)
         print(f"[Phase 3] Parameter index: {len(param_index)} policy definitions from {source_dir}")
-    else:
+    elif source_dir:
         param_index = {}
         print(f"[Phase 3] WARNING: source repo not found ({source_dir}); "
               f"JSON will omit sourced parameters.")
+    else:
+        param_index = {}
+        print(f"[Phase 3] WARNING: no source repo (set {OFFICIAL_POLICY_REPO_ENV} or "
+              f"pass --source); JSON will omit sourced parameters.")
 
     md_files = [p for p in output_dir.rglob("*.md") if "initiatives" not in p.parts]
 

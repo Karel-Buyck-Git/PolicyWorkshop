@@ -9,8 +9,8 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 ```
                           ┌──────────────────────────────────────────────┐
                           │   SOURCE OF TRUTH (parameter schema)          │
-                          │   C:\GIT\Official Azure Policy\...\            │
-                          │   policyDefinitions\*.json   (5009 files)     │
+                          │   $AZURE_POLICY_REPO  (or --source)           │
+                          │   ...\policyDefinitions\*.json   (~5009 files)│
                           └───────────────┬──────────────────────────────┘
                                           │
         ┌─────────────────────────────────┼─────────────────────────────────┐
@@ -81,7 +81,7 @@ deployment artifacts. Each phase is a standalone Python script in [`flows/`](../
 | Concern                                                      | Source of truth                             |
 | ------------------------------------------------------------ | ------------------------------------------- |
 | Taxonomy — which **tier / domain / category**, the rationale | the enriched `catalogue/definitions/*.md` (Phase 2)        |
-| Parameters — schema, defaults, allowed values, resource ID   | the official Azure policy repo (`--source`) |
+| Parameters — schema, defaults, allowed values, resource ID   | the official Azure policy repo (`$AZURE_POLICY_REPO` / `--source`) |
 
 Phase 3 joins the two on **Policy ID**: the markdown decides _what belongs where_, the
 repo supplies _the deployable parameter values_.
@@ -142,14 +142,17 @@ rule); it is simply not settable in the initiative.
 
 ## Running it (flag-free)
 
-Defaults derive from each script's location, so the whole pipeline targets this project with no arguments:
+Defaults derive from each script's location, so the whole pipeline targets this project with no
+arguments — **except** the external official policy repo, which varies per machine. Point at your
+clone once via the `AZURE_POLICY_REPO` env var (or pass `--source` per run):
 
 ```
+export AZURE_POLICY_REPO=/path/to/azure-policy/built-in-policies/policyDefinitions   # or set it on Windows
 python flows/catalogue_builder/extract_policies.py     # Phase 1 → catalogue/definitions/
 python flows/catalogue_builder/enrich_policies.py      # Phase 2 → catalogue/definitions/ (in place)
 python flows/catalogue_builder/create_initiatives.py   # Phase 3 → catalogue/initiatives/
 python flows/catalogue_builder/quality_control.py      # Phase 4 → validate + regenerate docs
 ```
 
-Overridable flags: `--source` (policy repo), `--out` / `--output`, `--hierarchy`,
+Overridable flags: `--source` (policy repo; default `$AZURE_POLICY_REPO`), `--out` / `--output`, `--hierarchy`,
 `--initiatives`, `--prefix` (default `company`).

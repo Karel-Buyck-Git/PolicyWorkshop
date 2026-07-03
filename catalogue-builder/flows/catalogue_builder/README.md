@@ -35,8 +35,9 @@ python flows/catalogue_builder/quality_control.py
 ## The five steps
 
 ### ① [`extract_policies.py`](extract_policies.py)
-**Reads** the official built-in policy JSON (`--source`, default the shared *Official Azure Policy*
-repo) and **writes** one `policies.md` table per Azure resource category to
+**Reads** the official built-in policy JSON (`--source`, or the `AZURE_POLICY_REPO` env var —
+point either at your clone of the *Official Azure Policy* repo) and **writes** one `policies.md`
+table per Azure resource category to
 `catalogue/definitions/<category>/`. It extracts the key fields (display name, GUID, effect
 allowed/soft/hardened, version), drops `[Deprecated]` policies, **deduplicates** by Policy ID
 keeping the highest version, looks up each category's **Domain** from the authored hierarchy (via

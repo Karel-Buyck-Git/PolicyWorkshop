@@ -14,7 +14,7 @@ Modes:
               included — the consuming agent performs tier classification itself.
 
 Defaults:
-    --source     C:\\GIT\\Official Azure Policy\\azure-policy\\built-in-policies\\policyDefinitions
+    --source     AZURE_POLICY_REPO env var (or pass --source); required, no baked-in path
     --out        <lab-root>\\catalogue\\definitions            (derived from this script's location)
     --hierarchy  <lab-root>\\docs\\azure-domain-hierachy.md
 """
@@ -267,14 +267,18 @@ def write_category_file(category: str, items: list[dict], out_dir: Path) -> Path
 # Main
 # ---------------------------------------------------------------------------
 
-DEFAULT_SOURCE = (
-    r"C:\GIT\Official Azure Policy\azure-policy\built-in-policies"
-    r"\policyDefinitions"
-)
 # Output/hierarchy defaults derive from this script's location (project root is two
-# levels up), so the pipeline targets its own tree with no flags. --source still
-# points at the shared official policy repo.
-from shared.paths import PROJECT_ROOT, DEFINITIONS_DIR, HIERARCHY_FILE  # noqa: F401,E402
+# levels up), so the pipeline targets its own tree with no flags. --source is the one
+# external input: it points at a separate clone of the official policy repo, whose
+# location varies per machine, so it comes from the AZURE_POLICY_REPO env var (or
+# --source) rather than a baked-in path.
+from shared.paths import (  # noqa: F401,E402
+    PROJECT_ROOT,
+    DEFINITIONS_DIR,
+    HIERARCHY_FILE,
+    OFFICIAL_POLICY_REPO_ENV,
+    official_policy_source,
+)
 DEFAULT_OUT = str(DEFINITIONS_DIR)
 DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 
@@ -289,11 +293,18 @@ def write_jsonl(policies: list[dict], source_dir: Path, out_dir: Path) -> Path:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extract Azure Policy definitions to Markdown tables or JSONL.")
-    parser.add_argument("--source",    default=DEFAULT_SOURCE,    help="Scoped policy source folder")
+    parser.add_argument("--source",    default=official_policy_source(), help="Scoped policy source folder (default: AZURE_POLICY_REPO env var)")
     parser.add_argument("--out",       default=DEFAULT_OUT,       help="Output folder")
     parser.add_argument("--hierarchy", default=DEFAULT_HIERARCHY, help="Domain-hierarchy markdown file")
     parser.add_argument("--jsonl",     action="store_true",       help="Emit a flat JSONL file for agent consumption (no tier, no MD)")
     args = parser.parse_args()
+
+    if not args.source:
+        print(
+            f"ERROR: no policy source. Set the {OFFICIAL_POLICY_REPO_ENV} env var "
+            f"or pass --source <path> to the official policy repo's policyDefinitions folder."
+        )
+        raise SystemExit(1)
 
     source_dir = Path(args.source)
     out_dir    = Path(args.out)

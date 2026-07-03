@@ -4,10 +4,25 @@ The catalogue-builder (producer) writes the shared CATALOGUE. Customer packages
 live separately under customer/. Import these constants instead of hardcoding
 folder names, so a future rename is a one-line change here.
 """
+import os
 from pathlib import Path
 
 # shared/paths.py  ->  shared  ->  flows  ->  project root
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+# The external official Azure Policy repo (parameter/schema source of truth).
+# Unlike the constants below, this is NOT derived from PROJECT_ROOT -- it is a
+# separate clone whose location varies per machine, so it is never baked in.
+OFFICIAL_POLICY_REPO_ENV = "AZURE_POLICY_REPO"
+
+
+def official_policy_source() -> str | None:
+    """Resolve the official policy repo from the AZURE_POLICY_REPO env var.
+
+    Returns None when unset; callers pass --source to override or fail/degrade
+    when neither is provided.
+    """
+    return os.environ.get(OFFICIAL_POLICY_REPO_ENV)
 
 # Shared catalogue produced by the catalogue-builder (producer)
 CATALOGUE_DIR   = PROJECT_ROOT / "catalogue"
