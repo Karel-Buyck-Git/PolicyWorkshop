@@ -1,0 +1,61 @@
+# actions/ — continuous-improvement loop
+
+How work on catalogue-builder / epac-builder gets planned and tracked across sessions
+and contributors.
+
+## The loop
+
+1. **Start of session** — run `/epac-builder-start` (Claude Code slash command). It
+   health-checks the engine (the same diff CI runs) then reads `backlog.md` and the
+   latest `sessions/` file for instant orientation. No need to re-derive project state
+   from scratch, and you find out immediately if something's broken before you start.
+2. **Work an item** from the backlog (or something new that comes up). Run `/continue`
+   any time mid-session (or later the same day) if you need the same orientation again
+   without the health check.
+3. **End of session** — run `/close`. Writes `sessions/<date>.md` (what changed, what's
+   next, open questions), reconciles anything finished into `backlog.md`, and checks
+   `git status` (including a `__pycache__` sanity check) before you walk away.
+4. **Periodically** (before merging a feature branch to `main`, or every few sessions)
+   run `/review` — re-runs the full audit against the codebase, saves the dated output
+   to `log/`, and reconciles findings into `backlog.md` — close finished items, add new
+   ones. Heavier than the other two; not a daily command.
+
+### Slash commands
+
+| Command | When | What it does |
+|---|---|---|
+| `/epac-builder-start` | Start of every day | Health check (golden-fixture diff) + orientation (backlog + last session) |
+| `/continue` | Any time you need a reminder | Orientation only, no health check |
+| `/close` | End of every session | Writes the session log, reconciles finished items into the backlog, checks `git status` |
+| `/review` | Periodically (pre-merge, weekly) | Full state/functionality/readiness audit, logged and reconciled into the backlog |
+
+Defined in `.claude/commands/` — plain markdown, so they're easy to read or tweak
+directly. If you're not using Claude Code, `review-prompt.md` has the same review
+prompt in copy-paste form.
+
+## Before committing
+
+- **No `__pycache__`.** It keeps sneaking into commits (34 `.pyc` files are already
+  tracked under `catalogue-builder/` as of 2026-07-03 — there's no `.gitignore` yet).
+  Run `git status` before committing and make sure no `__pycache__/` paths are staged.
+  One-time cleanup + a real `.gitignore` fix is tracked as backlog #1b.
+
+## Automated safety net
+
+`.github/workflows/test.yml` runs on every push/PR touching `catalogue-builder/**`: it
+rebuilds the reference scaffold from `manifest.example.jsonc` and diffs it against the
+committed `customer/package/`. Any drift in the assembler's output fails the build. This
+runs regardless of whether the loop above is followed — it's the floor, not the plan.
+
+## Files
+
+| File | Purpose |
+|---|---|
+| `backlog.md` | Prioritized, status-tracked action items |
+| `sessions/` | One file per work session — what happened, what's next |
+| `review-prompt.md` | Reusable prompt to re-run a full state/functionality/readiness review |
+
+## Why plain markdown
+
+Everything here is git-tracked markdown — readable and editable with or without Claude
+Code, so a colleague can pick up state without adopting any particular tool.
