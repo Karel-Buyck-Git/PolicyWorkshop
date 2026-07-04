@@ -31,8 +31,7 @@ jobs:
 
       - name: Diff against committed reference package
         run: |
-          diff -rq -x docs "$RUNNER_TEMP/package-out" customer/package
-        # docs/ is excluded: assemble_scaffold.py copies whatever SVG currently lives in
-        # customer/designs/ verbatim (package.py's shutil.copy2) -- that's a passthrough
-        # of a design input, not engine output, so it isn't part of the determinism
-        # contract this test checks. See actions/backlog.md #4.
+          diff -rq "$RUNNER_TEMP/package-out" customer/package
+        # Full-tree diff, docs/ included: customer/package/docs/*.svg is now in sync with
+        # customer/designs/ (the verbatim source package.py copies via shutil.copy2), so the
+        # SVG passthrough is part of the determinism contract this test checks.

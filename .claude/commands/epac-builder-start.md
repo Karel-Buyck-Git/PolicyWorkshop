@@ -11,10 +11,10 @@ the baseline is good before changing anything:
 \`\`\`
 cd catalogue-builder
 python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/manifest.example.jsonc --out /tmp/epac-health-check
-diff -rq -x docs /tmp/epac-health-check customer/package
+diff -rq /tmp/epac-health-check customer/package
 \`\`\`
 
-(`docs/` is excluded — see `actions/backlog.md` #4.) Report pass/fail. If it fails,
+Report pass/fail. If it fails,
 show the diff and stop here — don't start new work on a broken baseline; that's the
 top priority instead.
 
