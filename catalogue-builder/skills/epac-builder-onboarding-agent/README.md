@@ -14,12 +14,14 @@ It runs four phases: **Explain** (how the catalogue/EPAC builders work and what 
 through the normal dev workflow (`catalogue-builder/CLAUDE.md`, `/catalogue-builder-run`, the backlog).
 
 The instructions live in [`SKILL.md`](SKILL.md). Invoke it whenever someone wants to start using
-EPAC Builder as a consumer.
+EPAC Builder as a consumer — via the thin slash command **`/epac-builder-onboard`**
+(`.claude/commands/epac-builder-onboard.md`), which points here.
 
 It also ships a **`/reset-customer-package`** command
-([`reset-customer-package.md`](reset-customer-package.md)) that undoes an onboarding — restoring
-`customer/` to its clean empty-scaffold state, with a destructive-action confirmation and a
-"stop rather than guess" safety check when the folder has unexpected changes.
+([`reset-customer-package.md`](reset-customer-package.md), exposed via
+`.claude/commands/reset-customer-package.md`) that undoes an onboarding — restoring `customer/` to its
+clean empty-scaffold state, with a destructive-action confirmation and a "stop rather than guess"
+safety check when the folder has unexpected changes.
 
 See the worked reference customer at [`../../examples/contoso/`](../../examples/contoso/) for what a
 completed onboarding produces.
