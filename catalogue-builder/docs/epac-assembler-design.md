@@ -24,8 +24,8 @@ The manifest is authored by a human SE **or** emitted by the upstream app. The a
 run locally or in CI:
 
 ```
-python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/manifest.example.jsonc
-# optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: customer/package/)
+python flows/epac_builder/assemble_scaffold.py --manifest examples/contoso/manifests/manifest.example.jsonc
+# optional: --only json|terraform|bicep   --check (validate, write nothing)   --out <dir> (default: the manifest's output.root — customer/package/ for a real customer manifest, examples/contoso/package/ for the worked example)
 ```
 
 Chain: `app / human → manifest → assembler → Definitions scaffold (×flavour) → CI validate → deploy`.

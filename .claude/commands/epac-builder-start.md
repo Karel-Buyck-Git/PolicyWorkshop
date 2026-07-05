@@ -10,8 +10,8 @@ the baseline is good before changing anything:
 
 \`\`\`
 cd catalogue-builder
-python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/manifest.example.jsonc --out /tmp/epac-health-check
-diff -rq /tmp/epac-health-check customer/package
+python flows/epac_builder/assemble_scaffold.py --manifest examples/contoso/manifests/manifest.example.jsonc --out /tmp/epac-health-check
+diff -rq /tmp/epac-health-check examples/contoso/package
 \`\`\`
 
 Report pass/fail. If it fails,

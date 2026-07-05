@@ -26,12 +26,13 @@ jobs:
       - name: Build scaffold from the reference manifest
         run: |
           python flows/epac_builder/assemble_scaffold.py \
-            --manifest customer/manifests/manifest.example.jsonc \
+            --manifest examples/contoso/manifests/manifest.example.jsonc \
             --out "$RUNNER_TEMP/package-out"
 
       - name: Diff against committed reference package
         run: |
-          diff -rq "$RUNNER_TEMP/package-out" customer/package
-        # Full-tree diff, docs/ included: customer/package/docs/*.svg is now in sync with
-        # customer/designs/ (the verbatim source package.py copies via shutil.copy2), so the
-        # SVG passthrough is part of the determinism contract this test checks.
+          diff -rq "$RUNNER_TEMP/package-out" examples/contoso/package
+        # Full-tree diff, docs/ included: examples/contoso/package/docs/*.svg is in sync with
+        # examples/contoso/designs/ (the verbatim source package.py copies via shutil.copy2), so
+        # the SVG passthrough is part of the determinism contract this test checks. (The worked
+        # sample moved out of customer/ — now the empty scaffold — in backlog #10.)

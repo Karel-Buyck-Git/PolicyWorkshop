@@ -1,7 +1,7 @@
 {
   "customer": "contoso",
   "pacOwnerId": "11111111-2222-3333-4444-555555555555",
-  "manifestHash": "sha256:5056ae30ad41f1d5a9e9f24d3bdf6e0d034dc9a886337b9f2ecfa69948712708",
+  "manifestHash": "sha256:b712285c6454595185d466f30aa56279d10b0fbfe4f5deeff13fda554ce4d617",
   "catalogueVersion": "2026.06.21",
   "flavours": [
     "json"

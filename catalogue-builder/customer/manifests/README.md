@@ -29,13 +29,16 @@ Enforced by validation, not convention:
 | `input.example.json`         | minimal human input: customer + `domain/tier/category` selections + value-only `parameters` |
 | `input.schema.json`          | governs the input file (top level closed; selection format; parameters value-only)          |
 | `manifest.template.jsonc`    | the empty manifest shape, fixed structure, all `<REPLACE: …>` placeholders + edit-rule comments |
-| `manifest.example.jsonc`     | a filled, **buildable** reference — the worked manifest that produces `customer/package/`    |
 | `manifest.input.schema.json` | structure lock for the manifest (values free)                                               |
 | `manifest.schema.json`       | strict schema — the build gate                                                              |
 
 > A real run writes `<customer>.manifest.jsonc` (e.g. `contoso.manifest.jsonc`) — a generated
-> working file, **gitignored** (see `.gitignore`). The two `manifest.*.jsonc` above are the
-> committed examples; they are not overwritten by a run.
+> working file, **gitignored** (see `.gitignore`). `manifest.template.jsonc` is the committed
+> starting point; it is not overwritten by a run.
+>
+> **Worked example:** a filled, buildable reference manifest lives at
+> `examples/contoso/manifests/manifest.example.jsonc` (it produces `examples/contoso/package/`).
+> This `customer/` folder is *your* empty working area — see `customer/NOTICE.md`.
 
 ## How it points at the catalogue (and where output goes)
 
@@ -84,7 +87,7 @@ There is **one** scaffold producer (`flows/epac_builder/assemble_scaffold.py --m
    → writes `<customer>.manifest.jsonc` with a `<REPLACE: …>` for everything it can't infer
    (`pacOwnerId`, `tenantId`, `deploymentRootScope`, `managedIdentityLocation`, `enforcement`,
    `logAnalyticsWorkspaceId`, per-selection `managementGroup`, and one per required policy param).
-3. Fill those values. Compare against `manifest.example.jsonc` for a complete, valid reference.
+3. Fill those values. Compare against `examples/contoso/manifests/manifest.example.jsonc` for a complete, valid reference.
 4. `python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc`
    → renders the scaffold into `customer/package/`.
 

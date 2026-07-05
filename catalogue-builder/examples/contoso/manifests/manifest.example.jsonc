@@ -1,6 +1,6 @@
 {
   // Canonical worked example (real values) — the filled manifest that builds
-  // customer/package/. Exercises the assembler end-to-end: a remediating group
+  // examples/contoso/package/. Exercises the assembler end-to-end: a remediating group
   // with 0 required params (api-management, mapped to mg-lv2-integration) and a
   // group with 6 required params (tags, intentionally unmapped -> placeholder
   // scope + warning, to show the "set a managementGroup or drop it" decision).
@@ -10,7 +10,7 @@
   "pacOwnerId": "11111111-2222-3333-4444-555555555555",
 
   "source": {
-    "initiatives": "../../catalogue/initiatives",
+    "initiatives": "../../../catalogue/initiatives",
     "catalogueVersion": "2026.06.21",
     "hierarchyVersion": "2026.06.21",
     "managementGroups": "../designs/contoso-mgmt-groups.json"
