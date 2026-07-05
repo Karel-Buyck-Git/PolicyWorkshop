@@ -8,8 +8,8 @@ Status: `todo` / `in-progress` / `done`
 | # | Item | Effort | Status | Source |
 |---|---|---|---|---|
 | 1 | Test suite / CI on the builder (golden-fixture diff against `customer/package/`) | low | done (2026-07-03) | log/review-07-03-26.md |
-| 1a | Add `requirements.txt`/`pyproject.toml` marker (stdlib-only, but make it explicit) | low | todo | log/review-07-03-26.md |
-| 1b | Drop committed `__pycache__`, add to `.gitignore` | low | todo | log/review-07-03-26.md |
+| 1a | Add `requirements.txt`/`pyproject.toml` marker (stdlib-only, but make it explicit) | low | done (2026-07-05) | log/review-07-03-26.md |
+| 1b | Drop committed `__pycache__`, add to `.gitignore` | low | done (2026-07-05) | log/review-07-03-26.md |
 | 2 | Manifest completion guardrail: `--strict`/pre-deploy gate that fails when any `<REPLACE:>` or placeholder-scope survives into output | medium | todo | log/review-07-03-26.md |
 | 3 | Catalogue customer-clean: resolve/remove `undefined`-domain policies, drop `builtinpolicytest` so the catalogue can be regenerated reproducibly | high | todo | log/review-07-03-26.md |
 | 4 | `customer/package/docs/*.svg` is stale vs. `customer/designs/*.svg` (byte-diff, same commit) — CI's golden-fixture diff excludes `docs/` because of this; resync so the exclusion can be dropped | low | done (2026-07-04) | discovered building CI, 2026-07-03 |
@@ -28,6 +28,12 @@ Status: `todo` / `in-progress` / `done`
   (`Definitions/`, `lineage.json`, `report.md`, `README.md`, `.github/workflows/epac.yml`
   inside the generated package). As of #4 (done 2026-07-04) `docs/` is now included too —
   the SVG was already in sync, so the `-x docs` exclusion was dropped.
+- Item 1b (done 2026-07-05) needed no code change: `.gitignore` already carried the Python
+  bytecode section (`__pycache__/`, `*.py[cod]`, `*.pyo` — added in `15d14fa`, reinforced in
+  `9cfe57e`) and nothing matching was tracked; the physical `__pycache__/` dirs on disk are
+  already ignored. Item 1a shipped `catalogue-builder/pyproject.toml`, a declarative
+  `[project]` marker with empty `dependencies` making the stdlib-only design explicit (no
+  `[build-system]` — not a pip-installable package).
 - Item 5 was split out of the review's original #3 ("decouple producer from hard-coded
   path") once the code was checked — it's a two-file default-value fix, not a curation
   task, so it's tracked and estimated separately from the catalogue-cleanup work.
