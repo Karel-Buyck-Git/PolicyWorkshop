@@ -22,9 +22,11 @@ These two mirror each other — know which is which before editing:
   `designs/`. There is **no `manifest.example.jsonc` and no `package/` here** — a real user
   fills the template and builds their own. Start at `customer/NOTICE.md`.
 - **`catalogue-builder/examples/contoso/`** is the **worked sample** (`manifests/`, `designs/`,
-  `package/`) **and the CI golden fixture**: `.github/workflows/test.yml` rebuilds `package/`
-  from the example manifest and diffs it byte-for-byte. So `examples/contoso/package/` is
-  **generated, never hand-edited** — change the manifest/catalogue and regenerate.
+  `package/`, `fixtures/`) **and the CI golden fixture**: `.github/workflows/contoso-epac-build.yml`
+  runs `examples/contoso/verify.sh`, which rebuilds the sample for every renderer flavour (json →
+  `package/`, terraform → `fixtures/terraform/`, bicep → `fixtures/bicep/`) and diffs each
+  byte-for-byte. So those trees are **generated, never hand-edited** — change the manifest/catalogue
+  and regenerate.
 
 Schemas are shared: the assembler always loads them from `customer/manifests/`, so both the
 empty scaffold and the example validate against the same schemas.

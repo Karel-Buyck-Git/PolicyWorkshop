@@ -1,0 +1,20 @@
+{
+  "requireTagValueResourceGroupsTagName": {
+    "value": "environment"
+  },
+  "requireTagValueResourceGroupsTagValue": {
+    "value": "production"
+  },
+  "requireTagValueResourcesTagName": {
+    "value": "environment"
+  },
+  "requireTagValueResourcesTagValue": {
+    "value": "production"
+  },
+  "requireTagResourceGroupsTagName": {
+    "value": "costCenter"
+  },
+  "requireTagResourcesTagName": {
+    "value": "costCenter"
+  }
+}

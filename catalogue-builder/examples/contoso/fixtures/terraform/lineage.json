@@ -1,0 +1,27 @@
+{
+  "customer": "contoso",
+  "pacOwnerId": "11111111-2222-3333-4444-555555555555",
+  "manifestHash": "sha256:b712285c6454595185d466f30aa56279d10b0fbfe4f5deeff13fda554ce4d617",
+  "catalogueVersion": "2026.06.21",
+  "flavours": [
+    "terraform"
+  ],
+  "groups": [
+    {
+      "group": "integration/essential/api-management",
+      "name": "contoso-integration-esn-apim",
+      "assignmentName": "integration-esn-apim",
+      "source": "initiatives/integration/essential/api-management",
+      "policyCount": 11,
+      "hasRemediation": true
+    },
+    {
+      "group": "management/essential/tags",
+      "name": "contoso-management-esn-tags",
+      "assignmentName": "management-esn-tags",
+      "source": "initiatives/management/essential/tags",
+      "policyCount": 4,
+      "hasRemediation": false
+    }
+  ]
+}

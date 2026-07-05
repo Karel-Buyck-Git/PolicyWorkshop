@@ -15,8 +15,9 @@ in* — nothing here is a finished example. It ships with only:
 A complete, buildable reference — the **contoso** sample — lives at
 [`../examples/contoso/`](../examples/contoso/): a filled `manifests/manifest.example.jsonc`, its
 `designs/`, and the resulting `package/`. That sample is also the **CI golden fixture**
-(`.github/workflows/test.yml` rebuilds it and diffs byte-for-byte), so treat it as read-only
-reference — don't edit it to fit your customer. Copy its *shape*, build your own here.
+(`.github/workflows/contoso-epac-build.yml` → `examples/contoso/verify.sh` rebuilds it for
+every flavour and diffs byte-for-byte), so treat it as read-only reference — don't edit it to
+fit your customer. Copy its *shape*, build your own here.
 
 Producer vs. consumer: the shared `catalogue/` is produced by the catalogue-builder
 (`/catalogue-builder-run`); this `customer/` area is the **consumer** (epac-builder) input.

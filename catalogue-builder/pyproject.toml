@@ -14,7 +14,7 @@
 name = "catalogue-builder"
 version = "0.0.0"
 description = "Azure Policy catalogue + EPAC scaffold builder (stdlib-only)."
-# CI runs on 3.11 (.github/workflows/test.yml); the code needs 3.8+ at minimum
+# CI runs on 3.11 (.github/workflows/contoso-epac-build.yml); the code needs 3.8+ at minimum
 # (assignment expressions), so 3.10 is a comfortable, tested-adjacent floor.
 requires-python = ">=3.10"
 dependencies = []

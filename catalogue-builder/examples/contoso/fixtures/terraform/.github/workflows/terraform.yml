@@ -1,0 +1,56 @@
+# Terraform (azurerm) policy deploy.
+name: Terraform deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: tfvars environment (selector)
+        default: "epac-dev"
+  push:
+    branches: [ main ]
+    paths: [ "**.tf", "environments/**" ]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  ARM_USE_OIDC: "true"
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_CLIENT_ID: ${{ secrets.TF_CLIENT_ID }}
+  TFVARS: environments/${{ github.event.inputs.environment || 'epac-dev' }}.tfvars
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.TF_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init
+      - run: terraform plan -var-file="$TFVARS" -out tfplan
+      - uses: actions/upload-artifact@v4
+        with: { name: tfplan, path: tfplan }
+
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: terraform-apply
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: tfplan, path: . }
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.TF_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init
+      - run: terraform apply tfplan

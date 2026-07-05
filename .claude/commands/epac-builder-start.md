@@ -5,18 +5,37 @@ disable-model-invocation: true
 
 ## 1. Health check
 
-Run the same regression check `.github/workflows/test.yml` runs, locally, so you know
-the baseline is good before changing anything:
+Two parts: prove the **engine** is sound (against the golden fixture), then check the
+**customer's** live inputs (dynamic — the empty scaffold reports "not configured", it is
+not an error). Run everything from `catalogue-builder/`.
+
+**Engine baseline (always).** Run the same regression check CI (`contoso epac build`) runs,
+locally — it rebuilds the worked sample for every flavour and diffs byte-for-byte:
 
 \`\`\`
 cd catalogue-builder
-python flows/epac_builder/assemble_scaffold.py --manifest examples/contoso/manifests/manifest.example.jsonc --out /tmp/epac-health-check
-diff -rq /tmp/epac-health-check examples/contoso/package
+bash examples/contoso/verify.sh
 \`\`\`
 
-Report pass/fail. If it fails,
-show the diff and stop here — don't start new work on a broken baseline; that's the
-top priority instead.
+Report pass/fail. If it fails, show the diff and **stop here** — don't start new work on a
+broken engine; fixing it is the top priority instead.
+
+**Customer readiness (dynamic).** Now check the user's own working area, `customer/`. Look
+in `customer/manifests/` for a real, filled manifest — a `*.jsonc` that is **not**
+`manifest.template.jsonc` and has **no surviving `<REPLACE:` placeholders**:
+
+- **If one exists**, validate it against the engine (validates + reports, writes nothing):
+
+  \`\`\`
+  python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<name>.jsonc --check
+  \`\`\`
+
+  Report pass/fail (and surface any placeholder-scope or `<REPLACE:>` warnings).
+
+- **If none exists** (only the template is present, or every manifest still carries
+  `<REPLACE:>` placeholders), report: **"customer/ is an empty scaffold — not configured
+  yet."** This is the expected state on a fresh clone; it is not a failure, and there is
+  nothing to build.
 
 ## 2. Orient
 

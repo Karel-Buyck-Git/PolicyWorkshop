@@ -1,0 +1,42 @@
+# Bicep policy deploy (management-group scope).
+name: Bicep deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: parameters environment (selector)
+        default: "epac-dev"
+      managementGroupId:
+        description: target management group id
+        default: "contoso"
+      location:
+        description: deployment location
+        default: "westeurope"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: bicep-apply
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.BICEP_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy at management group scope
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            env="${{ github.event.inputs.environment || 'epac-dev' }}"
+            az deployment mg create \
+              --name "${{ github.run_id }}" \
+              --management-group-id "${{ github.event.inputs.managementGroupId || 'contoso' }}" \
+              --location "${{ github.event.inputs.location || 'westeurope' }}" \
+              --template-file main.bicep \
+              --parameters "@main.parameters.$env.json"

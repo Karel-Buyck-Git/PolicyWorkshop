@@ -1,0 +1,43 @@
+name: contoso epac build
+
+# Thin trigger: the regression logic lives with the example, in
+# catalogue-builder/examples/contoso/verify.sh (GitHub Actions requires the workflow
+# YAML under .github/workflows/, so only the trigger lives here). verify.sh rebuilds the
+# worked contoso sample for every renderer flavour (json, terraform, bicep) and diffs it
+# byte-for-byte against the committed fixtures — the epac-builder determinism contract.
+#
+# Fires when either builder changes: the engine (flows/**), the shared catalogue
+# (catalogue/**), the example itself (examples/contoso/**), or the shared schemas the
+# assembler validates against (customer/manifests/**).
+
+on:
+  push:
+    paths:
+      - "catalogue-builder/flows/**"
+      - "catalogue-builder/catalogue/**"
+      - "catalogue-builder/examples/contoso/**"
+      - "catalogue-builder/customer/manifests/**"
+      - ".github/workflows/contoso-epac-build.yml"
+  pull_request:
+    paths:
+      - "catalogue-builder/flows/**"
+      - "catalogue-builder/catalogue/**"
+      - "catalogue-builder/examples/contoso/**"
+      - "catalogue-builder/customer/manifests/**"
+      - ".github/workflows/contoso-epac-build.yml"
+
+jobs:
+  contoso-epac-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: catalogue-builder
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebuild every flavour and diff against committed fixtures
+        run: bash examples/contoso/verify.sh

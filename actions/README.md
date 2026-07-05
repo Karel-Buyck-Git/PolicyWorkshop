@@ -42,10 +42,12 @@ prompt in copy-paste form.
 
 ## Automated safety net
 
-`.github/workflows/test.yml` runs on every push/PR touching `catalogue-builder/**`: it
-rebuilds the reference scaffold from `manifest.example.jsonc` and diffs it against the
-committed `customer/package/`. Any drift in the assembler's output fails the build. This
-runs regardless of whether the loop above is followed — it's the floor, not the plan.
+`.github/workflows/contoso-epac-build.yml` (the `contoso epac build` check) runs on every
+push/PR touching the engine (`flows/**`), the catalogue, the example, or the shared schemas.
+It calls `examples/contoso/verify.sh`, which rebuilds the worked sample for every renderer
+flavour (json, terraform, bicep) and diffs each byte-for-byte against the committed fixtures.
+Any drift in the assembler's output fails the build. This runs regardless of whether the loop
+above is followed — it's the floor, not the plan.
 
 ## Files
 

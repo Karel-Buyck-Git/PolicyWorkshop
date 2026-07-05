@@ -1,0 +1,61 @@
+{
+  "displayName": "Management Essential — Tags",
+  "description": "**Essential** — Baseline hygiene for Tags: the non-negotiable controls every deployment should enforce from day one. This tier delivers tagging, SKU, and naming controls for cost and ownership accountability. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss. Maps to CIS Benchmarks, ISO 27001 Annex A.10 (cryptography) and A.12 (operations).",
+  "policyType": "Custom",
+  "metadata": {
+    "category": "Tags",
+    "domain": "Management",
+    "tier": "Essential",
+    "catalogueVersion": "2026.06.21",
+    "hasRemediation": false
+  },
+  "policyDefinitionGroups": [
+    {
+      "name": "Essential"
+    }
+  ],
+  "parameters": {
+    "requireTagValueResourceGroupsTagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Name",
+        "description": "Name of the tag, such as 'environment'"
+      }
+    },
+    "requireTagValueResourceGroupsTagValue": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Value",
+        "description": "Value of the tag, such as 'production'"
+      }
+    },
+    "requireTagValueResourcesTagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Name",
+        "description": "Name of the tag, such as 'environment'"
+      }
+    },
+    "requireTagValueResourcesTagValue": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Value",
+        "description": "Value of the tag, such as 'production'"
+      }
+    },
+    "requireTagResourceGroupsTagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Name",
+        "description": "Name of the tag, such as 'environment'"
+      }
+    },
+    "requireTagResourcesTagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Name",
+        "description": "Name of the tag, such as 'environment'"
+      }
+    }
+  }
+}

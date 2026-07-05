@@ -1,0 +1,23 @@
+{
+  "displayName": "Integration Essential — API Management",
+  "description": "**Essential** — Baseline hygiene for API Management: the non-negotiable controls every deployment should enforce from day one. This tier delivers TLS / HTTPS enforcement preventing in-transit interception, encryption-at-rest with service-managed keys, key and certificate lifecycle hygiene (rotation, expiration, validity), and tagging, SKU, and naming controls for cost and ownership accountability. Together these policies protect against credential theft, unencrypted data exposure, and accidental data loss.…",
+  "policyType": "Custom",
+  "metadata": {
+    "category": "API Management",
+    "domain": "Integration",
+    "tier": "Essential",
+    "catalogueVersion": "2026.06.21",
+    "hasRemediation": true,
+    "roleDefinitionIds": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+      "/providers/microsoft.authorization/roleDefinitions/312a565d-c81f-4fd8-895a-4e21e48d571c"
+    ],
+    "hasCustomMembers": true
+  },
+  "policyDefinitionGroups": [
+    {
+      "name": "Essential"
+    }
+  ],
+  "parameters": {}
+}
