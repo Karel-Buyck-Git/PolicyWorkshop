@@ -1,4 +1,14 @@
-# Catalogue Builder
+---
+description: Run the full catalogue-builder producer pipeline — phases 1–5 (sync source → extract → enrich → initiatives → overlays → QC), turning Microsoft's official built-in policies into the versioned, EPAC-ready catalogue. Manual only.
+disable-model-invocation: true
+---
+
+# Catalogue Builder — run
+
+Execute the **producer** pipeline end to end: phases 1–5, in order. Run every command below
+from the `catalogue-builder/` directory (`cd catalogue-builder` first) — all script and file
+paths are relative to it. After each script, if it exited non-zero, report its error and
+**stop**; do not proceed to the next phase on a failure.
 
 The Catalogue Builder is the **producer** behind our Azure governance offerings on
 Enterprise Policy as Code (EPAC). It turns Microsoft's official built-in policies into a
@@ -41,22 +51,28 @@ redundancy / high availability (99.99% SLA), confidential compute, regulatory
 framework alignment (NIS2, ISO 27001, CIS, NIST), data sovereignty. These policies
 either require significant infrastructure investment or map directly to regulatory frameworks.
 
-## Phase 1 — Run the extraction script
+## Phase 1 — Sync the source, then run the extraction script
 
-Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\catalogue-builder\flows\catalogue_builder\extract_policies.py"
+First materialise the pinned official Azure Policy source, then extract:
 
-- If the script exits with an error, report the error message and stop.
-- If it completes successfully, note the output folder it reports and proceed to Phase 2.
+```
+python flows/tools/fetch_policy_source.py --sync
+python flows/catalogue_builder/extract_policies.py
+```
 
-**Authorized source folder.** The Catalogue Builder reads policy definitions exclusively
-from the official built-in policy set at
-`C:\GIT\Official Azure Policy\azure-policy\built-in-policies\policyDefinitions`
-(the default value of `--source`). The script accepts a `--source` override for
-local development convenience, but no allowlist is enforced — pointing it at
-any other folder is outside the scope of the Catalogue Builder and the resulting
-output should not be treated as a supported build. Always run with the
-default `--source` unless you have an explicit, documented reason to deviate.
+- If either script exits with an error, report the error message and stop.
+- If extraction completes successfully, note the output folder it reports and proceed to Phase 2.
+
+**Source of truth (pinned, reproducible).** The Catalogue Builder reads policy definitions
+from the official built-in policy set at the exact upstream commit pinned in
+`config/policy-source.json`. `flows/tools/fetch_policy_source.py --sync` materialises that
+commit into the gitignored `.policy-source/` cache, and the producer resolves its `--source`
+default from it automatically via `flows/shared/paths.py::official_policy_source` (precedence:
+`AZURE_POLICY_REPO` env var → pinned cache → fail with a clear message). So you normally pass
+**no `--source` at all** — everyone builds against the same pinned version, and the resulting
+`builtInsRef` matches the committed catalogue. `--source` remains an explicit override for
+local development; pointing it at an unpinned folder produces an unsupported build whose
+output should not be treated as canonical.
 
 ## Phase 2 — Enrich the output
 
@@ -98,7 +114,10 @@ where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 ## Phase 3 — Create per-tier EPAC-ready initiatives
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\catalogue-builder\flows\catalogue_builder\create_initiatives.py"
+
+```
+python flows/catalogue_builder/create_initiatives.py
+```
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note how many groups/files were written and proceed.
@@ -152,13 +171,16 @@ Review the generated files and verify:
 ## Phase 4 — Apply custom overlays
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\catalogue-builder\flows\definition_gen\apply_overlays.py"
+
+```
+python flows/definition_gen/apply_overlays.py
+```
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the summary line (new groups / enriched / catalogue groups).
 
 This is the **custom-overlay** step of the producer. It reads the authored allowlist
-[`config/definition-gens.md`](../config/definition-gens.md) — only generators with **Enabled = yes**
+`config/definition-gens.md` — only generators with **Enabled = yes**
 run — and applies each via the shared scaffold (`flows/definition_gen/scaffold.py`). Each generator
 declares a **placement**:
 
@@ -172,7 +194,7 @@ It then **registers** the customs into the catalogue contract — NewGroup overl
 `hasCustomMembers: true` — and writes the **authoritative** `catalogue.json` stamp (the real
 `contentHash` over built-in + custom, plus `inputs.definitionGensHash` and `tools.applyOverlays`).
 The custom definitions live under `catalogue/definitions/custom/<family>/`; the policy *rule* each
-generator enforces is its own — see [`flows/definition_gen/README.md`](../flows/definition_gen/README.md).
+generator enforces is its own — see `flows/definition_gen/README.md`.
 
 To build a **built-in-only** catalogue, set every row in `config/definition-gens.md` to
 `Enabled = no`; apply-overlays then applies nothing but still finalizes the stamp.
@@ -180,7 +202,10 @@ To build a **built-in-only** catalogue, set every row in `config/definition-gens
 ## Phase 5 — Quality control output (producer step ⑤)
 
 Run the following script:
-"C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\catalogue-builder\flows\catalogue_builder\quality_control.py"
+
+```
+python flows/catalogue_builder/quality_control.py
+```
 
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the summary line it prints (counts + findings).
@@ -189,7 +214,7 @@ Run the following script:
 > documents the catalogue the first four steps built (built-in + custom overlays).
 > It is *not* the "assembler". The **epac-builder** (consumer / assembler) is a separate app
 > that consumes the published catalogue; see
-> [`flows/epac_builder/README.md`](../flows/epac_builder/README.md).
+> `flows/epac_builder/README.md`.
 
 This is the repeatable QC gate run at the **end of every catalogue-builder run**. It reads the
 freshly generated catalogue (custom definitions under `catalogue/definitions/custom/`, the
