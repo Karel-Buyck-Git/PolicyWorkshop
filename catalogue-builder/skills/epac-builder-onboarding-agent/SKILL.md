@@ -221,6 +221,21 @@ Show the user what was produced and how to verify it themselves:
 
 ---
 
+## Reset / start over — `/reset-customer-package`
+
+If the user wants to **undo an onboarding** and return `customer/` to its clean pre-scaffold state
+(e.g. wrong inputs, start fresh, hand the empty scaffold to someone else), run the
+**`/reset-customer-package`** command — full procedure in
+[`reset-customer-package.md`](reset-customer-package.md).
+
+In short, it: classifies the working area against the git-tracked scaffold; **stops rather than
+guessing** if it finds manual edits to tracked files or untracked files it can't attribute to
+onboarding; warns that deleting the generated artifacts is **irreversible** (they aren't in git) and
+requires explicit confirmation; then removes only the generated artifacts (`customer/package/`, the
+`<customer>.manifest.jsonc` / `.input.json`, the `customer/designs/<customer>-*` files), leaving the
+committed scaffold intact. Same read-only-on-the-engine boundary applies — it only ever touches
+`customer/`. After it runs, the onboarding flow above can start again from scratch.
+
 ## Quick reference
 
 - **Reference customer:** `catalogue-builder/examples/contoso/` (valid manifest + design + package).

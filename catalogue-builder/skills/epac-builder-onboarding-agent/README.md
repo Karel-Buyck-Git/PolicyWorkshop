@@ -16,5 +16,10 @@ through the normal dev workflow (`catalogue-builder/CLAUDE.md`, `/catalogue-buil
 The instructions live in [`SKILL.md`](SKILL.md). Invoke it whenever someone wants to start using
 EPAC Builder as a consumer.
 
+It also ships a **`/reset-customer-package`** command
+([`reset-customer-package.md`](reset-customer-package.md)) that undoes an onboarding — restoring
+`customer/` to its clean empty-scaffold state, with a destructive-action confirmation and a
+"stop rather than guess" safety check when the folder has unexpected changes.
+
 See the worked reference customer at [`../../examples/contoso/`](../../examples/contoso/) for what a
 completed onboarding produces.
