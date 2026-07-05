@@ -15,6 +15,8 @@ fixtures/bicep/                    # committed bicep output (regression fixture)
 
 ## Golden fixture
 
+![Contoso CI regression / determinism-check flow](../../docs/contoso-ci-regression-flow.svg)
+
 `verify.sh` rebuilds the sample for **every** renderer flavour and diffs each byte-for-byte
 against the committed tree — the epac-builder's determinism contract:
 
