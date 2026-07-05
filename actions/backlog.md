@@ -93,4 +93,14 @@ Status: `todo` / `in-progress` / `done`
   `CLAUDE.md`, `examples/contoso/README.md`, `customer/NOTICE.md`, `pyproject.toml`, `actions/README.md`,
   backlog #8); historical session-log mentions left as-is. verify.sh passes green locally on all three
   flavours (fixtures confirmed deterministic across two builds).
+- Review 2026-07-05 (end-of-day, second pass, `log/review-07-05-26.md` rewritten): re-ran
+  `examples/contoso/verify.sh` — all three flavours byte-identical (exit 0). Confirmed **#11 and #13
+  done** (verify.sh now covers json+terraform+bicep; the morning review had raised #13 as the renderer
+  coverage gap — closed same day) and **#16 done** (onboarding skill + `/epac-builder-onboard` +
+  `/reset-customer-package` shipped). No status flips (all already marked done) and **no new rows** —
+  every finding maps to an existing item. Re-confirmed **open**: #2 (scope-less/`<REPLACE:>`-param
+  manifests still build with only a `[warn]`), #3 (`undefined`-domain refs still in `index.json`;
+  `builtinpolicytest` still in `definitions/` + two `initiatives/undefined/*/` dirs), #14 (deployability
+  never proven — CI is byte-diff only), #15 (no catalogue-upgrade path). #14/#15 are now the two
+  highest-value open items.
 - Re-run `actions/review-prompt.md` periodically; reconcile new findings into this table.
