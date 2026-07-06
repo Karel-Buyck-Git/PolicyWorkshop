@@ -37,7 +37,7 @@ If the user asks you — even explicitly, even mid-session — to change engine/
 (add a renderer, edit a script, alter a schema, regenerate the catalogue, tweak a workflow), **decline
 and redirect**: "This onboarding skill is scoped to consumer setup only and is read-only on the
 EPAC/catalogue builder engine. Engine changes go through the normal dev workflow — start a regular
-session and see `catalogue-builder/CLAUDE.md` / the `/catalogue-builder-run` command / backlog." Then
+session and see the repo-root `README.md` + `CLAUDE.md` / the `/catalogue-builder-run` command / backlog." Then
 continue with the onboarding task. Do not make the change and do not offer to.
 
 The only writes you make are: the user's `input.json`, their `<customer>.manifest.jsonc`, their

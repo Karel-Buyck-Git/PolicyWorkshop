@@ -9,6 +9,7 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 
 | Tool | What it answers | When to run |
 | --- | --- | --- |
+| [`check_env.py`](check_env.py) | "is my machine set up to run this tooling?" | first thing after cloning, or when a script dies |
 | [`fetch_policy_source.py`](fetch_policy_source.py) | "give me the pinned official policy source everyone builds against" | before a build, or on a schedule |
 | [`ab_verify.py`](ab_verify.py) | "was my refactor of step ③ additive-only?" | after changing `create_initiatives.py` |
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
@@ -16,6 +17,20 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 | [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
 
 ## The tools
+
+### [`check_env.py`](check_env.py)
+The **environment doctor** — the one tool here you run *before* anything else. Pure stdlib and
+standalone (it imports nothing from the repo, and is written to still run on an old interpreter so
+it can tell you it's too old), it checks the contributor toolchain — **Python ≥ 3.10**, a bare
+`python` on PATH (the MCP server in `.mcp.json` calls it), and `bash`/`diff`/`git` (for `verify.sh`
+and the reset flow) — and prints a specific fix for anything missing instead of letting a later
+script die with a raw error. It does **not** check deploy-time prerequisites (PowerShell, Az, the
+EPAC module); those live in [`../../docs/scaffold-deployment-guide.md`](../../docs/scaffold-deployment-guide.md).
+Exit `0` all good · `1` a per-flow tool is missing · `2` Python is too old.
+
+```
+python flows/tools/check_env.py
+```
 
 ### [`fetch_policy_source.py`](fetch_policy_source.py)
 The one utility here that **feeds the build** rather than audits it: it materialises the official

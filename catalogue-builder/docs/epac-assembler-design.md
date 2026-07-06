@@ -43,7 +43,9 @@ Chain: `app / human → manifest → assembler → Definitions scaffold (×flavo
 | `catalogue/initiatives/<domain>/<tier>/<category>/` | generated groups (`.policyset.json`, `.assignment.json`, `.exemptions.json`, `.roles.json`, `.md`) | yes |
 | `catalogue/definitions/<category>/policies.md` | lineage + effect lookups | optional |
 
-**Runtime:** Python ≥ 3.10, `jsonschema`, and a JSONC reader (json5 or a comment/trailing-comma stripper).
+**Runtime:** Python ≥ 3.10, **stdlib only — no `pip install`**. Schema validation and JSONC parsing
+are hand-rolled (`epac_builder/validate.py`, `epac_builder/jsonc.py`) rather than pulled from
+`jsonschema` / `json5`, to match the producer's zero-dependency house style.
 
 **Validation contract (three schemas, two states):**
 

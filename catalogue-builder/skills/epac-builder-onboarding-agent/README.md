@@ -11,7 +11,7 @@ It runs four phases: **Explain** (how the catalogue/EPAC builders work and what 
 **Hard boundary:** the skill is **read-only on the engine**. It only writes under
 `catalogue-builder/customer/` and calls the existing assembler; it never edits `flows/**`,
 `catalogue/**`, the shared schemas, or workflows — even if asked mid-session. Engine changes go
-through the normal dev workflow (`catalogue-builder/CLAUDE.md`, `/catalogue-builder-run`, the backlog).
+through the normal dev workflow (repo-root `README.md` + `CLAUDE.md`, `/catalogue-builder-run`, the backlog).
 
 The instructions live in [`SKILL.md`](SKILL.md). Invoke it whenever someone wants to start using
 EPAC Builder as a consumer — via the thin slash command **`/epac-builder-onboard`**

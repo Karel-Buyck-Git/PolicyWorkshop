@@ -28,6 +28,32 @@ python flows/mcp_server/server.py
 The server speaks MCP over stdio, so it's normally launched by a client, not by hand — see
 [`.mcp.json`](../../../.mcp.json) at the repo root, which registers it for Claude Code.
 
+## Using this from Claude Code (and other assistants)
+
+**Requirement:** `python` (3.10+) on your PATH — the client launches the server via the `python`
+command in [`.mcp.json`](../../../.mcp.json). Run [`../tools/check_env.py`](../tools/check_env.py) if
+unsure; it flags the case where only `python3` exists.
+
+**Claude Code** — `.mcp.json` is project-scoped (checked into the repo), so Claude Code won't run it
+silently:
+
+1. **Reload** so the session reads `.mcp.json` — in the VS Code extension, reload the window (or
+   restart the Claude Code session); a fresh `claude` CLI session picks it up on start.
+2. **Approve** the `epac-builder` server when prompted. This is **per-user, per-machine** and grants
+   Claude Code permission to launch the local `python …/server.py` process and expose its tools.
+   (Re-trigger the prompt any time with `claude mcp reset-project-choices`.)
+3. **`/mcp`** shows the server's status and its tools; once `epac-builder` is *connected*,
+   `validate_manifest` is callable.
+
+Because approving runs local code, treat **edits to `.mcp.json` as security-relevant in review** —
+the trust is in the file, so a new server entry there is a new thing every teammate would run.
+
+**Other assistants** — if your tool supports MCP, register the same command
+(`python catalogue-builder/flows/mcp_server/server.py`) in its own config. If it doesn't, you lose
+nothing: every tool here is also a plain CLI — `validate_manifest` is just
+`python flows/epac_builder/assemble_scaffold.py --manifest <path> --check [--strict]`. The MCP layer
+is convenience, not a dependency.
+
 ## `validate_manifest`
 
 Validates a customer manifest and returns the result as structured data (the CLI flattens the
