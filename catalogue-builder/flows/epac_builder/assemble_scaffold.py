@@ -62,13 +62,22 @@ def _load_schema(name):
     return json.loads((MANIFESTS_DIR / name).read_text(encoding="utf-8"))
 
 
-def resolve_pac_owner_id(manifest, manifest_path):
-    """Use a valid manifest pacOwnerId, else generate one and write it back. §3."""
+def resolve_pac_owner_id(manifest, manifest_path, write_back=True):
+    """Use a valid manifest pacOwnerId, else generate one. §3.
+
+    With ``write_back=True`` (the default, CLI behaviour) a generated id is persisted
+    back into the manifest file. Read-only callers (e.g. the MCP ``validate_manifest``
+    tool) pass ``write_back=False``: the id is applied in memory only so validation can
+    proceed, the file is never touched, and the note reports what *would* be assigned.
+    """
     val = manifest.get("pacOwnerId")
     if isinstance(val, str) and GUID_RE.match(val):
         return None
     guid = str(uuid.uuid4())
     manifest["pacOwnerId"] = guid
+    if not write_back:
+        return (f"pacOwnerId missing/invalid — would assign {guid} "
+                "(applied in memory for validation; manifest file left untouched)")
     text = Path(manifest_path).read_text(encoding="utf-8")
     if isinstance(val, str) and val in text:
         Path(manifest_path).write_text(text.replace(val, guid, 1), encoding="utf-8")
@@ -76,19 +85,19 @@ def resolve_pac_owner_id(manifest, manifest_path):
     return f"generated pacOwnerId {guid} (add it to the manifest to keep runs reproducible)"
 
 
-def load_manifest(manifest_path):
+def load_manifest(manifest_path, write_back=True):
     manifest = jsonc.load(manifest_path)
     validate.validate(manifest, _load_schema("manifest.input.schema.json"),
                       f"{manifest_path.name} (structure)")
-    note = resolve_pac_owner_id(manifest, manifest_path)            # before strict gate
+    note = resolve_pac_owner_id(manifest, manifest_path, write_back=write_back)  # before strict gate
     validate.validate(manifest, _load_schema("manifest.schema.json"),
                       f"{manifest_path.name} (build gate)")
     return manifest, note
 
 
-def assemble(manifest_path, only=None, check=False, strict=False, out=None, log=print):
+def assemble(manifest_path, only=None, check=False, strict=False, out=None, log=print, write_back=True):
     manifest_path = Path(manifest_path).resolve()
-    manifest, note = load_manifest(manifest_path)
+    manifest, note = load_manifest(manifest_path, write_back=write_back)
     if note:
         log(f"[pacOwnerId] {note}")
 
