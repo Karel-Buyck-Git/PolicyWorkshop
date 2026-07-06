@@ -12,7 +12,7 @@ When generating or modifying web code, apply the following principles throughout
 
 ## Core principles (apply everywhere)
 
-**One job per unit.** Every function, module, and component should have a single clear responsibility. If you find yourself writing a function that fetches data, transforms it, *and* renders something, split it. The test: can you name this thing in five words without using "and"?
+**One job per unit.** Every function, module, and component should have a single clear responsibility. If you find yourself writing a function that fetches data, transforms it, _and_ renders something, split it. The test: can you name this thing in five words without using "and"?
 
 **Names that make comments unnecessary.** Prefer `parseUserProfileFromApiResponse` over `handleData`. A good name is a free documentation win. Avoid abbreviations that require context to decode.
 
@@ -39,6 +39,7 @@ When generating or modifying web code, apply the following principles throughout
 ## Backend
 
 **Layered architecture.** Separate HTTP concerns from business logic from data access:
+
 - **Router / Controller**: parse the request, call the service, send the response. No business logic here.
 - **Service**: business rules, orchestration, decisions. No HTTP objects, no raw SQL.
 - **Repository / Data layer**: database interaction. No business logic.
