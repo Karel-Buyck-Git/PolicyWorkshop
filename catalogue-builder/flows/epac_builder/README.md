@@ -16,6 +16,7 @@ Full design: [`../../docs/epac-assembler-design.md`](../../docs/epac-assembler-d
 ```
 python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc
         # --only json,terraform,bicep   --check (validate, write nothing)   --out <dir>
+        # --strict  (pre-deploy gate: fail if any <REPLACE:>/placeholder scope survives)
         # --input <input.json>          (expand an input.json into a manifest, then stop)
 ```
 
@@ -32,6 +33,15 @@ Stays **stdlib-only** (no `jsonschema`/`json5`) to match the producer's zero-dep
 style. All validation is fail-fast, before any file is written. Output is deterministic — same
 manifest + same catalogue ⇒ byte-identical (apart from a generated `pacOwnerId`).
 
+**`--strict` (deploy-readiness gate).** Structure validation proves the manifest is *well-formed*,
+not *filled in*: free-string fields (a selector, a location, a Log Analytics id, a bound parameter
+value, a metadata field) let an unedited `<REPLACE: …>` sail through and render verbatim into the
+package, and a selection with no `managementGroup`/`scope` resolves to a placeholder scope (a
+`[warn]`, not an error). `--strict` ([`strict.py`](strict.py)) turns the assembler into a
+pre-deploy gate that fails the build listing every such residual placeholder. It honours `--check`
+(validate-only), so `--check --strict` is the "is this manifest deploy-ready?" query. Off by
+default, so partial scaffolds still build while authoring.
+
 ## At a glance
 
 | File | Stage | Responsibility |
@@ -39,6 +49,7 @@ manifest + same catalogue ⇒ byte-identical (apart from a generated `pacOwnerId
 | [`assemble_scaffold.py`](assemble_scaffold.py) | entry point | CLI + orchestration (expand · validate · resolve · bind · IR · render · report). |
 | [`jsonc.py`](jsonc.py) | foundation | stdlib JSONC reader (strips `//`, `/* */`, trailing commas). |
 | [`validate.py`](validate.py) | foundation | focused JSON Schema 2020-12 subset validator (the keywords the manifest schemas use). |
+| [`strict.py`](strict.py) | foundation | `--strict` deploy-readiness gate: fails on any residual `<REPLACE:>` / placeholder scope. |
 | [`writeutil.py`](writeutil.py) | foundation | deterministic JSON/text writers (stable order, trailing newline). |
 | [`expand.py`](expand.py) | stage 1 | `input.json → manifest` (seed one `<REPLACE: …>` per required parameter). |
 | [`catalogue.py`](catalogue.py) | stage 2 | catalogue access + selection resolution (tier roll-up, `*` expansion, `undefined` exclusion). |

@@ -195,14 +195,16 @@ not by hand-writing what it computes.
 4. **Place the management-group design** under `customer/designs/` if any selection uses
    `managementGroup`, and make sure `source.managementGroups` points at it.
 
-5. **Validate, then build:**
+5. **Validate (deploy-ready gate), then build:**
    ```
-   python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc --check
+   python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc --check --strict
    python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc
    ```
-   `--check` validates against the strict build gate and writes nothing; the second call renders
-   `customer/package/`. Surface any assembler warnings (e.g. a placeholder scope means a selection
-   still has no managementGroup/scope — go back and fix it, don't ship it).
+   `--check --strict` validates and writes nothing, and — this is the point — **fails** if any
+   `<REPLACE: …>` value or placeholder scope survives, listing each one. An onboarding is only done
+   when this passes: it is exactly the "every placeholder filled, every selection scoped" contract.
+   Go back and fill/scope whatever it lists (don't ship it); then the second call renders
+   `customer/package/`.
 
 If a step errors, read the message, fix the **manifest/input/design** (your files), and retry. Never
 "fix" it by editing the engine.
@@ -243,5 +245,6 @@ committed scaffold intact. Same read-only-on-the-engine boundary applies — it 
   manifest.input.schema.json, manifest.template.jsonc}`, and `customer/manifests/README.md` /
   `customer/designs/README.md` (the human handover docs this skill automates).
 - **Engine entry point (call, don't edit):** `flows/epac_builder/assemble_scaffold.py`
-  (`--input` expands, `--manifest` builds, `--check` validates, `--only` limits flavours).
+  (`--input` expands, `--manifest` builds, `--check` validates, `--strict` gates on residual
+  placeholders, `--only` limits flavours).
 - **Diagrams:** `docs/epac-scaffold-generator-flow.svg` (build), `docs/contoso-ci-regression-flow.svg` (CI).

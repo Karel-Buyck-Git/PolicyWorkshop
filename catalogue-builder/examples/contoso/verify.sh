@@ -9,6 +9,9 @@
 #   terraform -> examples/contoso/fixtures/terraform
 #   bicep     -> examples/contoso/fixtures/bicep
 #
+# Then asserts the --strict deploy-ready gate FIRES: the contoso manifest intentionally leaves
+# one selection unmapped, so `--check --strict` must reject it (regression guard for the gate).
+#
 # The pipeline logic lives here, with the example; .github/workflows/contoso-epac-build.yml
 # is a thin trigger that just calls this. Runnable from anywhere (it locates its own
 # catalogue-builder/ root). To ACCEPT an intended change, rebuild the relevant fixture in
@@ -37,4 +40,14 @@ build_and_diff json      examples/contoso/package
 build_and_diff terraform examples/contoso/fixtures/terraform
 build_and_diff bicep     examples/contoso/fixtures/bicep
 
-echo "[verify] OK — json, terraform and bicep all byte-identical to committed fixtures"
+# Deploy-ready gate (--strict) must FIRE on this manifest: contoso intentionally leaves the
+# management/essential/tags selection unmapped -> placeholder scope, so --strict has to reject
+# it (exit != 0). Guards the gate against silently passing an incomplete manifest.
+echo "[verify] strict-gate regression: expect --check --strict to FAIL on the unmapped selection"
+if python flows/epac_builder/assemble_scaffold.py --manifest "$MANIFEST" --check --strict >/dev/null 2>&1; then
+  echo "[verify] FAIL: --strict passed a manifest with a placeholder scope (gate is broken)" >&2
+  exit 1
+fi
+echo "[verify] strict-gate fired as expected"
+
+echo "[verify] OK — json, terraform and bicep all byte-identical to committed fixtures; strict gate fires"

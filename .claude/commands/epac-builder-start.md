@@ -24,13 +24,15 @@ broken engine; fixing it is the top priority instead.
 in `customer/manifests/` for a real, filled manifest — a `*.jsonc` that is **not**
 `manifest.template.jsonc` and has **no surviving `<REPLACE:` placeholders**:
 
-- **If one exists**, validate it against the engine (validates + reports, writes nothing):
+- **If one exists**, run it through the deploy-ready gate (validates + reports, writes nothing,
+  and **fails** on any surviving `<REPLACE:>` value or placeholder scope):
 
   \`\`\`
-  python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<name>.jsonc --check
+  python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<name>.jsonc --check --strict
   \`\`\`
 
-  Report pass/fail (and surface any placeholder-scope or `<REPLACE:>` warnings).
+  Report pass/fail. On failure, list what `--strict` names (each unfilled placeholder / unscoped
+  selection) — that manifest is not deploy-ready yet.
 
 - **If none exists** (only the template is present, or every manifest still carries
   `<REPLACE:>` placeholders), report: **"customer/ is an empty scaffold — not configured

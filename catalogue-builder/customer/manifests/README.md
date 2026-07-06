@@ -88,7 +88,9 @@ There is **one** scaffold producer (`flows/epac_builder/assemble_scaffold.py --m
    (`pacOwnerId`, `tenantId`, `deploymentRootScope`, `managedIdentityLocation`, `enforcement`,
    `logAnalyticsWorkspaceId`, per-selection `managementGroup`, and one per required policy param).
 3. Fill those values. Compare against `examples/contoso/manifests/manifest.example.jsonc` for a complete, valid reference.
-4. `python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc`
+4. Check you filled everything: `python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc --check --strict`
+   → **fails** and lists any `<REPLACE: …>` value or unscoped selection still left; writes nothing. Fix what it names.
+5. `python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc`
    → renders the scaffold into `customer/package/`.
 
 You hand a new user `input.example.json` + the schemas + this README — not a raw manifest.

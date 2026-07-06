@@ -4,6 +4,7 @@
         [--input <input.json>]   # expand an input.json into a manifest first
         [--only json,terraform,bicep]
         [--check]                # validate + report, write no scaffold files
+        [--strict]               # fail if any <REPLACE:>/placeholder-scope survives (pre-deploy gate)
         [--out <dir>]            # override output.root
 
 A pure, deterministic transform: same manifest + same catalogue ⇒ byte-identical
@@ -28,6 +29,7 @@ from epac_builder.ir import build_ir                             # noqa: E402
 from epac_builder.mgscopes import HierarchyError, load_mg_index  # noqa: E402
 from epac_builder import package as package_mod                  # noqa: E402
 from epac_builder import render_json, report                     # noqa: E402
+from epac_builder.strict import StrictGateError, residual_placeholders  # noqa: E402
 
 try:
     from epac_builder import render_terraform
@@ -84,7 +86,7 @@ def load_manifest(manifest_path):
     return manifest, note
 
 
-def assemble(manifest_path, only=None, check=False, out=None, log=print):
+def assemble(manifest_path, only=None, check=False, strict=False, out=None, log=print):
     manifest_path = Path(manifest_path).resolve()
     manifest, note = load_manifest(manifest_path)
     if note:
@@ -112,6 +114,13 @@ def assemble(manifest_path, only=None, check=False, out=None, log=print):
     ir = build_ir(manifest, catalogue, groups, mg_index)
     for w in ir["warnings"]:
         log(f"[warn] {w}")
+
+    # Pre-deploy gate: refuse to emit a package that still carries unfilled placeholders.
+    # Runs before both the --check return and any write, so both honour --strict.
+    if strict:
+        problems = residual_placeholders(manifest, ir)
+        if problems:
+            raise StrictGateError(problems)
 
     flavours = list(only) if only else manifest["output"]["flavours"]
     unknown = [f for f in flavours if f not in RENDERERS]
@@ -144,6 +153,8 @@ def main(argv=None):
     p.add_argument("--input", help="expand this input.json into a manifest, then stop")
     p.add_argument("--only", help="comma list of flavours to render (json,terraform,bicep)")
     p.add_argument("--check", action="store_true", help="validate + report, write no scaffold files")
+    p.add_argument("--strict", action="store_true",
+                   help="pre-deploy gate: fail if any <REPLACE:> or placeholder scope survives")
     p.add_argument("--out", help="override output.root (the package root)")
     args = p.parse_args(argv)
 
@@ -153,8 +164,9 @@ def main(argv=None):
         if not args.manifest:
             p.error("either --manifest or --input is required")
         only = [s.strip() for s in args.only.split(",")] if args.only else None
-        assemble(args.manifest, only=only, check=args.check, out=args.out)
-    except (AssemblerError, ResolveError, BindError, HierarchyError, validate.ValidationError) as e:
+        assemble(args.manifest, only=only, check=args.check, strict=args.strict, out=args.out)
+    except (AssemblerError, ResolveError, BindError, HierarchyError,
+            StrictGateError, validate.ValidationError) as e:
         print(f"ERROR: {e}", file=sys.stderr)
         return 2
     return 0
