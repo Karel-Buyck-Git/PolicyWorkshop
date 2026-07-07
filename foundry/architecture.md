@@ -2,7 +2,7 @@
 
 ## Goals
 
-Migrate the Claude Code lab flow (`product/lab/prompts/lab-XX/`) to a production-grade pipeline on Azure AI Foundry. Keep Claude Code for prototyping new prompts, rules, and table shapes. Move repeatable, scaled batch generation to Foundry.
+Migrate the Claude Code lab flow (`lab/prompts/lab-XX/`) to a production-grade pipeline on Azure AI Foundry. Keep Claude Code for prototyping new prompts, rules, and table shapes. Move repeatable, scaled batch generation to Foundry.
 
 ## Design principle
 
@@ -162,7 +162,7 @@ Rather than one call per policy (slow, expensive) or one call per resource (long
 
 ## Coexistence with Claude Code
 
-Claude Code stays in `product/lab/prompts/lab-XX/` for **prototyping**:
+Claude Code stays in `lab/prompts/lab-XX/` for **prototyping**:
 - Trying new tier rules
 - Drafting new resource categories
 - One-off investigations

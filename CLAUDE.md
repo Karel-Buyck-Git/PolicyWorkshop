@@ -1,7 +1,7 @@
 # PolicyWorkshop — orientation
 
 Azure Policy → EPAC tooling. The active project is **`catalogue-builder/`** (a producer + a
-consumer). `foundry/` and `product/lab/` are historical/prototype trees — don't touch them
+consumer). `foundry/` and `lab/` are historical/prototype trees — don't touch them
 unless asked.
 
 ## Producer vs. consumer

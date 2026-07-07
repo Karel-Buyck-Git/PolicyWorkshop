@@ -1,6 +1,6 @@
 # Policy Taxonomy on Azure AI Foundry
 
-Production-grade port of the Claude Code lab flow (`product/lab/prompts/lab-XX/`)
+Production-grade port of the Claude Code lab flow (`lab/prompts/lab-XX/`)
 to Azure AI Foundry. Read [`architecture.md`](./architecture.md) first — it
 explains the design decisions, the resource shape, and the Claude Code → Foundry
 migration mapping.
