@@ -11,7 +11,9 @@ and contributors.
    from scratch, and you find out immediately if something's broken before you start.
 2. **Work an item** from the backlog (or something new that comes up). Run `/continue`
    any time mid-session (or later the same day) if you need the same orientation again
-   without the health check.
+   without the health check. **Grooming:** new items enter consistently via `/backlog-add`
+   (enforces the row shape + a source, flags duplicates); closed items leave the working
+   table via `/backlog-archive` (moves `done` rows to `backlog-archive.md`, ids preserved).
 3. **End of session** — run `/close`. Writes `sessions/<date>.md` (what changed, what's
    next, open questions), reconciles anything finished into `backlog.md`, and checks
    `git status` (including a `__pycache__` sanity check) before you walk away.
@@ -28,6 +30,8 @@ and contributors.
 | `/continue` | Any time you need a reminder | Orientation only, no health check |
 | `/close` | End of every session | Writes the session log, reconciles finished items into the backlog, checks `git status` |
 | `/review` | Periodically (pre-merge, weekly) | Full state/functionality/readiness audit, logged and reconciled into the backlog |
+| `/backlog-add` | When a new item comes up | Adds one well-formed backlog row (shape + required source, duplicate guard) |
+| `/backlog-archive` | When the table gets long | Moves `done` rows (and their completion notes) to `backlog-archive.md`; ids never renumbered |
 
 Defined in `.claude/commands/` — plain markdown, so they're easy to read or tweak
 directly. If you're not using Claude Code, `review-prompt.md` has the same review
@@ -53,7 +57,8 @@ above is followed — it's the floor, not the plan.
 
 | File | Purpose |
 |---|---|
-| `backlog.md` | Prioritized, status-tracked action items |
+| `backlog.md` | Prioritized, status-tracked action items (the working table) |
+| `backlog-archive.md` | Closed items moved out of `backlog.md`, kept verbatim with original ids |
 | `sessions/` | One file per work session — what happened, what's next |
 | `review-prompt.md` | Reusable prompt to re-run a full state/functionality/readiness review |
 
