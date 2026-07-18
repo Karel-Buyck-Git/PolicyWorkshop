@@ -17,10 +17,13 @@ unless asked.
 
 These two mirror each other — know which is which before editing:
 
-- **`catalogue-builder/customer/`** is the **user's empty working area**: schemas +
+- **`catalogue-builder/customer/`** is the **user's working area**: it *ships* empty — schemas +
   `manifests/manifest.template.jsonc` + `input.example.json` + READMEs, and an empty
-  `designs/`. There is **no `manifest.example.jsonc` and no `package/` here** — a real user
-  fills the template and builds their own. Start at `customer/NOTICE.md`.
+  `designs/`, with **no `manifest.example.jsonc`** — a real user fills the template and builds
+  their own. But a real (non-sample) deploy package **may be committed here**: `input.json` +
+  `<customer>.manifest.jsonc` + rendered `package/` together (none gitignored; EPAC's
+  `package/Output/` plan artifact is ignored repo-wide). Such a package is the user's own
+  deploy, **not** the contoso fixture — don't treat it as stray. Start at `customer/NOTICE.md`.
 - **`catalogue-builder/examples/contoso/`** is the **worked sample** (`manifests/`, `designs/`,
   `package/`, `fixtures/`) **and the CI golden fixture**: `.github/workflows/contoso-epac-build.yml`
   runs `examples/contoso/verify.sh`, which rebuilds the sample for every renderer flavour (json →

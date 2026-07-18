@@ -32,9 +32,11 @@ Enforced by validation, not convention:
 | `manifest.input.schema.json` | structure lock for the manifest (values free)                                               |
 | `manifest.schema.json`       | strict schema — the build gate                                                              |
 
-> A real run writes `<customer>.manifest.jsonc` (e.g. `contoso.manifest.jsonc`) — a generated
-> working file, **gitignored** (see `.gitignore`). `manifest.template.jsonc` is the committed
-> starting point; it is not overwritten by a run.
+> A real run writes `<customer>.manifest.jsonc` (e.g. `contoso.manifest.jsonc`). It is **not
+> gitignored** — if you commit a real deploy package under `customer/`, commit its manifest
+> too (with its `input.json` and rendered `package/`) for provenance; see `../NOTICE.md`.
+> Scratch `--check` experiments just show as untracked — don't `git add` ones you won't keep.
+> `manifest.template.jsonc` is the committed starting point; it is not overwritten by a run.
 >
 > **Worked example:** a filled, buildable reference manifest lives at
 > `examples/contoso/manifests/manifest.example.jsonc` (it produces `examples/contoso/package/`).
@@ -69,7 +71,7 @@ catalogue@version  (produced occasionally by phases 1–5)
         │  (read)
 form (customer + selections)            -> input.example.json
   -> assembler seeds parameters{} keys from the selection (via catalogue/index.json)
-  -> assembler expands -> <customer>.manifest.jsonc (placeholders, structure-locked, gitignored)
+  -> assembler expands -> <customer>.manifest.jsonc (placeholders, structure-locked, committable)
   -> human fills values (value-only edits)
   -> strict schema validates + catalogueVersion verified
   -> render + package -> customer/package/ (flat if one flavour, else {epac,terraform,bicep}/)

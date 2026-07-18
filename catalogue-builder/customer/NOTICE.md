@@ -10,6 +10,16 @@ in* — nothing here is a finished example. It ships with only:
 - `package/` — **not present until you build.** `assemble_scaffold.py` writes it (the
   template's `output.root` resolves to `customer/package/`).
 
+## Committing a real deploy package here
+
+`customer/` starts empty, but a real (non-sample) deploy package **may** be committed here —
+this is your working tree. When you do, commit the three artifacts **together** for provenance:
+your `<customer>.input.json`, the `<customer>.manifest.jsonc` it expands to, and the rendered
+`package/`. None of these are gitignored. The one thing that never belongs in git is EPAC's
+plan output — `package/Output/` (written by `Build-DeploymentPlans`) is ignored repo-wide.
+The worked **contoso** sample stays in `../examples/contoso/` as the CI golden fixture; a
+package committed here is *your* deploy, not that fixture.
+
 ## Where the worked sample is
 
 A complete, buildable reference — the **contoso** sample — lives at

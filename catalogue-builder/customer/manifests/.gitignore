@@ -1,6 +1,9 @@
-# Generated per-customer manifests (produced by `assemble_scaffold.py --input ...`).
-# These are working files, not committed examples. The committed references are
-# input.example.json, manifest.template.jsonc, and manifest.example.jsonc — none
-# of which match these globs (they end in .example.jsonc / .template.jsonc).
-*.manifest.jsonc
-*.manifest.json
+# Per-customer manifests are produced by `assemble_scaffold.py --input ...` as
+# `<customer>.manifest.jsonc`. They are NOT ignored: a real deploy package
+# committed under customer/ must carry its exact manifest for provenance,
+# alongside its input.json and rendered package/ (all three are committable —
+# see ../NOTICE.md). Scratch `--check` experiments simply show as untracked in
+# `git status`; don't `git add` the ones you don't mean to keep.
+#
+# (This dir previously ignored `*.manifest.jsonc` / `*.manifest.json`; that
+# singled the manifest out from its already-committable siblings and is dropped.)
