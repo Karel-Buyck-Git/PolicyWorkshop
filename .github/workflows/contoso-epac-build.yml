@@ -5,6 +5,8 @@ name: contoso epac build
 # YAML under .github/workflows/, so only the trigger lives here). verify.sh rebuilds the
 # worked contoso sample for every renderer flavour (json, terraform, bicep) and diffs it
 # byte-for-byte against the committed fixtures — the epac-builder determinism contract.
+# It then runs the MCP stdio server smoke test (flows/mcp_server/test_server.sh) so a
+# regression in the server or validate_manifest can't ship undetected.
 #
 # Fires when either builder changes: the engine (flows/**), the shared catalogue
 # (catalogue/**), the example itself (examples/contoso/**), or the shared schemas the
@@ -41,3 +43,6 @@ jobs:
 
       - name: Rebuild every flavour and diff against committed fixtures
         run: bash examples/contoso/verify.sh
+
+      - name: MCP stdio server smoke test
+        run: bash flows/mcp_server/test_server.sh
