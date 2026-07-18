@@ -56,7 +56,7 @@ either require significant infrastructure investment or map directly to regulato
 First materialise the pinned official Azure Policy source, then extract:
 
 ```
-python flows/tools/fetch_policy_source.py --sync
+python flows/tools/fetch_policy_source.py            # sync is the default (no flag); --check only reports drift
 python flows/catalogue_builder/extract_policies.py
 ```
 
@@ -65,8 +65,9 @@ python flows/catalogue_builder/extract_policies.py
 
 **Source of truth (pinned, reproducible).** The Catalogue Builder reads policy definitions
 from the official built-in policy set at the exact upstream commit pinned in
-`config/policy-source.json`. `flows/tools/fetch_policy_source.py --sync` materialises that
-commit into the gitignored `.policy-source/` cache, and the producer resolves its `--source`
+`config/policy-source.json`. `flows/tools/fetch_policy_source.py` (run with no flag — sync is
+the default; `--check` only reports drift) materialises that commit into the gitignored
+`.policy-source/` cache, and the producer resolves its `--source`
 default from it automatically via `flows/shared/paths.py::official_policy_source` (precedence:
 `AZURE_POLICY_REPO` env var → pinned cache → fail with a clear message). So you normally pass
 **no `--source` at all** — everyone builds against the same pinned version, and the resulting
