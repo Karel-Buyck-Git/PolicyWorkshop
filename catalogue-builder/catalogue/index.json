@@ -1,12 +1,14 @@
 {
-  "catalogueVersion": "2026.06.21",
+  "catalogueVersion": "2026.07.18",
   "tiers": [
     "Essential",
     "Professional",
     "Enterprise"
   ],
   "domainMap": {
+    "Azure Edge Hardware Center": "Compute",
     "Azure Local": "Compute",
+    "Azure Stack Edge": "Compute",
     "Batch": "Compute",
     "Compute": "Compute",
     "Desktop Virtualization": "Compute",
@@ -26,14 +28,17 @@
     "Azure Active Directory": "Security",
     "Key Vault": "Security",
     "Managed Identity": "Security",
+    "Privileged Identity Management": "Security",
     "Security Center": "Security",
     "Security Center - Granular Pricing": "Security",
+    "VirtualEnclaves": "Security",
     "Backup": "Storage",
     "Data Box": "Storage",
     "ElasticSan": "Storage",
     "Resilience": "Storage",
     "Site Recovery": "Storage",
     "Storage": "Storage",
+    "API for FHIR": "Data",
     "Azure Data Explorer": "Data",
     "Azure Databricks": "Data",
     "Azure Purview": "Data",
@@ -42,6 +47,10 @@
     "Data Factory": "Data",
     "Data Lake": "Data",
     "HDInsight": "Data",
+    "Health Data Services workspace": "Data",
+    "Health Deidentification Service": "Data",
+    "Healthcare APIs": "Data",
+    "Planetary Computer": "Data",
     "PostgreSQL": "Data",
     "SQL": "Data",
     "SQL Managed Instance": "Data",
@@ -83,24 +92,16 @@
     "Event Grid": "Integration",
     "Event Hub": "Integration",
     "Fluid Relay": "Integration",
+    "Internet of Things": "Integration",
     "Logic Apps": "Integration",
+    "Maps": "Integration",
     "Service Bus": "Integration",
     "SignalR": "Integration",
     "Web PubSub": "Integration",
-    "API for FHIR": "Undefined",
     "audit": "Undefined",
-    "Azure Edge Hardware Center": "Undefined",
-    "Azure Stack Edge": "Undefined",
     "BuiltInPolicyTest": "Undefined",
-    "Health Data Services workspace": "Undefined",
-    "Health Deidentification Service": "Undefined",
-    "Healthcare APIs": "Undefined",
-    "Internet of Things": "Undefined",
-    "Maps": "Undefined",
     "Mission": "Undefined",
-    "MissionPlatforms": "Undefined",
-    "Planetary Computer": "Undefined",
-    "VirtualEnclaves": "Undefined"
+    "MissionPlatforms": "Undefined"
   },
   "groups": [
     {
@@ -250,9 +251,27 @@
     {
       "domain": "Compute",
       "tier": "Essential",
+      "category": "Azure Edge Hardware Center",
+      "name": "compute-esn-ehc",
+      "dir": "initiatives/compute/essential/azure-edge-hardware-center",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
       "category": "Azure Local",
       "name": "compute-esn-azl",
       "dir": "initiatives/compute/essential/azure-local",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Compute",
+      "tier": "Essential",
+      "category": "Azure Stack Edge",
+      "name": "compute-esn-ase",
+      "dir": "initiatives/compute/essential/azure-stack-edge",
       "policyCount": 1,
       "hasRemediation": false
     },
@@ -529,6 +548,15 @@
     {
       "domain": "Data",
       "tier": "Essential",
+      "category": "Planetary Computer",
+      "name": "data-esn-plc",
+      "dir": "initiatives/data/essential/planetary-computer",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Essential",
       "category": "PostgreSQL",
       "name": "data-esn-psql",
       "dir": "initiatives/data/essential/postgresql",
@@ -579,6 +607,15 @@
       "dir": "initiatives/data/essential/synapse",
       "policyCount": 8,
       "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "API for FHIR",
+      "name": "data-pro-fhir",
+      "dir": "initiatives/data/professional/api-for-fhir",
+      "policyCount": 2,
+      "hasRemediation": false
     },
     {
       "domain": "Data",
@@ -646,6 +683,33 @@
     {
       "domain": "Data",
       "tier": "Professional",
+      "category": "Health Data Services workspace",
+      "name": "data-pro-hds",
+      "dir": "initiatives/data/professional/health-data-services-workspace",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Health Deidentification Service",
+      "name": "data-pro-hdid",
+      "dir": "initiatives/data/professional/health-deidentification-service",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
+      "category": "Healthcare APIs",
+      "name": "data-pro-hapi",
+      "dir": "initiatives/data/professional/healthcare-apis",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Professional",
       "category": "PostgreSQL",
       "name": "data-pro-psql",
       "dir": "initiatives/data/professional/postgresql",
@@ -669,6 +733,15 @@
       "dir": "initiatives/data/professional/synapse",
       "policyCount": 9,
       "hasRemediation": true
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "API for FHIR",
+      "name": "data-ent-fhir",
+      "dir": "initiatives/data/enterprise/api-for-fhir",
+      "policyCount": 1,
+      "hasRemediation": false
     },
     {
       "domain": "Data",
@@ -731,6 +804,15 @@
       "name": "data-ent-hdi",
       "dir": "initiatives/data/enterprise/hdinsight",
       "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Data",
+      "tier": "Enterprise",
+      "category": "Healthcare APIs",
+      "name": "data-ent-hapi",
+      "dir": "initiatives/data/enterprise/healthcare-apis",
+      "policyCount": 2,
       "hasRemediation": false
     },
     {
@@ -872,6 +954,24 @@
     {
       "domain": "Integration",
       "tier": "Essential",
+      "category": "Internet of Things",
+      "name": "integration-esn-iot",
+      "dir": "initiatives/integration/essential/internet-of-things",
+      "policyCount": 2,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
+      "category": "Maps",
+      "name": "integration-esn-map",
+      "dir": "initiatives/integration/essential/maps",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Essential",
       "category": "Service Bus",
       "name": "integration-esn-sb",
       "dir": "initiatives/integration/essential/service-bus",
@@ -926,6 +1026,24 @@
     {
       "domain": "Integration",
       "tier": "Professional",
+      "category": "Internet of Things",
+      "name": "integration-pro-iot",
+      "dir": "initiatives/integration/professional/internet-of-things",
+      "policyCount": 20,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
+      "category": "Maps",
+      "name": "integration-pro-map",
+      "dir": "initiatives/integration/professional/maps",
+      "policyCount": 5,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Integration",
+      "tier": "Professional",
       "category": "Service Bus",
       "name": "integration-pro-sb",
       "dir": "initiatives/integration/professional/service-bus",
@@ -966,6 +1084,15 @@
       "name": "integration-ent-fr",
       "dir": "initiatives/integration/enterprise/fluid-relay",
       "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "category": "Internet of Things",
+      "name": "integration-ent-iot",
+      "dir": "initiatives/integration/enterprise/internet-of-things",
+      "policyCount": 4,
       "hasRemediation": false
     },
     {
@@ -1332,6 +1459,15 @@
     },
     {
       "domain": "Security",
+      "tier": "Essential",
+      "category": "VirtualEnclaves",
+      "name": "security-esn-ve",
+      "dir": "initiatives/security/essential/virtualenclaves",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Security",
       "tier": "Professional",
       "category": "Attestation",
       "name": "security-pro-att",
@@ -1360,6 +1496,15 @@
     {
       "domain": "Security",
       "tier": "Professional",
+      "category": "Privileged Identity Management",
+      "name": "security-pro-pim",
+      "dir": "initiatives/security/professional/privileged-identity-management",
+      "policyCount": 1,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
       "category": "Security Center",
       "name": "security-pro-asc",
       "dir": "initiatives/security/professional/security-center",
@@ -1373,6 +1518,15 @@
       "name": "security-pro-ascg",
       "dir": "initiatives/security/professional/security-center-granular-pricing",
       "policyCount": 4,
+      "hasRemediation": true
+    },
+    {
+      "domain": "Security",
+      "tier": "Professional",
+      "category": "VirtualEnclaves",
+      "name": "security-pro-ve",
+      "dir": "initiatives/security/professional/virtualenclaves",
+      "policyCount": 3,
       "hasRemediation": true
     },
     {
@@ -1504,45 +1658,9 @@
     {
       "domain": "undefined",
       "tier": "Essential",
-      "category": "Azure Edge Hardware Center",
-      "name": "undefined-esn-ehc",
-      "dir": "initiatives/undefined/essential/azure-edge-hardware-center",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Essential",
-      "category": "Azure Stack Edge",
-      "name": "undefined-esn-ase",
-      "dir": "initiatives/undefined/essential/azure-stack-edge",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Essential",
       "category": "BuiltInPolicyTest",
       "name": "undefined-esn-test",
       "dir": "initiatives/undefined/essential/builtinpolicytest",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Essential",
-      "category": "Internet of Things",
-      "name": "undefined-esn-iot",
-      "dir": "initiatives/undefined/essential/internet-of-things",
-      "policyCount": 2,
-      "hasRemediation": true
-    },
-    {
-      "domain": "undefined",
-      "tier": "Essential",
-      "category": "Maps",
-      "name": "undefined-esn-map",
-      "dir": "initiatives/undefined/essential/maps",
       "policyCount": 1,
       "hasRemediation": false
     },
@@ -1566,84 +1684,12 @@
     },
     {
       "domain": "undefined",
-      "tier": "Essential",
-      "category": "Planetary Computer",
-      "name": "undefined-esn-plc",
-      "dir": "initiatives/undefined/essential/planetary-computer",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Essential",
-      "category": "VirtualEnclaves",
-      "name": "undefined-esn-ve",
-      "dir": "initiatives/undefined/essential/virtualenclaves",
-      "policyCount": 2,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "API for FHIR",
-      "name": "undefined-pro-fhir",
-      "dir": "initiatives/undefined/professional/api-for-fhir",
-      "policyCount": 2,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
       "tier": "Professional",
       "category": "BuiltInPolicyTest",
       "name": "undefined-pro-test",
       "dir": "initiatives/undefined/professional/builtinpolicytest",
       "policyCount": 1,
       "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "Health Data Services workspace",
-      "name": "undefined-pro-hds",
-      "dir": "initiatives/undefined/professional/health-data-services-workspace",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "Health Deidentification Service",
-      "name": "undefined-pro-hdid",
-      "dir": "initiatives/undefined/professional/health-deidentification-service",
-      "policyCount": 2,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "Healthcare APIs",
-      "name": "undefined-pro-hapi",
-      "dir": "initiatives/undefined/professional/healthcare-apis",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "Internet of Things",
-      "name": "undefined-pro-iot",
-      "dir": "initiatives/undefined/professional/internet-of-things",
-      "policyCount": 20,
-      "hasRemediation": true
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "Maps",
-      "name": "undefined-pro-map",
-      "dir": "initiatives/undefined/professional/maps",
-      "policyCount": 5,
-      "hasRemediation": true
     },
     {
       "domain": "undefined",
@@ -1661,51 +1707,6 @@
       "name": "undefined-pro-msnp",
       "dir": "initiatives/undefined/professional/missionplatforms",
       "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "Privileged Identity Management",
-      "name": "undefined-pro-pim",
-      "dir": "initiatives/undefined/professional/privileged-identity-management",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Professional",
-      "category": "VirtualEnclaves",
-      "name": "undefined-pro-ve",
-      "dir": "initiatives/undefined/professional/virtualenclaves",
-      "policyCount": 3,
-      "hasRemediation": true
-    },
-    {
-      "domain": "undefined",
-      "tier": "Enterprise",
-      "category": "API for FHIR",
-      "name": "undefined-ent-fhir",
-      "dir": "initiatives/undefined/enterprise/api-for-fhir",
-      "policyCount": 1,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Enterprise",
-      "category": "Healthcare APIs",
-      "name": "undefined-ent-hapi",
-      "dir": "initiatives/undefined/enterprise/healthcare-apis",
-      "policyCount": 2,
-      "hasRemediation": false
-    },
-    {
-      "domain": "undefined",
-      "tier": "Enterprise",
-      "category": "Internet of Things",
-      "name": "undefined-ent-iot",
-      "dir": "initiatives/undefined/enterprise/internet-of-things",
-      "policyCount": 4,
       "hasRemediation": false
     },
     {

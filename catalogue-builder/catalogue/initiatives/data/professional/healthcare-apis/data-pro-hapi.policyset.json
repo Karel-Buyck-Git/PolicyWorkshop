@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "data-pro-hapi",
+  "properties": {
+    "displayName": "Data Professional — Healthcare APIs",
+    "description": "**Professional** — Active security posture for Healthcare APIs: controls that produce signals an operations team must act on. This tier protects against unauthorized network exposure, exploitable vulnerabilities, and undetected privilege misuse for Healthcare APIs workloads. Maps to NIS2 Article 21 (detection & response), ISO 27001 A.12.4 (logging) and A.13 (network security).",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Healthcare APIs",
+      "domain": "Data",
+      "tier": "Professional",
+      "catalogueVersion": "2026.07.18",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Professional"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "fe1c9040-c46a-4e81-9aea-c7850fbb3aa6",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe1c9040-c46a-4e81-9aea-c7850fbb3aa6",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "CORS should not allow every domain to access your FHIR Service"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      }
+    ]
+  }
+}

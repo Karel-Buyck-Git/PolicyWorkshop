@@ -1,0 +1,87 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "integration-ent-iot",
+  "properties": {
+    "displayName": "Integration Enterprise — Internet of Things",
+    "description": "**Enterprise** — Zero-trust and regulatory alignment for Internet of Things: controls that require infrastructure investment or map directly to compliance frameworks. This tier delivers diagnostic settings streaming to Log Analytics / Event Hub / Sentinel, customer-managed keys (CMK / BYOK) for cryptographic sovereignty, and direct mapping to regulatory framework controls. Together these policies protect against lateral movement, sovereign-data exfiltration, and audit gaps in regulated workloads. Maps to N…",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Internet of Things",
+      "domain": "Integration",
+      "tier": "Enterprise",
+      "catalogueVersion": "2026.07.18",
+      "hasRemediation": false
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "Enterprise"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "43c323f6-0329-4f7c-a19a-6e5a5690d042",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/43c323f6-0329-4f7c-a19a-6e5a5690d042",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure Device Update accounts should use customer-managed key to encrypt data at rest"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "2d7e144b-159c-44fc-95c1-ac3dbf5e6e54",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2d7e144b-159c-44fc-95c1-ac3dbf5e6e54",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Azure IoT Hub should use customer-managed key to encrypt data at rest"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "47031206-ce96-41f8-861b-6a915f3de284",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/47031206-ce96-41f8-861b-6a915f3de284",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "IoT Hub device provisioning service data should be encrypted using customer-managed keys (CMK)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "383856f8-de7f-44a2-81fc-e5135b5c2aa4",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/383856f8-de7f-44a2-81fc-e5135b5c2aa4",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Resource logs in IoT Hub should be enabled"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          },
+          "requiredRetentionDays": {
+            "value": "365"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -9,7 +9,7 @@
       "category": "Cognitive Services",
       "domain": "AI Foundry",
       "tier": "Professional",
-      "catalogueVersion": "2026.06.21",
+      "catalogueVersion": "2026.07.18",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/25fbc0a9-bd7c-42a3-aa1a-3b75d497ee68",

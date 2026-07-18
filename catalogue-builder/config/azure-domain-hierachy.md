@@ -2,7 +2,9 @@ Microsoft Azure
 
 - Compute
 
+  - Azure Edge Hardware Center
   - Azure Local
+  - Azure Stack Edge
   - Batch
   - Compute
   - Desktop Virtualization
@@ -31,8 +33,10 @@ Microsoft Azure
   - Azure Active Directory
   - Key Vault
   - Managed Identity
+  - Privileged Identity Management
   - Security Center
   - Security Center - Granular Pricing
+  - VirtualEnclaves
 
 - Storage
 
@@ -45,6 +49,7 @@ Microsoft Azure
 
 - Data
 
+  - API for FHIR
   - Azure Data Explorer
   - Azure Databricks
   - Azure Purview
@@ -53,6 +58,10 @@ Microsoft Azure
   - Data Factory
   - Data Lake
   - HDInsight
+  - Health Data Services workspace
+  - Health Deidentification Service
+  - Healthcare APIs
+  - Planetary Computer
   - PostgreSQL
   - SQL
   - SQL Managed Instance
@@ -112,23 +121,15 @@ Microsoft Azure
   - Event Grid
   - Event Hub
   - Fluid Relay
+  - Internet of Things
   - Logic Apps
+  - Maps
   - Service Bus
   - SignalR
   - Web PubSub
 
 - Undefined
-  - API for FHIR
   - audit
-  - Azure Edge Hardware Center
-  - Azure Stack Edge
   - BuiltInPolicyTest
-  - Health Data Services workspace
-  - Health Deidentification Service
-  - Healthcare APIs
-  - Internet of Things
-  - Maps
   - Mission
   - MissionPlatforms
-  - Planetary Computer
-  - VirtualEnclaves

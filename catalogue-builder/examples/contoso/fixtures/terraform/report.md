@@ -1,7 +1,7 @@
 # Assembly report — contoso
 
-- Catalogue version: `2026.06.21`
-- Manifest hash: `sha256:b712285c6454595185d466f30aa56279d10b0fbfe4f5deeff13fda554ce4d617`
+- Catalogue version: `2026.07.18`
+- Manifest hash: `sha256:97f3e9a88d2de2e98478810af911b08cf47fbb85da79b1fe9aa1776a920a6c23`
 - Flavours: terraform
 - Initiatives: 2 (1 remediating)
 - Parameters bound: 6

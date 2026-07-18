@@ -10,4 +10,4 @@
 
 | # | Policy | Policy ID | Tag | Description | Requires Parameters | Requires Managed Identity | Allowed Values | Default Value | Soft Value | Hardened Value | Category | Domain | Version | Type | Tier |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Microsoft Planetary Computer Pro GeoCatalogs should use a managed identity | 9fac9537-cba6-480a-97dc-21a93c1aa055 |  | Assigning a managed identity to a Planetary Computer GeoCatalog lets it securely access source Storage accounts (Storage Blob Data Reader) for data ingestion without you managing secrets. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Planetary Computer | Undefined | 1.0.0 | BuiltIn | Essential |
+| 1 | Microsoft Planetary Computer Pro GeoCatalogs should use a managed identity | 9fac9537-cba6-480a-97dc-21a93c1aa055 |  | Assigning a managed identity to a Planetary Computer GeoCatalog lets it securely access source Storage accounts (Storage Blob Data Reader) for data ingestion without you managing secrets. | No | No | Audit, Deny, Disabled | Audit | Audit | Deny | Planetary Computer | Data | 1.0.0 | BuiltIn | Essential |

@@ -9,7 +9,7 @@
       "category": "Backup",
       "domain": "Storage",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.06.21",
+      "catalogueVersion": "2026.07.18",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",

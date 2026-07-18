@@ -1,9 +1,9 @@
 {
-  "catalogueVersion": "2026.06.21",
-  "generatedAt": "2026-06-21T20:34:08Z",
+  "catalogueVersion": "2026.07.18",
+  "generatedAt": "2026-07-18T22:51:00Z",
   "inputs": {
     "builtInsRef": "git:04989912c4660389bef9abb8fd2e55c7445bdfa7",
-    "hierarchyHash": "sha256:63b8231c3521266dcb1d93e13b228b80f5612c9e0cb90b3fc2d6de8f22d1bed6",
+    "hierarchyHash": "sha256:910a106dd2156fedfd7ec526db0dc877ec5970158d1e0daaaeb1d50924868bf9",
     "tierRulesHash": "sha256:64348ffb9e3e8e248868ed01828fdeea522eecc7a165dc627bc6afe9483f11ef",
     "definitionGensHash": "sha256:ac7117b734d94c7e7b8c7ed41c3cb890e38c0cca6927ce69cf56ee8d23dc0a8a"
   },
@@ -12,10 +12,10 @@
     "files": 843
   },
   "tools": {
-    "extract": "sha256:c724076eabf1e3bfe385724a0d92a1f87892e249487e50adec15fe80f56c66a4",
+    "extract": "sha256:2a1d1ffc841bff2e45e21bb7751be393e205e2ff44dbd929addc78be9c69b403",
     "enrich": "sha256:9337b560beaa36522832a08e2a5dd9856cb55de811d8e152164c4d77ff2177a3",
-    "createInitiatives": "sha256:1c5cb3481ef98c020fc2b29ccb8dc801addea62c6107d6380b444cd6635472fd",
+    "createInitiatives": "sha256:095a2bee5889d255b32ddb535a02da09b00e327e9ba11eeb424ac4cea47110cb",
     "applyOverlays": "sha256:b252c574b62688b1f9541a27273d0c61ef12355f35fa295a264568d108212ca3"
   },
-  "contentHash": "sha256:125619db14e7dff4fb9813d23f96cb72881efbd76879ae270c008a18c4d92b97"
+  "contentHash": "sha256:b9cda30e65a5bd47ed2ec2bf03e435079d2623b2e2b884f830b53d717a808364"
 }

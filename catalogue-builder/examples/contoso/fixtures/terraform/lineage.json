@@ -1,8 +1,8 @@
 {
   "customer": "contoso",
   "pacOwnerId": "11111111-2222-3333-4444-555555555555",
-  "manifestHash": "sha256:b712285c6454595185d466f30aa56279d10b0fbfe4f5deeff13fda554ce4d617",
-  "catalogueVersion": "2026.06.21",
+  "manifestHash": "sha256:97f3e9a88d2de2e98478810af911b08cf47fbb85da79b1fe9aa1776a920a6c23",
+  "catalogueVersion": "2026.07.18",
   "flavours": [
     "terraform"
   ],

@@ -9,7 +9,7 @@
       "category": "Search",
       "domain": "AI Foundry",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.21",
+      "catalogueVersion": "2026.07.18",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/7ca78c08-252a-4471-8644-bb5ff32d4ba0"

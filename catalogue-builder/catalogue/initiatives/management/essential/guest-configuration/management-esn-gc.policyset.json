@@ -9,7 +9,7 @@
       "category": "Guest Configuration",
       "domain": "Management",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.21",
+      "catalogueVersion": "2026.07.18",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/088ab73d-1256-47ae-bea9-9de8e7131f31",

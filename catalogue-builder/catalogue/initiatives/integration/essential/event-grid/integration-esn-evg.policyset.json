@@ -9,7 +9,7 @@
       "category": "Event Grid",
       "domain": "Integration",
       "tier": "Essential",
-      "catalogueVersion": "2026.06.21",
+      "catalogueVersion": "2026.07.18",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/1e241071-0855-49ea-94dc-649edcd759de"
