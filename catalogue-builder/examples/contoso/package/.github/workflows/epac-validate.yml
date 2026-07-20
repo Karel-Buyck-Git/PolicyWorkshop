@@ -37,6 +37,11 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    # This job (unlike validate above) uses Azure secrets from your deploy repo:
+    # The secrets below are provided by YOU in your deploy repo — see README.md.
+    #   secrets:      AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID, PLAN_CLIENT_ID
+    # Until you create them, an editor shows "Context access might be invalid" on the secrets.
+    # Those are editor hints, not errors in this file; they clear once the repo is set up.
     steps:
       - uses: actions/checkout@v4
       - name: Install EPAC

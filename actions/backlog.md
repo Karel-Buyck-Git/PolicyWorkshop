@@ -352,4 +352,11 @@ Status: `todo` / `in-progress` / `done`
   artifact, never deployed — and it doubles as independent confirmation the validator agrees with
   `--strict`. **Left open (in the row):** terraform/bicep get no gate yet (json only);
   `managedIdentityLocation`/`logAnalyticsWorkspaceId` unvalidated on purpose.
+  **Follow-up (2026-07-20):** Karel noticed the editor flagging `secrets.*` ("Context access might be
+  invalid") and `environment:` values ("Value '…' is not valid") in the generated workflows — those
+  are VS Code GitHub-Actions hints for customer-provided secrets/environments absent in the builder
+  repo, not errors. Added a `_provisioning_note()` helper (`package.py`) that emits a short comment
+  block naming each workflow's secrets/environments, pointing at `README.md`, and saying the hints
+  clear once the deploy repo is set up. Applied to all four generated workflows (epac, terraform,
+  bicep, epac-validate's plan job). Comment-only — `verify.sh` byte-diff still green.
 - Re-run `actions/review-prompt.md` periodically; reconcile new findings into this table.

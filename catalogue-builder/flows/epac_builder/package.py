@@ -54,12 +54,34 @@ def _validator_source():
 # GitHub Actions pipelines (starters; OIDC federated login)
 # --------------------------------------------------------------------------- #
 
+def _provisioning_note(secrets, environments):
+    """A YAML comment block naming the customer-provided secrets/environments this
+    workflow references. They live in the customer's deploy repo, not here, so an
+    editor flags them until that repo is set up — the note says so, in the file."""
+    subject = "secrets and environments" if environments else "secrets"
+    lines = [
+        f"# The {subject} below are provided by YOU in your deploy repo — see README.md.",
+        f"#   secrets:      {', '.join(secrets)}",
+    ]
+    if environments:
+        lines.append(
+            f"#   environments: {', '.join(environments)} — create them and add reviewers to gate deploys"
+        )
+    hint = '# Until you create them, an editor shows "Context access might be invalid" on the secrets'
+    if environments:
+        hint += ' and "Value \'…\' is not valid" on the environments'
+    lines.append(hint + ".")
+    lines.append("# Those are editor hints, not errors in this file; they clear once the repo is set up.")
+    return "\n".join(lines)
+
 
 def _epac_workflow(ir, selectors):
     default = selectors[0] if selectors else "epac-dev"
     tpl = r"""# Enterprise Policy as Code (EPAC) — deploy this policy package.
 # Three-phase flow with least-privilege identities:
 #   plan (Reader) -> deploy-policy (Resource Policy Contributor) -> deploy-roles (RBAC Administrator)
+#
+__NOTE__
 name: EPAC deploy
 
 on:
@@ -150,7 +172,11 @@ jobs:
         shell: pwsh
         run: Deploy-RolesPlan -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -InputFolder "$env:OUTPUT"
 """
-    return tpl.replace("__DEF__", default)
+    note = _provisioning_note(
+        ["AZURE_TENANT_ID", "AZURE_SUBSCRIPTION_ID", "PLAN_CLIENT_ID", "POLICY_CLIENT_ID", "ROLES_CLIENT_ID"],
+        ["epac-policy", "epac-roles"],
+    )
+    return tpl.replace("__NOTE__", note).replace("__DEF__", default)
 
 
 def _epac_validate_workflow(ir, selectors):
@@ -194,6 +220,8 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    # This job (unlike validate above) uses Azure secrets from your deploy repo:
+__NOTE__
     steps:
       - uses: actions/checkout@v4
       - name: Install EPAC
@@ -212,12 +240,19 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: epac-plan-pr, path: Output }
 """
-    return tpl.replace("__DEF__", default)
+    note = _provisioning_note(
+        ["AZURE_TENANT_ID", "AZURE_SUBSCRIPTION_ID", "PLAN_CLIENT_ID"], [],
+    )
+    # Indent the comment block to sit under the plan job (4 spaces).
+    note = "\n".join("    " + ln for ln in note.splitlines())
+    return tpl.replace("__NOTE__", note).replace("__DEF__", default)
 
 
 def _terraform_workflow(ir, selectors):
     default = selectors[0] if selectors else "epac-dev"
     tpl = r"""# Terraform (azurerm) policy deploy.
+#
+__NOTE__
 name: Terraform deploy
 
 on:
@@ -274,7 +309,10 @@ jobs:
       - run: terraform init
       - run: terraform apply tfplan
 """
-    return tpl.replace("__DEF__", default)
+    note = _provisioning_note(
+        ["AZURE_TENANT_ID", "AZURE_SUBSCRIPTION_ID", "TF_CLIENT_ID"], ["terraform-apply"],
+    )
+    return tpl.replace("__NOTE__", note).replace("__DEF__", default)
 
 
 def _bicep_workflow(ir, selectors):
@@ -283,6 +321,8 @@ def _bicep_workflow(ir, selectors):
     mg_id = (env0.get("rootScope") or "").rsplit("/", 1)[-1] or "REPLACE-management-group-id"
     location = env0.get("managedIdentityLocation") or "westeurope"
     tpl = r"""# Bicep policy deploy (management-group scope).
+#
+__NOTE__
 name: Bicep deploy
 
 on:
@@ -325,7 +365,11 @@ jobs:
               --template-file main.bicep \
               --parameters "@main.parameters.$env.json"
 """
-    return tpl.replace("__DEF__", default).replace("__MG__", mg_id).replace("__LOC__", location)
+    note = _provisioning_note(
+        ["AZURE_TENANT_ID", "AZURE_SUBSCRIPTION_ID", "BICEP_CLIENT_ID"], ["bicep-apply"],
+    )
+    return (tpl.replace("__NOTE__", note).replace("__DEF__", default)
+            .replace("__MG__", mg_id).replace("__LOC__", location))
 
 
 _WORKFLOWS = {

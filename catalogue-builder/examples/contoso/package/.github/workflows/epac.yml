@@ -1,6 +1,12 @@
 # Enterprise Policy as Code (EPAC) — deploy this policy package.
 # Three-phase flow with least-privilege identities:
 #   plan (Reader) -> deploy-policy (Resource Policy Contributor) -> deploy-roles (RBAC Administrator)
+#
+# The secrets and environments below are provided by YOU in your deploy repo — see README.md.
+#   secrets:      AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID, PLAN_CLIENT_ID, POLICY_CLIENT_ID, ROLES_CLIENT_ID
+#   environments: epac-policy, epac-roles — create them and add reviewers to gate deploys
+# Until you create them, an editor shows "Context access might be invalid" on the secrets and "Value '…' is not valid" on the environments.
+# Those are editor hints, not errors in this file; they clear once the repo is set up.
 name: EPAC deploy
 
 on:

@@ -1,4 +1,10 @@
 # Terraform (azurerm) policy deploy.
+#
+# The secrets and environments below are provided by YOU in your deploy repo — see README.md.
+#   secrets:      AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID, TF_CLIENT_ID
+#   environments: terraform-apply — create them and add reviewers to gate deploys
+# Until you create them, an editor shows "Context access might be invalid" on the secrets and "Value '…' is not valid" on the environments.
+# Those are editor hints, not errors in this file; they clear once the repo is set up.
 name: Terraform deploy
 
 on:
