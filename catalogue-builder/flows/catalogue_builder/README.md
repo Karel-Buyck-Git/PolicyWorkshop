@@ -6,8 +6,9 @@ definitions into the versioned, shared **catalogue** that the consumer
 when the built-ins or the taxonomy change — and is the **only** flow that derives taxonomy
 (domain, tier) and stamps the catalogue version.
 
-Run the five steps in order from the `flows/` root; each is idempotent and defaults to this project
-(via [`../shared/paths.py`](../shared/paths.py)), so no flags are needed for a normal run:
+Run the five steps in order from the `flows/` root; each is idempotent for a **stable taxonomy** and
+defaults to this project (via [`../shared/paths.py`](../shared/paths.py)), so no flags are needed for
+a normal run:
 
 ```
 python flows/catalogue_builder/extract_policies.py
@@ -21,6 +22,15 @@ python flows/catalogue_builder/quality_control.py
 > it runs the custom-definition generators and registers their output into `index.json` /
 > `catalogue.json` *between* create-initiatives and quality-control, so the catalogue contains both
 > built-in and custom assets when QC validates it.
+
+> ⚠️ **"Idempotent" holds only while the taxonomy is stable.** `create_initiatives.py` is
+> **additive**: it writes group dirs but never prunes groups that move or disappear, so a run that
+> follows a change to `config/azure-domain-hierachy.md` (or the tier rules, or a category name)
+> leaves orphaned dirs behind — invisible to `index.json`, but hashed into `contentHash`, which is
+> computed by walking the tree on disk. Wipe `catalogue/initiatives/` before re-running Phases 3→4→5
+> after any taxonomy change. Tracked as backlog **#26**; the prune pattern to copy already exists at
+> [`../definition_gen/apply_overlays.py`](../definition_gen/apply_overlays.py) (lines 120-128), which
+> does exactly this for `definitions/custom/`.
 
 ## At a glance
 

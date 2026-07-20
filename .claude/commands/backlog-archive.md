@@ -15,7 +15,7 @@ archive **every row whose Status is `done`**.
 2. Read (or create) `actions/backlog-archive.md`. If creating it, start with the standard header
    (see below). Under a `## Archived <today's date>` heading, append each selected row
    **verbatim** — same five columns, **same original `#`**. This is the audit trail; the ids stay
-   permanent because `log/` reviews and `actions/sessions/` cite them.
+   permanent because `actions/log/` reviews and `actions/sessions/` cite them.
 
 3. For each archived row, also move its **dedicated completion note** if one exists — the
    `## Notes` bullets that begin `Item N (done …)` / `Item N …` and speak only to that row — into
@@ -41,7 +41,7 @@ If `actions/backlog-archive.md` doesn't exist yet, create it with this header, t
 # Backlog — archive
 
 Closed items moved out of `actions/backlog.md` to keep the working table lean. Rows are kept
-**verbatim with their original `#`** — ids are permanent references (cited from `log/` reviews and
+**verbatim with their original `#`** — ids are permanent references (cited from `actions/log/` reviews and
 `actions/sessions/`), so nothing here is ever renumbered or deleted. Grouped by the date they were
 archived. Populated by `/backlog-archive`.
 

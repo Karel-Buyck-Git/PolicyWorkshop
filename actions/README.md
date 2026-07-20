@@ -19,8 +19,12 @@ and contributors.
    `git status` (including a `__pycache__` sanity check) before you walk away.
 4. **Periodically** (before merging a feature branch to `main`, or every few sessions)
    run `/review` — re-runs the full audit against the codebase, saves the dated output
-   to `log/`, and reconciles findings into `backlog.md` — close finished items, add new
+   to `actions/log/`, and reconciles findings into `backlog.md` — close finished items, add new
    ones. Heavier than the other two; not a daily command.
+5. **After a real consumer exercise** — someone other than the maintainer drove the builder
+   against a real goal — run `/feedback-add`. Writes a dated log to `actions/feedback/` (what
+   they ran, what broke, what they worked around) and reconciles findings into `backlog.md`.
+   Kept separate from `log/` on purpose: reviews are *inspection*, feedback is *lived evidence*.
 
 ### Slash commands
 
@@ -29,7 +33,8 @@ and contributors.
 | `/epac-builder-start` | Start of every day | Health check (golden-fixture diff) + orientation (backlog + last session) |
 | `/continue` | Any time you need a reminder | Orientation only, no health check |
 | `/close` | End of every session | Writes the session log, reconciles finished items into the backlog, checks `git status` |
-| `/review` | Periodically (pre-merge, weekly) | Full state/functionality/readiness audit, logged and reconciled into the backlog |
+| `/review` | Periodically (pre-merge, weekly) | Full state/functionality/readiness audit, saved to `log/` and reconciled into the backlog |
+| `/feedback-add` | After a real consumer exercise | Writes a dated consumer feedback log to `feedback/`, reconciles findings into the backlog |
 | `/backlog-add` | When a new item comes up | Adds one well-formed backlog row (shape + required source, duplicate guard) |
 | `/backlog-archive` | When the table gets long | Moves `done` rows (and their completion notes) to `backlog-archive.md`; ids never renumbered |
 
@@ -60,6 +65,8 @@ above is followed — it's the floor, not the plan.
 | `backlog.md` | Prioritized, status-tracked action items (the working table) |
 | `backlog-archive.md` | Closed items moved out of `backlog.md`, kept verbatim with original ids |
 | `sessions/` | One file per work session — what happened, what's next |
+| `log/` | Dated `/review` audits — periodic inspection of the codebase (`review-<MM-DD-YY>.md`) |
+| `feedback/` | Dated consumer feedback logs — what a real user hit driving the builder (`consumer-feedback-<who>-<MM-DD-YY>.md`) |
 | `review-prompt.md` | Reusable prompt to re-run a full state/functionality/readiness review |
 
 ## Why plain markdown

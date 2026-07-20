@@ -1,7 +1,7 @@
 # Feedback log — EPAC-builder consumer findings
 
 Findings raised from the consumer side (onboarding dry-run against a live demo tenant).
-Kept separate from `actions/backlog.md` on purpose — these are to be cross-checked and
+Kept separate from `../backlog.md` on purpose — these are to be cross-checked and
 triaged in the original engine/catalogue project (e.g. with Claude Code), not mixed into
 the Claude Code backlog here.
 
