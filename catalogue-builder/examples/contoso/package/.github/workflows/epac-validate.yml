@@ -1,0 +1,56 @@
+# Pull-request gate for this policy package — NOTHING is deployed here.
+#   validate : static checks (no Azure, no secrets) — runs on every PR, forks included
+#   plan     : real what-if via Build-DeploymentPlans, Reader identity, same-repo PRs only
+name: EPAC validate
+
+on:
+  pull_request:
+    paths: [ "Definitions/**", "validate-package.py" ]
+
+permissions:
+  contents: read
+
+env:
+  DEFINITIONS: Definitions
+  OUTPUT: Output
+  PAC_ENVIRONMENT: "epac-dev"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      # Shape, reference and pacSelector-coverage checks. Catches an assignment that
+      # would be silently skipped for a pacEnvironment, which no other step detects.
+      - name: Static package validation
+        run: python validate-package.py .
+
+  plan:
+    needs: validate
+    # A pull request from a fork receives no secrets, so OIDC federation cannot work.
+    # Skip (rather than fail) those, and never switch this to pull_request_target —
+    # that would run untrusted code with write permissions and secrets.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install EPAC
+        shell: pwsh
+        run: Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+      # Reader only. No Deploy-* cmdlet may appear in this workflow.
+      - name: Azure login (Reader)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Build deployment plan (what-if only)
+        shell: pwsh
+        run: Build-DeploymentPlans -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -OutputFolder "$env:OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with: { name: epac-plan-pr, path: Output }

@@ -17,6 +17,13 @@ permissions:
   id-token: write
   contents: read
 
+# EPAC reconciles a whole deploymentRootScope and deletes what is not in code, so two
+# runs against the same pacEnvironment must never overlap. Queue instead of cancelling:
+# cancelling mid-deploy would leave the scope half-reconciled.
+concurrency:
+  group: epac-deploy-${{ github.event.inputs.pacEnvironment || 'epac-dev' }}
+  cancel-in-progress: false
+
 env:
   DEFINITIONS: Definitions
   OUTPUT: Output

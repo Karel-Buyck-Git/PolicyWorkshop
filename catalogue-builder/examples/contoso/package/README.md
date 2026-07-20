@@ -16,9 +16,19 @@ Definitions/                  # EPAC definitions root
   policySetDefinitions/       # the customer initiatives
   policyAssignments/          # assignments, scoped to your management groups
   policyExemptions/           # (if any)
-.github/workflows/epac.yml    # plan -> deploy-policy -> deploy-roles
+.github/workflows/epac.yml    # plan -> deploy-policy -> deploy-roles (push/dispatch)
+.github/workflows/epac-validate.yml  # PR gate: static checks + what-if plan
+validate-package.py           # the static checks; run it locally too
 docs/  README.md  lineage.json  report.md
 ```
+
+## Check before you commit
+
+```
+python validate-package.py .
+```
+
+Runs offline (no Azure, no credentials): confirms every file parses, that each assignment has a `scope` entry for **every** `pacSelector` in `global-settings.jsonc` — an assignment missing one is silently skipped for that environment — that policy set and custom policy references resolve, and that scope/GUID values are well formed. The same script runs automatically on every pull request. It is a *static* check: whether the referenced management groups actually exist is proven by the plan step.
 
 ![Management groups](docs/contoso-mgmt-groups.rich.svg)
 

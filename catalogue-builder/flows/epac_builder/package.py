@@ -31,8 +31,23 @@ def finalize(ir, pkg_dir, flavour, manifest_path, log=print):
 
     wf_name, wf_fn = _WORKFLOWS[flavour]
     write_text(pkg_dir / ".github" / "workflows" / wf_name, wf_fn(ir, selectors))
+
+    # PR gate (epac flavour only for now — terraform/bicep have no equivalent yet).
+    # The validator is emitted verbatim from its single source next to this module, so
+    # the shipped copy can never drift from the one we develop against; the contoso
+    # golden-fixture byte-diff proves that on every build.
+    if flavour == "json":
+        write_text(pkg_dir / ".github" / "workflows" / "epac-validate.yml",
+                   _epac_validate_workflow(ir, selectors))
+        write_text(pkg_dir / "validate-package.py", _validator_source())
+
     write_text(pkg_dir / "README.md", _READMES[flavour](customer, ir, selectors, copied))
     return pkg_dir
+
+
+def _validator_source():
+    """The static package validator, read from its source of truth in this package."""
+    return (Path(__file__).parent / "pkgvalidate.py").read_text(encoding="utf-8")
 
 
 # --------------------------------------------------------------------------- #
@@ -60,6 +75,13 @@ on:
 permissions:
   id-token: write
   contents: read
+
+# EPAC reconciles a whole deploymentRootScope and deletes what is not in code, so two
+# runs against the same pacEnvironment must never overlap. Queue instead of cancelling:
+# cancelling mid-deploy would leave the scope half-reconciled.
+concurrency:
+  group: epac-deploy-${{ github.event.inputs.pacEnvironment || '__DEF__' }}
+  cancel-in-progress: false
 
 env:
   DEFINITIONS: Definitions
@@ -127,6 +149,68 @@ jobs:
       - name: Deploy roles plan
         shell: pwsh
         run: Deploy-RolesPlan -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -InputFolder "$env:OUTPUT"
+"""
+    return tpl.replace("__DEF__", default)
+
+
+def _epac_validate_workflow(ir, selectors):
+    default = selectors[0] if selectors else "epac-dev"
+    tpl = r"""# Pull-request gate for this policy package — NOTHING is deployed here.
+#   validate : static checks (no Azure, no secrets) — runs on every PR, forks included
+#   plan     : real what-if via Build-DeploymentPlans, Reader identity, same-repo PRs only
+name: EPAC validate
+
+on:
+  pull_request:
+    paths: [ "Definitions/**", "validate-package.py" ]
+
+permissions:
+  contents: read
+
+env:
+  DEFINITIONS: Definitions
+  OUTPUT: Output
+  PAC_ENVIRONMENT: "__DEF__"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      # Shape, reference and pacSelector-coverage checks. Catches an assignment that
+      # would be silently skipped for a pacEnvironment, which no other step detects.
+      - name: Static package validation
+        run: python validate-package.py .
+
+  plan:
+    needs: validate
+    # A pull request from a fork receives no secrets, so OIDC federation cannot work.
+    # Skip (rather than fail) those, and never switch this to pull_request_target —
+    # that would run untrusted code with write permissions and secrets.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install EPAC
+        shell: pwsh
+        run: Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser
+      # Reader only. No Deploy-* cmdlet may appear in this workflow.
+      - name: Azure login (Reader)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Build deployment plan (what-if only)
+        shell: pwsh
+        run: Build-DeploymentPlans -PacEnvironmentSelector "$env:PAC_ENVIRONMENT" -DefinitionsRootFolder "$env:DEFINITIONS" -OutputFolder "$env:OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with: { name: epac-plan-pr, path: Output }
 """
     return tpl.replace("__DEF__", default)
 
@@ -289,9 +373,24 @@ def _epac_readme(customer, ir, selectors, svgs):
         "  policySetDefinitions/       # the customer initiatives",
         "  policyAssignments/          # assignments, scoped to your management groups",
         "  policyExemptions/           # (if any)",
-        ".github/workflows/epac.yml    # plan -> deploy-policy -> deploy-roles",
+        ".github/workflows/epac.yml    # plan -> deploy-policy -> deploy-roles (push/dispatch)",
+        ".github/workflows/epac-validate.yml  # PR gate: static checks + what-if plan",
+        "validate-package.py           # the static checks; run it locally too",
         "docs/  README.md  lineage.json  report.md",
         "```",
+        "",
+        "## Check before you commit",
+        "",
+        "```",
+        "python validate-package.py .",
+        "```",
+        "",
+        "Runs offline (no Azure, no credentials): confirms every file parses, that each "
+        "assignment has a `scope` entry for **every** `pacSelector` in `global-settings.jsonc` "
+        "— an assignment missing one is silently skipped for that environment — that policy set "
+        "and custom policy references resolve, and that scope/GUID values are well formed. "
+        "The same script runs automatically on every pull request. It is a *static* check: "
+        "whether the referenced management groups actually exist is proven by the plan step.",
         "",
         diagram + "## Before you deploy",
         "",
