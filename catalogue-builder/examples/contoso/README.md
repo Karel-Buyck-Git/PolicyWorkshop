@@ -13,6 +13,24 @@ fixtures/terraform/                # committed terraform output (regression fixt
 fixtures/bicep/                    # committed bicep output (regression fixture)
 ```
 
+## Delivery boundary — what actually reaches the customer
+
+**Only `package/` crosses to the customer. This repo never does.**
+
+The engineer building the package works here (or in `customer/`); what gets handed over is the
+rendered package tree, published at the **top level of a dedicated policy deploy repo** on the
+customer's side — never as a subfolder of an existing repo, and never as a copy of this
+repository. That is why the bundled `.github/workflows/epac.yml` uses repo-root-relative paths
+(`DEFINITIONS: Definitions`, `paths: Definitions/**`): the package *is* the root. GitHub only
+discovers workflows at a repo root, so a package dropped in as a subfolder silently never fires.
+
+Everything else here — the producer, the catalogue, the manifests, this example — is internal
+tooling. The customer sees `Definitions/`, the pipeline, `README.md`, `report.md` and
+`lineage.json`, and nothing else.
+
+Settled as backlog **#23** (2026-07-20). The generated `package/README.md` states the same rule
+at the top, so the instruction travels with the artifact rather than living only here.
+
 ## Golden fixture
 
 ![Contoso CI regression / determinism-check flow](../../docs/contoso-ci-regression-flow.svg)
