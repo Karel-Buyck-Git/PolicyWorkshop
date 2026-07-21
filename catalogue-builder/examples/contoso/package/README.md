@@ -19,7 +19,8 @@ Definitions/                  # EPAC definitions root
 .github/workflows/epac.yml    # plan -> deploy-policy -> deploy-roles (push/dispatch)
 .github/workflows/epac-validate.yml  # PR gate: static checks + what-if plan
 validate-package.py           # the static checks; run it locally too
-docs/  README.md  lineage.json  report.md
+docs/                         # mgmt-group diagram + azure/ & github/ setup guides
+README.md  lineage.json  report.md
 ```
 
 ## Check before you commit
@@ -34,11 +35,15 @@ Runs offline (no Azure, no credentials): confirms every file parses, that each a
 
 ## Before you deploy
 
+> **Azure & Entra prerequisites** — subscriptions, management groups, roles, and licensing: see [`docs/azure/README.md`](docs/azure/README.md).
+
 1. **Fill placeholders.** Search `Definitions/` for `<REPLACE:` and resolve every one.
 2. **Check scopes.** Any assignment scoped to `/providers/Microsoft.Management/managementGroups/REPLACE-set-managementGroup-in-manifest` had no target management group — set `managementGroup` on that selection in the manifest and re-build, or remove the selection. Azure rejects this placeholder.
 3. **Create three OIDC identities** (least privilege): plan → **Reader**, deploy-policy → **Resource Policy Contributor**, deploy-roles → **Role Based Access Control Administrator**.
 4. **Secrets:** `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `PLAN_CLIENT_ID`, `POLICY_CLIENT_ID`, `ROLES_CLIENT_ID`.
 5. **Environments** `epac-policy`, `epac-roles` with required reviewers to gate the deploys.
+
+> Full GitHub deploy-repo setup — runners, environments, GitHub plan/licensing, and OIDC end-to-end — is in [`docs/github/README.md`](docs/github/README.md).
 
 ## Deploy (epac-dev)
 

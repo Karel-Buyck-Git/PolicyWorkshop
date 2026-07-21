@@ -32,14 +32,16 @@ def finalize(ir, pkg_dir, flavour, manifest_path, log=print):
     wf_name, wf_fn = _WORKFLOWS[flavour]
     write_text(pkg_dir / ".github" / "workflows" / wf_name, wf_fn(ir, selectors))
 
-    # PR gate (epac flavour only for now — terraform/bicep have no equivalent yet).
-    # The validator is emitted verbatim from its single source next to this module, so
-    # the shipped copy can never drift from the one we develop against; the contoso
-    # golden-fixture byte-diff proves that on every build.
+    # PR gate + deploy-repo setup guide (epac flavour only for now — terraform/bicep have no
+    # equivalent yet). Both the validator and the guide are emitted verbatim from their single
+    # source next to this module, so the shipped copies can never drift from the ones we develop
+    # against; the contoso golden-fixture byte-diff proves that on every build.
     if flavour == "json":
         write_text(pkg_dir / ".github" / "workflows" / "epac-validate.yml",
                    _epac_validate_workflow(ir, selectors))
         write_text(pkg_dir / "validate-package.py", _validator_source())
+        write_text(pkg_dir / "docs" / "azure" / "README.md", _azure_requirements_doc())
+        write_text(pkg_dir / "docs" / "github" / "README.md", _github_setup_doc())
 
     write_text(pkg_dir / "README.md", _READMES[flavour](customer, ir, selectors, copied))
     return pkg_dir
@@ -48,6 +50,16 @@ def finalize(ir, pkg_dir, flavour, manifest_path, log=print):
 def _validator_source():
     """The static package validator, read from its source of truth in this package."""
     return (Path(__file__).parent / "pkgvalidate.py").read_text(encoding="utf-8")
+
+
+def _github_setup_doc():
+    """The GitHub deploy-repo setup guide, read verbatim from its source of truth."""
+    return (Path(__file__).parent / "github_setup.md").read_text(encoding="utf-8")
+
+
+def _azure_requirements_doc():
+    """The Azure & Entra prerequisites guide, read verbatim from its source of truth."""
+    return (Path(__file__).parent / "azure_requirements.md").read_text(encoding="utf-8")
 
 
 # --------------------------------------------------------------------------- #
@@ -420,7 +432,8 @@ def _epac_readme(customer, ir, selectors, svgs):
         ".github/workflows/epac.yml    # plan -> deploy-policy -> deploy-roles (push/dispatch)",
         ".github/workflows/epac-validate.yml  # PR gate: static checks + what-if plan",
         "validate-package.py           # the static checks; run it locally too",
-        "docs/  README.md  lineage.json  report.md",
+        "docs/                         # mgmt-group diagram + azure/ & github/ setup guides",
+        "README.md  lineage.json  report.md",
         "```",
         "",
         "## Check before you commit",
@@ -438,6 +451,9 @@ def _epac_readme(customer, ir, selectors, svgs):
         "",
         diagram + "## Before you deploy",
         "",
+        "> **Azure & Entra prerequisites** — subscriptions, management groups, roles, and licensing: "
+        "see [`docs/azure/README.md`](docs/azure/README.md).",
+        "",
         "1. **Fill placeholders.** Search `Definitions/` for `<REPLACE:` and resolve every one.",
         f"2. **Check scopes.** {PLACEHOLDER_NOTE}",
         "3. **Create three OIDC identities** (least privilege): plan → **Reader**, deploy-policy → "
@@ -445,6 +461,9 @@ def _epac_readme(customer, ir, selectors, svgs):
         "4. **Secrets:** `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `PLAN_CLIENT_ID`, "
         "`POLICY_CLIENT_ID`, `ROLES_CLIENT_ID`.",
         "5. **Environments** `epac-policy`, `epac-roles` with required reviewers to gate the deploys.",
+        "",
+        "> Full GitHub deploy-repo setup — runners, environments, GitHub plan/licensing, and OIDC "
+        "end-to-end — is in [`docs/github/README.md`](docs/github/README.md).",
         "",
         f"## Deploy ({', '.join(selectors)})",
         "",
