@@ -1,8 +1,8 @@
 # PolicyWorkshop — orientation
 
 Azure Policy → EPAC tooling. The active project is **`epac-workbench/`** (a producer + a
-consumer). `foundry/` and `lab/` are historical/prototype trees — don't touch them
-unless asked.
+consumer). `foundry/` and everything under `archive/` (currently `archive/lab/`) are
+historical/prototype trees — don't touch them unless asked.
 
 ## Producer vs. consumer
 

@@ -16,7 +16,7 @@ Markdown — not in any one vendor's config. Read these, in order:
 - **Stdlib-only.** Do not add third-party Python dependencies or a `pip`/lockfile step; `engine/`
   imports only the standard library, on purpose. Match that (the repo hand-rolls its YAML/JSON-Schema/
   JSONC parsers rather than take a dependency).
-- **Don't touch `foundry/` or `lab/`** — historical/prototype trees.
+- **Don't touch `foundry/` or `archive/`** (e.g. `archive/lab/`) — historical/prototype trees.
 - **`examples/contoso/` and `catalogue/` are generated** — change the manifest/catalogue and
   regenerate; never hand-edit the outputs (CI diffs them byte-for-byte).
 - Verify a change the way the repo does: `bash epac-workbench/examples/contoso/verify.sh`.
