@@ -296,12 +296,19 @@ def check_references(assignments, policysets, policydefs, problems):
     def_names = {doc.get("name") for _p, doc in policydefs if doc.get("name")}
 
     for path, doc in assignments:
+        # This builder emits definitionEntry.policySetName (EPAC 11.x). A flat top-level
+        # policySetDefinitionName is still accepted here for older/hand-written packages. A
+        # definitionEntryList or a built-in policySetDefinitionId is not ours to resolve.
         wanted = doc.get("policySetDefinitionName")
         if wanted is None:
-            continue  # definitionEntry / definitionEntryList shapes are not our concern here
+            entry = doc.get("definitionEntry")
+            if isinstance(entry, dict):
+                wanted = entry.get("policySetName")
+        if wanted is None:
+            continue
         if wanted not in set_names:
             problems.append(
-                f"{path}: policySetDefinitionName {wanted!r} has no matching file in "
+                f"{path}: policy set {wanted!r} has no matching file in "
                 f"policySetDefinitions/ (found: {sorted(set_names) or 'none'})"
             )
 

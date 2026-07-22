@@ -6,7 +6,9 @@
     "displayName": "Management Essential — Tags",
     "description": "Management Essential — Tags: 4 policies, effect posture 'hardened'."
   },
-  "policySetDefinitionName": "contoso-management-esn-tags",
+  "definitionEntry": {
+    "policySetName": "contoso-management-esn-tags"
+  },
   "parameters": {
     "requireTagValueResourceGroupsTagName": "environment",
     "requireTagValueResourceGroupsTagValue": "production",

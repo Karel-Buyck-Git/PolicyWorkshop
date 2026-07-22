@@ -60,6 +60,18 @@ def _write_global_settings(ir, path):
             entry["managedIdentityLocation"] = e["managedIdentityLocation"]
         if e.get("notScopes"):
             entry["globalNotScopes"] = e["notScopes"]
+        # desiredState is EPAC's reconciliation strategy for this environment. Without it EPAC
+        # 11.x defaults to the destructive "full" — proposing to delete any pre-existing policy
+        # at/below the root scope. We emit a SAFE default ("ownedOnly": touch only what this
+        # package owns) so a brownfield tenant is never at risk; greenfield opts into "full"
+        # deliberately via the manifest's environments[].strategy. See ir.py:_env.
+        desired = {
+            "strategy": e.get("strategy") or "ownedOnly",
+            "keepDfcSecurityAssignments": False,
+        }
+        if e.get("excludedScopes"):
+            desired["excludedScopes"] = e["excludedScopes"]
+        entry["desiredState"] = desired
         envs.append(entry)
     write_json(path, {
         "$schema": f"{SCHEMA}/global-settings-schema.json",
@@ -77,7 +89,11 @@ def _assignment(ir, asg):
             "displayName": asg["displayName"],
             "description": asg["description"],
         },
-        "policySetDefinitionName": asg["initiative"],
+        # EPAC 11.x rejects a flat top-level policySetDefinitionName ("each tree branch must
+        # define either a definitionEntry or a non-empty definitionEntryList"); it wants the
+        # policy set named inside definitionEntry. See pkgvalidate.check_references, which reads
+        # this shape.
+        "definitionEntry": {"policySetName": asg["initiative"]},
         "parameters": asg["boundParameters"],
         "scope": asg["scopes"],
         "notScopes": asg["notScopes"] or [],

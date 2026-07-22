@@ -6,7 +6,9 @@
     "displayName": "Integration Essential — API Management",
     "description": "Integration Essential — API Management: 11 policies, effect posture 'hardened'. Contains Modify/DeployIfNotExists policies — a managed identity is assigned and remediation runs after deployment."
   },
-  "policySetDefinitionName": "contoso-integration-esn-apim",
+  "definitionEntry": {
+    "policySetName": "contoso-integration-esn-apim"
+  },
   "parameters": {},
   "scope": {
     "epac-dev": [

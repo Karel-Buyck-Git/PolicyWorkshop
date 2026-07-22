@@ -181,6 +181,10 @@ def _env(e, manifest_not_scopes):
         "enforcement": e["enforcement"],
         "logAnalyticsWorkspaceId": e.get("logAnalyticsWorkspaceId"),
         "notScopes": manifest_not_scopes.get(e["selector"], []),
+        # EPAC desiredState (json renderer): default to the SAFE "ownedOnly" so a brownfield
+        # tenant is never proposed for deletion; greenfield sets "full" per environment.
+        "strategy": e.get("strategy") or "ownedOnly",
+        "excludedScopes": e.get("excludedScopes") or [],
     }
 
 

@@ -10,7 +10,11 @@
       "managedIdentityLocation": "westeurope",
       "globalNotScopes": [
         "/providers/Microsoft.Management/managementGroups/contoso-sandbox"
-      ]
+      ],
+      "desiredState": {
+        "strategy": "ownedOnly",
+        "keepDfcSecurityAssignments": false
+      }
     }
   ]
 }

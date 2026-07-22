@@ -113,6 +113,20 @@
           "logAnalyticsWorkspaceId": {
             "type": "string",
             "description": "Workspace resource id for diagnostics/DINE policies in this environment."
+          },
+          "strategy": {
+            "enum": [
+              "full",
+              "ownedOnly"
+            ],
+            "description": "EPAC desiredState.strategy. 'ownedOnly' (default) is brownfield-safe; 'full' lets EPAC delete unmanaged policy at/below root (greenfield only)."
+          },
+          "excludedScopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Scopes EPAC's desiredState leaves untouched. Only meaningful with strategy 'full'."
           }
         }
       }
