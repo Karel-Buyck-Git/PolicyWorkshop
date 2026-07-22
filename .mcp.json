@@ -2,7 +2,7 @@
   "mcpServers": {
     "epac-builder": {
       "command": "python",
-      "args": ["catalogue-builder/flows/mcp_server/server.py"]
+      "args": ["epac-workbench/engine/mcp_server/server.py"]
     }
   }
 }

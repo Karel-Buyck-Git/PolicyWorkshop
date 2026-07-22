@@ -6,7 +6,7 @@ disable-model-invocation: true
 # Catalogue Builder — run
 
 Execute the **producer** pipeline end to end: phases 1–5, in order. Run every command below
-from the `catalogue-builder/` directory (`cd catalogue-builder` first) — all script and file
+from the `epac-workbench/` directory (`cd catalogue-builder` first) — all script and file
 paths are relative to it. After each script, if it exited non-zero, report its error and
 **stop**; do not proceed to the next phase on a failure.
 
@@ -56,8 +56,8 @@ either require significant infrastructure investment or map directly to regulato
 First materialise the pinned official Azure Policy source, then extract:
 
 ```
-python flows/tools/fetch_policy_source.py            # sync is the default (no flag); --check only reports drift
-python flows/catalogue_builder/extract_policies.py
+python engine/tools/fetch_policy_source.py            # sync is the default (no flag); --check only reports drift
+python engine/catalogue_builder/extract_policies.py
 ```
 
 - If either script exits with an error, report the error message and stop.
@@ -65,10 +65,10 @@ python flows/catalogue_builder/extract_policies.py
 
 **Source of truth (pinned, reproducible).** The Catalogue Builder reads policy definitions
 from the official built-in policy set at the exact upstream commit pinned in
-`config/policy-source.json`. `flows/tools/fetch_policy_source.py` (run with no flag — sync is
+`config/policy-source.json`. `engine/tools/fetch_policy_source.py` (run with no flag — sync is
 the default; `--check` only reports drift) materialises that commit into the gitignored
 `.policy-source/` cache, and the producer resolves its `--source`
-default from it automatically via `flows/shared/paths.py::official_policy_source` (precedence:
+default from it automatically via `engine/shared/paths.py::official_policy_source` (precedence:
 `AZURE_POLICY_REPO` env var → pinned cache → fail with a clear message). So you normally pass
 **no `--source` at all** — everyone builds against the same pinned version, and the resulting
 `builtInsRef` matches the committed catalogue. `--source` remains an explicit override for
@@ -85,11 +85,11 @@ Soft Value is the least-restrictive non-`Disabled` effect from Allowed Values
 sole allowed effect.
 The Domain column is looked up from the row's Category in
 `config/azure-domain-hierachy.md` (the ONE authored hierarchy, parsed via the shared
-`flows/shared/hierarchy.py`); categories with no hierarchy match get `undefined`.
+`engine/shared/hierarchy.py`); categories with no hierarchy match get `undefined`.
 
 The Tier column is assigned by the shared classification engine
-(`flows/shared/tiers.py`) from the authored keyword rules in `config/tier-rules.yaml`;
-duplicate Policy IDs were already removed in Phase 1. Run `flows/catalogue_builder/enrich_policies.py`,
+(`engine/shared/tiers.py`) from the authored keyword rules in `config/tier-rules.yaml`;
+duplicate Policy IDs were already removed in Phase 1. Run `engine/catalogue_builder/enrich_policies.py`,
 which for every `policies.md` re-applies the tier rules and adds the rationale.
 
 **Re-apply tiers**
@@ -135,7 +135,7 @@ where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 Run the following script:
 
 ```
-python flows/catalogue_builder/create_initiatives.py
+python engine/catalogue_builder/create_initiatives.py
 ```
 
 - If the script exits with an error, report the error message and stop.
@@ -145,7 +145,7 @@ The script reads all enriched `policies.md` files from the `catalogue/definition
 (on its **Policy ID**) against a parameter index built from the official policy repo. It groups
 every policy row by `(Domain, Tier, Category)` — tiers are **exclusive**, so each policy lands in
 exactly one group — and writes up to five EPAC-ready artifacts per group to
-`catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<domain>-<tier>-<categoryAbbr>.*` (brand-neutral names built by `flows/shared/naming.py`, within Azure hard limits — assignment names ≤24 chars; category abbreviations from `config/azure-category-abbreviation.md`):
+`catalogue/initiatives/<domain-slug>/<tier-slug>/<category-slug>/<domain>-<tier>-<categoryAbbr>.*` (brand-neutral names built by `engine/shared/naming.py`, within Azure hard limits — assignment names ≤24 chars; category abbreviations from `config/azure-category-abbreviation.md`):
 
 - `.md` — the matching tier's rationale paragraph plus the full 16-column policy table (`#` restarts at 1).
 - `.policyset.json` — an EPAC `policySetDefinition` (initiative). Each member entry carries
@@ -192,7 +192,7 @@ Review the generated files and verify:
 Run the following script:
 
 ```
-python flows/definition_gen/apply_overlays.py
+python engine/definition_gen/apply_overlays.py
 ```
 
 - If the script exits with an error, report the error message and stop.
@@ -200,7 +200,7 @@ python flows/definition_gen/apply_overlays.py
 
 This is the **custom-overlay** step of the producer. It reads the authored allowlist
 `config/definition-gens.md` — only generators with **Enabled = yes**
-run — and applies each via the shared scaffold (`flows/definition_gen/scaffold.py`). Each generator
+run — and applies each via the shared scaffold (`engine/definition_gen/scaffold.py`). Each generator
 declares a **placement**:
 
 - **NewGroup** — the custom definitions get their own initiative in a fresh `(domain, tier, category)`
@@ -213,7 +213,7 @@ It then **registers** the customs into the catalogue contract — NewGroup overl
 `hasCustomMembers: true` — and writes the **authoritative** `catalogue.json` stamp (the real
 `contentHash` over built-in + custom, plus `inputs.definitionGensHash` and `tools.applyOverlays`).
 The custom definitions live under `catalogue/definitions/custom/<family>/`; the policy *rule* each
-generator enforces is its own — see `flows/definition_gen/README.md`.
+generator enforces is its own — see `engine/definition_gen/README.md`.
 
 To build a **built-in-only** catalogue, set every row in `config/definition-gens.md` to
 `Enabled = no`; apply-overlays then applies nothing but still finalizes the stamp.
@@ -223,7 +223,7 @@ To build a **built-in-only** catalogue, set every row in `config/definition-gens
 Run the following script:
 
 ```
-python flows/catalogue_builder/quality_control.py
+python engine/catalogue_builder/quality_control.py
 ```
 
 - If the script exits with an error, report the error message and stop.
@@ -233,7 +233,7 @@ python flows/catalogue_builder/quality_control.py
 > documents the catalogue the first four steps built (built-in + custom overlays).
 > It is *not* the "assembler". The **epac-builder** (consumer / assembler) is a separate app
 > that consumes the published catalogue; see
-> `flows/epac_builder/README.md`.
+> `engine/epac_builder/README.md`.
 
 This is the repeatable QC gate run at the **end of every catalogue-builder run**. It reads the
 freshly generated catalogue (custom definitions under `catalogue/definitions/custom/`, the
@@ -255,7 +255,7 @@ name ≤24, definition/set/exemption ≤64, displayName ≤128, description ≤5
 **finalize gate** (`catalogue-not-finalized` if Phase 4 didn't stamp the catalogue). The script
 **exits non-zero when any `error`-level finding is present** — treat that as a stop condition and resolve the
 findings before the run is considered complete. The two markdown files are generated artifacts
-(a banner says so); edit the templates in `flows/catalogue_builder/quality_control.py`, not the files. Output is
+(a banner says so); edit the templates in `engine/catalogue_builder/quality_control.py`, not the files. Output is
 deterministic — re-running on an unchanged catalogue is byte-identical apart from `generatedAt`.
 Use `--check-only` to run the validation/report without rewriting the docs.
 

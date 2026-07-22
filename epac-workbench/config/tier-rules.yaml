@@ -1,0 +1,221 @@
+# tier-rules.yaml — the ONE authored source of policy-tier classification.
+#
+# Parsed by engine/tiers.py (a small built-in subset parser — no PyYAML needed,
+# matching the zero-dependency style of hierarchy.py). Imported by both
+# extract_policies.py (first pass) and enrich_policies.py (final pass), so there
+# is exactly one definition of the tiering rules and no second copy can drift.
+#
+# ── How a policy is classified ───────────────────────────────────────────────
+# A policy's "name + description" text is scanned case-insensitively. Tiers are
+# tried in priority order — enterprise, then professional, then essential — and
+# the FIRST tier with any keyword match wins. No match at all => essential.
+#
+# ── How to write a keyword ───────────────────────────────────────────────────
+# Keywords are plain words/phrases, not regexes. Three small conventions:
+#   • Whole-word match. "vnet" matches "VNet" but not "myvnetwork".
+#   • A space matches whitespace only; a hyphen matches a space OR a hyphen. So
+#     "zone-redundant" matches both "zone redundant" and "zone-redundant", while
+#     "private endpoint" matches only the spaced form — it will NOT fire on the
+#     hyphenated "private-endpoint" that appears inside doc-link URL slugs. Pick
+#     a hyphen when the term is commonly hyphenated; a space otherwise. Neither
+#     matches a fully concatenated word (add "zoneredundant" explicitly for that).
+#   • Trailing "*" = stem/prefix. "encrypt*" matches encrypt, encryption,
+#     encrypted. "remediat*" matches remediate, remediation.
+#   • "..." = an arbitrary gap of text. "audit ... should be enabled" matches
+#     "auditing should be enabled" AND "audit logs should be enabled".
+# Avoid the "#" character inside a keyword (it starts a comment).
+#
+# ── Overrides (applied BEFORE the keyword scan) ──────────────────────────────
+# Two override kinds, each declared per-tier (see the `overrides:` block below
+# and config/README.md for the full design):
+#   • name_only[tier] — if the policy NAME matches, force that tier (description
+#     ignored), e.g. to pin a tier from a naming convention alone.
+#   • category_only[tier] — every policy in the listed resource categories gets
+#     that tier regardless of its text.
+# Precedence: if more than one override matches, the HIGHEST tier wins (same
+# enterprise > professional > essential order), name or category alike.
+
+tiers:
+  # ── Enterprise ── zero-trust + regulatory: needs infrastructure investment or
+  # maps directly to a compliance framework. (Checked first, so a policy that is
+  # both e.g. "encrypted" and uses a "customer-managed key" lands here.)
+  enterprise:
+    # customer-controlled cryptography
+    - customer-managed key*
+    - cmk
+    - byok
+    # diagnostic pipeline: a diagnostic setting / resource log, a Log Analytics
+    # workspace, or logs streamed to a downstream sink => Enterprise. The sink
+    # keywords are gated behind "stream/send ..." so a bare mention of a Log
+    # Analytics workspace or Event Hub elsewhere does not over-promote. (Plain
+    # "logging should be enabled" observability is now Enterprise too — see the
+    # observability/audit group below.)
+    - diagnostic setting*
+    - resource log*
+    - log analytics workspace*
+    - stream ... log analytics
+    - stream ... event hub
+    - stream ... storage account
+    - send ... log analytics
+    - send ... event hub
+    - sentinel
+    # observability / audit (moved here from Professional)
+    - auditing should be enabled
+    - audit ... should be enabled
+    - auditing to
+    - should have ... audit*
+    - diagnostic logs ... should be enabled
+    - log ... should be enabled
+    - logging should be enabled
+    - Log Analytics agent should be installed
+    # "should be monitored" / "should monitor" — verb form only. The old
+    # "should ... monitor*" gap also matched the product name "Azure Monitor"
+    # (e.g. "...should block access... Azure Monitor Private Link Scope"),
+    # over-promoting private-link policies; the tightened forms below don't.
+    - should be monitor*
+    - should monitor*
+    - collect activity logs
+    - compliance scan*
+    # zone resiliency / 99.99% SLA
+    - zone-redundan*
+    - zoneredundant # concatenated spelling (no separator) used by some SKUs
+    - zone resilien*
+    - availability zone*
+    - regional outage*
+    - zone outage*
+    - geo-redundan* # moved here from Essential
+    - Geo-redundant backup
+    - geo-redundant backup
+    - geo-redundant storage
+    # confidential compute / attestation
+    - confidential comput*
+    - trusted launch
+    - secure boot
+    - vtpm
+    # sovereignty + named regulatory frameworks
+    - sovereignty
+    - data residency
+    # "regulatory framework/compliance" only — the bare word "regulatory"
+    # appeared in boilerplate ("meet regulatory, legal, or organizational
+    # policy requirements") and over-promoted network-hardening policies. The
+    # regulatory-compliance category is still pinned to Enterprise via the
+    # category_only override below, so no compliance rows are lost.
+    - regulatory framework*
+    - regulatory compliance
+    - nis2
+    - iso 27001
+    - cis benchmark
+    - nist
+
+  # ── Professional ── active security posture: produces a signal an operations
+  # team must act on (detection, network hardening, private/privileged access).
+  professional:
+    # threat detection
+    - defender
+    - threat protection
+    - advanced threat
+    - vulnerability
+    - microsoft cloud security benchmark
+    - malware
+    # network hardening
+    - public network access
+    - disable public
+    - public ip
+    - public access
+    - firewall
+    - virtual network
+    - vnet
+    - service endpoint
+    - network security group
+    - nsg
+    - network acl*
+    - web application firewall
+    - waf
+    - cors
+    - should restrict network access
+    # cluster control-plane network hardening: restrict the API server's public
+    # exposure. "private cluster*" generalises the AKS "Private Clusters should
+    # be enabled" policy (and any future private-cluster variant); "authorized
+    # ip*" catches its sibling "Authorized IP ranges should be defined on
+    # Kubernetes Services", which otherwise falls through to Essential.
+    - private cluster*
+    - authorized ip*
+    # private connectivity (moved here from Enterprise). Stemmed so the plural
+    # "private endpoints" is caught too — the removed name_only override used to
+    # cover that form.
+    - private endpoint*
+    - private link
+    - private dns zone*
+    - should use private link
+    - delivers private endpoints and private link
+    # privileged + external identity governance
+    - privileged identity management
+    - pim
+    - just-in-time
+    - jit
+    - external account* # Defender "external/guest accounts should be removed"
+    # remediation
+    - remediat*
+
+  # ── Essential ── non-negotiable baseline hygiene every deployment should
+  # enforce from day one. Also the fallback tier when nothing matches.
+  essential:
+    # encryption at rest / in transit
+    - encrypt*
+    - infrastructure encryption
+    - double encryption
+    # infrastructure & double encryption are set at resource creation and are
+    # irreversible — they can't be enabled or disabled after deployment (so a
+    # remediation/deployIfNotExists policy can't retrofit them; audit/deny only).
+    - service-managed key*
+    - tls
+    - https
+    - secure transfer
+    - transport security
+    # identity & access
+    - rbac
+    - role-based access
+    - managed identity
+    - system-assigned identity*
+    - user-assigned identity*
+    - local authentication
+    - lock box
+    - mfa
+    # key & certificate lifecycle
+    - key rotation
+    - key expiration
+    - certificate
+    - expir*
+    # backup & resiliency
+    - backup
+    - soft delete*
+    - purge protection
+    - recovery vault*
+    - recovery service*
+    - deletion protection*
+    # tagging / FinOps / governance
+    - tag
+    - tagging
+    - sku
+    - naming
+    - quota
+    # shared-access hygiene
+    - shared access
+    - sas
+
+# Overrides are per-tier and win before the keyword scan. If several match, the
+# highest tier wins (same enterprise > professional > essential order), whether
+# it matched by name or by category. Add entries under any tier you like.
+overrides:
+  # name_only[tier] — force `tier` when the policy NAME matches (description
+  # ignored). None are defined right now. To add one, mirror category_only:
+  #   name_only:
+  #     enterprise:
+  #       - private endpoint*
+  #
+  # category_only[tier] — force `tier` for every policy in these resource
+  # categories, regardless of text (the category exists for one governance
+  # purpose, so per-keyword rules can't fairly tier its rows).
+  category_only:
+    enterprise:
+      - regulatory-compliance

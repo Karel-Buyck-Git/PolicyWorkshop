@@ -1,0 +1,21 @@
+{
+  "catalogueVersion": "2026.07.18",
+  "generatedAt": "2026-07-22T13:02:09Z",
+  "inputs": {
+    "builtInsRef": "git:04989912c4660389bef9abb8fd2e55c7445bdfa7",
+    "hierarchyHash": "sha256:910a106dd2156fedfd7ec526db0dc877ec5970158d1e0daaaeb1d50924868bf9",
+    "tierRulesHash": "sha256:64348ffb9e3e8e248868ed01828fdeea522eecc7a165dc627bc6afe9483f11ef",
+    "definitionGensHash": "sha256:ac7117b734d94c7e7b8c7ed41c3cb890e38c0cca6927ce69cf56ee8d23dc0a8a"
+  },
+  "counts": {
+    "groups": 188,
+    "files": 843
+  },
+  "tools": {
+    "extract": "sha256:6ab85c95b2a7f2ce173297057d480b9887cf1a0ea58293f12e5d36033e78dcb4",
+    "enrich": "sha256:30cfd3a996ae9ae1f62b015f70e2022def61532887cf4bf918a5a51e08e5a070",
+    "createInitiatives": "sha256:c6db44a14915d24bc0c25f1be3ea4e93e8a1edc141ea03b36b659430935d2263",
+    "applyOverlays": "sha256:71e251508972138885a35b6527f9a743e2d3e2c0af560567646d6c6d35f871d5"
+  },
+  "contentHash": "sha256:3567a841f1c8050f17eb10b53a94378e88cb06ea22a989cd786b78edd55ffaeb"
+}

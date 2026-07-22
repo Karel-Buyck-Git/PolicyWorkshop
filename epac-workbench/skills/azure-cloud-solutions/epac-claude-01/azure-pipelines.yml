@@ -1,0 +1,41 @@
+# Azure DevOps pipeline — builds the epac .skill and publishes it as an artifact on a version tag.
+#
+# NOTE ON LOCATION: Azure DevOps expects azure-pipelines.yml at (or referenced from) the repo root.
+# This skill lives in a subfolder, so set `skillDir` below to the path from the repo root to this
+# folder, or move/copy this file to the repo root. The build runs from `skillDir`.
+#
+# Tag a release to trigger:  git tag v1.0.0 && git push --tags
+
+trigger:
+  branches:
+    include:
+      - refs/tags/v*
+
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  # Path from the repo root to the epac skill folder. Adjust if the repo layout changes.
+  skillDir: epac-workbench/skills/azure-cloud-solutions/epac
+
+steps:
+  - checkout: self
+    fetchDepth: 0
+
+  - task: PowerShell@2
+    displayName: Build epac.skill
+    inputs:
+      targetType: inline
+      pwsh: true
+      workingDirectory: $(skillDir)
+      script: |
+        ./build.ps1
+        Get-ChildItem dist
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish .skill artifact
+    inputs:
+      PathtoPublish: $(skillDir)/dist/epac.skill
+      ArtifactName: epac-skill

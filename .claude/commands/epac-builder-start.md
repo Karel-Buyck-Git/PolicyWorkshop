@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 Two parts: prove the **engine** is sound (against the golden fixture), then check the
 **customer's** live inputs (dynamic — the empty scaffold reports "not configured", it is
-not an error). Run everything from `catalogue-builder/`.
+not an error). Run everything from `epac-workbench/`.
 
 **Engine baseline (always).** Run the same regression check CI (`contoso epac build`) runs,
 locally — it rebuilds the worked sample for every flavour and diffs byte-for-byte:
@@ -28,7 +28,7 @@ in `customer/manifests/` for a real, filled manifest — a `*.jsonc` that is **n
   and **fails** on any surviving `<REPLACE:>` value or placeholder scope):
 
   \`\`\`
-  python flows/epac_builder/assemble_scaffold.py --manifest customer/manifests/<name>.jsonc --check --strict
+  python engine/epac_builder/assemble_scaffold.py --manifest customer/manifests/<name>.jsonc --check --strict
   \`\`\`
 
   Report pass/fail. On failure, list what `--strict` names (each unfilled placeholder / unscoped

@@ -4,8 +4,8 @@ __pycache__/
 *.pyo
 
 # Fetched official Azure Policy source (materialised from config/policy-source.json
-# by flows/tools/fetch_policy_source.py). Reproducible on demand — never committed.
-catalogue-builder/.policy-source/
+# by engine/tools/fetch_policy_source.py). Reproducible on demand — never committed.
+epac-workbench/.policy-source/
 
 # EPAC deployment-plan artifacts. `Build-DeploymentPlans -OutputFolder Output`
 # writes into `<package>/Output/` on any local plan run (see the generated

@@ -1,32 +1,32 @@
 name: contoso epac build
 
 # Thin trigger: the regression logic lives with the example, in
-# catalogue-builder/examples/contoso/verify.sh (GitHub Actions requires the workflow
+# epac-workbench/examples/contoso/verify.sh (GitHub Actions requires the workflow
 # YAML under .github/workflows/, so only the trigger lives here). verify.sh rebuilds the
 # worked contoso sample for every renderer flavour (json, terraform, bicep) and diffs it
 # byte-for-byte against the committed fixtures — the epac-builder determinism contract.
 # A second step (below, not part of verify.sh) runs the MCP stdio server smoke test
-# (flows/mcp_server/test_server.sh) so a regression in the server or validate_manifest
+# (engine/mcp_server/test_server.sh) so a regression in the server or validate_manifest
 # can't ship undetected. Running verify.sh locally does NOT cover the MCP server.
 #
-# Fires when either builder changes: the engine (flows/**), the shared catalogue
+# Fires when either builder changes: the engine (engine/**), the shared catalogue
 # (catalogue/**), the example itself (examples/contoso/**), or the shared schemas the
 # assembler validates against (customer/manifests/**).
 
 on:
   push:
     paths:
-      - "catalogue-builder/flows/**"
-      - "catalogue-builder/catalogue/**"
-      - "catalogue-builder/examples/contoso/**"
-      - "catalogue-builder/customer/manifests/**"
+      - "epac-workbench/engine/**"
+      - "epac-workbench/catalogue/**"
+      - "epac-workbench/examples/contoso/**"
+      - "epac-workbench/customer/manifests/**"
       - ".github/workflows/contoso-epac-build.yml"
   pull_request:
     paths:
-      - "catalogue-builder/flows/**"
-      - "catalogue-builder/catalogue/**"
-      - "catalogue-builder/examples/contoso/**"
-      - "catalogue-builder/customer/manifests/**"
+      - "epac-workbench/engine/**"
+      - "epac-workbench/catalogue/**"
+      - "epac-workbench/examples/contoso/**"
+      - "epac-workbench/customer/manifests/**"
       - ".github/workflows/contoso-epac-build.yml"
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: catalogue-builder
+        working-directory: epac-workbench
     steps:
       - uses: actions/checkout@v4
 
@@ -46,4 +46,4 @@ jobs:
         run: bash examples/contoso/verify.sh
 
       - name: MCP stdio server smoke test
-        run: bash flows/mcp_server/test_server.sh
+        run: bash engine/mcp_server/test_server.sh

@@ -1,12 +1,12 @@
 ---
 description: Run a full state/functionality/readiness review of catalogue-builder (or another path), save it to actions/log/, and reconcile findings into the backlog. Heavier than /continue — run periodically, not every session. Manual only.
-argument-hint: "[path to review, default catalogue-builder/]"
+argument-hint: "[path to review, default epac-workbench/]"
 disable-model-invocation: true
 ---
 
 Today: !`date +%m-%d-%y`
 
-Explore the codebase at $ARGUMENTS — if that's empty, use `catalogue-builder/`. It's
+Explore the codebase at $ARGUMENTS — if that's empty, use `epac-workbench/`. It's
 "epac builder", an engine that scaffolds Enterprise Policy as Code (EPAC) setups for
 Azure customers.
 
