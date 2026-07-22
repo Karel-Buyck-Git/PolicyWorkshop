@@ -9,7 +9,7 @@ Today: !`date +%m-%d-%y`
 Capture feedback from a **real consumer exercise** — someone (not the maintainer) actually drove
 epac-builder against a real goal, and hit real friction. $ARGUMENTS describes who and what.
 
-This is not a code review (`/review` does that, into `actions/log/`). The value of a feedback log is
+This is not a code review (`/review` does that, into `actions/reviews/`). The value of a feedback log is
 that it records what *actually happened to a real user* — their commands, their errors, their
 workarounds — so findings can be traced back to lived evidence rather than inspection.
 

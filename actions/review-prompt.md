@@ -7,7 +7,7 @@ already wired in.
 This file is the portable fallback: copy it into a fresh session (Claude Code, claude.ai,
 or otherwise) to re-run a full state/functionality/readiness review of catalogue-builder.
 Re-run periodically — before merging a feature branch to `main`, or every few sessions.
-Save the output to `actions/log/review-<MM-DD-YY>.md`, then reconcile findings into
+Save the output to `actions/reviews/review-<MM-DD-YY>.md`, then reconcile findings into
 `actions/backlog.md`.
 
 ---
@@ -31,4 +31,4 @@ Then give me an assessment covering:
 
 Keep the assessment to bullet points I can act on — no restating the code back to me.
 
-Save the output to `actions/log/review-<MM-DD-YY>.md`.
+Save the output to `actions/reviews/review-<MM-DD-YY>.md`.

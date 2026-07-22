@@ -1,5 +1,5 @@
 ---
-description: Run a full state/functionality/readiness review of catalogue-builder (or another path), save it to actions/log/, and reconcile findings into the backlog. Heavier than /continue — run periodically, not every session. Manual only.
+description: Run a full state/functionality/readiness review of catalogue-builder (or another path), save it to actions/reviews/, and reconcile findings into the backlog. Heavier than /continue — run periodically, not every session. Manual only.
 argument-hint: "[path to review, default epac-workbench/]"
 disable-model-invocation: true
 ---
@@ -26,6 +26,6 @@ Then give an assessment covering:
 
 Keep it to bullet points I can act on — no restating the code back to me.
 
-Save the result to `actions/log/review-<today's date>.md` (use the date above, format
+Save the result to `actions/reviews/review-<today's date>.md` (use the date above, format
 MM-DD-YY). Then open `actions/backlog.md` and reconcile: mark items this review
 confirms are done, add rows for anything new, leave everything else as-is.

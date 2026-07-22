@@ -12,7 +12,7 @@ and source; if not, you'll infer or ask below).
 1. Read `actions/backlog.md`. The items live in one markdown table with columns
    `# | Item | Effort | Status | Source`. Compute the next id = **(highest integer `#` in the
    table) + 1**. Only integer ids are auto-generated — sub-ids like `1a`/`1b` are hand-authored,
-   never generated here. IDs are permanent references (session logs and `actions/log/` reviews cite them),
+   never generated here. IDs are permanent references (session logs and `actions/reviews/` reviews cite them),
    and the table already tolerates non-sequential order, so **append the new row as the last row
    of the table** — do not renumber or reorder anything.
 
@@ -23,7 +23,7 @@ and source; if not, you'll infer or ask below).
      unclear, ask rather than guess.
    - **Status** — defaults to `todo` (use `in-progress` only if $ARGUMENTS says work has started).
    - **Source** — **required**: where this came from / the why (e.g. `Karel, <today's date>`, a
-     `actions/log/review-*.md` file, or "discovered building #N"). If $ARGUMENTS gives no source, **ask**
+     `actions/reviews/review-*.md` file, or "discovered building #N"). If $ARGUMENTS gives no source, **ask**
      for one — do not invent it.
 
 3. **Duplicate guard.** Scan the existing `Item` cells. If a current row already covers this

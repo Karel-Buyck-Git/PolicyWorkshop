@@ -37,7 +37,7 @@ empty scaffold and the example validate against the same schemas.
 ## Working notes
 
 - Session bookkeeping lives in `actions/`: `backlog.md` + dated `sessions/*.md`, plus
-  `log/` (periodic `/review` audits) and `feedback/` (consumer feedback logs). The
+  `reviews/` (periodic `/review` audits) and `feedback/` (consumer feedback logs). The
   `/continue` command orients from them; `/catalogue-builder-run` runs the producer.
 - Run assembler/producer scripts from the `epac-workbench/` directory (paths are relative
   to it).
