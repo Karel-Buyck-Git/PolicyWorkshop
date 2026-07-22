@@ -1,5 +1,5 @@
 ---
-description: Run a full state/functionality/readiness review of catalogue-builder (or another path), save it to actions/reviews/, and reconcile findings into the backlog. Heavier than /continue — run periodically, not every session. Manual only.
+description: Run a full state/functionality/readiness review of epac-workbench (or another path), save it to actions/reviews/, and reconcile findings into the backlog. Heavier than /continue — run periodically, not every session. Manual only.
 argument-hint: "[path to review, default epac-workbench/]"
 disable-model-invocation: true
 ---

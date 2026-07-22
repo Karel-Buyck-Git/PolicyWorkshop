@@ -5,14 +5,14 @@ a slash command (`.claude/commands/review.md`), with the date and backlog reconc
 already wired in.
 
 This file is the portable fallback: copy it into a fresh session (Claude Code, claude.ai,
-or otherwise) to re-run a full state/functionality/readiness review of catalogue-builder.
+or otherwise) to re-run a full state/functionality/readiness review of epac-workbench.
 Re-run periodically — before merging a feature branch to `main`, or every few sessions.
 Save the output to `actions/reviews/review-<MM-DD-YY>.md`, then reconcile findings into
 `actions/backlog.md`.
 
 ---
 
-Explore the codebase at catalogue-builder/. It's "epac builder" — an engine that scaffolds
+Explore the codebase at epac-workbench/. It's "epac builder" — an engine that scaffolds
 Enterprise Policy as Code (EPAC) setups for Azure customers.
 
 Do the following:
