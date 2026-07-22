@@ -1,6 +1,6 @@
 # Policy Category Summary
 
-- **Source:** `C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\catalogue-builder\catalogue\definitions`
+- **Source:** `C:\GIT\Karel Buyck Git Azure Policy Workshop\PolicyWorkshop\epac-workbench\catalogue\definitions`
 - **Files scanned:** 95
 - **Total policy rows with a category:** 3284
 - **Unique category values:** 95

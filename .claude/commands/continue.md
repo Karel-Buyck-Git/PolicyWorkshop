@@ -1,5 +1,5 @@
 ---
-description: Orient on where catalogue-builder work stands right now — reads the backlog and the latest session log, proposes what to do next. No changes made. Manual only.
+description: Orient on where epac-workbench work stands right now — reads the backlog and the latest session log, proposes what to do next. No changes made. Manual only.
 disable-model-invocation: true
 ---
 

@@ -6,7 +6,7 @@ disable-model-invocation: true
 # Catalogue Builder — run
 
 Execute the **producer** pipeline end to end: phases 1–5, in order. Run every command below
-from the `epac-workbench/` directory (`cd catalogue-builder` first) — all script and file
+from the `epac-workbench/` directory (`cd epac-workbench` first) — all script and file
 paths are relative to it. After each script, if it exited non-zero, report its error and
 **stop**; do not proceed to the next phase on a failure.
 

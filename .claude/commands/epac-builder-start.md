@@ -1,5 +1,5 @@
 ---
-description: Daily start-of-session ritual for catalogue-builder — health-checks the engine, then orients on the backlog and last session. Run this first each day. Manual only.
+description: Daily start-of-session ritual for epac-workbench — health-checks the engine, then orients on the backlog and last session. Run this first each day. Manual only.
 disable-model-invocation: true
 ---
 
@@ -13,7 +13,7 @@ not an error). Run everything from `epac-workbench/`.
 locally — it rebuilds the worked sample for every flavour and diffs byte-for-byte:
 
 \`\`\`
-cd catalogue-builder
+cd epac-workbench
 bash examples/contoso/verify.sh
 \`\`\`
 
