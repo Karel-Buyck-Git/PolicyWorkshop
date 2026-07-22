@@ -2,7 +2,8 @@
 
 Azure Policy → EPAC tooling. The active project is **`epac-workbench/`** (a producer + a
 consumer). Everything under `archive/` (currently `archive/foundry/` and `archive/lab/`)
-is a historical/prototype tree — don't touch it unless asked.
+is a historical/prototype tree — don't touch it unless asked; see `archive/README.md`
+for why each was archived.
 
 ## Producer vs. consumer
 
