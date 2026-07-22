@@ -44,10 +44,10 @@ prompt in copy-paste form.
 
 ## Before committing
 
-- **No `__pycache__`.** It keeps sneaking into commits (34 `.pyc` files are already
-  tracked under `catalogue-builder/` as of 2026-07-03 — there's no `.gitignore` yet).
-  Run `git status` before committing and make sure no `__pycache__/` paths are staged.
-  One-time cleanup + a real `.gitignore` fix is tracked as backlog #1b.
+- **No stray build artifacts.** `__pycache__/` and `*.pyc` are gitignored (the fix and
+  one-time cleanup shipped as backlog #1b, 2026-07-05), and EPAC's `package/Output/` plan
+  output is ignored repo-wide — none of these should reach a commit. Still worth a quick
+  `git status` before committing to confirm nothing unexpected is staged.
 
 ## Automated safety net
 
