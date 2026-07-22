@@ -1,4 +1,4 @@
-# catalogue-builder — Python project marker.
+# epac-workbench — Python project marker.
 #
 # This project is STDLIB-ONLY by design: every module under engine/ imports only
 # from the CPython standard library. There are no third-party runtime
@@ -11,7 +11,7 @@
 # deliberately no [build-system] table.
 
 [project]
-name = "catalogue-builder"
+name = "epac-workbench"
 version = "0.0.0"
 description = "Azure Policy catalogue + EPAC scaffold builder (stdlib-only)."
 # CI runs on 3.11 (.github/workflows/contoso-epac-build.yml); the code needs 3.8+ at minimum

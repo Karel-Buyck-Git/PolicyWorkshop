@@ -256,7 +256,8 @@ Status: `todo` / `in-progress` / `done`
   tool-file hashes + `contentHash`, and **no `.policyset.json`/`.assignment.json` changed**. **Verified:**
   `verify.sh` green (json/terraform/bicep byte-identical to committed fixtures + strict gate fires — so the
   package output is unaffected, no fixture regen needed), MCP smoke 5/5, `check_env.py` exit 0, final
-  full-tree grep = 0 stray path refs. **Follow-up left open:** `pyproject.toml` `name = "catalogue-builder"`
-  deferred by Karel — settle the project `name` field separately. **Note:** the running Claude Code MCP
-  server still points at the old `.mcp.json` path until an MCP reload/restart.
+  full-tree grep = 0 stray path refs. **Follow-up (settled 2026-07-22):** `pyproject.toml`
+  `name` bumped `catalogue-builder` → `epac-workbench` (+ header comment) — the whole-system project
+  identifier; nothing functional reads it (not hashed into the catalogue), so no regen. **Note:** the
+  running Claude Code MCP server still points at the old `.mcp.json` path until an MCP reload/restart.
 - Re-run `actions/review-prompt.md` periodically; reconcile new findings into this table.
