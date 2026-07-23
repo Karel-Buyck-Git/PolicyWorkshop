@@ -114,23 +114,15 @@ where applicable (NIS2, ISO 27001, CIS Benchmarks, NIST).
 
 ## Phase 3 — Create per-tier EPAC-ready initiatives
 
-> ⚠️ **This step is additive — it does not garbage-collect.** `create_initiatives.py` only ever
-> does `mkdir(..., exist_ok=True)` per group; a `(domain, tier, category)` group that **moved or
-> disappeared** since the last run leaves its old `catalogue/initiatives/<olddomain>/…` dir
-> orphaned on disk. That orphan is invisible to `index.json` (built from memory) and to every QC
-> check, but `contentHash` is computed by walking the tree **on disk** — so Phase 5 passes green
-> while the catalogue is stamped with a **wrong `contentHash`**.
->
-> **So: if anything changed in `config/azure-domain-hierachy.md`, the tier rules, or a category
-> name, wipe the output tree before running this phase:**
->
-> ```
-> rm -rf catalogue/initiatives/          # then run Phases 3 → 4 → 5
-> ```
->
-> A plain rebuild with an unchanged taxonomy needs no wipe. Tracked as backlog **#26** — once
-> Phase 3 prunes its own output tree (mirroring `apply_overlays.py:120-128`, which already does
-> this for `definitions/custom/`), this caveat goes away.
+> ℹ️ **This step is self-cleaning (backlog #26, fixed).** `create_initiatives.py` **clears
+> `catalogue/initiatives/` at the start of every run** before rebuilding the tree, so a
+> `(domain, tier, category)` group that **moved or disappeared** since the last run no longer
+> leaves an orphaned `catalogue/initiatives/<olddomain>/…` dir behind. This matters because such an
+> orphan is invisible to `index.json` (built from memory) and to every QC check, yet `contentHash`
+> is computed by walking the tree **on disk** — so a stale dir would silently stamp a **wrong
+> `contentHash`** while Phase 5 passed green. No manual `rm -rf` is needed anymore. Phase 4
+> (`apply_overlays.py`) re-adds any custom overlay groups into this tree afterwards, per the fixed
+> 3 → 4 → 5 order; the wipe mirrors that phase's existing `definitions/custom/` prune.
 
 Run the following script:
 

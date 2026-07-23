@@ -6,9 +6,8 @@ definitions into the versioned, shared **catalogue** that the consumer
 when the built-ins or the taxonomy change — and is the **only** flow that derives taxonomy
 (domain, tier) and stamps the catalogue version.
 
-Run the five steps in order from the `engine/` root; each is idempotent for a **stable taxonomy** and
-defaults to this project (via [`../shared/paths.py`](../shared/paths.py)), so no flags are needed for
-a normal run:
+Run the five steps in order from the `engine/` root; each is idempotent and defaults to this project
+(via [`../shared/paths.py`](../shared/paths.py)), so no flags are needed for a normal run:
 
 ```
 python engine/catalogue_builder/extract_policies.py
@@ -23,14 +22,14 @@ python engine/catalogue_builder/quality_control.py
 > `catalogue.json` *between* create-initiatives and quality-control, so the catalogue contains both
 > built-in and custom assets when QC validates it.
 
-> ⚠️ **"Idempotent" holds only while the taxonomy is stable.** `create_initiatives.py` is
-> **additive**: it writes group dirs but never prunes groups that move or disappear, so a run that
-> follows a change to `config/azure-domain-hierachy.md` (or the tier rules, or a category name)
-> leaves orphaned dirs behind — invisible to `index.json`, but hashed into `contentHash`, which is
-> computed by walking the tree on disk. Wipe `catalogue/initiatives/` before re-running Phases 3→4→5
-> after any taxonomy change. Tracked as backlog **#26**; the prune pattern to copy already exists at
-> [`../definition_gen/apply_overlays.py`](../definition_gen/apply_overlays.py) (lines 120-128), which
-> does exactly this for `definitions/custom/`.
+> ℹ️ **Idempotent across taxonomy changes too (backlog #26, fixed).** `create_initiatives.py`
+> **clears `catalogue/initiatives/` at the start of each run**, so a change to
+> `config/azure-domain-hierachy.md` (or the tier rules, or a category name) that moves or removes a
+> group no longer leaves an orphaned dir behind — such an orphan is invisible to `index.json` but
+> hashed into `contentHash` (computed by walking the tree on disk), which would silently stamp a
+> wrong hash. No manual wipe is needed. The wipe mirrors the existing `definitions/custom/` prune in
+> [`../definition_gen/apply_overlays.py`](../definition_gen/apply_overlays.py) (lines 120-128); Phase 4
+> re-adds custom overlay groups into the tree afterwards, per the fixed 3→4→5 order.
 
 ## At a glance
 

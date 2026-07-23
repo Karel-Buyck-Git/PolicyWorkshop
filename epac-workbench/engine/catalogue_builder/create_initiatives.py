@@ -37,6 +37,7 @@ import argparse
 import hashlib
 import json
 import re
+import shutil
 import subprocess
 import sys
 from collections import defaultdict
@@ -708,6 +709,16 @@ def main() -> None:
             r["Domain"], r["Tier"], r["Category"] = domain, tier, category
             by_group[(domain, tier, category)].append(r)
             rationale_by_cat.setdefault(category, rationale)
+
+    # Phase 3 owns the entire built-in initiatives tree and rebuilds it from scratch each run, so
+    # clear it first: a reclassification (a category changing domain/tier, or disappearing) otherwise
+    # leaves an orphaned group dir behind. That orphan is invisible to index.json (built from the
+    # in-memory record list) yet still feeds the on-disk contentHash, silently poisoning the catalogue
+    # stamp. Mirrors the custom-family prune in apply_overlays.py. Safe because Phase 4 (apply_overlays)
+    # re-adds any custom overlay groups into this tree afterwards, per the fixed 3->4->5 phase order.
+    if initiatives_dir.exists():
+        shutil.rmtree(initiatives_dir)
+        print(f"[Phase 3] Cleared existing initiatives tree at {initiatives_dir} (self-cleaning regenerate)")
 
     index_records: list[dict] = []
     file_count = 0
