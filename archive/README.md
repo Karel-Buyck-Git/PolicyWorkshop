@@ -9,6 +9,7 @@ short "why" section — so the reasoning travels with the code, not just in a co
 |---|---|---|---|
 | [`foundry/`](foundry/) | 2026-07-22 | Azure AI Foundry LLM taxonomy pipeline — its premise (tier classification needs an LLM) is superseded by the deterministic engine; never deployed | infra/ingestion design → backlog **#37**; reasoning in `actions/backlog.md` notes + `actions/sessions/2026-07-22.md` |
 | [`lab/`](lab/) | 2026-07-22 | Claude Code prototype labs (`lab-01`…`lab-11`) — the original agentic-loop approach to building the taxonomy; superseded by `epac-workbench/engine` | prototype history only; the move itself is backlog **#25** (archived) |
+| [`web-dev-best-practices-workspace/`](web-dev-best-practices-workspace/) | 2026-07-23 | Eval/benchmark workspace for the `web-dev-best-practices` skill — `with_skill`/`without_skill` output pairs + gradings; authoring output, not the runnable skill | the live skill moved to `.claude/skills/web-dev-best-practices/`; kept here as provenance of the skill's measured value |
 
 ## `foundry/` — Azure AI Foundry prompt-flow architecture
 
@@ -42,3 +43,17 @@ pipeline copy) — the early agentic-loop approach to building the policy taxono
 the deterministic `epac-workbench/engine`. Kept for reference (how the approach evolved) but not part
 of any build. The earlier move `product/lab/` → root `lab/` is backlog **#25** (archived); the move
 into `archive/` happened 2026-07-22.
+
+## `web-dev-best-practices-workspace/` — skill eval/benchmark workspace
+
+**What it was.** The authoring + benchmarking workspace for the general `web-dev-best-practices` skill:
+`iteration-1/` with paired `with_skill` / `without_skill` code outputs across three evals (a user
+table, an orders route, a login hook), each with a `grading.json`, plus `benchmark.json`/`benchmark.md`
+and a rendered `eval-review-iteration-1.html`. It measures how much the skill improves generated code.
+
+**Why archived.** It is **authoring output, not the runnable skill** — the live skill (`SKILL.md` +
+`evals/`) was promoted to `.claude/skills/web-dev-best-practices/` (2026-07-23), where Claude Code
+auto-discovers it for the whole team ahead of the front-end work (**#31**). The workspace has no place
+in that auto-discovery path but is worth keeping as **provenance of the skill's measured value** (the
+with/without-skill deltas), so it lives here rather than being deleted. It arrived in this repo as
+stray stashed material under a top-level `tools/` folder, unrelated to the Azure Policy / EPAC engine.
