@@ -95,7 +95,7 @@ must have a **single root** — give a forest a shared root.
 template when you already have a tenant inventory. Columns are matched by header name
 (case-insensitive; extra/missing columns tolerated). See
 [`template/input-mgmt-groups.xlsx`](template/input-mgmt-groups.xlsx) for the fill-in
-template, and `PolicyWorkshop/samples/generated-inventory-*.xlsx` for full real exports.
+template, and [`samples/`](samples/) for worked hierarchy examples.
 
 | Column | Used for |
 | --- | --- |
