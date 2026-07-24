@@ -24,10 +24,10 @@
     "parameters": {
       "customerAbbreviation": {
         "type": "String",
-        "defaultValue": "dlw",
+        "defaultValue": "org",
         "metadata": {
           "displayName": "Customer abbreviation",
-          "description": "Organization/customer abbreviation that prefixes the name (e.g. 'dlw')."
+          "description": "Organization/customer abbreviation that prefixes the name (e.g. 'contoso')."
         }
       },
       "excludedNamePattern": {

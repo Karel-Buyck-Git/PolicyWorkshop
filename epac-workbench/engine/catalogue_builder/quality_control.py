@@ -448,7 +448,7 @@ dlw-<abbr>-<service>-<env>-<loc>-<instance>
 └┬┘ └─┬─┘ └────────────┬───────────────────┘
  │    │                └ free segments (NOT validated — only the anchor is)
  │    └ CAF resource abbreviation (e.g. kv, rg, apim, st)
- └ customerAbbreviation parameter (default "dlw")
+ └ customerAbbreviation parameter (bound per customer; raw-catalogue fallback "org")
 ```
 
 A concrete instance once the placeholders are filled, e.g. a prod Key Vault for the

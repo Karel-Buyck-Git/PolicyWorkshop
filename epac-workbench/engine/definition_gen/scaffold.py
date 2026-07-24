@@ -124,15 +124,35 @@ def _members(definitions):
     return out
 
 
+# Parameters a NewGroup promotes to the *initiative* level instead of baking each
+# member's default inline: 'effect' (tuned via posture) and 'customerAbbreviation'
+# (the per-customer naming anchor — bound from the manifest, never frozen to a brand).
+BUBBLED_TO_INITIATIVE = ("effect", "customerAbbreviation")
+
+
 def _bubbled_params(params):
-    """NewGroup: wire 'effect' to the initiative parameter; emit other defaults inline."""
+    """NewGroup: wire bubbled params to the initiative parameter; emit other defaults inline."""
     mp = {}
     for pname, pdef in params.items():
-        if pname == "effect":
-            mp["effect"] = {"value": "[parameters('effect')]"}
+        if pname in BUBBLED_TO_INITIATIVE:
+            mp[pname] = {"value": f"[parameters('{pname}')]"}
         elif "defaultValue" in pdef:
             mp[pname] = {"value": pdef["defaultValue"]}
     return mp
+
+
+def _customer_abbr_param(definitions):
+    """The shared ``customerAbbreviation`` param definition if any member declares it, else None.
+
+    Naming members carry it; tagging/apim NewGroups don't — so a NewGroup only grows an
+    initiative-level ``customerAbbreviation`` (and the assignment ``<REPLACE:>`` mock) when at
+    least one member actually anchors on it, keeping other overlays byte-identical.
+    """
+    for d in definitions:
+        ca = (d["properties"].get("parameters") or {}).get("customerAbbreviation")
+        if ca:
+            return ca
+    return None
 
 
 def _baked_params(params):
@@ -152,6 +172,21 @@ def _effect_default(definitions):
 def _effect_param(default, description):
     return {"type": "String", "allowedValues": ["Audit", "Deny", "Disabled"], "defaultValue": default,
             "metadata": {"displayName": "Effect", "description": description}}
+
+
+def _initiative_params(definitions, eff_default):
+    """Initiative-level parameters: always 'effect'; 'customerAbbreviation' when members use it.
+
+    Reusing the member's own ``customerAbbreviation`` definition (String + neutral defaultValue)
+    keeps the schema single-sourced; the assignment carries a ``<REPLACE:>`` mock so the assembler
+    forces the customer to bind it rather than silently inheriting the fallback default.
+    """
+    params = {"effect": _effect_param(
+        eff_default, "Effect applied to every policy in this initiative.")}
+    ca = _customer_abbr_param(definitions)
+    if ca:
+        params["customerAbbreviation"] = ca
+    return params
 
 
 def cap(text, limit=naming.DESCRIPTION_MAX):
@@ -222,8 +257,7 @@ def _new_group_policyset(overlay, members, name, display, version, eff_default):
                 "hasRemediation": False, "custom": True,
             },
             "policyDefinitionGroups": [{"name": group}],
-            "parameters": {"effect": _effect_param(
-                eff_default, "Effect applied to every policy in this initiative.")},
+            "parameters": _initiative_params(overlay.definitions, eff_default),
             "policyDefinitions": policy_defs,
         },
     }
@@ -232,6 +266,12 @@ def _new_group_policyset(overlay, members, name, display, version, eff_default):
 def _new_group_assignment(overlay, members, name, display):
     ng = overlay.placement
     n = len(members)
+    # Assignment-level mocks the assembler binds fail-fast from the manifest. 'effect' is tuned via
+    # posture, so it is NOT a mock here; 'customerAbbreviation' (naming's per-customer anchor) is —
+    # emitted only when the initiative exposes it, so tagging/apim assignments stay parameter-free.
+    parameters = {}
+    if _customer_abbr_param(overlay.definitions):
+        parameters["customerAbbreviation"] = "<REPLACE: customerAbbreviation>"
     return {
         "nodeName": naming.node_name(ng.domain, ng.tier, ng.category),
         "assignment": {
@@ -243,7 +283,7 @@ def _new_group_assignment(overlay, members, name, display):
                 f"<pac-environment-selector>, <sub-id>) before deploying."),
         },
         "policySetDefinitionName": name,
-        "parameters": {},
+        "parameters": parameters,
         "scope": {"<pac-environment-selector>": ["/providers/Microsoft.Management/managementGroups/<root-mg-id>"]},
         "notScopes": [],
     }

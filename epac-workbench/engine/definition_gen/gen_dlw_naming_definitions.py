@@ -15,7 +15,8 @@ Some resource types are special-cased (compact, parent-prefixed, peering, subnet
 
 Validation strategy (Azure Policy limits: 'like' allows ONE '*', 'match' is fixed-width):
   - Anchor the deterministic head/token of each name; flag names that don't match.
-  - customerAbbreviation is a parameter (default 'dlw'); the resource abbreviation is baked.
+  - customerAbbreviation is a per-customer parameter (bound from the manifest; neutral 'org'
+    fallback only for a raw-catalogue deploy); the resource abbreviation is baked.
 
 Base resource list + categories come from the CAF abbreviation page; the customer
 MODULE map overrides abbreviation + template kind for the ~70 types it defines.
@@ -33,7 +34,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 from definition_gen import scaffold  # noqa: E402
 from definition_gen.scaffold import Overlay, NewGroup  # noqa: E402
 
-CUST_DEFAULT = "dlw"
+# Neutral raw-catalogue fallback for the customerAbbreviation *value* (NOT a brand). Each customer
+# binds their own anchor from the manifest (the initiative exposes customerAbbreviation and the
+# assignment carries a <REPLACE:> mock the assembler forces you to fill); this default only applies
+# if the raw catalogue scaffold is deployed without the assembler.
+CUST_DEFAULT = "org"
 SOURCE = "getResourceName.bicep v1.5"
 
 # ---- 'naming' initiative (placed alongside the built-in producer's output) ----
@@ -420,7 +425,7 @@ def _definitions():
             params["customerAbbreviation"] = {
                 "type": "String", "defaultValue": CUST_DEFAULT,
                 "metadata": {"displayName": "Customer abbreviation",
-                             "description": "Organization/customer abbreviation that prefixes the name (e.g. 'dlw')."},
+                             "description": "Organization/customer abbreviation that prefixes the name (e.g. 'contoso')."},
             }
         params["excludedNamePattern"] = {
             "type": "Array", "defaultValue": RG_EXCLUDED if t == RG_TYPE else [],
