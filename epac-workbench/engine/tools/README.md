@@ -97,8 +97,20 @@ provenance (source git ref, tool hashes, content fingerprint). Works on a catalo
 `initiatives/` directory directly.
 
 ```
-python engine/tools/catalogue_diff.py OLD NEW [--out report.json] [--limit 20]
+python engine/tools/catalogue_diff.py OLD NEW [--out report.json] [--limit 20] [--allow-unreadable]
 ```
+
+**It refuses to diff a tree it cannot fully read** (#46). A policyset that fails to parse is not
+neutral: every policy inside it vanishes from its side and reappears as **added** against the
+other, inventing changes that never happened — and the file *count* still looks right, because
+that comes from the directory listing rather than from what was parsed. This bit for real on
+2026-07-25, when a catalogue staged under a deep temp path crossed the Windows **260-char
+`MAX_PATH`** limit and the changelog reported 39 phantom "added" policies. The error now names the
+files, the reason, and (on Windows, for long paths) the likely cause. `--allow-unreadable` opts
+into a best-effort diff of a knowingly damaged tree: it warns loudly and sets `unreadable` in the
+JSON report. [`catalogue_changelog.py`](catalogue_changelog.py) has **no such flag** on purpose — a
+console report is something you read, but a committed changelog entry is a durable claim, and a
+wrong one is indistinguishable from a real record.
 
 ### [`summarize_categories.py`](summarize_categories.py)
 A **taxonomy inspector** — walks every `policies.md` under `catalogue/definitions/`, parses the

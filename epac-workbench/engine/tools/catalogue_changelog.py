@@ -28,7 +28,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # engine/ root
-from tools.catalogue_diff import diff_catalogues, find_provenance, scan  # noqa: E402
+from tools.catalogue_diff import (  # noqa: E402
+    UnreadableCatalogue, diff_catalogues, find_provenance, scan)
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -80,8 +81,12 @@ def _examples(rows, label, limit=8):
 
 def baseline_entry(new_root):
     m = _meta(new_root)
-    _, n_sets = scan(Path(new_root))
-    n_pol = len(scan(Path(new_root))[0])
+    idx, n_sets, failures = scan(Path(new_root))
+    if failures:
+        # Same rule as diff_entry: a baseline that silently under-counts becomes the
+        # reference every later entry is measured against (#46).
+        raise UnreadableCatalogue(Path(new_root).resolve(), failures, n_sets)
+    n_pol = len(idx)
     lines = [f"## {m['version']} — {m['date']}", "", _stamp_line(m), "",
              f"Baseline catalogue. {len(m['counts']) and m['counts'].get('groups', n_sets)} groups, "
              f"{n_pol} policies across {n_sets} initiatives."]
@@ -135,13 +140,23 @@ def main():
     ap.add_argument("--write", action="store_true", help="Prepend the entry (else print to stdout)")
     args = ap.parse_args()
 
-    entry = diff_entry(args.old, args.new) if args.old else baseline_entry(args.new)
+    # No --allow-unreadable escape hatch here, deliberately (#46): catalogue_diff.py can be
+    # told to inspect a damaged tree because its output is a console report you are reading,
+    # but a CHANGELOG entry is a durable claim about what changed. A wrong one is worse than
+    # a missing one — it is indistinguishable from a real record once committed.
+    try:
+        entry = diff_entry(args.old, args.new) if args.old else baseline_entry(args.new)
+    except UnreadableCatalogue as exc:
+        print(f"ERROR: {exc}\nNo changelog entry written.", file=sys.stderr)
+        return 2
+
     if args.write:
         prepend(args.changelog, entry)
         print(f"[changelog] entry for {_meta(args.new)['version']} -> {args.changelog}")
     else:
         print(entry)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

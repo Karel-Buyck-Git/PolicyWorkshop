@@ -20,6 +20,7 @@ Example (a previous catalogue vs the current one):
 """
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -31,24 +32,80 @@ except AttributeError:
     pass
 
 
+#: Windows refuses paths at or beyond this length unless long-path support is enabled.
+#: A catalogue staged under a deep temp dir crosses it easily — see UnreadableCatalogue.
+_MAX_PATH = 260
+
+
+class UnreadableCatalogue(Exception):
+    """A catalogue has policysets that could not be parsed, so it cannot be diffed (#46).
+
+    Raised instead of quietly dropping them. A dropped policyset is not neutral: every
+    policy inside it disappears from its side of the comparison and is then reported as
+    **added** (or **removed**) against the other — the diff invents changes that never
+    happened, and the file *count* still looks right because it comes from the directory
+    listing, not from what was actually parsed. That fiction reached a real
+    ``CHANGELOG.md`` entry on 2026-07-25 (39 phantom "added" policies).
+    """
+
+    def __init__(self, root, failures, total):
+        self.root, self.failures, self.total = root, failures, total
+        # States the CONSEQUENCE only. Whether that means refusing or continuing is the
+        # caller's decision, so each one says which it took — otherwise the warning path
+        # would print "refusing" while carrying on.
+        lines = [f"{len(failures)} of {total} policyset(s) under {root} could not be read.",
+                 "Every policy in them is absent from this side of the comparison and would "
+                 "be reported as added/removed — changes that did not happen."]
+        for path, reason in failures[:5]:
+            try:                      # paths are shown relative — the root is on the line above,
+                rel = path.relative_to(root)   # and repeating it makes the list unreadable
+            except ValueError:
+                rel = path
+            lines.append(f"  - {rel}  ({reason})")
+        if len(failures) > 5:
+            lines.append(f"  …and {len(failures) - 5} more")
+        if os.name == "nt" and any(len(str(p)) >= _MAX_PATH - 20 for p, _ in failures):
+            lines.append(
+                f"Hint: those paths are at or past the Windows MAX_PATH limit ({_MAX_PATH}). "
+                "Stage the catalogue somewhere shorter (a short temp dir, not a deep one) and "
+                "re-run — the '\\\\?\\' prefix does NOT help here, it stops rglob from matching.")
+        super().__init__("\n".join(lines))
+
+
 def find_provenance(root: Path):
     for cand in (root / "catalogue.json", root.parent / "catalogue.json"):
         if cand.exists():
             try:
                 return json.loads(cand.read_text(encoding="utf-8")), cand
-            except Exception:
-                pass
+            except Exception as exc:
+                # Not fatal — the diff still works, only driver attribution is lost. But say so:
+                # silently attributing a real change to "no driver" is its own small fiction (#46).
+                print(f"[warn] provenance at {cand} is unreadable ({type(exc).__name__}: {exc}) — "
+                      "driver attribution will be incomplete", file=sys.stderr)
     return None, None
 
 
 def scan(root: Path):
-    """Return {guid: {'group': (domain,tier,category), 'effect': str|None, 'name': displayName}}."""
-    idx = {}
+    """Index a catalogue's policies by GUID.
+
+    Returns ``(idx, n_policysets, failures)``:
+    ``idx``      {guid: {'group': (domain,tier,category), 'effect': str|None, 'name': displayName}}
+    ``failures`` [(path, reason)] for policysets that could not be parsed.
+
+    Callers **must not** treat a failure as an absent policy — pass them to
+    ``UnreadableCatalogue`` (#46). ``n_policysets`` counts files found on disk, which is
+    why it alone can never tell you the scan was complete.
+    """
+    idx, failures = {}, []
     files = list(root.rglob("*.policyset.json"))
     for f in files:
         try:
             props = json.loads(f.read_text(encoding="utf-8")).get("properties", {})
-        except Exception:
+        except Exception as exc:
+            # OSError's str() repeats the whole path, which is exactly what makes a
+            # MAX_PATH failure list illegible — keep only the reason.
+            detail = getattr(exc, "strerror", None) or str(exc)
+            failures.append((f, f"{type(exc).__name__}: {detail}"))
             continue
         md = props.get("metadata", {}) or {}
         group = (str(md.get("domain", "")).lower(),
@@ -62,7 +119,7 @@ def scan(root: Path):
             # first occurrence wins; record group + effect
             idx.setdefault(guid, {"group": group, "effect": eff,
                                   "name": (m.get("metadata") or {}).get("policyName", "")})
-    return idx, len(files)
+    return idx, len(files), failures
 
 
 def classify_move(ga, gb):
@@ -115,14 +172,28 @@ def _attribute(pa, pb):
     }
 
 
-def diff_catalogues(old, new):
+def diff_catalogues(old, new, allow_unreadable: bool = False):
     """Compare two catalogues at policy-GUID level + attribute the cause. Returns a report dict.
 
     The single reusable entry point — the console tool (``main``) and the changelog
     generator (``catalogue_changelog.py``) both build on this so the diff logic lives once.
+
+    Raises ``UnreadableCatalogue`` if either side has a policyset that could not be parsed
+    (#46). ``allow_unreadable=True`` downgrades that to a recorded warning for the case where
+    you knowingly want a best-effort look at a damaged tree; the returned report then carries
+    an ``unreadable`` block so the caller can label its output honestly. The changelog
+    generator never sets it — a fabricated history entry is worse than no entry.
     """
     A, B = Path(old).resolve(), Path(new).resolve()
-    ia, na = scan(A); ib, nb = scan(B)
+    ia, na, fa = scan(A); ib, nb, fb = scan(B)
+    for root, failures, total in ((A, fa, na), (B, fb, nb)):
+        if failures:
+            problem = UnreadableCatalogue(root, failures, total)
+            if not allow_unreadable:
+                raise problem
+            print(f"[warn] {problem}\n[warn] Continuing anyway (--allow-unreadable): the counts "
+                  f"below are NOT trustworthy and 'unreadable' is set in the report.",
+                  file=sys.stderr)
     sa, sb = set(ia), set(ib)
 
     added = sorted(sb - sa)
@@ -148,6 +219,10 @@ def diff_catalogues(old, new):
                    "effectChanged": len(effect_changed), "unchanged": unchanged,
                    "policiesOld": len(sa), "policiesNew": len(sb),
                    "policysetsOld": na, "policysetsNew": nb},
+        # Present only when allow_unreadable let a damaged tree through: whatever consumes
+        # this report must be able to see that the counts above are not trustworthy.
+        "unreadable": {"old": [str(p) for p, _ in fa], "new": [str(p) for p, _ in fb]}
+                      if (fa or fb) else None,
         "added": [{"guid": g, "group": ib[g]["group"], "name": ib[g]["name"]} for g in added],
         "removed": [{"guid": g, "group": ia[g]["group"], "name": ia[g]["name"]} for g in removed],
         "retiered": [{"guid": g, "move": d, "name": n} for g, d, n in retiered],
@@ -164,9 +239,18 @@ def main():
     ap.add_argument("old"); ap.add_argument("new")
     ap.add_argument("--out", help="Write full JSON report here")
     ap.add_argument("--limit", type=int, default=20, help="Max examples printed per category")
+    ap.add_argument("--allow-unreadable", action="store_true",
+                    help="Diff anyway when a policyset cannot be parsed (#46). Off by default: "
+                         "unreadable files would otherwise surface as invented added/removed "
+                         "policies. Use only to inspect a knowingly damaged tree.")
     args = ap.parse_args()
 
-    rep = diff_catalogues(args.old, args.new)
+    try:
+        rep = diff_catalogues(args.old, args.new, allow_unreadable=args.allow_unreadable)
+    except UnreadableCatalogue as exc:
+        print(f"ERROR: {exc}\nRefusing to diff. Fix the tree, or re-run with --allow-unreadable "
+              "to inspect it anyway (the counts will be wrong).", file=sys.stderr)
+        return 2
     A, B = rep["old"], rep["new"]
     c = rep["counts"]
     ia, ib = rep["_idx"]["old"], rep["_idx"]["new"]
@@ -244,4 +328,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
