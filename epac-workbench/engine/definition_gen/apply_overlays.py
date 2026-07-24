@@ -10,7 +10,6 @@ catalogue manifests so the customs become part of the contract:
 
     python engine/definition_gen/apply_overlays.py
 """
-import hashlib
 import importlib
 import json
 import os
@@ -22,6 +21,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # engine/ root
 from shared.paths import (  # noqa: E402
     CATALOGUE_DIR, DEFINITIONS_DIR, INDEX_FILE, CATALOGUE_FILE, DEFINITION_GENS_FILE)
+from shared.hashing import sha256_file, content_hash  # noqa: E402
 from definition_gen import scaffold  # noqa: E402
 
 VALID_TIERS = ["Essential", "Professional", "Enterprise"]
@@ -62,22 +62,6 @@ def load_generators():
             raise SystemExit(f"ERROR: generator '{name}' has no build() function.")
         gens.append((name, mod))
     return gens   # may be empty — that's a valid built-in-only build (apply-overlays still finalizes)
-
-
-def _sha256_file(path):
-    p = Path(path)
-    return "sha256:" + hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else ""
-
-
-def _content_hash(root, exclude):
-    h = hashlib.sha256()
-    for p in sorted(Path(root).rglob("*")):
-        if not p.is_file() or p.name in exclude:
-            continue
-        rel = str(p.relative_to(root)).replace("\\", "/")
-        h.update(rel.encode("utf-8")); h.update(b"\x00")
-        h.update(p.read_bytes()); h.update(b"\x00")
-    return "sha256:" + h.hexdigest()
 
 
 def _write(path, obj):
@@ -136,14 +120,17 @@ def main():
     # fingerprints the custom layer so drift detection (catalogue_diff) sees generator changes.
     catalogue = json.loads(CATALOGUE_FILE.read_text(encoding="utf-8"))
     catalogue.setdefault("counts", {})["groups"] = len(groups)
-    catalogue.setdefault("inputs", {})["definitionGensHash"] = _sha256_file(DEFINITION_GENS_FILE)
-    catalogue.setdefault("tools", {})["applyOverlays"] = _sha256_file(Path(__file__))
+    catalogue.setdefault("inputs", {})["definitionGensHash"] = sha256_file(DEFINITION_GENS_FILE)
+    catalogue.setdefault("tools", {})["applyOverlays"] = sha256_file(Path(__file__))
     catalogue["generatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     # Fingerprint the *substantive* catalogue (definitions + initiatives + index.json), not the
     # version stamp itself nor the timestamped QC reports — so the hash is deterministic and
     # reflects content, not when QC last ran.
-    catalogue["contentHash"] = _content_hash(
-        CATALOGUE_DIR, exclude={"catalogue.json", "quality-control.json", "naming-samples.md"})
+    catalogue["contentHash"] = content_hash(
+        CATALOGUE_DIR,
+        # Exclude the stamp/report/changelog files: they either *carry* the hash (circular) or
+        # are timestamped, so they must not perturb the fingerprint of the substantive catalogue.
+        exclude={"catalogue.json", "quality-control.json", "naming-samples.md", "CHANGELOG.md"})
     _write(CATALOGUE_FILE, catalogue)
 
     new = [r for r in applied if r["kind"] == "new"]

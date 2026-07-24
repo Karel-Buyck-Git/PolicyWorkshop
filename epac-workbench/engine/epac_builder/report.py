@@ -7,18 +7,29 @@ root, beside the per-flavour folders.
 """
 from pathlib import Path
 
+from shared.version import __version__ as ENGINE_VERSION
+
 from epac_builder.writeutil import write_json, write_text
 
 
 def write_reports(ir, out_root, flavours):
     root = Path(out_root)
+    lin = ir["lineage"]
+    # Provenance stamp (#27): the builder that produced this package (engineVersion),
+    # the exact catalogue (version + contentHash) and its upstream sources (builtInsRef =
+    # the Azure/azure-policy commit, hierarchyHash = the taxonomy snapshot). This is the
+    # single record a customer/support quotes to answer "which builder produced this?".
     lineage = {
+        "engineVersion": ENGINE_VERSION,
         "customer": ir["identity"]["customer"],
         "pacOwnerId": ir["identity"]["pacOwnerId"],
-        "manifestHash": ir["lineage"]["manifestHash"],
-        "catalogueVersion": ir["lineage"]["catalogueVersion"],
+        "manifestHash": lin["manifestHash"],
+        "catalogueVersion": lin["catalogueVersion"],
+        "catalogueContentHash": lin.get("catalogueContentHash"),
+        "builtInsRef": lin.get("builtInsRef"),
+        "hierarchyHash": lin.get("hierarchyHash"),
         "flavours": list(flavours),
-        "groups": ir["lineage"]["groups"],
+        "groups": lin["groups"],
     }
     write_json(root / "lineage.json", lineage)
     write_text(root / "report.md", _report_md(ir, flavours))
@@ -30,7 +41,9 @@ def _report_md(ir, flavours):
     lines = [
         f"# Assembly report — {ir['identity']['customer']}",
         "",
-        f"- Catalogue version: `{ir['catalogueVersion']}`",
+        f"- Engine version: `{ENGINE_VERSION}`",
+        f"- Catalogue version: `{ir['catalogueVersion']}`"
+        + (f" (`{ir['lineage']['catalogueContentHash']}`)" if ir['lineage'].get('catalogueContentHash') else ""),
         f"- Manifest hash: `{ir['lineage']['manifestHash']}`",
         f"- Flavours: {', '.join(flavours)}",
         f"- Initiatives: {len(ir['initiatives'])} ({n_remediation} remediating)",

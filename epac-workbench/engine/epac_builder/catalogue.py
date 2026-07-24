@@ -50,6 +50,29 @@ class Catalogue:
             self.by_triple[(dom, tier, cat)] = g
         self.domains = sorted({d for (d, _t, _c) in self.by_triple})
 
+    def provenance(self):
+        """Provenance from ``catalogue.json`` for the package's lineage stamp.
+
+        ``catalogue.json`` is published catalogue *output* (not a producer input under
+        ``config/``), so reading it keeps the consumer's "no producer-input dependency"
+        rule intact while letting the package record which exact catalogue + upstream
+        sources produced it (#27). Returns ``{}`` for an older catalogue that predates
+        these fields.
+        """
+        cat = self.dir / "catalogue.json"
+        if not cat.exists():
+            return {}
+        try:
+            d = json.loads(cat.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return {}
+        inputs = d.get("inputs", {}) or {}
+        return {
+            "catalogueContentHash": d.get("contentHash"),
+            "builtInsRef": inputs.get("builtInsRef"),
+            "hierarchyHash": inputs.get("hierarchyHash"),
+        }
+
     def categories_in(self, domain, tiers):
         """All category slugs present in ``domain`` for any tier in ``tiers``."""
         return sorted({c for (d, t, c) in self.by_triple if d == domain and t in tiers})

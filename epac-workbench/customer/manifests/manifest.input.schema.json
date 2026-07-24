@@ -45,11 +45,11 @@
         },
         "catalogueVersion": {
           "type": "string",
-          "description": "Built-in policy snapshot id (lineage)."
+          "description": "Catalogue version this manifest is pinned to (enforced at assemble time). Full provenance (contentHash, builtInsRef, hierarchyHash, engineVersion) is recorded in the package's lineage.json."
         },
-        "hierarchyVersion": {
+        "catalogueContentHash": {
           "type": "string",
-          "description": "Domain hierarchy snapshot id (lineage)."
+          "description": "Optional precise pin: the exact catalogue contentHash (sha256:...) this manifest was authored against. When set, the assembler fails if the catalogue's contentHash differs — guarding against a catalogue that changed under a stable version label."
         },
         "managementGroups": {
           "type": "string",

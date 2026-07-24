@@ -18,7 +18,6 @@
   "source": {
     "initiatives": "../../catalogue/initiatives",
     "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
-    "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>",
     "managementGroups": "../designs/contoso-mgmt-groups.json"   // resolves selection.managementGroup NAMES -> scope ids
   },
 

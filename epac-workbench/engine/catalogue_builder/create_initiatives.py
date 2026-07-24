@@ -34,7 +34,6 @@ Usage:
 """
 
 import argparse
-import hashlib
 import json
 import re
 import shutil
@@ -59,6 +58,8 @@ from shared.paths import (  # noqa: F401,E402
 from shared.hierarchy import load_domain_map  # noqa: E402
 from shared.mdtable import md_escape, slugify, parse_table  # noqa: E402
 from shared import naming  # noqa: E402
+from shared.version import __version__ as ENGINE_VERSION  # noqa: E402
+from shared.hashing import sha256_file  # noqa: E402
 DEFAULT_OUTPUT = DEFINITIONS_DIR
 DEFAULT_INITIATIVES = INITIATIVES_DIR
 
@@ -586,22 +587,6 @@ def write_json(path: Path, obj: dict, schema_url: str | None = None) -> None:
 # Catalogue manifests (version stamp + group index) — the consumer contract
 # ---------------------------------------------------------------------------
 
-def _sha256_file(path: Path) -> str:
-    p = Path(path)
-    return "sha256:" + hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else ""
-
-
-def _content_hash(root: Path, exclude: set[str]) -> str:
-    h = hashlib.sha256()
-    for p in sorted(Path(root).rglob("*")):
-        if not p.is_file() or p.name in exclude:
-            continue
-        rel = str(p.relative_to(root)).replace("\\", "/")
-        h.update(rel.encode("utf-8")); h.update(b"\x00")
-        h.update(p.read_bytes()); h.update(b"\x00")
-    return "sha256:" + h.hexdigest()
-
-
 def _git_ref(source_dir: Path | None) -> str:
     if not source_dir:
         return "unavailable"
@@ -640,17 +625,18 @@ def write_catalogue_manifests(catalogue_root, records, version, source_dir,
 
     catalogue = {
         "catalogueVersion": version,
+        "producedByEngine": ENGINE_VERSION,   # which engine built this catalogue (#27)
         "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "inputs": {
             "builtInsRef": _git_ref(source_dir),
-            "hierarchyHash": _sha256_file(HIERARCHY_FILE),
-            "tierRulesHash": _sha256_file(TIER_RULES_FILE),
+            "hierarchyHash": sha256_file(HIERARCHY_FILE),
+            "tierRulesHash": sha256_file(TIER_RULES_FILE),
         },
         "counts": {"groups": group_count, "files": file_count},
         "tools": {
-            "extract": _sha256_file(flows_dir / "extract_policies.py"),
-            "enrich": _sha256_file(flows_dir / "enrich_policies.py"),
-            "createInitiatives": _sha256_file(flows_dir / "create_initiatives.py"),
+            "extract": sha256_file(flows_dir / "extract_policies.py"),
+            "enrich": sha256_file(flows_dir / "enrich_policies.py"),
+            "createInitiatives": sha256_file(flows_dir / "create_initiatives.py"),
         },
         # Provisional — Phase ④ (apply_overlays) applies the custom overlays and writes the one
         # authoritative contentHash over the whole catalogue. A 'pending' stamp here means the

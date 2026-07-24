@@ -49,7 +49,6 @@ def expand(input_data, catalogue: Catalogue):
         "source": {
             "initiatives": "../../catalogue/initiatives",
             "catalogueVersion": catalogue.version,
-            "hierarchyVersion": "<REPLACE: hierarchy-snapshot-id>",
         },
         "output": {"root": "../package", "flavours": ["json"]},
         "environments": [{

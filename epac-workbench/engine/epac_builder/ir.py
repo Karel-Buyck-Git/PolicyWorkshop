@@ -59,6 +59,9 @@ def build_ir(manifest, catalogue, groups, mg_index=None):
         "lineage": {
             "manifestHash": manifest_hash(manifest),
             "catalogueVersion": catalogue.version,
+            # Full catalogue provenance so the package can answer "which catalogue +
+            # which upstream sources produced me?" (#27). {} on an older catalogue.
+            **catalogue.provenance(),
             "groups": [],
         },
     }

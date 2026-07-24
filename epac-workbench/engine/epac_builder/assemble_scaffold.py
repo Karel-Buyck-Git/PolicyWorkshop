@@ -110,6 +110,19 @@ def assemble(manifest_path, only=None, check=False, strict=False, out=None, log=
             f"catalogue version mismatch: manifest pins '{pinned}' but catalogue is "
             f"'{catalogue.version}'. Re-pin source.catalogueVersion or point at the right catalogue.")
 
+    # Optional precise pin (#27, 27e): the version label is month-granular and a catalogue can
+    # change under a stable label (a regen keeps the date but moves contentHash). A manifest may
+    # additionally pin the exact contentHash to guarantee it builds against the byte-identical
+    # catalogue it was authored on. Absent -> only the version label is enforced (backward compatible).
+    pinned_hash = manifest["source"].get("catalogueContentHash")
+    if pinned_hash:
+        actual_hash = catalogue.provenance().get("catalogueContentHash")
+        if actual_hash and pinned_hash != actual_hash:
+            raise AssemblerError(
+                f"catalogue contentHash mismatch: manifest pins '{pinned_hash}' but catalogue is "
+                f"'{actual_hash}'. The catalogue changed under a stable version label — re-pin "
+                f"source.catalogueContentHash or point at the exact catalogue this was built against.")
+
     # Resolve management-group NAMES (selection.managementGroup) -> scope ids, from the
     # customer's hierarchy file if the manifest points at one.
     mg_index = {}
