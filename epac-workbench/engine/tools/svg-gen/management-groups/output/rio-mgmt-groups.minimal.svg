@@ -1,0 +1,100 @@
+<svg viewBox="0 0 2382 450" xmlns="http://www.w3.org/2000/svg" role="img"
+     font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <title>Management group hierarchy</title>
+  <desc>A top-down tree of the management-group / scope hierarchy, names only.</desc>
+  <style>svg{--ink:#1f2328;--sub:#5b6470;--line:#c4cad2;--paper:#ffffff;--panel:#f3f5f8;--panelLine:#d3d9e0;--acc:#4f46e5;--accLine:#b9bbf3;--mgBg:#ecedfb;--mgLine:#9d9bf0;--subBg:#e6f5f3;--subLine:#7fcabf;--rgBg:#fdf0e3;--rgLine:#e9b87e;}@media (prefers-color-scheme:dark){svg{--ink:#e8ebef;--sub:#a3acb9;--line:#3a424d;--paper:#0d1117;--panel:#171b21;--panelLine:#2b323b;--acc:#9b95f5;--accLine:#3d3a66;--mgBg:#23223a;--mgLine:#4a468a;--subBg:#10302c;--subLine:#2c6a60;--rgBg:#33240f;--rgLine:#6e4f23;}}.e{fill:none;stroke:var(--line);stroke-width:1.5;}.box{stroke:var(--accLine);stroke-width:1.5;}.t{fill:var(--ink);font-weight:600;}.band{fill:var(--sub);font-weight:700;letter-spacing:.06em;}</style>
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--line)"/></marker>
+  </defs>
+  <rect x="0" y="0" width="2382" height="450" fill="var(--paper)"/>
+  <text class="band" x="24" y="22" font-size="11">MANAGEMENT GROUP HIERARCHY · 30 scopes</text>
+  <path class="e" d="M183.0,262.0 V283.0 H99.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M183.0,262.0 V283.0 H267.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M435.0,262.0 V283.0 H435.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M603.0,262.0 V283.0 H603.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M771.0,262.0 V283.0 H771.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M477.0,180.0 V201.0 H183.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M477.0,180.0 V201.0 H435.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M477.0,180.0 V201.0 H603.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M477.0,180.0 V201.0 H771.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1023.0,344.0 V365.0 H939.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1023.0,344.0 V365.0 H1107.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1275.0,344.0 V365.0 H1275.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1443.0,344.0 V365.0 H1443.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1233.0,262.0 V283.0 H1023.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1233.0,262.0 V283.0 H1275.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1233.0,262.0 V283.0 H1443.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1611.0,344.0 V365.0 H1611.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1863.0,344.0 V365.0 H1779.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1863.0,344.0 V365.0 H1947.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M2115.0,344.0 V365.0 H2115.0 V386.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1863.0,262.0 V283.0 H1611.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1863.0,262.0 V283.0 H1863.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1863.0,262.0 V283.0 H2115.0 V304.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1548.0,180.0 V201.0 H1233.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1548.0,180.0 V201.0 H1863.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M2283.0,180.0 V201.0 H2283.0 V222.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1380.0,98.0 V119.0 H477.0 V140.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1380.0,98.0 V119.0 H1548.0 V140.0" marker-end="url(#ah)"/>
+  <path class="e" d="M1380.0,98.0 V119.0 H2283.0 V140.0" marker-end="url(#ah)"/>
+  <rect class="box" x="24.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="99.0" y="328.0" text-anchor="middle" font-size="11">sub-net-hub-p</text>
+  <rect class="box" x="192.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="267.0" y="328.0" text-anchor="middle" font-size="11">sub-net-vwan-p</text>
+  <rect class="box" x="108.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="183.0" y="246.0" text-anchor="middle" font-size="11">mg-lv2-networking</text>
+  <rect class="box" x="360.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="435.0" y="328.0" text-anchor="middle" font-size="11">sub-integration-p</text>
+  <rect class="box" x="360.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="435.0" y="246.0" text-anchor="middle" font-size="11">mg-lv2-integration</text>
+  <rect class="box" x="528.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="603.0" y="328.0" text-anchor="middle" font-size="11">sub-security-p</text>
+  <rect class="box" x="528.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="603.0" y="246.0" text-anchor="middle" font-size="11">mg-lv2-security</text>
+  <rect class="box" x="696.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="771.0" y="328.0" text-anchor="middle" font-size="11">sub-management-p</text>
+  <rect class="box" x="696.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="771.0" y="246.0" text-anchor="middle" font-size="11">mg-lv2-management</text>
+  <rect class="box" x="402.0" y="140.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.12"/>
+  <text class="t" x="477.0" y="164.0" text-anchor="middle" font-size="11">mg-lv1-platform</text>
+  <rect class="box" x="864.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="939.0" y="410.0" text-anchor="middle" font-size="11">sub-finance-prod</text>
+  <rect class="box" x="1032.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="1107.0" y="410.0" text-anchor="middle" font-size="11">sub-finance-dev</text>
+  <rect class="box" x="948.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="1023.0" y="328.0" text-anchor="middle" font-size="11">mg-lv3-finance</text>
+  <rect class="box" x="1200.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="1275.0" y="410.0" text-anchor="middle" font-size="11">sub-crm-prod</text>
+  <rect class="box" x="1200.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="1275.0" y="328.0" text-anchor="middle" font-size="11">mg-lv3-crm</text>
+  <rect class="box" x="1368.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="1443.0" y="410.0" text-anchor="middle" font-size="11">sub-erp-prod</text>
+  <rect class="box" x="1368.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="1443.0" y="328.0" text-anchor="middle" font-size="11">mg-lv3-erp</text>
+  <rect class="box" x="1158.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="1233.0" y="246.0" text-anchor="middle" font-size="11">mg-lv2-corp</text>
+  <rect class="box" x="1536.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="1611.0" y="410.0" text-anchor="middle" font-size="11">sub-web-prod</text>
+  <rect class="box" x="1536.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="1611.0" y="328.0" text-anchor="middle" font-size="11">mg-lv3-web</text>
+  <rect class="box" x="1704.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="1779.0" y="410.0" text-anchor="middle" font-size="11">sub-data-prod</text>
+  <rect class="box" x="1872.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="1947.0" y="410.0" text-anchor="middle" font-size="11">sub-data-lake-p</text>
+  <rect class="box" x="1788.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="1863.0" y="328.0" text-anchor="middle" font-size="11">mg-lv3-dataplatform</text>
+  <rect class="box" x="2040.0" y="386.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.30"/>
+  <text class="t" x="2115.0" y="410.0" text-anchor="middle" font-size="11">sub-aks-prod</text>
+  <rect class="box" x="2040.0" y="304.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.24"/>
+  <text class="t" x="2115.0" y="328.0" text-anchor="middle" font-size="11">mg-lv3-aks</text>
+  <rect class="box" x="1788.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="1863.0" y="246.0" text-anchor="middle" font-size="11">mg-lv2-online</text>
+  <rect class="box" x="1473.0" y="140.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.12"/>
+  <text class="t" x="1548.0" y="164.0" text-anchor="middle" font-size="11">mg-lv1-landingzones</text>
+  <rect class="box" x="2208.0" y="222.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.18"/>
+  <text class="t" x="2283.0" y="246.0" text-anchor="middle" font-size="11">sub-sandbox-dev</text>
+  <rect class="box" x="2208.0" y="140.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.12"/>
+  <text class="t" x="2283.0" y="164.0" text-anchor="middle" font-size="11">mg-lv1-sandbox</text>
+  <rect class="box" x="1305.0" y="58.0" width="150.0" height="40.0" rx="8" fill="var(--acc)" fill-opacity="0.06"/>
+  <text class="t" x="1380.0" y="82.0" text-anchor="middle" font-size="11">Tenant Root Group</text>
+</svg>
