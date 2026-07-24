@@ -6,7 +6,10 @@
     "displayName": "Management Professional — Migrate",
     "description": "Deployment scaffold for 1 policy. 1 parameter value must be supplied at assignment (e.g. configureAzureMigrateResourcesPrivateDnsPrivateDnsZoneId). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "management-pro-migr",
+  "definitionEntry": {
+    "policySetName": "management-pro-migr",
+    "displayName": "Management Professional — Migrate"
+  },
   "parameters": {
     "configureAzureMigrateResourcesPrivateDnsPrivateDnsZoneId": "<REPLACE: configureAzureMigrateResourcesPrivateDnsPrivateDnsZoneId>"
   },

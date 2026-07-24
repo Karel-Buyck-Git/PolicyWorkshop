@@ -6,7 +6,10 @@
     "displayName": "Storage Essential — Backup",
     "description": "Deployment scaffold for 28 policies. 39 parameter values must be supplied at assignment (e.g. configureBackupAzureDisksManagedDisksVaultLocation, configureBackupAzureDisksManagedDisksBackupPolicyId, configureBackupAzureDisksManagedDisksSnapshotResourceGroupName, …). A managed identity is required: 16 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-i…"
   },
-  "policySetDefinitionName": "storage-esn-bkp",
+  "definitionEntry": {
+    "policySetName": "storage-esn-bkp",
+    "displayName": "Storage Essential — Backup"
+  },
   "parameters": {
     "configureBackupAzureDisksManagedDisksVaultLocation": "<REPLACE: configureBackupAzureDisksManagedDisksVaultLocation>",
     "configureBackupAzureDisksManagedDisksBackupPolicyId": "<REPLACE: configureBackupAzureDisksManagedDisksBackupPolicyId>",

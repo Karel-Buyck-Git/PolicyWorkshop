@@ -6,7 +6,10 @@
     "displayName": "AI Foundry Professional — Search",
     "description": "Deployment scaffold for 5 policies. 2 parameter values must be supplied at assignment (e.g. configureAzureAiSearchServicesPrivatePrivateDnsZoneId, configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "ai-foundry-pro-srch",
+  "definitionEntry": {
+    "policySetName": "ai-foundry-pro-srch",
+    "displayName": "AI Foundry Professional — Search"
+  },
   "parameters": {
     "configureAzureAiSearchServicesPrivatePrivateDnsZoneId": "<REPLACE: configureAzureAiSearchServicesPrivatePrivateDnsZoneId>",
     "configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureAiSearchServicesPrivatePrivateEndpointSubnetId>"

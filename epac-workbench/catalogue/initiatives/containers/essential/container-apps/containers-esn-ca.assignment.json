@@ -6,7 +6,10 @@
     "displayName": "Containers Essential — Container Apps",
     "description": "Deployment scaffold for 5 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "containers-esn-ca",
+  "definitionEntry": {
+    "policySetName": "containers-esn-ca",
+    "displayName": "Containers Essential — Container Apps"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

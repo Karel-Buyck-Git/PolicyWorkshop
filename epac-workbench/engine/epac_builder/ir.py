@@ -101,7 +101,7 @@ def build_ir(manifest, catalogue, groups, mg_index=None):
         scopes, not_scopes = _scopes(environments, sel, manifest.get("notScopes", {}),
                                      mg_index, group_key, ir["warnings"])
         ir["assignments"].append({
-            "initiative": set_name,                      # policySetDefinitionName it references
+            "initiative": set_name,                      # definitionEntry.policySetName it references
             "assignmentName": group_name,                # the assignment's own name (<=24, no prefix)
             "displayName": display,
             "description": _assignment_description(display, group.get("policyCount"),

@@ -6,7 +6,10 @@
     "displayName": "Integration Enterprise — Internet of Things",
     "description": "Deployment scaffold for 4 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "integration-ent-iot",
+  "definitionEntry": {
+    "policySetName": "integration-ent-iot",
+    "displayName": "Integration Enterprise — Internet of Things"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

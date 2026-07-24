@@ -530,7 +530,12 @@ def build_assignment(name, display_name, domain, tier, category, rows, required_
             "displayName": display_name,
             "description": assignment_description(rows, required_params),
         },
-        "policySetDefinitionName": name,
+        # EPAC 11.x rejects a leaf node carrying a flat 'policySetDefinitionName' ("each tree
+        # branch must define either a definitionEntry or a non-empty definitionEntryList") — the
+        # policy set has to be named inside definitionEntry (#22). Same defect #20 fixed in the
+        # consumer renderer, but this is the producer's own emitter; these scaffolds are the
+        # reference/deployment examples shipped with the catalogue, so they must be valid too.
+        "definitionEntry": {"policySetName": name, "displayName": display_name},
         "parameters": {
             init_name: _mock_value(pdef, init_name)
             for init_name, pdef in required_params.items()

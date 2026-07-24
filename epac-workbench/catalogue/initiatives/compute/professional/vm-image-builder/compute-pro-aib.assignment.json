@@ -6,7 +6,10 @@
     "displayName": "Compute Professional — VM Image Builder",
     "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "compute-pro-aib",
+  "definitionEntry": {
+    "policySetName": "compute-pro-aib",
+    "displayName": "Compute Professional — VM Image Builder"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

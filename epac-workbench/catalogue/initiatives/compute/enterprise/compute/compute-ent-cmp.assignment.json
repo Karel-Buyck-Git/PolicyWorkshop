@@ -6,7 +6,10 @@
     "displayName": "Compute Enterprise — Compute",
     "description": "Deployment scaffold for 3 policies. 1 parameter value must be supplied at assignment (e.g. managedDisksSpecificSetDiskEncryptionAllowedEncryptionSets). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "compute-ent-cmp",
+  "definitionEntry": {
+    "policySetName": "compute-ent-cmp",
+    "displayName": "Compute Enterprise — Compute"
+  },
   "parameters": {
     "managedDisksSpecificSetDiskEncryptionAllowedEncryptionSets": [
       "<REPLACE: managedDisksSpecificSetDiskEncryptionAllowedEncryptionSets>"

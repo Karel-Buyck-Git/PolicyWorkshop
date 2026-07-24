@@ -6,7 +6,10 @@
     "displayName": "Monitoring Professional — Managed Grafana",
     "description": "Deployment scaffold for 5 policies. 2 parameter values must be supplied at assignment (e.g. configureAzureManagedGrafanaWorkspacesPrivatePrivateDnsZoneId, configureAzureManagedGrafanaWorkspacesPrivatePrivateEndpointSubnetId). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "monitoring-pro-amg",
+  "definitionEntry": {
+    "policySetName": "monitoring-pro-amg",
+    "displayName": "Monitoring Professional — Managed Grafana"
+  },
   "parameters": {
     "configureAzureManagedGrafanaWorkspacesPrivatePrivateDnsZoneId": "<REPLACE: configureAzureManagedGrafanaWorkspacesPrivatePrivateDnsZoneId>",
     "configureAzureManagedGrafanaWorkspacesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureManagedGrafanaWorkspacesPrivatePrivateEndpointSubnetId>"

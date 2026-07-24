@@ -6,7 +6,10 @@
     "displayName": "DevOps Essential — Custom Provider",
     "description": "Deployment scaffold for 1 policy. 2 parameter values must be supplied at assignment (e.g. deployAssociationsCustomProviderTargetCustomProviderId, deployAssociationsCustomProviderResourceTypesToAssociate). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "devops-esn-cp",
+  "definitionEntry": {
+    "policySetName": "devops-esn-cp",
+    "displayName": "DevOps Essential — Custom Provider"
+  },
   "parameters": {
     "deployAssociationsCustomProviderTargetCustomProviderId": "<REPLACE: deployAssociationsCustomProviderTargetCustomProviderId>",
     "deployAssociationsCustomProviderResourceTypesToAssociate": [

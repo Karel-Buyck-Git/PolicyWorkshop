@@ -2,7 +2,9 @@
 
 Standalone helpers for **developing and auditing** the catalogue. They are **not** part of the
 catalogue build and are **not** consumed by clients — nothing in the producer or consumer imports
-them. Run them by hand when you change a producer step or want to inspect a catalogue. Each shares
+them. Run them by hand when you change a producer step or want to inspect a catalogue — with one
+exception: [`check_catalogue_stamp.py`](check_catalogue_stamp.py) also runs in CI on every push.
+Each shares
 the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder rename never breaks them.
 
 ## At a glance
@@ -13,6 +15,7 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 | [`fetch_policy_source.py`](fetch_policy_source.py) | "give me the pinned official policy source everyone builds against" | before a build, or on a schedule |
 | [`ab_verify.py`](ab_verify.py) | "was my refactor of step ③ additive-only?" | after changing `create_initiatives.py` |
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
+| [`check_catalogue_stamp.py`](check_catalogue_stamp.py) | "is the committed catalogue still the one this engine produces?" | **in CI on every push**, and after any producer change |
 | [`summarize_categories.py`](summarize_categories.py) | "what categories exist and how big are they?" | when reviewing the taxonomy |
 | [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
 
@@ -30,6 +33,31 @@ Exit `0` all good · `1` a per-flow tool is missing · `2` Python is too old.
 
 ```
 python engine/tools/check_env.py
+```
+
+### [`check_catalogue_stamp.py`](check_catalogue_stamp.py)
+The **drift alarm** between the two builders, and the one tool here that is **not** hand-run only:
+[`../../../.github/workflows/contoso-epac-build.yml`](../../../.github/workflows/contoso-epac-build.yml)
+runs it on every push. `verify.sh` exercises the **consumer** — so a producer script can change
+with no catalogue regeneration and every check stays green while `catalogue.json` fingerprints a
+file that no longer exists (exactly what happened for a day on 2026-07-23, backlog #26). This
+recomputes every fingerprint the catalogue claims — the authored inputs (hierarchy, tier rules,
+generator registry), the four producer tool files, the upstream pin, and the whole-tree
+`contentHash` — and fails if any moved. It works **without running the producer** because #27
+made the hashes reproducible ([`../shared/hashing.py`](../shared/hashing.py) normalizes newlines
+first), so it costs seconds.
+
+A stamp key the producer adds but this tool doesn't know is reported as **uncovered**, not
+skipped — the check can't quietly start verifying less than it claims. A catalogue built by an
+older engine is a `note`, not a failure: that is accurate provenance, and anything it actually
+depends on is already covered above.
+
+This is the cheap slice of backlog **#8**, not a replacement — #8 re-runs the producer and diffs
+the result, the only way to catch a change in what the tools *produce*. Exit `0` in sync · `1`
+drift (re-run the producer and commit the regenerated catalogue) · `2` no readable catalogue.
+
+```
+python engine/tools/check_catalogue_stamp.py
 ```
 
 ### [`fetch_policy_source.py`](fetch_policy_source.py)

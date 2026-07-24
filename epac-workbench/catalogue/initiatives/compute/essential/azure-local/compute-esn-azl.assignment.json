@@ -6,7 +6,10 @@
     "displayName": "Compute Essential — Azure Local",
     "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "compute-esn-azl",
+  "definitionEntry": {
+    "policySetName": "compute-esn-azl",
+    "displayName": "Compute Essential — Azure Local"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

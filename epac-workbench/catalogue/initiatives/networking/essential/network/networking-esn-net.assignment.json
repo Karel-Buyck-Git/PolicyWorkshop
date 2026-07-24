@@ -6,7 +6,10 @@
     "displayName": "Networking Essential — Network",
     "description": "Deployment scaffold for 11 policies. 15 parameter values must be supplied at assignment (e.g. configureNetworkSecurityGroupsEnableTrafficNsgRegion, configureNetworkSecurityGroupsEnableTrafficStorageId, configureNetworkSecurityGroupsEnableTrafficWorkspaceResourceId, …). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub…"
   },
-  "policySetDefinitionName": "networking-esn-net",
+  "definitionEntry": {
+    "policySetName": "networking-esn-net",
+    "displayName": "Networking Essential — Network"
+  },
   "parameters": {
     "configureNetworkSecurityGroupsEnableTrafficNsgRegion": "<REPLACE: configureNetworkSecurityGroupsEnableTrafficNsgRegion>",
     "configureNetworkSecurityGroupsEnableTrafficStorageId": "<REPLACE: configureNetworkSecurityGroupsEnableTrafficStorageId>",

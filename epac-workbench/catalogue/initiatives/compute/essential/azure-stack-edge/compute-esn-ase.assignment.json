@@ -6,7 +6,10 @@
     "displayName": "Compute Essential — Azure Stack Edge",
     "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "compute-esn-ase",
+  "definitionEntry": {
+    "policySetName": "compute-esn-ase",
+    "displayName": "Compute Essential — Azure Stack Edge"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

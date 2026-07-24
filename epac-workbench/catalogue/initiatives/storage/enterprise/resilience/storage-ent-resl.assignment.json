@@ -6,7 +6,10 @@
     "displayName": "Storage Enterprise — Resilience",
     "description": "Deployment scaffold for 34 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "storage-ent-resl",
+  "definitionEntry": {
+    "policySetName": "storage-ent-resl",
+    "displayName": "Storage Enterprise — Resilience"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

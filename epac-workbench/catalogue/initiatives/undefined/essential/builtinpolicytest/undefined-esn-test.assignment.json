@@ -6,7 +6,10 @@
     "displayName": "undefined Essential — BuiltInPolicyTest",
     "description": "Deployment scaffold for 1 policy. 1 parameter value must be supplied at assignment (e.g. requiresResourcesSpecificTagVersioningTestTagName). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "undefined-esn-test",
+  "definitionEntry": {
+    "policySetName": "undefined-esn-test",
+    "displayName": "undefined Essential — BuiltInPolicyTest"
+  },
   "parameters": {
     "requiresResourcesSpecificTagVersioningTestTagName": "<REPLACE: requiresResourcesSpecificTagVersioningTestTagName>"
   },

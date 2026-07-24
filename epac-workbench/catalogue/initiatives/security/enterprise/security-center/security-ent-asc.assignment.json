@@ -6,7 +6,10 @@
     "displayName": "Security Enterprise — Security Center",
     "description": "Deployment scaffold for 21 policies. 13 parameter values must be supplied at assignment (e.g. configureArcEnabledSqlServersAutomaticallyUserWorkspaceResourceId, configureArcEnabledSqlServersAutomaticallyWorkspaceRegion, configureAzureDefenderSqlAgentVirtualAzureDefenderForSqlExtensionTypeToInstall, …). A managed identity is required: 11 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id…"
   },
-  "policySetDefinitionName": "security-ent-asc",
+  "definitionEntry": {
+    "policySetName": "security-ent-asc",
+    "displayName": "Security Enterprise — Security Center"
+  },
   "parameters": {
     "configureArcEnabledSqlServersAutomaticallyUserWorkspaceResourceId": "<REPLACE: configureArcEnabledSqlServersAutomaticallyUserWorkspaceResourceId>",
     "configureArcEnabledSqlServersAutomaticallyWorkspaceRegion": "<REPLACE: configureArcEnabledSqlServersAutomaticallyWorkspaceRegion>",

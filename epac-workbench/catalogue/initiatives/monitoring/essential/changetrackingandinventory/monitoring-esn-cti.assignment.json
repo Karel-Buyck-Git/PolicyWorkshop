@@ -6,7 +6,10 @@
     "displayName": "Monitoring Essential — ChangeTrackingAndInventory",
     "description": "Deployment scaffold for 12 policies. 10 parameter values must be supplied at assignment (e.g. configureLinuxArcEnabledMachinesAssociatedDcrResourceId, configureLinuxVirtualMachinesAssociatedDataDcrResourceId, configureLinuxVmsInstallAmaChangetrackingBringYourOwnUserAssignedManagedIdentity, …). A managed identity is required: 12 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-e…"
   },
-  "policySetDefinitionName": "monitoring-esn-cti",
+  "definitionEntry": {
+    "policySetName": "monitoring-esn-cti",
+    "displayName": "Monitoring Essential — ChangeTrackingAndInventory"
+  },
   "parameters": {
     "configureLinuxArcEnabledMachinesAssociatedDcrResourceId": "<REPLACE: configureLinuxArcEnabledMachinesAssociatedDcrResourceId>",
     "configureLinuxVirtualMachinesAssociatedDataDcrResourceId": "<REPLACE: configureLinuxVirtualMachinesAssociatedDataDcrResourceId>",

@@ -6,7 +6,10 @@
     "displayName": "Monitoring Professional — Monitoring",
     "description": "Deployment scaffold for 6 policies. 6 parameter values must be supplied at assignment (e.g. configureAzureMonitorPrivateLinkScopePrivateDnsZoneId, configureAzureMonitorPrivateLinkScopePrivateDnsZoneIdA, configureAzureMonitorPrivateLinkScopePrivateDnsZoneIdB, …). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <…"
   },
-  "policySetDefinitionName": "monitoring-pro-mon",
+  "definitionEntry": {
+    "policySetName": "monitoring-pro-mon",
+    "displayName": "Monitoring Professional — Monitoring"
+  },
   "parameters": {
     "configureAzureMonitorPrivateLinkScopePrivateDnsZoneId": "<REPLACE: configureAzureMonitorPrivateLinkScopePrivateDnsZoneId>",
     "configureAzureMonitorPrivateLinkScopePrivateDnsZoneIdA": "<REPLACE: configureAzureMonitorPrivateLinkScopePrivateDnsZoneIdA>",

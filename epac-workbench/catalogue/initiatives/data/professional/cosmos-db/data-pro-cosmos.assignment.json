@@ -6,7 +6,10 @@
     "displayName": "Data Professional — Cosmos DB",
     "description": "Deployment scaffold for 8 policies. 4 parameter values must be supplied at assignment (e.g. configureCosmosdbAccountsPrivateDnsZonesPrivateDnsZoneId, configureCosmosdbAccountsPrivateDnsZonesPrivateEndpointGroupId, configureCosmosdbAccountsPrivateEndpointsPrivateEndpointSubnetId, …). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-s…"
   },
-  "policySetDefinitionName": "data-pro-cosmos",
+  "definitionEntry": {
+    "policySetName": "data-pro-cosmos",
+    "displayName": "Data Professional — Cosmos DB"
+  },
   "parameters": {
     "configureCosmosdbAccountsPrivateDnsZonesPrivateDnsZoneId": "<REPLACE: configureCosmosdbAccountsPrivateDnsZonesPrivateDnsZoneId>",
     "configureCosmosdbAccountsPrivateDnsZonesPrivateEndpointGroupId": "<REPLACE: configureCosmosdbAccountsPrivateDnsZonesPrivateEndpointGroupId>",

@@ -6,7 +6,10 @@
     "displayName": "Security Essential — Managed Identity",
     "description": "Deployment scaffold for 5 policies. 4 parameter values must be supplied at assignment (e.g. previewManagedIdentityFederatedCredentialsAzureAllowedTenants, previewManagedIdentityFederatedCredentialsGithubAllowedRepoOwners, assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentity, …). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id…"
   },
-  "policySetDefinitionName": "security-esn-id",
+  "definitionEntry": {
+    "policySetName": "security-esn-id",
+    "displayName": "Security Essential — Managed Identity"
+  },
   "parameters": {
     "previewManagedIdentityFederatedCredentialsAzureAllowedTenants": [
       "<REPLACE: previewManagedIdentityFederatedCredentialsAzureAllowedTenants>"

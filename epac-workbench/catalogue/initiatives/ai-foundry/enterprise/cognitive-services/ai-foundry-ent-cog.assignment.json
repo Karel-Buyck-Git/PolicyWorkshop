@@ -6,7 +6,10 @@
     "displayName": "AI Foundry Enterprise — Cognitive Services",
     "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "ai-foundry-ent-cog",
+  "definitionEntry": {
+    "policySetName": "ai-foundry-ent-cog",
+    "displayName": "AI Foundry Enterprise — Cognitive Services"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

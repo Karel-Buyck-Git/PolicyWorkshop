@@ -6,7 +6,10 @@
     "displayName": "Web Enterprise — App Platform",
     "description": "Deployment scaffold for 1 policy. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "web-ent-spr",
+  "definitionEntry": {
+    "policySetName": "web-ent-spr",
+    "displayName": "Web Enterprise — App Platform"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

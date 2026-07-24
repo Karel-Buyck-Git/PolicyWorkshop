@@ -6,7 +6,10 @@
     "displayName": "Management Essential — Managed Application",
     "description": "Deployment scaffold for 1 policy. 2 parameter values must be supplied at assignment (e.g. deployAssociationsManagedApplicationTargetManagedApplicationId, deployAssociationsManagedApplicationResourceTypesToAssociate). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "management-esn-mapp",
+  "definitionEntry": {
+    "policySetName": "management-esn-mapp",
+    "displayName": "Management Essential — Managed Application"
+  },
   "parameters": {
     "deployAssociationsManagedApplicationTargetManagedApplicationId": "<REPLACE: deployAssociationsManagedApplicationTargetManagedApplicationId>",
     "deployAssociationsManagedApplicationResourceTypesToAssociate": [

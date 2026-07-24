@@ -6,7 +6,10 @@
     "displayName": "Containers Professional — Container Apps",
     "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "containers-pro-ca",
+  "definitionEntry": {
+    "policySetName": "containers-pro-ca",
+    "displayName": "Containers Professional — Container Apps"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

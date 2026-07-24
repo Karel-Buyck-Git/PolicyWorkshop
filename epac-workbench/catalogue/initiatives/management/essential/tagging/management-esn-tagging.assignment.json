@@ -6,7 +6,10 @@
     "displayName": "Management Essential — Tagging",
     "description": "Deployment scaffold for 1 custom policy (dlw-az-tagging). Tune via the initiative's 'effect' parameter. No managed identity is required. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>) before deploying."
   },
-  "policySetDefinitionName": "management-esn-tagging",
+  "definitionEntry": {
+    "policySetName": "management-esn-tagging",
+    "displayName": "Management Essential — Tagging"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

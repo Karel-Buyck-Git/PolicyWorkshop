@@ -1,0 +1,25 @@
+# Line-ending policy (#45).
+#
+# The CI contract for this repo is a BYTE-FOR-BYTE diff: examples/contoso/verify.sh rebuilds the
+# worked sample and diffs it against the committed fixtures. The renderers write via
+# Path.write_text (engine/epac_builder/writeutil.py), so the *generated* bytes carry the build
+# host's native newline — CRLF on Windows, LF on Linux/CI. That only works because what git
+# STORES is normalized to LF; without this file it depended on each contributor's local
+# core.autocrlf, and a checkout with autocrlf=false would commit CRLF fixtures and fail the
+# ubuntu-latest byte-diff for a reason unrelated to any real change.
+#
+# Note this is only about the git-stored form. The catalogue's contentHash is already immune:
+# engine/shared/hashing.py newline-normalizes before hashing (#27, slice 27e).
+
+# Normalize every text file to LF in the repository, whatever the working tree looks like.
+* text=auto eol=lf
+
+# Executed by bash in CI and locally — CRLF here breaks the shebang line.
+*.sh text eol=lf
+
+# Binary: never normalize, never diff as text.
+*.docx binary
+*.xlsx binary
+*.png  binary
+*.jpg  binary
+*.ico  binary

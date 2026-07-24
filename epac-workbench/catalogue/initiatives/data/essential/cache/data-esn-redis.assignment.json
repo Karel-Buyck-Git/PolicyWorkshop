@@ -6,7 +6,10 @@
     "displayName": "Data Essential — Cache",
     "description": "Deployment scaffold for 3 policies. No parameter values are required (effects are baked; other parameters use defaults). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "data-esn-redis",
+  "definitionEntry": {
+    "policySetName": "data-esn-redis",
+    "displayName": "Data Essential — Cache"
+  },
   "parameters": {},
   "managedIdentityLocations": {
     "westeurope": [

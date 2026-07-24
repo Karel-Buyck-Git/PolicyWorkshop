@@ -6,7 +6,10 @@
     "displayName": "Data Enterprise — Azure Databricks",
     "description": "Deployment scaffold for 3 policies. 1 parameter value must be supplied at assignment (e.g. configureDiagnosticSettingsAzureDatabricksWorkspacesLogAnalytics). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "data-ent-dbw",
+  "definitionEntry": {
+    "policySetName": "data-ent-dbw",
+    "displayName": "Data Enterprise — Azure Databricks"
+  },
   "parameters": {
     "configureDiagnosticSettingsAzureDatabricksWorkspacesLogAnalytics": "<REPLACE: configureDiagnosticSettingsAzureDatabricksWorkspacesLogAnalytics>"
   },

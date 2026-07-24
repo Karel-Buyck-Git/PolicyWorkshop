@@ -63,7 +63,8 @@ Orient the user before collecting a single value. Keep it concise but cover all 
 - the rendered policy content (EPAC/JSON `Definitions/`, or Terraform HCL, or Bicep),
 - a generated CI pipeline (`.github/workflows/…` inside the package),
 - `docs/` (incl. your management-group diagram if you provide one),
-- `README.md`, `lineage.json` (provenance: which catalogue version), and `report.md`.
+- `README.md`, `lineage.json` (provenance: which **engine version** and which catalogue — version,
+  content hash, and the upstream policy-source commit — produced this package), and `report.md`.
 
 **What this does NOT do (be honest up front).** It generates and validates the package; it does
 **not** deploy to Azure, run the EPAC PowerShell module, or execute the pipeline. Real-tenant
@@ -164,7 +165,9 @@ user for any values they already know now; fill the rest when the exact keys are
 - `effectOverrides` — surgical per-policy effect changes (`group`, `policyDefinitionReferenceId`, `effect`). Default `[]`.
 - `exemptions` — waivers/mitigations per pacSelector (`name`, `category: Waiver|Mitigated`, `scopes`; `expiresOn` **required** for Waiver). Default `{}`.
 - `metadata` — governance keys `owner` (email), `costCenterTag`, `contact`. Optional.
-- `source.catalogueVersion` — auto-filled from the catalogue; `source.hierarchyVersion` — a snapshot id (ask or leave to confirm).
+- `source.catalogueVersion` — auto-filled from the catalogue. `source.catalogueContentHash` — optional
+  precise pin (the exact `sha256:…` this manifest was authored against); the assembler then fails if
+  the catalogue changed under a stable version label. Offer it; leave it out unless the user wants it.
 
 **Before generating, echo the collected answers back as a summary and get a final confirmation.**
 
@@ -185,7 +188,7 @@ not by hand-writing what it computes.
    ```
    → writes `customer/manifests/<customer>.manifest.jsonc` with a `<REPLACE: …>` for everything it
    can't infer (`prefix`, `pacOwnerId`, per-environment fields, `managementGroup` per selection,
-   `allowedLocations`, `hierarchyVersion`, and **one per required policy parameter**).
+   `allowedLocations`, and **one per required policy parameter**).
 
 3. **Fill placeholders with the interview answers** — edit `<customer>.manifest.jsonc`, **values only**
    (never add/rename keys — `manifest.input.schema.json` locks the structure). Every `<REPLACE: …>`
@@ -217,7 +220,8 @@ Show the user what was produced and how to verify it themselves:
 
 - The files you created under `customer/` (input, manifest, design) and the generated `customer/package/`.
 - How to rebuild: `python engine/epac_builder/assemble_scaffold.py --manifest customer/manifests/<customer>.manifest.jsonc`.
-- Point at `lineage.json` (which catalogue version they're pinned to) and `report.md`.
+- Point at `lineage.json` (which engine + catalogue produced this package, so a rebuild is
+  traceable) and `report.md`.
 - Restate the boundary: this produced and validated a package; **deploying it to a real Azure tenant**
   (EPAC PowerShell module, pipeline) is the next, separate step — see `examples/contoso/` and the backlog.
 

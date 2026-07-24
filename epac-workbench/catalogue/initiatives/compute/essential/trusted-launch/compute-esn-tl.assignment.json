@@ -6,7 +6,10 @@
     "displayName": "Compute Essential — Trusted Launch",
     "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "compute-esn-tl",
+  "definitionEntry": {
+    "policySetName": "compute-esn-tl",
+    "displayName": "Compute Essential — Trusted Launch"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

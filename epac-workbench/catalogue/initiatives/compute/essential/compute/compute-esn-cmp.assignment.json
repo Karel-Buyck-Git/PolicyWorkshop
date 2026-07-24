@@ -6,7 +6,10 @@
     "displayName": "Compute Essential — Compute",
     "description": "Deployment scaffold for 13 policies. 7 parameter values must be supplied at assignment (e.g. allowedVirtualMachineSizeSkusListOfAllowedSKUs, configureDisasterRecoveryVirtualMachinesEnablingSourceRegion, configureDisasterRecoveryVirtualMachinesEnablingTargetRegion, …). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-…"
   },
-  "policySetDefinitionName": "compute-esn-cmp",
+  "definitionEntry": {
+    "policySetName": "compute-esn-cmp",
+    "displayName": "Compute Essential — Compute"
+  },
   "parameters": {
     "allowedVirtualMachineSizeSkusListOfAllowedSKUs": [
       "<REPLACE: allowedVirtualMachineSizeSkusListOfAllowedSKUs>"

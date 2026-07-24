@@ -6,7 +6,10 @@
     "displayName": "AI Foundry Enterprise — Search",
     "description": "Deployment scaffold for 3 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "ai-foundry-ent-srch",
+  "definitionEntry": {
+    "policySetName": "ai-foundry-ent-srch",
+    "displayName": "AI Foundry Enterprise — Search"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

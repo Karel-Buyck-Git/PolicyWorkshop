@@ -6,7 +6,10 @@
     "displayName": "Integration Professional — Service Bus",
     "description": "Deployment scaffold for 4 policies. 2 parameter values must be supplied at assignment (e.g. configureServiceBusNamespacesPrivateDnsPrivateDnsZoneId, configureServiceBusNamespacesPrivateEndpointsPrivateEndpointSubnetId). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "integration-pro-sb",
+  "definitionEntry": {
+    "policySetName": "integration-pro-sb",
+    "displayName": "Integration Professional — Service Bus"
+  },
   "parameters": {
     "configureServiceBusNamespacesPrivateDnsPrivateDnsZoneId": "<REPLACE: configureServiceBusNamespacesPrivateDnsPrivateDnsZoneId>",
     "configureServiceBusNamespacesPrivateEndpointsPrivateEndpointSubnetId": "<REPLACE: configureServiceBusNamespacesPrivateEndpointsPrivateEndpointSubnetId>"

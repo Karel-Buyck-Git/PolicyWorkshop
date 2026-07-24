@@ -6,7 +6,10 @@
     "displayName": "Containers Enterprise — Container Instance",
     "description": "Deployment scaffold for 2 policies. 1 parameter value must be supplied at assignment (e.g. configureDiagnosticSettingsContainerGroupsLogLogAnalytics). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "containers-ent-ci",
+  "definitionEntry": {
+    "policySetName": "containers-ent-ci",
+    "displayName": "Containers Enterprise — Container Instance"
+  },
   "parameters": {
     "configureDiagnosticSettingsContainerGroupsLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsContainerGroupsLogLogAnalytics>"
   },

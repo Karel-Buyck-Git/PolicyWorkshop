@@ -6,7 +6,10 @@
     "displayName": "Management Professional — Azure Arc",
     "description": "Deployment scaffold for 9 policies. 5 parameter values must be supplied at assignment (e.g. configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForGuestConfiguration, configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForHybridResourceProvider, configureAzureArcPrivateLinkScopesPrivateEndpointSubnetId, …). A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id…"
   },
-  "policySetDefinitionName": "management-pro-arc",
+  "definitionEntry": {
+    "policySetName": "management-pro-arc",
+    "displayName": "Management Professional — Azure Arc"
+  },
   "parameters": {
     "configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForGuestConfiguration": "<REPLACE: configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForGuestConfiguration>",
     "configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForHybridResourceProvider": "<REPLACE: configureAzureArcPrivateLinkScopesPrivateDnsZoneIDForHybridResourceProvider>",

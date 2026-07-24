@@ -221,6 +221,18 @@ python engine/catalogue_builder/quality_control.py
 - If the script exits with an error, report the error message and stop.
 - If it completes successfully, note the summary line it prints (counts + findings).
 
+**Then confirm the run actually re-stamped the catalogue** (backlog #43) — this is what CI will
+check on push, so catching it here saves a red build:
+
+```
+python engine/tools/check_catalogue_stamp.py
+```
+
+It recomputes every fingerprint `catalogue.json` claims (authored inputs, the four producer tool
+files, the upstream pin, the whole-tree `contentHash`). A `DRIFT` line after a full 1–5 run means
+the regeneration did not finish or a producer file changed mid-run — do not commit the catalogue
+until it exits `0`.
+
 > **Scope note.** This QC step is the **fifth and final step of the *producer*** — it validates and
 > documents the catalogue the first four steps built (built-in + custom overlays).
 > It is *not* the "assembler". The **epac-builder** (consumer / assembler) is a separate app

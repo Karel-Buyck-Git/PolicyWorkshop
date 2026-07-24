@@ -6,7 +6,10 @@
     "displayName": "Storage Professional — Backup",
     "description": "Deployment scaffold for 5 policies. 4 parameter values must be supplied at assignment (e.g. configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup, configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob, configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneQueue, …). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-sel…"
   },
-  "policySetDefinitionName": "storage-pro-bkp",
+  "definitionEntry": {
+    "policySetName": "storage-pro-bkp",
+    "displayName": "Storage Professional — Backup"
+  },
   "parameters": {
     "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup": "<REPLACE: configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBackup>",
     "configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob": "<REPLACE: configureRecoveryServicesVaultsPrivateDnsPrivateDnsZoneBlob>",

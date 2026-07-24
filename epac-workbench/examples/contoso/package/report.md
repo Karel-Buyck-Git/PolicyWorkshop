@@ -1,8 +1,8 @@
 # Assembly report — contoso
 
 - Engine version: `0.1.0`
-- Catalogue version: `2026.07.18` (`sha256:60384fdf0750880b3f77943b12d6a39c693338276a3215201c3975dff8f7ffe4`)
-- Manifest hash: `sha256:f772c3c51ebd26c98982ea5d7d879d1701a5437a1b333f03754f007616045be2`
+- Catalogue version: `2026.07.24` (`sha256:2a35c9768296ac43dfb91a63fd8973486570eaa757643fd683db3f84dc3eb3fb`)
+- Manifest hash: `sha256:1cd3850a8768ceabb7aec8b82cdfc254ad52b670871a5152180793d536ebe5fd`
 - Flavours: json
 - Initiatives: 2 (1 remediating)
 - Parameters bound: 6

@@ -6,7 +6,10 @@
     "displayName": "Storage Enterprise — Storage",
     "description": "Deployment scaffold for 11 policies. 5 parameter values must be supplied at assignment (e.g. configureDiagnosticSettingsBlobServicesLogLogAnalytics, configureDiagnosticSettingsFileServicesLogLogAnalytics, configureDiagnosticSettingsQueueServicesLogLogAnalytics, …). A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>…"
   },
-  "policySetDefinitionName": "storage-ent-st",
+  "definitionEntry": {
+    "policySetName": "storage-ent-st",
+    "displayName": "Storage Enterprise — Storage"
+  },
   "parameters": {
     "configureDiagnosticSettingsBlobServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsBlobServicesLogLogAnalytics>",
     "configureDiagnosticSettingsFileServicesLogLogAnalytics": "<REPLACE: configureDiagnosticSettingsFileServicesLogLogAnalytics>",

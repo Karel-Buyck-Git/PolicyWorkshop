@@ -6,7 +6,10 @@
     "displayName": "Integration Professional — Maps",
     "description": "Deployment scaffold for 5 policies. 1 parameter value must be supplied at assignment (e.g. configurePrivateDnsZonesPrivateEndpointsPrivateDnsZoneId). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "integration-pro-map",
+  "definitionEntry": {
+    "policySetName": "integration-pro-map",
+    "displayName": "Integration Professional — Maps"
+  },
   "parameters": {
     "configurePrivateDnsZonesPrivateEndpointsPrivateDnsZoneId": "<REPLACE: configurePrivateDnsZonesPrivateEndpointsPrivateDnsZoneId>"
   },

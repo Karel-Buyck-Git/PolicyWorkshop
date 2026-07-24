@@ -6,7 +6,10 @@
     "displayName": "Integration Professional — Event Grid",
     "description": "Deployment scaffold for 15 policies. 6 parameter values must be supplied at assignment (e.g. configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId, configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId, deployConfigureAzureEventGridDomainsPrivateDnsZoneId, …). A managed identity is required: 8 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector…"
   },
-  "policySetDefinitionName": "integration-pro-evg",
+  "definitionEntry": {
+    "policySetName": "integration-pro-evg",
+    "displayName": "Integration Professional — Event Grid"
+  },
   "parameters": {
     "configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId": "<REPLACE: configureAzureEventGridNamespaceMqttPrivateEndpointSubnetId>",
     "configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureEventGridNamespacesPrivatePrivateEndpointSubnetId>",

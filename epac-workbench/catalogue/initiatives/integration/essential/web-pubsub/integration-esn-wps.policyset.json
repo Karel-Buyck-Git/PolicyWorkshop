@@ -9,7 +9,7 @@
       "category": "Web PubSub",
       "domain": "Integration",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.18",
+      "catalogueVersion": "2026.07.24",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/8cf5e20a-e4b2-4e9d-b3a1-5ceb692c2761"

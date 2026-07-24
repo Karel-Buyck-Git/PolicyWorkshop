@@ -9,7 +9,7 @@
       "category": "API for FHIR",
       "domain": "Data",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.07.18",
+      "catalogueVersion": "2026.07.24",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

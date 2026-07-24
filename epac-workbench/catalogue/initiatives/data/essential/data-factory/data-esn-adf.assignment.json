@@ -6,7 +6,10 @@
     "displayName": "Data Essential — Data Factory",
     "description": "Deployment scaffold for 6 policies. 2 parameter values must be supplied at assignment (e.g. azureDataFactoryLinkedServiceResourceAllowedLinkedServiceResourceTypes, azureDataFactoryPipelinesCommunicateAllowedAllowedDomainNames). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "data-esn-adf",
+  "definitionEntry": {
+    "policySetName": "data-esn-adf",
+    "displayName": "Data Essential — Data Factory"
+  },
   "parameters": {
     "azureDataFactoryLinkedServiceResourceAllowedLinkedServiceResourceTypes": [
       "<REPLACE: azureDataFactoryLinkedServiceResourceAllowedLinkedServiceResourceTypes>"

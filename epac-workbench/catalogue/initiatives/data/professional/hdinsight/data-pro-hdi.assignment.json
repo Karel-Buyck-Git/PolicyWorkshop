@@ -6,7 +6,10 @@
     "displayName": "Data Professional — HDInsight",
     "description": "Deployment scaffold for 4 policies. 4 parameter values must be supplied at assignment (e.g. configureAzureHdinsightClustersPrivateDnsPrivateDnsZoneId, configureAzureHdinsightClustersPrivateDnsGroupId, configureAzureHdinsightClustersPrivateEndpointsPrivateEndpointSubnetId, …). A managed identity is required: 2 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector…"
   },
-  "policySetDefinitionName": "data-pro-hdi",
+  "definitionEntry": {
+    "policySetName": "data-pro-hdi",
+    "displayName": "Data Professional — HDInsight"
+  },
   "parameters": {
     "configureAzureHdinsightClustersPrivateDnsPrivateDnsZoneId": "<REPLACE: configureAzureHdinsightClustersPrivateDnsPrivateDnsZoneId>",
     "configureAzureHdinsightClustersPrivateDnsGroupId": "<REPLACE: configureAzureHdinsightClustersPrivateDnsGroupId>",

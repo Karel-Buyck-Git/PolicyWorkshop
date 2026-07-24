@@ -6,7 +6,10 @@
     "displayName": "Security Essential — Key Vault",
     "description": "Deployment scaffold for 34 policies. 15 parameter values must be supplied at assignment (e.g. certificatesIssuedOneNonIntegratedCertificateCaCommonNames, certificatesIssuedNonIntegratedCertificateAuthorityCaCommonName, certificatesLifetimeActionTriggersMaximumPercentageLife, …). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "security-esn-kv",
+  "definitionEntry": {
+    "policySetName": "security-esn-kv",
+    "displayName": "Security Essential — Key Vault"
+  },
   "parameters": {
     "certificatesIssuedOneNonIntegratedCertificateCaCommonNames": [
       "<REPLACE: certificatesIssuedOneNonIntegratedCertificateCaCommonNames>"

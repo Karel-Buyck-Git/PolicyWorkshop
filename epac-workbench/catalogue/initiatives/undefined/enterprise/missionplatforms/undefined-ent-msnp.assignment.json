@@ -6,7 +6,10 @@
     "displayName": "undefined Enterprise — MissionPlatforms",
     "description": "Deployment scaffold for 2 policies. No parameter values are required (effects are baked; other parameters use defaults). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "undefined-ent-msnp",
+  "definitionEntry": {
+    "policySetName": "undefined-ent-msnp",
+    "displayName": "undefined Enterprise — MissionPlatforms"
+  },
   "parameters": {},
   "managedIdentityLocations": {
     "westeurope": [

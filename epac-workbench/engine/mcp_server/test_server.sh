@@ -51,17 +51,33 @@ with open(sys.argv[1], encoding="utf-8") as fh:
 def fail(msg):
     sys.exit(f"[test] FAIL: {msg}")
 
+def result(i, what):
+    """The ``result`` object for request id ``i``, or a legible FAIL.
+
+    A server that dies partway through — or answers with a JSON-RPC error object,
+    which carries ``error`` and no ``result`` — must produce this script's own
+    ``[test] FAIL: …`` line, not a KeyError traceback pointing at the harness. CI
+    reads these messages (#30).
+    """
+    m = resp.get(i)
+    if m is None:
+        fail(f"no response for id {i} ({what}) — the server exited or never answered "
+             f"(ids seen: {sorted(k for k in resp if k is not None)})")
+    if "result" not in m:
+        fail(f"id {i} ({what}) returned no result: {m.get('error', m)}")
+    return m["result"]
+
 # 1. initialize
-if resp[1]["result"]["serverInfo"]["name"] != "epac-builder":
+if result(1, "initialize").get("serverInfo", {}).get("name") != "epac-builder":
     fail("initialize: unexpected serverInfo")
 
 # 2. tools/list advertises validate_manifest
-names = [t["name"] for t in resp[2]["result"]["tools"]]
+names = [t["name"] for t in result(2, "tools/list")["tools"]]
 if "validate_manifest" not in names:
     fail(f"tools/list missing validate_manifest (got {names})")
 
 # 3. non-strict check on the contoso manifest -> valid
-r3 = resp[3]["result"]
+r3 = result(3, "validate_manifest, non-strict")
 p3 = json.loads(r3["content"][0]["text"])
 if r3["isError"]:
     fail("non-strict call set isError")
@@ -69,7 +85,7 @@ if not p3.get("valid"):
     fail(f"non-strict expected valid:true, got {p3}")
 
 # 4. strict gate -> valid:false, names the tags selection, but NOT a tool error
-r4 = resp[4]["result"]
+r4 = result(4, "validate_manifest, strict")
 p4 = json.loads(r4["content"][0]["text"])
 if r4["isError"]:
     fail("strict validation failure must be isError:false (a normal result)")
@@ -79,7 +95,7 @@ if "tags" not in json.dumps(p4):
     fail(f"strict expected a 'tags' problem, got {p4}")
 
 # 5. bad path -> tool error
-if not resp[5]["result"]["isError"]:
+if not result(5, "bad manifest path")["isError"]:
     fail("missing manifest path should set isError:true")
 
 print("[test] OK - 5/5 assertions passed (initialize, tools/list, check, strict gate, bad path)")

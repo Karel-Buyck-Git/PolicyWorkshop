@@ -73,14 +73,50 @@ def md_table(headers: list[str], rows: list[list[str]]) -> str:
 def spread(seq: list, k: int) -> list:
     """Pick up to ``k`` evenly spaced items from ``seq`` (deterministic).
 
-    Gives a representative spread for sample tables instead of just the first N,
-    while staying stable across runs.
+    Stable across runs, but **not** across catalogue changes: the picks are list
+    *positions*, so inserting anything shifts every later row. Prefer ``spread_by``
+    for any list with a taxonomy key (#29); this remains for lists that have none.
     """
     n = len(seq)
     if n <= k:
         return list(seq)
     idx = sorted({round(i * (n - 1) / (k - 1)) for i in range(k)})
     return [seq[i] for i in idx]
+
+
+def spread_by(seq: list, k: int, key) -> list:
+    """Pick up to ``k`` items, spread across the distinct values of ``key`` (#29).
+
+    Positional ``spread`` had two failure modes in the sample tables, both visible in
+    the #3 regeneration: it reshuffled **every** row when 17 policysets were inserted
+    (churn that pollutes the diff of an auto-generated file), and it sampled the same
+    domain twice while dropping others entirely — in a table that claims to show "a
+    representative spread".
+
+    Keying the selection to the taxonomy fixes both. Round-robin over the sorted key
+    values takes one item per group before any group gets a second, so the sample
+    covers as many distinct groups as it has slots; and because a group's own order is
+    preserved, an inserted item only changes the sample if it lands ahead of the
+    current pick **within its own group**. Everything else stays put.
+    """
+    groups: dict = {}
+    for item in seq:
+        groups.setdefault(key(item), []).append(item)
+    picked: list = []
+    depth = 0
+    while len(picked) < k:
+        exhausted = True
+        for value in sorted(groups):
+            members = groups[value]
+            if depth < len(members):
+                picked.append(members[depth])
+                exhausted = False
+                if len(picked) == k:
+                    return picked
+        if exhausted:
+            break
+        depth += 1
+    return picked
 
 
 # ---------------------------------------------------------------------------
@@ -135,6 +171,18 @@ def load_builtin_policies() -> list[dict]:
     return rows
 
 
+def _domain_of(path: Path) -> str:
+    """The taxonomy domain an artifact lives in — ``initiatives/<domain>/<tier>/<category>/``.
+
+    Read from the path rather than the artifact: every group artifact has one, including
+    the ones that fail to parse, so sampling by domain (#29) never loses a row.
+    """
+    try:
+        return path.relative_to(INITIATIVES_DIR).parts[0]
+    except (ValueError, IndexError):
+        return "(unknown)"
+
+
 def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
     """Return (initiatives, assignments, members) read from initiatives/**."""
     initiatives: list[dict] = []
@@ -143,8 +191,8 @@ def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
         try:
             raw = json.loads(path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
-            initiatives.append({"name": path.stem, "displayName": "", "_path": path,
-                                "_unreadable": True, "memberCount": 0})
+            initiatives.append({"name": path.stem, "displayName": "", "domain": _domain_of(path),
+                                "_path": path, "_unreadable": True, "memberCount": 0})
             continue
         props = raw.get("properties") or {}
         defs = props.get("policyDefinitions") or []
@@ -154,6 +202,7 @@ def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
             "description": props.get("description") or "",
             "memberCount": len(defs),
             "custom": bool((props.get("metadata") or {}).get("custom")),
+            "domain": _domain_of(path),
             "_path": path,
             "_unreadable": False,
         })
@@ -173,14 +222,19 @@ def load_initiatives() -> tuple[list[dict], list[dict], list[dict]]:
             raw = json.loads(path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             assignments.append({"name": path.stem, "displayName": "", "policySet": "",
-                                "_path": path, "_unreadable": True})
+                                "domain": _domain_of(path), "_path": path, "_unreadable": True})
             continue
         a = raw.get("assignment") or {}
         assignments.append({
             "name": a.get("name") or path.stem,
             "displayName": a.get("displayName") or "",
             "description": a.get("description") or "",
-            "policySet": raw.get("policySetDefinitionName") or "",
+            # definitionEntry.policySetName is the shape the producer emits (#22); the flat
+            # policySetDefinitionName is still read so the referential-integrity check below
+            # keeps working on a catalogue generated before that fix.
+            "policySet": ((raw.get("definitionEntry") or {}).get("policySetName")
+                          or raw.get("policySetDefinitionName") or ""),
+            "domain": _domain_of(path),
             "_path": path,
             "_unreadable": False,
         })
@@ -352,10 +406,12 @@ def naming_defs(custom: list[dict]) -> list[dict]:
 
 def t_sample_result_names(custom: list[dict]) -> str:
     rows = [d for d in naming_defs(custom) if d["checkKind"] == "default" and d["conventionExample"]]
+    # One example per Azure resource provider (Microsoft.Storage/…, Microsoft.Network/…),
+    # so the sample spans providers instead of a positional slice of one (#29).
     return md_table(
         ["Resource type", "Abbr", "Example name (`conventionExample`)"],
         [[f"`{d['resourceType']}`", f"`{d['abbr']}`", f"`{d['conventionExample']}`"]
-         for d in spread(rows, 7)],
+         for d in spread_by(rows, 7, lambda d: (d["resourceType"] or "").split("/")[0])],
     )
 
 
@@ -381,22 +437,34 @@ def t_pairs(items: list[tuple[str, str]], headers: list[str], code_left: bool = 
 
 
 def t_custom_pairs(custom: list[dict]) -> str:
-    items = [(d["name"], d["displayName"]) for d in spread([c for c in custom if not c["_unreadable"]], 11)]
+    # Keyed on the generator family (naming / tagging / apim) so each is represented.
+    items = [(d["name"], d["displayName"])
+             for d in spread_by([c for c in custom if not c["_unreadable"]], 11,
+                                lambda d: d["family"] or "")]
     return t_pairs(items, ["Technical `name`", "`displayName`"])
 
 
 def t_builtin_pairs(builtins: list[dict]) -> str:
-    items = [(b["id"], b["displayName"]) for b in spread(builtins, 8)]
+    items = [(b["id"], b["displayName"])
+             for b in spread_by(builtins, 8, lambda b: b["category"] or "")]
     return t_pairs(items, ["Technical `name` (GUID)", "`displayName`"])
 
 
 def t_initiative_pairs(initiatives: list[dict]) -> str:
-    items = [(it["name"], it["displayName"]) for it in spread([i for i in initiatives if not i["_unreadable"]], 8)]
+    # The table #29 was raised on: positional sampling showed Data twice and dropped
+    # Security entirely. Sized to the taxonomy — exactly one row per domain, so "a
+    # representative spread" is literally true and no domain can fall off the end.
+    readable = [i for i in initiatives if not i["_unreadable"]]
+    items = [(it["name"], it["displayName"])
+             for it in spread_by(readable, len({i["domain"] for i in readable}),
+                                 lambda i: i["domain"])]
     return t_pairs(items, ["Technical `name`", "`displayName`"])
 
 
 def t_assignment_pairs(assignments: list[dict]) -> str:
-    items = [(a["name"], a["displayName"]) for a in spread([a for a in assignments if not a["_unreadable"]], 4)]
+    items = [(a["name"], a["displayName"])
+             for a in spread_by([a for a in assignments if not a["_unreadable"]], 4,
+                                lambda a: a["domain"])]
     return t_pairs(items, ["`assignment.name`", "`assignment.displayName`"])
 
 

@@ -6,7 +6,10 @@
     "displayName": "Security Professional — VirtualEnclaves",
     "description": "Deployment scaffold for 3 policies. 1 parameter value must be supplied at assignment (e.g. networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "security-pro-ve",
+  "definitionEntry": {
+    "policySetName": "security-pro-ve",
+    "displayName": "Security Professional — VirtualEnclaves"
+  },
   "parameters": {
     "networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId": "<REPLACE: networkInterfacesConnectedApprovedSubnetApprovedVirtualNetworkId>"
   },

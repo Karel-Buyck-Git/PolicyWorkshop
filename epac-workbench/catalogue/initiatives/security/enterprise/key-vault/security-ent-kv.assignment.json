@@ -6,7 +6,10 @@
     "displayName": "Security Enterprise — Key Vault",
     "description": "Deployment scaffold for 5 policies. 3 parameter values must be supplied at assignment (e.g. deployConfigureDiagnosticSettingsAzureKeyLogAnalytics, deployConfigureDiagnosticSettingsEventHubEventHubRuleId, deployDiagnosticSettingsKeyVaultEventEventHubRuleId). A managed identity is required: 3 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLA…"
   },
-  "policySetDefinitionName": "security-ent-kv",
+  "definitionEntry": {
+    "policySetName": "security-ent-kv",
+    "displayName": "Security Enterprise — Key Vault"
+  },
   "parameters": {
     "deployConfigureDiagnosticSettingsAzureKeyLogAnalytics": "<REPLACE: deployConfigureDiagnosticSettingsAzureKeyLogAnalytics>",
     "deployConfigureDiagnosticSettingsEventHubEventHubRuleId": "<REPLACE: deployConfigureDiagnosticSettingsEventHubEventHubRuleId>",

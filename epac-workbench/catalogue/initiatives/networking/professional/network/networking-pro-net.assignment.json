@@ -6,7 +6,10 @@
     "displayName": "Networking Professional — Network",
     "description": "Deployment scaffold for 42 policies. 27 parameter values must be supplied at assignment (e.g. customIpsecIkePolicyAppliedAllIPsecEncryption, customIpsecIkePolicyAppliedAllIPsecIntegrity, customIpsecIkePolicyAppliedAllIKEEncryption, …). A managed identity is required: 6 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deployi…"
   },
-  "policySetDefinitionName": "networking-pro-net",
+  "definitionEntry": {
+    "policySetName": "networking-pro-net",
+    "displayName": "Networking Professional — Network"
+  },
   "parameters": {
     "customIpsecIkePolicyAppliedAllIPsecEncryption": [
       "<REPLACE: customIpsecIkePolicyAppliedAllIPsecEncryption>"

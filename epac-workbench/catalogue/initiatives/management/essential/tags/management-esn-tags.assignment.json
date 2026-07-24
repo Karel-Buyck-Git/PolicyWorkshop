@@ -6,7 +6,10 @@
     "displayName": "Management Essential — Tags",
     "description": "Deployment scaffold for 4 policies. 6 parameter values must be supplied at assignment (e.g. requireTagValueResourceGroupsTagName, requireTagValueResourceGroupsTagValue, requireTagValueResourcesTagName, …). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "management-esn-tags",
+  "definitionEntry": {
+    "policySetName": "management-esn-tags",
+    "displayName": "Management Essential — Tags"
+  },
   "parameters": {
     "requireTagValueResourceGroupsTagName": "<REPLACE: requireTagValueResourceGroupsTagName>",
     "requireTagValueResourceGroupsTagValue": "<REPLACE: requireTagValueResourceGroupsTagValue>",

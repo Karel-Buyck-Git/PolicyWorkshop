@@ -6,7 +6,10 @@
     "displayName": "Management Essential — Lighthouse",
     "description": "Deployment scaffold for 2 policies. 1 parameter value must be supplied at assignment (e.g. allowManagingTenantIdsOnboardThroughListOfAllowedTenants). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "management-esn-lh",
+  "definitionEntry": {
+    "policySetName": "management-esn-lh",
+    "displayName": "Management Essential — Lighthouse"
+  },
   "parameters": {
     "allowManagingTenantIdsOnboardThroughListOfAllowedTenants": [
       "<REPLACE: allowManagingTenantIdsOnboardThroughListOfAllowedTenants>"

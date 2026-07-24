@@ -6,7 +6,10 @@
     "displayName": "Containers Enterprise — Container Instances",
     "description": "Deployment scaffold for 1 policy. 2 parameter values must be supplied at assignment (e.g. configureDiagnosticsContainerGroupLogAnalyticsWorkspaceId, configureDiagnosticsContainerGroupLogAnalyticsWorkspaceKey). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "containers-ent-cis",
+  "definitionEntry": {
+    "policySetName": "containers-ent-cis",
+    "displayName": "Containers Enterprise — Container Instances"
+  },
   "parameters": {
     "configureDiagnosticsContainerGroupLogAnalyticsWorkspaceId": "<REPLACE: configureDiagnosticsContainerGroupLogAnalyticsWorkspaceId>",
     "configureDiagnosticsContainerGroupLogAnalyticsWorkspaceKey": "<REPLACE: configureDiagnosticsContainerGroupLogAnalyticsWorkspaceKey>"

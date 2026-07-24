@@ -6,7 +6,10 @@
     "displayName": "Management Essential — General",
     "description": "Deployment scaffold for 12 policies. 5 parameter values must be supplied at assignment (e.g. allowedLocationsListOfAllowedLocations, allowedLocationsResourceGroupsListOfAllowedLocations, allowedResourceTypesListOfResourceTypesAllowed, …). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "management-esn-gen",
+  "definitionEntry": {
+    "policySetName": "management-esn-gen",
+    "displayName": "Management Essential — General"
+  },
   "parameters": {
     "allowedLocationsListOfAllowedLocations": [
       "<REPLACE: allowedLocationsListOfAllowedLocations>"

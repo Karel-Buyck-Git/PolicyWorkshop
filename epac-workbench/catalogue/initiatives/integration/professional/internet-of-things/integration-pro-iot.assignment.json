@@ -6,7 +6,10 @@
     "displayName": "Integration Professional — Internet of Things",
     "description": "Deployment scaffold for 20 policies. 8 parameter values must be supplied at assignment (e.g. configureAzureDeviceUpdateIotHubPrivateDnsZoneId, configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId, configureIotHubDeviceProvisioningInstancesPrivateDnsZoneId, …). A managed identity is required: 12 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>,…"
   },
-  "policySetDefinitionName": "integration-pro-iot",
+  "definitionEntry": {
+    "policySetName": "integration-pro-iot",
+    "displayName": "Integration Professional — Internet of Things"
+  },
   "parameters": {
     "configureAzureDeviceUpdateIotHubPrivateDnsZoneId": "<REPLACE: configureAzureDeviceUpdateIotHubPrivateDnsZoneId>",
     "configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId": "<REPLACE: configureAzureDeviceUpdateIotHubPrivateEndpointSubnetId>",

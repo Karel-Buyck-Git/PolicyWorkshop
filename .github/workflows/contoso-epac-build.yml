@@ -5,19 +5,27 @@ name: contoso epac build
 # YAML under .github/workflows/, so only the trigger lives here). verify.sh rebuilds the
 # worked contoso sample for every renderer flavour (json, terraform, bicep) and diffs it
 # byte-for-byte against the committed fixtures — the epac-builder determinism contract.
-# A second step (below, not part of verify.sh) runs the MCP stdio server smoke test
-# (engine/mcp_server/test_server.sh) so a regression in the server or validate_manifest
-# can't ship undetected. Running verify.sh locally does NOT cover the MCP server.
+# Two further steps (below, not part of verify.sh) cover what a rebuild-and-diff cannot:
+#   - the MCP stdio server smoke test (engine/mcp_server/test_server.sh), so a regression in
+#     the server or validate_manifest can't ship undetected;
+#   - the catalogue stamp check (engine/tools/check_catalogue_stamp.py, #43), which asks
+#     whether the committed catalogue is still the one this engine produces. verify.sh only
+#     exercises the CONSUMER; a producer script can change with no catalogue regeneration and
+#     every other check stays green (this happened on 2026-07-23, #26). Seconds to run, no
+#     producer invocation. It is a cheap slice of #8, not a replacement for it.
+# Running verify.sh locally covers neither.
 #
 # Fires when either builder changes: the engine (engine/**), the shared catalogue
-# (catalogue/**), the example itself (examples/contoso/**), or the shared schemas the
-# assembler validates against (customer/manifests/**).
+# (catalogue/**), the authored producer inputs the catalogue stamps (config/**), the example
+# itself (examples/contoso/**), or the shared schemas the assembler validates against
+# (customer/manifests/**).
 
 on:
   push:
     paths:
       - "epac-workbench/engine/**"
       - "epac-workbench/catalogue/**"
+      - "epac-workbench/config/**"
       - "epac-workbench/examples/contoso/**"
       - "epac-workbench/customer/manifests/**"
       - ".github/workflows/contoso-epac-build.yml"
@@ -25,6 +33,7 @@ on:
     paths:
       - "epac-workbench/engine/**"
       - "epac-workbench/catalogue/**"
+      - "epac-workbench/config/**"
       - "epac-workbench/examples/contoso/**"
       - "epac-workbench/customer/manifests/**"
       - ".github/workflows/contoso-epac-build.yml"
@@ -47,3 +56,6 @@ jobs:
 
       - name: MCP stdio server smoke test
         run: bash engine/mcp_server/test_server.sh
+
+      - name: Catalogue stamp is in sync with the engine
+        run: python engine/tools/check_catalogue_stamp.py

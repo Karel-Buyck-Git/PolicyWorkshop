@@ -6,7 +6,10 @@
     "displayName": "Data Professional — Cache",
     "description": "Deployment scaffold for 8 policies. 4 parameter values must be supplied at assignment (e.g. configureAzureCacheRedisEnterprisePrivatePrivateDnsZoneId, configureAzureCacheRedisEnterprisePrivatePrivateEndpointSubnetId, configureAzureCacheRedisPrivateDnsPrivateDnsZoneId, …). A managed identity is required: 5 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <…"
   },
-  "policySetDefinitionName": "data-pro-redis",
+  "definitionEntry": {
+    "policySetName": "data-pro-redis",
+    "displayName": "Data Professional — Cache"
+  },
   "parameters": {
     "configureAzureCacheRedisEnterprisePrivatePrivateDnsZoneId": "<REPLACE: configureAzureCacheRedisEnterprisePrivatePrivateDnsZoneId>",
     "configureAzureCacheRedisEnterprisePrivatePrivateEndpointSubnetId": "<REPLACE: configureAzureCacheRedisEnterprisePrivatePrivateEndpointSubnetId>",

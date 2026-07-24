@@ -6,7 +6,10 @@
     "displayName": "Security Professional — Security Center - Granular Pricing",
     "description": "Deployment scaffold for 4 policies. No parameter values are required (effects are baked; other parameters use defaults). A managed identity is required: 4 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "security-pro-ascg",
+  "definitionEntry": {
+    "policySetName": "security-pro-ascg",
+    "displayName": "Security Professional — Security Center - Granular Pricing"
+  },
   "parameters": {},
   "managedIdentityLocations": {
     "westeurope": [

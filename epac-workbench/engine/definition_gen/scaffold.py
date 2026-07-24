@@ -282,7 +282,10 @@ def _new_group_assignment(overlay, members, name, display):
                 f"identity is required. Replace all mock references (<root-mg-id>, "
                 f"<pac-environment-selector>, <sub-id>) before deploying."),
         },
-        "policySetDefinitionName": name,
+        # definitionEntry, not a flat policySetDefinitionName — EPAC 11.x rejects the latter on a
+        # leaf node (#22). Mirrors build_assignment() in create_initiatives.py; the two emitters
+        # produce the same artifact shape for built-in and custom-overlay groups respectively.
+        "definitionEntry": {"policySetName": name, "displayName": display},
         "parameters": parameters,
         "scope": {"<pac-environment-selector>": ["/providers/Microsoft.Management/managementGroups/<root-mg-id>"]},
         "notScopes": [],

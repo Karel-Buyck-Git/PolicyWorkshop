@@ -6,7 +6,10 @@
     "displayName": "Management Enterprise — Guest Configuration",
     "description": "Deployment scaffold for 9 policies. No parameter values are required (effects are baked; other parameters use defaults). No managed identity is required (no Modify/DeployIfNotExists policies). Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "management-ent-gc",
+  "definitionEntry": {
+    "policySetName": "management-ent-gc",
+    "displayName": "Management Enterprise — Guest Configuration"
+  },
   "parameters": {},
   "scope": {
     "<pac-environment-selector>": [

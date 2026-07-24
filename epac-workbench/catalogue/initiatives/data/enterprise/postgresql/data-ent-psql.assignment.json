@@ -6,7 +6,10 @@
     "displayName": "Data Enterprise — PostgreSQL",
     "description": "Deployment scaffold for 6 policies. 1 parameter value must be supplied at assignment (e.g. deployDiagnosticSettingsPostgresqlFlexibleServersLogAnalytics). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before deploying."
   },
-  "policySetDefinitionName": "data-ent-psql",
+  "definitionEntry": {
+    "policySetName": "data-ent-psql",
+    "displayName": "Data Enterprise — PostgreSQL"
+  },
   "parameters": {
     "deployDiagnosticSettingsPostgresqlFlexibleServersLogAnalytics": "<REPLACE: deployDiagnosticSettingsPostgresqlFlexibleServersLogAnalytics>"
   },
