@@ -9,7 +9,7 @@
       "category": "PostgreSQL",
       "domain": "Data",
       "tier": "Professional",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

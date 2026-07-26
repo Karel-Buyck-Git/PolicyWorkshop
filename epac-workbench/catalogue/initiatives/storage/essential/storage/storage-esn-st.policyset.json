@@ -9,7 +9,7 @@
       "category": "Storage",
       "domain": "Storage",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab",
@@ -144,6 +144,21 @@
         }
       },
       {
+        "policyDefinitionReferenceId": "e5612cea-18dc-40b0-9390-8bf77072d5df",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e5612cea-18dc-40b0-9390-8bf77072d5df",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Encryption in transit should be required for Azure Files SMB and NFS protocols"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
         "policyDefinitionReferenceId": "978deb5d-c9a7-41f8-b4b2-b76880d0de1f",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/978deb5d-c9a7-41f8-b4b2-b76880d0de1f",
         "groupNames": [
@@ -267,6 +282,21 @@
         }
       },
       {
+        "policyDefinitionReferenceId": "f87b2739-92be-4121-af7f-39c0a5a24f20",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f87b2739-92be-4121-af7f-39c0a5a24f20",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Storage accounts should have infrastructure encryption (excluding storage accounts managed by Azure Red Hat OpenShift)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
         "policyDefinitionReferenceId": "bc1b984e-ddae-40cc-801a-050a030e4fbe",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bc1b984e-ddae-40cc-801a-050a030e4fbe",
         "groupNames": [
@@ -337,6 +367,21 @@
         ],
         "metadata": {
           "policyName": "Storage accounts should prevent shared key access (excluding storage accounts created by Databricks)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "05f95bb8-8ef8-4cef-8cad-5d30f9912850",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/05f95bb8-8ef8-4cef-8cad-5d30f9912850",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Storage accounts should prevent shared key access (excluding storage accounts managed by Azure Red Hat OpenShift)"
         },
         "parameters": {
           "effect": {

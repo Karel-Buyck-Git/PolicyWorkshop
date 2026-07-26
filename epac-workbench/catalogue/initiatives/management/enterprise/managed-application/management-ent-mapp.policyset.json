@@ -9,7 +9,7 @@
       "category": "Managed Application",
       "domain": "Management",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

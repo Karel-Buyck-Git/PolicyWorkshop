@@ -1,9 +1,9 @@
 {
-  "catalogueVersion": "2026.07.24",
+  "catalogueVersion": "2026.07.25",
   "producedByEngine": "0.1.0",
-  "generatedAt": "2026-07-24T21:54:28Z",
+  "generatedAt": "2026-07-26T16:54:38Z",
   "inputs": {
-    "builtInsRef": "git:04989912c4660389bef9abb8fd2e55c7445bdfa7",
+    "builtInsRef": "git:f600c952718e8d2fc1c4fe92c516100d2ad85999",
     "hierarchyHash": "sha256:910a106dd2156fedfd7ec526db0dc877ec5970158d1e0daaaeb1d50924868bf9",
     "tierRulesHash": "sha256:188630dc8e69b50b67672a8131bf9b1fb39910ecdbfdc76d356ee7125ad25cfe",
     "definitionGensHash": "sha256:3c02f29aee94be58110d53f5b995afa75eccc5bb2e9b5da5fe2e4ce3825e9492"
@@ -18,5 +18,5 @@
     "createInitiatives": "sha256:c65b4c13e70956631e6166914dadd82f41f7eeb7aa01cf6f46973679e73cf333",
     "applyOverlays": "sha256:c0cc964c7fa50251755bff96a590965086eb7f0a8502433f6b2a4ab350360ef9"
   },
-  "contentHash": "sha256:2a35c9768296ac43dfb91a63fd8973486570eaa757643fd683db3f84dc3eb3fb"
+  "contentHash": "sha256:980e174466a47618c518e412ce2787298b6eed73b53151e75cfeee4cc1e0fa40"
 }

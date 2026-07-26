@@ -1,5 +1,5 @@
 {
-  "catalogueVersion": "2026.07.24",
+  "catalogueVersion": "2026.07.25",
   "tiers": [
     "Essential",
     "Professional",
@@ -128,7 +128,7 @@
       "category": "Cognitive Services",
       "name": "ai-foundry-esn-cog",
       "dir": "initiatives/ai-foundry/essential/cognitive-services",
-      "policyCount": 9,
+      "policyCount": 10,
       "hasRemediation": true
     },
     {
@@ -1346,7 +1346,7 @@
       "category": "Monitoring",
       "name": "monitoring-esn-mon",
       "dir": "initiatives/monitoring/essential/monitoring",
-      "policyCount": 39,
+      "policyCount": 37,
       "hasRemediation": true
     },
     {
@@ -1571,7 +1571,7 @@
       "category": "Storage",
       "name": "storage-esn-st",
       "dir": "initiatives/storage/essential/storage",
-      "policyCount": 21,
+      "policyCount": 24,
       "hasRemediation": true
     },
     {
@@ -1607,7 +1607,7 @@
       "category": "Storage",
       "name": "storage-pro-st",
       "dir": "initiatives/storage/professional/storage",
-      "policyCount": 29,
+      "policyCount": 32,
       "hasRemediation": true
     },
     {
@@ -1652,7 +1652,7 @@
       "category": "Storage",
       "name": "storage-ent-st",
       "dir": "initiatives/storage/enterprise/storage",
-      "policyCount": 11,
+      "policyCount": 12,
       "hasRemediation": true
     },
     {

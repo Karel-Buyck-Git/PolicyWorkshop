@@ -4,7 +4,7 @@
   "assignment": {
     "name": "ai-foundry-esn-cog",
     "displayName": "AI Foundry Essential — Cognitive Services",
-    "description": "Deployment scaffold for 9 policies. 7 parameter values must be supplied at assignment (e.g. cognitiveServicesAgentsAllowedControlEntityKind, cognitiveServicesAgentsAllowedControlFilterName, cognitiveServicesAgentsAllowedPromptContentEntityKind, …). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) be…"
+    "description": "Deployment scaffold for 10 policies. 7 parameter values must be supplied at assignment (e.g. cognitiveServicesAgentsAllowedControlEntityKind, cognitiveServicesAgentsAllowedControlFilterName, cognitiveServicesAgentsAllowedPromptContentEntityKind, …). A managed identity is required: 1 Modify/DeployIfNotExists policy needs remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) b…"
   },
   "definitionEntry": {
     "policySetName": "ai-foundry-esn-cog",

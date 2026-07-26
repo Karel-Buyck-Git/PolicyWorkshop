@@ -9,7 +9,7 @@
       "category": "Managed Identity",
       "domain": "Security",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
@@ -47,7 +47,7 @@
           false
         ]
       },
-      "assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentityA": {
+      "configureVirtualMachinesBuiltUserAssignedBringYourOwnUserAssignedManagedIdentity": {
         "type": "Boolean",
         "metadata": {
           "displayName": "Bring Your Own User-Assigned Identity",
@@ -178,11 +178,11 @@
           "Essential"
         ],
         "metadata": {
-          "policyName": "Assign Built-In User-Assigned Managed Identity to Virtual Machines"
+          "policyName": "Configure Virtual Machines to use Built-In User-Assigned Managed Identity"
         },
         "parameters": {
           "bringYourOwnUserAssignedManagedIdentity": {
-            "value": "[parameters('assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentityA')]"
+            "value": "[parameters('configureVirtualMachinesBuiltUserAssignedBringYourOwnUserAssignedManagedIdentity')]"
           },
           "restrictBringYourOwnUserAssignedIdentityToSubscription": {
             "value": true

@@ -9,7 +9,7 @@
       "category": "Tagging",
       "domain": "Management",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "source": "getResourceTags.bicep",
       "hasRemediation": false,
       "custom": true

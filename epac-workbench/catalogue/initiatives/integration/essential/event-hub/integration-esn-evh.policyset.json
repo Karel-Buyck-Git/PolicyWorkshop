@@ -9,7 +9,7 @@
       "category": "Event Hub",
       "domain": "Integration",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/f526a384-b230-433a-b45c-95f59c4a2dec"

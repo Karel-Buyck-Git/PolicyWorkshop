@@ -2,10 +2,10 @@
   "engineVersion": "0.1.0",
   "customer": "contoso",
   "pacOwnerId": "11111111-2222-3333-4444-555555555555",
-  "manifestHash": "sha256:1cd3850a8768ceabb7aec8b82cdfc254ad52b670871a5152180793d536ebe5fd",
-  "catalogueVersion": "2026.07.24",
-  "catalogueContentHash": "sha256:2a35c9768296ac43dfb91a63fd8973486570eaa757643fd683db3f84dc3eb3fb",
-  "builtInsRef": "git:04989912c4660389bef9abb8fd2e55c7445bdfa7",
+  "manifestHash": "sha256:3afbac9fd951be744b4b7b5b645636a63c4dbb3ab087d4eb7bfb9bf176d8d163",
+  "catalogueVersion": "2026.07.25",
+  "catalogueContentHash": "sha256:980e174466a47618c518e412ce2787298b6eed73b53151e75cfeee4cc1e0fa40",
+  "builtInsRef": "git:f600c952718e8d2fc1c4fe92c516100d2ad85999",
   "hierarchyHash": "sha256:910a106dd2156fedfd7ec526db0dc877ec5970158d1e0daaaeb1d50924868bf9",
   "flavours": [
     "bicep"

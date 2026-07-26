@@ -9,7 +9,7 @@
       "category": "Storage",
       "domain": "Storage",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
@@ -269,6 +269,21 @@
         ],
         "metadata": {
           "policyName": "Storage accounts should use customer-managed key for encryption"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Audit"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "f5c8be13-ecfa-4ed7-beee-fcd8a6d9519d",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f5c8be13-ecfa-4ed7-beee-fcd8a6d9519d",
+        "groupNames": [
+          "Enterprise"
+        ],
+        "metadata": {
+          "policyName": "Storage accounts should use customer-managed key for encryption (excluding storage accounts managed by Azure Red Hat OpenShift)"
         },
         "parameters": {
           "effect": {

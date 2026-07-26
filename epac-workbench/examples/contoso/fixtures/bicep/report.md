@@ -1,8 +1,8 @@
 # Assembly report — contoso
 
 - Engine version: `0.1.0`
-- Catalogue version: `2026.07.24` (`sha256:2a35c9768296ac43dfb91a63fd8973486570eaa757643fd683db3f84dc3eb3fb`)
-- Manifest hash: `sha256:1cd3850a8768ceabb7aec8b82cdfc254ad52b670871a5152180793d536ebe5fd`
+- Catalogue version: `2026.07.25` (`sha256:980e174466a47618c518e412ce2787298b6eed73b53151e75cfeee4cc1e0fa40`)
+- Manifest hash: `sha256:3afbac9fd951be744b4b7b5b645636a63c4dbb3ab087d4eb7bfb9bf176d8d163`
 - Flavours: bicep
 - Initiatives: 2 (1 remediating)
 - Parameters bound: 6

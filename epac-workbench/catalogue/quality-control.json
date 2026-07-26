@@ -1,12 +1,12 @@
 {
-  "catalogueVersion": "2026.07.24",
-  "generatedAt": "2026-07-24T21:54:37Z",
+  "catalogueVersion": "2026.07.25",
+  "generatedAt": "2026-07-26T16:54:47Z",
   "counts": {
     "customDefinitions": 171,
-    "builtinPolicies": 2452,
+    "builtinPolicies": 2458,
     "initiatives": 188,
     "assignments": 188,
-    "members": 3455,
+    "members": 3461,
     "errors": 0,
     "warnings": 0
   },
@@ -14,7 +14,7 @@
     {
       "severity": "info",
       "code": "naming-coverage",
-      "message": "171 custom definitions (readable slugs), 2452 built-in policies (GUID ids), 188 initiatives, 188 assignments",
+      "message": "171 custom definitions (readable slugs), 2458 built-in policies (GUID ids), 188 initiatives, 188 assignments",
       "file": ""
     }
   ]

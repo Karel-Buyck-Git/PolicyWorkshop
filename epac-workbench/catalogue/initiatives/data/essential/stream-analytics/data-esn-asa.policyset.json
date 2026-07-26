@@ -9,7 +9,7 @@
       "category": "Stream Analytics",
       "domain": "Data",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [
@@ -51,6 +51,15 @@
             "value": []
           },
           "allowedMLWebServiceEndpoints": {
+            "value": []
+          },
+          "allowedServiceBusNamespaces": {
+            "value": []
+          },
+          "allowedDataLakeAccounts": {
+            "value": []
+          },
+          "allowedMLServicesEndpoints": {
             "value": []
           }
         }

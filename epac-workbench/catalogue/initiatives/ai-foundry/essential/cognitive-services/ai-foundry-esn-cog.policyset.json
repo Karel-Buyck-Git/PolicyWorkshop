@@ -9,7 +9,7 @@
       "category": "Cognitive Services",
       "domain": "AI Foundry",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
@@ -339,6 +339,27 @@
         "parameters": {
           "effect": {
             "value": "Modify"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "8791d062-ba96-4c34-b604-8538f7e30ca0",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8791d062-ba96-4c34-b604-8538f7e30ca0",
+        "groupNames": [
+          "Essential"
+        ],
+        "metadata": {
+          "policyName": "Foundry model deployments should meet eligibility requirements"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          },
+          "onlyAllowDirectFromAzure": {
+            "value": false
+          },
+          "denyPreviewModels": {
+            "value": false
           }
         }
       },

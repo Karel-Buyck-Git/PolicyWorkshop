@@ -18,7 +18,7 @@
       "<REPLACE: previewManagedIdentityFederatedCredentialsGithubAllowedRepoOwners>"
     ],
     "assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentity": "<REPLACE: assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentity>",
-    "assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentityA": "<REPLACE: assignBuiltUserAssignedManagedIdentityBringYourOwnUserAssignedManagedIdentityA>"
+    "configureVirtualMachinesBuiltUserAssignedBringYourOwnUserAssignedManagedIdentity": "<REPLACE: configureVirtualMachinesBuiltUserAssignedBringYourOwnUserAssignedManagedIdentity>"
   },
   "managedIdentityLocations": {
     "westeurope": [

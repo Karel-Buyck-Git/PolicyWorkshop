@@ -10,6 +10,21 @@ from the `epac-workbench/` directory (`cd epac-workbench` first) — all script 
 paths are relative to it. After each script, if it exited non-zero, report its error and
 **stop**; do not proceed to the next phase on a failure.
 
+> ⚠️ **Re-running a subset after a config edit — pick the right starting phase.** The phases
+> consume each other's output on disk, so starting too late makes the run a **silent no-op**:
+> the pipeline succeeds, the stamps move, and the change simply is not in the catalogue.
+>
+> | Edited | Start at | Why |
+> |---|---|---|
+> | `config/policy-source.json` (upstream pin) | **1** (after `fetch_policy_source.py`) | the source files themselves changed |
+> | `config/azure-domain-hierachy.md` | **2** | `enrich_policies.py` is what recomputes the `Domain` column; Phase 3 only *reads* it |
+> | `config/tier-rules.yaml` | **2** | same — `enrich_policies.py` re-applies tiers |
+> | `config/azure-category-abbreviation.md` | **3** | names are built in Phase 3 via `shared/naming.py` |
+> | `config/definition-gens.md` | **4** | overlays only |
+>
+> When in doubt run **1 → 5**; it is the only always-correct answer. Verified 2026-07-25 (#41):
+> a hierarchy edit re-run from Phase 3 leaves the old `Domain` in place and changes nothing.
+
 The Catalogue Builder is the **producer** behind our Azure governance offerings on
 Enterprise Policy as Code (EPAC). It turns Microsoft's official built-in policies into a
 versioned, EPAC-ready **catalogue**, classified into three commercial tiers, that the

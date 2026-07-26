@@ -9,7 +9,7 @@
       "category": "Monitoring",
       "domain": "Monitoring",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074",
@@ -1500,36 +1500,6 @@
           },
           "effect": {
             "value": "Deny"
-          }
-        }
-      },
-      {
-        "policyDefinitionReferenceId": "04c4380f-3fae-46e8-96c9-30193528f602",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/04c4380f-3fae-46e8-96c9-30193528f602",
-        "groupNames": [
-          "Essential"
-        ],
-        "metadata": {
-          "policyName": "Network traffic data collection agent should be installed on Linux virtual machines"
-        },
-        "parameters": {
-          "effect": {
-            "value": "AuditIfNotExists"
-          }
-        }
-      },
-      {
-        "policyDefinitionReferenceId": "2f2ee1de-44aa-4762-b6bd-0893fc3f306d",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2f2ee1de-44aa-4762-b6bd-0893fc3f306d",
-        "groupNames": [
-          "Essential"
-        ],
-        "metadata": {
-          "policyName": "Network traffic data collection agent should be installed on Windows virtual machines"
-        },
-        "parameters": {
-          "effect": {
-            "value": "AuditIfNotExists"
           }
         }
       },

@@ -9,7 +9,7 @@
       "category": "Storage",
       "domain": "Storage",
       "tier": "Professional",
-      "catalogueVersion": "2026.07.24",
+      "catalogueVersion": "2026.07.25",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab",
@@ -584,6 +584,21 @@
         }
       },
       {
+        "policyDefinitionReferenceId": "f0308946-498a-43fd-8d44-a75b47cd2aef",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f0308946-498a-43fd-8d44-a75b47cd2aef",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Storage accounts should restrict network access (excluding storage accounts managed by Azure Red Hat OpenShift)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
         "policyDefinitionReferenceId": "2a1a9cdf-e04d-429a-8416-3bfb72a1b26f",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a1a9cdf-e04d-429a-8416-3bfb72a1b26f",
         "groupNames": [
@@ -614,6 +629,21 @@
         }
       },
       {
+        "policyDefinitionReferenceId": "ed9bd083-7bfb-4fec-bbb4-12635e096a09",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ed9bd083-7bfb-4fec-bbb4-12635e096a09",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Storage accounts should restrict network access using virtual network rules (excluding storage accounts managed by ARO)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "Deny"
+          }
+        }
+      },
+      {
         "policyDefinitionReferenceId": "6edd7eda-6dd8-40f7-810d-67160c639cd9",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6edd7eda-6dd8-40f7-810d-67160c639cd9",
         "groupNames": [
@@ -636,6 +666,21 @@
         ],
         "metadata": {
           "policyName": "Storage accounts should use private link (excluding storage accounts created by Databricks)"
+        },
+        "parameters": {
+          "effect": {
+            "value": "AuditIfNotExists"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "18ac0011-fb88-42b6-a025-b33b6f0d2cb3",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/18ac0011-fb88-42b6-a025-b33b6f0d2cb3",
+        "groupNames": [
+          "Professional"
+        ],
+        "metadata": {
+          "policyName": "Storage accounts should use private link (excluding storage accounts managed by Azure Red Hat OpenShift)"
         },
         "parameters": {
           "effect": {

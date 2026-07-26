@@ -4,7 +4,7 @@
   "assignment": {
     "name": "storage-pro-st",
     "displayName": "Storage Professional — Storage",
-    "description": "Deployment scaffold for 29 policies. 15 parameter values must be supplied at assignment (e.g. configurePrivateDnsZoneIdBlobPrivateDnsZoneId, configurePrivateDnsZoneIdBlobPrivateDnsZoneIdA, configurePrivateDnsZoneIdDfsPrivateDnsZoneId, …). A managed identity is required: 19 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before dep…"
+    "description": "Deployment scaffold for 32 policies. 15 parameter values must be supplied at assignment (e.g. configurePrivateDnsZoneIdBlobPrivateDnsZoneId, configurePrivateDnsZoneIdBlobPrivateDnsZoneIdA, configurePrivateDnsZoneIdDfsPrivateDnsZoneId, …). A managed identity is required: 19 Modify/DeployIfNotExists policies need remediation roles — assign the identity at scope and run remediation tasks after deployment. Replace all mock references (<root-mg-id>, <pac-environment-selector>, <sub-id>, <REPLACE: …>) before dep…"
   },
   "definitionEntry": {
     "policySetName": "storage-pro-st",
