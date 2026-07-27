@@ -165,9 +165,10 @@ user for any values they already know now; fill the rest when the exact keys are
 - `effectOverrides` — surgical per-policy effect changes (`group`, `policyDefinitionReferenceId`, `effect`). Default `[]`.
 - `exemptions` — waivers/mitigations per pacSelector (`name`, `category: Waiver|Mitigated`, `scopes`; `expiresOn` **required** for Waiver). Default `{}`.
 - `metadata` — governance keys `owner` (email), `costCenterTag`, `contact`. Optional.
-- `source.catalogueVersion` — auto-filled from the catalogue. `source.catalogueContentHash` — optional
-  precise pin (the exact `sha256:…` this manifest was authored against); the assembler then fails if
-  the catalogue changed under a stable version label. Offer it; leave it out unless the user wants it.
+- `source.catalogueVersion` and `source.catalogueContentHash` — both auto-filled from the catalogue;
+  nothing to ask. The contentHash is the precise pin: the version label is only a UTC date, so two
+  releases in one day share it and the assembler cannot tell them apart (#48). Mention it only if
+  the user asks to *drop* it — that is allowed, and it weakens the pin to the label alone.
 
 **Before generating, echo the collected answers back as a summary and get a final confirmation.**
 

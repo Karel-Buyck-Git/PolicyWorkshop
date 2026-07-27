@@ -9,7 +9,7 @@
       "category": "Azure Ai Services",
       "domain": "AI Foundry",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.25",
+      "catalogueVersion": "2026.07.26",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/25fbc0a9-bd7c-42a3-aa1a-3b75d497ee68",

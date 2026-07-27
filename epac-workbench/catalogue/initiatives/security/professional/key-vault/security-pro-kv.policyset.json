@@ -9,7 +9,7 @@
       "category": "Key Vault",
       "domain": "Security",
       "tier": "Professional",
-      "catalogueVersion": "2026.07.25",
+      "catalogueVersion": "2026.07.26",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/18500a29-7fe2-46b2-a342-b16a415e101d",

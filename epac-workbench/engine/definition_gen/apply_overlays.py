@@ -8,8 +8,12 @@ catalogue manifests so the customs become part of the contract:
 - **Enrich** overlays bump their target group's `policyCount` and set `hasCustomMembers: true`;
 - `catalogue.json` is re-stamped (`counts.groups`, `generatedAt`, `contentHash`).
 
+This is also where the version label is finalized, so it carries the release-label
+collision guard (#48): see `_check_version_label`.
+
     python engine/definition_gen/apply_overlays.py
 """
+import argparse
 import importlib
 import json
 import os
@@ -20,8 +24,10 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # engine/ root
 from shared.paths import (  # noqa: E402
-    CATALOGUE_DIR, DEFINITIONS_DIR, INDEX_FILE, CATALOGUE_FILE, DEFINITION_GENS_FILE)
+    CATALOGUE_DIR, DEFINITIONS_DIR, INDEX_FILE, CATALOGUE_FILE, CHANGELOG_FILE,
+    DEFINITION_GENS_FILE)
 from shared.hashing import sha256_file, content_hash  # noqa: E402
+from shared.changelog import version_collision  # noqa: E402
 from definition_gen import scaffold  # noqa: E402
 
 VALID_TIERS = ["Essential", "Professional", "Enterprise"]
@@ -68,7 +74,37 @@ def _write(path, obj):
     Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def _check_version_label(version, hash_value, allow_reuse):
+    """Refuse to finalize a label CHANGELOG.md already released for different content (#48).
+
+    This is the first point in the pipeline where both halves are known: phase 3 sets the
+    label (defaulting to the UTC date, so two same-day releases collide), and the
+    authoritative contentHash is computed here. Failing before `catalogue.json` is written
+    leaves the stamp at 'pending', which is the pipeline's existing "built but not finalized"
+    state — phase 5 QC fails on it, so a refused build cannot be mistaken for a good one.
+    """
+    problem = version_collision(version, hash_value, CHANGELOG_FILE)
+    if not problem:
+        return
+    if allow_reuse:
+        print(f"[apply-overlays] WARNING (--allow-version-reuse): {problem}\n"
+              f"  Proceeding anyway — only correct if the released '{version}' was never "
+              f"published, so no manifest can be pinned to it.")
+        return
+    print(f"ERROR: {problem}\n"
+          f"  Catalogue left unfinalized (contentHash 'pending'); nothing was released.\n"
+          f"  Pass --allow-version-reuse only to amend a release that never left this machine.",
+          file=sys.stderr)
+    raise SystemExit(1)
+
+
 def main():
+    parser = argparse.ArgumentParser(description="Phase 4 — apply overlays and finalize the catalogue stamp.")
+    parser.add_argument("--allow-version-reuse", action="store_true",
+                        help="Re-stamp a version label CHANGELOG.md already released for different "
+                             "content (#48). Only for amending a release that was never published.")
+    args = parser.parse_args()
+
     if not INDEX_FILE.exists():
         print("ERROR: index.json not found — run create_initiatives.py first.", file=sys.stderr)
         raise SystemExit(1)
@@ -131,6 +167,7 @@ def main():
         # Exclude the stamp/report/changelog files: they either *carry* the hash (circular) or
         # are timestamped, so they must not perturb the fingerprint of the substantive catalogue.
         exclude={"catalogue.json", "quality-control.json", "naming-samples.md", "CHANGELOG.md"})
+    _check_version_label(version, catalogue["contentHash"], args.allow_version_reuse)
     _write(CATALOGUE_FILE, catalogue)
 
     new = [r for r in applied if r["kind"] == "new"]

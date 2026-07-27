@@ -68,8 +68,12 @@ The catalogue is the only thing the assembler depends on — it is self-describi
   `docs/` dependency.
 - **`catalogue.json`** — the version stamp: a human `catalogueVersion` label, `generatedAt`,
   `inputs` (built-ins git ref, hierarchy hash, tier-rules hash), `counts`, `tools`, and a
-  `contentHash` fingerprint over every catalogue file. The manifest pins `source.catalogueVersion`;
-  the assembler verifies it matches and can recompute `contentHash` to detect drift.
+  `contentHash` fingerprint over every catalogue file. The manifest pins **both**:
+  `source.catalogueVersion` (the label) and `source.catalogueContentHash` (the precise pin, seeded
+  by default), and the assembler fails the build on either mismatch. Both are needed because the
+  label is a UTC date — two releases in one day share it, and the version gate is an exact string
+  compare, so only the hash can tell them apart (#48). The producer additionally refuses to *stamp*
+  a label `catalogue/CHANGELOG.md` already records for different content.
 - **Baked remediation roles** — each group containing a DeployIfNotExists/Modify member carries its
   required `roleDefinitionIds` in the policyset `metadata` and a `<name>.roles.json` sidecar,
   precomputed by phase 3 from the policy repo. The Terraform/Bicep renderers read these; the

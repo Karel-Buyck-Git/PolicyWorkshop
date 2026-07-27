@@ -172,6 +172,13 @@ exactly one group — and writes up to five EPAC-ready artifacts per group to
 The parameter-index join also reads each policy's `roleDefinitionIds` from the repo (for the baking
 above). A version label is set with `--version` (default: today's UTC date).
 
+> ⚠️ **The default label is a UTC date, so two releases in one day collide** (backlog #48). If the
+> label is already in `catalogue/CHANGELOG.md`, Phase 3 prints a **NOTE** naming the next free
+> suffix (`--version 2026.07.26.1`) — this is the phase where `--version` can still be corrected
+> cheaply. It is only a warning here because whether the label truly collides depends on the
+> `contentHash`, which Phase 4 computes; Phase 4 is what **enforces**. Watch for it: a colliding
+> label means a customer manifest pinned to the earlier release builds green against this one.
+
 Finally, two catalogue manifests are written at the catalogue root:
 
 - `catalogue/index.json` — the group list + `domainMap` (category → domain) + tiers, stamped with `catalogueVersion`.
@@ -224,6 +231,15 @@ generator enforces is its own — see `engine/definition_gen/README.md`.
 
 To build a **built-in-only** catalogue, set every row in `config/definition-gens.md` to
 `Enabled = no`; apply-overlays then applies nothing but still finalizes the stamp.
+
+> 🛑 **Release-label collision guard (backlog #48).** Before writing the stamp, this phase checks
+> the version label against `catalogue/CHANGELOG.md` — the record of what was actually released.
+> If that label is already recorded with a **different** `contentHash`, the run **fails (exit 1)**
+> and the catalogue is left unfinalized (`contentHash: pending`), so a refused build cannot be
+> mistaken for a good one. Re-run Phase 3 with the suffixed label the error names. Re-stamping a
+> label with **identical** content is not a collision — that is an idempotent re-run and passes.
+> `--allow-version-reuse` overrides the refusal; use it **only** to amend a release that never
+> left this machine, because once a release is published a manifest can be pinned to it.
 
 ## Phase 5 — Quality control output (producer step ⑤)
 

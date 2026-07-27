@@ -52,7 +52,7 @@
         },
         "catalogueContentHash": {
           "type": "string",
-          "description": "Optional precise pin: the exact catalogue contentHash (sha256:...) this manifest was authored against. When set, the assembler fails if the catalogue's contentHash differs — guarding against a catalogue that changed under a stable version label."
+          "description": "Precise pin: the exact catalogue contentHash (sha256:...) this manifest was authored against. Seeded by default when the manifest is generated, and the pin you want — catalogueVersion is a UTC date label that two same-day releases share, so it cannot tell them apart. When set, the assembler fails if the catalogue's contentHash differs. Omit it to pin by version label alone (weaker, and permitted only for backward compatibility)."
         },
         "managementGroups": {
           "type": "string",

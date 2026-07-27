@@ -15,6 +15,7 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 | [`fetch_policy_source.py`](fetch_policy_source.py) | "give me the pinned official policy source everyone builds against" | before a build, or on a schedule |
 | [`ab_verify.py`](ab_verify.py) | "was my refactor of step ③ additive-only?" | after changing `create_initiatives.py` |
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
+| [`catalogue_changelog.py`](catalogue_changelog.py) | "record what changed in this release, and why" | at every catalogue release, after phase 5 |
 | [`check_catalogue_stamp.py`](check_catalogue_stamp.py) | "is the committed catalogue still the one this engine produces?" | **in CI on every push**, and after any producer change |
 | [`summarize_categories.py`](summarize_categories.py) | "what categories exist and how big are they?" | when reviewing the taxonomy |
 | [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
@@ -111,6 +112,26 @@ into a best-effort diff of a knowingly damaged tree: it warns loudly and sets `u
 JSON report. [`catalogue_changelog.py`](catalogue_changelog.py) has **no such flag** on purpose — a
 console report is something you read, but a committed changelog entry is a durable claim, and a
 wrong one is indistinguishable from a real record.
+
+### [`catalogue_changelog.py`](catalogue_changelog.py)
+The **release recorder** — turns a `catalogue_diff` into a durable, customer-readable
+`catalogue/CHANGELOG.md` entry attributed to its driver (upstream Microsoft policy changes,
+taxonomy/curation, or engine changes). Run it as the last step of a release, diffing the previous
+catalogue tree against the new one; omit `--old` for a baseline entry.
+
+```
+python engine/tools/catalogue_changelog.py --old <path/to/previous/catalogue> [--write]
+```
+
+Stage the previous catalogue at a **short path** — a deep temp path is what triggered the #46
+`MAX_PATH` failure, and this tool has no `--allow-unreadable` escape hatch by design.
+
+**It is also the release ledger the #48 version guard reads.** `CHANGELOG.md` is the only record
+of which labels were actually *released* and what each one meant, so the producer consults it
+before stamping ([`../definition_gen/apply_overlays.py`](../definition_gen/apply_overlays.py)) and
+this tool consults it again before writing. `--write` therefore **refuses** (exit 2) to record a
+label already present with a different `contentHash`, and **skips** — rather than duplicating — a
+label already present with the same one.
 
 ### [`summarize_categories.py`](summarize_categories.py)
 A **taxonomy inspector** — walks every `policies.md` under `catalogue/definitions/`, parses the

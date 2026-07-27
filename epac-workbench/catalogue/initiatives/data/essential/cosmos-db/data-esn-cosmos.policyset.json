@@ -9,7 +9,7 @@
       "category": "Cosmos DB",
       "domain": "Data",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.25",
+      "catalogueVersion": "2026.07.26",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/5bd9cd88-fe45-4216-938b-f97437e15450"

@@ -22,6 +22,7 @@ DEFINITIONS_DIR = CATALOGUE_DIR / "definitions"   # policies.md taxonomy
 INITIATIVES_DIR = CATALOGUE_DIR / "initiatives"   # EPAC group artifacts
 INDEX_FILE      = CATALOGUE_DIR / "index.json"     # generated: groups + domain map
 CATALOGUE_FILE  = CATALOGUE_DIR / "catalogue.json" # generated: version stamp
+CHANGELOG_FILE  = CATALOGUE_DIR / "CHANGELOG.md"   # generated: per-release record (the released-label ledger)
 
 # Authored inputs
 CONFIG_DIR     = PROJECT_ROOT / "config"

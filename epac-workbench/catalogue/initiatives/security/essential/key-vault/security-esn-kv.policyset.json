@@ -9,7 +9,7 @@
       "category": "Key Vault",
       "domain": "Security",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.25",
+      "catalogueVersion": "2026.07.26",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

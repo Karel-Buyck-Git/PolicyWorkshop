@@ -28,6 +28,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # engine/ root
+from shared.changelog import released_versions, version_collision  # noqa: E402
 from tools.catalogue_diff import (  # noqa: E402
     UnreadableCatalogue, diff_catalogues, find_provenance, scan)
 
@@ -151,8 +152,22 @@ def main():
         return 2
 
     if args.write:
+        # Second half of the #48 guard. apply_overlays refuses to *stamp* a colliding label;
+        # this refuses to *record* one, so the ledger stays single-valued even if the stamp
+        # was forced through with --allow-version-reuse or written by an older engine.
+        m = _meta(args.new)
+        clash = version_collision(m["version"], m["contentHash"], args.changelog)
+        if clash:
+            print(f"ERROR: {clash}\nNo changelog entry written.", file=sys.stderr)
+            return 2
+        if released_versions(args.changelog).get(m["version"]) == m["contentHash"]:
+            # Same label, same content: this release is already recorded. Appending again
+            # would put two identical entries in the ledger, which reads as two releases.
+            print(f"[changelog] {m['version']} is already recorded with this contentHash — "
+                  f"nothing to do.")
+            return 0
         prepend(args.changelog, entry)
-        print(f"[changelog] entry for {_meta(args.new)['version']} -> {args.changelog}")
+        print(f"[changelog] entry for {m['version']} -> {args.changelog}")
     else:
         print(entry)
     return 0

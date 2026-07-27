@@ -9,9 +9,13 @@
   "prefix": "contoso",
   "pacOwnerId": "11111111-2222-3333-4444-555555555555",
 
+  // Both pins are re-pinned on every catalogue release. catalogueContentHash is the precise
+  // one (#48) — the version label is a UTC date that two same-day releases share — and CI
+  // rebuilding this package is what keeps the gate itself covered.
   "source": {
     "initiatives": "../../../catalogue/initiatives",
-    "catalogueVersion": "2026.07.25",
+    "catalogueVersion": "2026.07.26",
+    "catalogueContentHash": "sha256:c06199a7a410fc97f0a8f5d1da9db5bc30a631c70aade7a779d7c3d5daef3d5c",
     "managementGroups": "../designs/contoso-mgmt-groups.json"
   },
 

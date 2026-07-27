@@ -50,11 +50,13 @@ from shared.paths import (  # noqa: F401,E402
     PROJECT_ROOT,
     DEFINITIONS_DIR,
     INITIATIVES_DIR,
+    CHANGELOG_FILE,
     HIERARCHY_FILE,
     TIER_RULES_FILE,
     OFFICIAL_POLICY_REPO_ENV,
     official_policy_source,
 )
+from shared.changelog import next_free_label, released_versions  # noqa: E402
 from shared.hierarchy import load_domain_map  # noqa: E402
 from shared.mdtable import md_escape, slugify, parse_table  # noqa: E402
 from shared import naming  # noqa: E402
@@ -660,6 +662,15 @@ def main() -> None:
                         help="Catalogue version label (default: today's UTC date)")
     args = parser.parse_args()
     catalogue_version = args.version
+
+    # Heads-up, not a gate (#48): this is the phase that *sets* the label, so it is where
+    # --version can still be corrected cheaply — but whether the label actually collides
+    # depends on the contentHash, which only phase 4 computes. It enforces; this warns.
+    released = released_versions(CHANGELOG_FILE)
+    if catalogue_version in released:
+        print(f"[Phase 3] NOTE: '{catalogue_version}' is already a released catalogue version. "
+              f"If this run changes any content, phase 4 will refuse to finalize it — re-run "
+              f"with --version {next_free_label(catalogue_version, released)}.")
 
     output_dir = Path(args.output)
     initiatives_dir = Path(args.initiatives)

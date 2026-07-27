@@ -9,7 +9,7 @@
       "category": "Azure Active Directory",
       "domain": "Security",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.25",
+      "catalogueVersion": "2026.07.26",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

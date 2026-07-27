@@ -50,12 +50,21 @@ Paths in the manifest are resolved **relative to the manifest file**:
 | ------------------------- | ----------------------------- | ------------------------------------------------------------------------ |
 | `source.initiatives`      | `../../catalogue/initiatives` | the shared catalogue (read)                                              |
 | `source.catalogueVersion` | e.g. `2026.06.10`             | pins the catalogue snapshot used (must match `catalogue/catalogue.json`) |
+| `source.catalogueContentHash` | e.g. `sha256:c06199a7…`   | the **precise** pin — the exact catalogue bytes. Seeded for you; see below |
 | `output.root`             | `../package`                  | `customer/package/` — the deployable package (write)                     |
 
 The assembler reads `catalogue/index.json` to validate the selection and expand
 `category:"*"`, and reads each group's baked `roleDefinitionIds` (policyset metadata +
 `.roles.json`) for Terraform/Bicep remediation — so a customer build needs **only the
 catalogue**, no policy repo and no `config/`/`docs/` files.
+
+**Why there are two pins.** `catalogueVersion` is a human label and only a UTC *date*, so two
+catalogue releases in the same day share it — and the assembler's version check is an exact
+string compare, which cannot tell those two apart. `catalogueContentHash` is the exact
+fingerprint of the catalogue bytes, so it can. Both are filled in for you when the manifest is
+generated, and the build fails on either mismatch. You may delete the `catalogueContentHash`
+line to pin by label alone; nothing forces you to keep it, but you lose the guarantee that the
+package you rebuild tomorrow is the package you built today.
 
 ## `parameters` (input)
 
@@ -73,7 +82,7 @@ form (customer + selections)            -> input.example.json
   -> assembler seeds parameters{} keys from the selection (via catalogue/index.json)
   -> assembler expands -> <customer>.manifest.jsonc (placeholders, structure-locked, committable)
   -> human fills values (value-only edits)
-  -> strict schema validates + catalogueVersion verified
+  -> strict schema validates + catalogueVersion & catalogueContentHash verified
   -> render + package -> customer/package/ (flat if one flavour, else {epac,terraform,bicep}/)
        each a deployable package: content + .github/workflows + docs/ + README + lineage.json + report.md
 ```

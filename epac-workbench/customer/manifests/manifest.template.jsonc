@@ -15,9 +15,15 @@
   "pacOwnerId": "<REPLACE: pacOwnerId-guid>",    // or leave for the assembler to generate
 
   // --- Provenance / lineage ---
+  // Both pins come from catalogue/catalogue.json: catalogueVersion <- catalogueVersion,
+  // catalogueContentHash <- contentHash. The version label is only a UTC date, so two
+  // releases in one day share it; the contentHash is the exact pin and is what makes a
+  // build reproducible. Delete the catalogueContentHash line to pin by label alone
+  // (allowed, and the only key here you may remove) — but that is the weaker guarantee.
   "source": {
     "initiatives": "../../catalogue/initiatives",
     "catalogueVersion": "<REPLACE: catalogue-snapshot-id>",
+    "catalogueContentHash": "<REPLACE: sha256:... from catalogue/catalogue.json>",
     "managementGroups": "../designs/contoso-mgmt-groups.json"   // resolves selection.managementGroup NAMES -> scope ids
   },
 

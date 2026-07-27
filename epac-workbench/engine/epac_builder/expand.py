@@ -41,15 +41,25 @@ def expand(input_data, catalogue: Catalogue):
     supplied = input_data.get("parameters", {})
     defaults = {k: supplied.get(k, f"<REPLACE: {k}>") for k in required}
 
+    # Pin the catalogue precisely, not just by label (#48). The version label is the UTC
+    # date, so two releases in one day share it and the assembler's exact-string version
+    # gate cannot tell them apart; the contentHash can. Seeded here so the safe pin is the
+    # default rather than an opt-in the author has to know about. Omitted only for a
+    # pre-#27 catalogue that publishes no contentHash.
+    source = {
+        "initiatives": "../../catalogue/initiatives",
+        "catalogueVersion": catalogue.version,
+    }
+    content_hash = catalogue.provenance().get("catalogueContentHash")
+    if content_hash:
+        source["catalogueContentHash"] = content_hash
+
     return {
         "schemaVersion": 1,
         "customer": input_data["customer"],
         "prefix": "<REPLACE: prefix-slug>",
         "pacOwnerId": "<REPLACE: pacOwnerId-guid>",
-        "source": {
-            "initiatives": "../../catalogue/initiatives",
-            "catalogueVersion": catalogue.version,
-        },
+        "source": source,
         "output": {"root": "../package", "flavours": ["json"]},
         "environments": [{
             "selector": "<REPLACE: pacSelector>",
