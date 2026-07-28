@@ -9,7 +9,7 @@
       "category": "Naming convention",
       "domain": "Management",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.26",
+      "catalogueVersion": "2026.07.28",
       "source": "getResourceName.bicep v1.5",
       "hasRemediation": false,
       "custom": true

@@ -358,7 +358,7 @@ def write_enriched(path: Path, title: str, rows: list[dict], rationale: str) -> 
     ]
     out.extend(md_row(r, i) for i, r in enumerate(rows, start=1))
     out.append("")
-    path.write_text("\n".join(out), encoding="utf-8")
+    path.write_text("\n".join(out), encoding="utf-8", newline="\n")  # LF on every host (#52)
 
 
 # ---------------------------------------------------------------------------

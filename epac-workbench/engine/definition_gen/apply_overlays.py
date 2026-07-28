@@ -71,7 +71,8 @@ def load_generators():
 
 
 def _write(path, obj):
-    Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n",
+                          encoding="utf-8", newline="\n")  # LF on every host (#52)
 
 
 def _check_version_label(version, hash_value, allow_reuse):

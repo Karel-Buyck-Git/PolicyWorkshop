@@ -1,8 +1,8 @@
 # Assembly report — contoso
 
-- Engine version: `0.1.0`
-- Catalogue version: `2026.07.26` (`sha256:c06199a7a410fc97f0a8f5d1da9db5bc30a631c70aade7a779d7c3d5daef3d5c`)
-- Manifest hash: `sha256:3a18fc9e703efcaff6cefb15083608b66003e4d008d50f68a54001c205b499ac`
+- Engine version: `0.2.0`
+- Catalogue version: `2026.07.28` (`sha256:7dc8f59ff7e10968d9aea5e1c24030a9ceaa0d7cf3e6220b39905747a2b061f3`)
+- Manifest hash: `sha256:4e5b05decc72caca26f17e9f257b9ece72329adff1668ad88000f390f491aef6`
 - Flavours: terraform
 - Initiatives: 2 (1 remediating)
 - Parameters bound: 6

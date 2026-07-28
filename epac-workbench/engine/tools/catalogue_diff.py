@@ -139,19 +139,35 @@ def _attribute(pa, pb):
 
     Maps the input-hash deltas onto the drivers a customer engineer reasons about:
     ``builtInsRef`` moved -> upstream Microsoft policy change (the recurring fetch);
-    ``hierarchyHash``/``tierRulesHash`` moved -> taxonomy/classification (our curation);
-    tool or definition-gen hashes moved (with sources unchanged) -> engine change.
+    ``hierarchyHash``/``tierRulesHash``/``categoryAbbrevHash`` moved -> taxonomy/classification
+    (our curation); tool or definition-gen hashes moved (with sources unchanged) -> engine change.
+
+    ``categoryAbbrevHash`` joined the taxonomy driver with #49. It was the fourth authored
+    input and the only unstamped one, yet it renames every group it touches — so a change to
+    it used to land here as "none — identical provenance", telling the reader to investigate a
+    determinism bug that was really a curation edit.
     """
     if not pa or not pb:
         return {"attributable": False,
                 "verdict": "one side predates version-stamping — cause not attributable",
                 "drivers": []}
     ai, bi = (pa.get("inputs", {}) or {}), (pb.get("inputs", {}) or {})
-    upstream = ai.get("builtInsRef") != bi.get("builtInsRef")
-    taxonomy = (ai.get("hierarchyHash") != bi.get("hierarchyHash")
-                or ai.get("tierRulesHash") != bi.get("tierRulesHash"))
+
+    def moved(key):
+        """Did this stamp change? A stamp missing on either side is NOT a change.
+
+        A newly-added stamp key (``categoryAbbrevHash`` arrived with #49) is absent on the
+        older catalogue, and a naive ``!=`` would read that absence as the input having
+        changed — attributing the release to a taxonomy edit that never happened, in the very
+        release that adds the stamp. Absent means "not comparable", not "different".
+        """
+        a, b = ai.get(key), bi.get(key)
+        return a is not None and b is not None and a != b
+
+    upstream = moved("builtInsRef")
+    taxonomy = moved("hierarchyHash") or moved("tierRulesHash") or moved("categoryAbbrevHash")
     engine = (pa.get("tools") != pb.get("tools")
-              or ai.get("definitionGensHash") != bi.get("definitionGensHash")
+              or moved("definitionGensHash")
               or pa.get("producedByEngine") != pb.get("producedByEngine"))
     drivers = []
     if upstream:

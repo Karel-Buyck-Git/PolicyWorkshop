@@ -9,7 +9,7 @@
       "category": "Service Bus",
       "domain": "Integration",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.26",
+      "catalogueVersion": "2026.07.28",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/microsoft.authorization/roleDefinitions/090c5cfd-751d-490a-894a-3ce6f1109419"
