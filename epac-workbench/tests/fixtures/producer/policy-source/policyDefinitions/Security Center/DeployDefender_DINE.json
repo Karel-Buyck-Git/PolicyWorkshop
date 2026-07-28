@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "displayName": "Microsoft Defender for Storage should be enabled",
+    "policyType": "BuiltIn",
+    "mode": "Indexed",
+    "description": "Deploys the Defender plan when it is missing.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Security Center"
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "AuditIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Demo/things"
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "roleDefinitionIds": [
+            "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ]
+        }
+      }
+    }
+  },
+  "id": "/providers/Microsoft.Authorization/policyDefinitions/aaaaaaaa-0000-0000-0000-00000000000c",
+  "name": "aaaaaaaa-0000-0000-0000-00000000000c"
+}

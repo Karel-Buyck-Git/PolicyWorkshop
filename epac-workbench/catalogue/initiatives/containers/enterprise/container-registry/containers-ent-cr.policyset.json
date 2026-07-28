@@ -9,7 +9,7 @@
       "category": "Container Registry",
       "domain": "Containers",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.07.26",
+      "catalogueVersion": "2026.07.28",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

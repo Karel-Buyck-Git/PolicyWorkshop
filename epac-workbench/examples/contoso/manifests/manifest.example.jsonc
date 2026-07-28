@@ -14,8 +14,8 @@
   // rebuilding this package is what keeps the gate itself covered.
   "source": {
     "initiatives": "../../../catalogue/initiatives",
-    "catalogueVersion": "2026.07.26",
-    "catalogueContentHash": "sha256:c06199a7a410fc97f0a8f5d1da9db5bc30a631c70aade7a779d7c3d5daef3d5c",
+    "catalogueVersion": "2026.07.28",
+    "catalogueContentHash": "sha256:7dc8f59ff7e10968d9aea5e1c24030a9ceaa0d7cf3e6220b39905747a2b061f3",
     "managementGroups": "../designs/contoso-mgmt-groups.json"
   },
 

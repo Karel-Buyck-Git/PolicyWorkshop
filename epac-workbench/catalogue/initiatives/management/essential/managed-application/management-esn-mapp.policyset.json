@@ -9,7 +9,7 @@
       "category": "Managed Application",
       "domain": "Management",
       "tier": "Essential",
-      "catalogueVersion": "2026.07.26",
+      "catalogueVersion": "2026.07.28",
       "hasRemediation": true,
       "roleDefinitionIds": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"

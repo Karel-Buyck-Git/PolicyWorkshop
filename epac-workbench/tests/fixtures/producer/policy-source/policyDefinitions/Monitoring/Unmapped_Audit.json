@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "displayName": "An unmapped policy",
+    "policyType": "BuiltIn",
+    "mode": "Indexed",
+    "description": "Its category is absent from the fixture hierarchy, so it belongs in the undefined catch-bucket.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Monitoring"
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Disabled"
+        ],
+        "defaultValue": "Audit"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Demo/things"
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  },
+  "id": "/providers/Microsoft.Authorization/policyDefinitions/aaaaaaaa-0000-0000-0000-00000000000d",
+  "name": "aaaaaaaa-0000-0000-0000-00000000000d"
+}

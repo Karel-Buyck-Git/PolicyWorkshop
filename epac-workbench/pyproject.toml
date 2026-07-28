@@ -14,7 +14,7 @@
 name = "epac-workbench"
 # Kept in lockstep with engine/shared/version.py and the v* git tags by
 # engine/tools/release.py (auto-SemVer from Conventional Commits). See #27.
-version = "0.1.0"
+version = "0.2.0"
 description = "Azure Policy catalogue + EPAC scaffold builder (stdlib-only)."
 # CI runs on 3.11 (.github/workflows/contoso-epac-build.yml); the code needs 3.8+ at minimum
 # (assignment expressions), so 3.10 is a comfortable, tested-adjacent floor.

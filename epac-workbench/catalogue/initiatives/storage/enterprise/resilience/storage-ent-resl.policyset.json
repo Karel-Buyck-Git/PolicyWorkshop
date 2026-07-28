@@ -9,7 +9,7 @@
       "category": "Resilience",
       "domain": "Storage",
       "tier": "Enterprise",
-      "catalogueVersion": "2026.07.26",
+      "catalogueVersion": "2026.07.28",
       "hasRemediation": false
     },
     "policyDefinitionGroups": [

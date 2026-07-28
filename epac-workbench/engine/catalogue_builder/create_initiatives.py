@@ -53,6 +53,7 @@ from shared.paths import (  # noqa: F401,E402
     CHANGELOG_FILE,
     HIERARCHY_FILE,
     TIER_RULES_FILE,
+    CATEGORY_ABBREV_FILE,
     OFFICIAL_POLICY_REPO_ENV,
     official_policy_source,
 )
@@ -583,7 +584,8 @@ def write_json(path: Path, obj: dict, schema_url: str | None = None) -> None:
     helper pass no schema and are written as-is."""
     if schema_url:
         obj = {"$schema": schema_url, **{k: v for k, v in obj.items() if k != "$schema"}}
-    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8", newline="\n")  # LF on every host (#52)
 
 
 # ---------------------------------------------------------------------------
@@ -638,6 +640,13 @@ def write_catalogue_manifests(catalogue_root, records, version, source_dir,
             "builtInsRef": _git_ref(source_dir),
             "hierarchyHash": sha256_file(HIERARCHY_FILE),
             "tierRulesHash": sha256_file(TIER_RULES_FILE),
+            # The fourth authored input (#49). It feeds shared/naming.py, which builds EVERY
+            # catalogue technical name (<domain>-<tier>-<abbr>: the policyset, the assignment
+            # and the file basenames) — so editing an abbreviation renames groups across the
+            # catalogue. Unstamped, contentHash moved while every provenance input matched,
+            # and catalogue_diff attributed the change to "none — identical provenance",
+            # i.e. it told the reader to go hunt a determinism bug that did not exist.
+            "categoryAbbrevHash": sha256_file(CATEGORY_ABBREV_FILE),
         },
         "counts": {"groups": group_count, "files": file_count},
         "tools": {
@@ -745,7 +754,8 @@ def main() -> None:
         has_roles = roles_info["hasRemediation"]
 
         (group_dir / f"{name}.md").write_text(
-            render_markdown(display_name, rationale_text, rows, name, has_roles, tier), encoding="utf-8"
+            render_markdown(display_name, rationale_text, rows, name, has_roles, tier),
+            encoding="utf-8", newline="\n"  # LF on every host (#52)
         )
         write_json(group_dir / f"{name}.policyset.json", policyset, SCHEMA_POLICYSET)
         if has_roles:

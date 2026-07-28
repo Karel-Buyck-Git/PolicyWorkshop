@@ -1,10 +1,10 @@
 {
-  "engineVersion": "0.1.0",
+  "engineVersion": "0.2.0",
   "customer": "contoso",
   "pacOwnerId": "11111111-2222-3333-4444-555555555555",
-  "manifestHash": "sha256:3a18fc9e703efcaff6cefb15083608b66003e4d008d50f68a54001c205b499ac",
-  "catalogueVersion": "2026.07.26",
-  "catalogueContentHash": "sha256:c06199a7a410fc97f0a8f5d1da9db5bc30a631c70aade7a779d7c3d5daef3d5c",
+  "manifestHash": "sha256:4e5b05decc72caca26f17e9f257b9ece72329adff1668ad88000f390f491aef6",
+  "catalogueVersion": "2026.07.28",
+  "catalogueContentHash": "sha256:7dc8f59ff7e10968d9aea5e1c24030a9ceaa0d7cf3e6220b39905747a2b061f3",
   "builtInsRef": "git:f600c952718e8d2fc1c4fe92c516100d2ad85999",
   "hierarchyHash": "sha256:910a106dd2156fedfd7ec526db0dc877ec5970158d1e0daaaeb1d50924868bf9",
   "flavours": [

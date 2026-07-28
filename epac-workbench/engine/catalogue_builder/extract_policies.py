@@ -259,7 +259,7 @@ def write_category_file(category: str, items: list[dict], out_dir: Path) -> Path
         *[md_row(p, i) for i, p in enumerate(sorted_items, start=1)],
         "",
     ]
-    out_file.write_text("\n".join(lines), encoding="utf-8")
+    out_file.write_text("\n".join(lines), encoding="utf-8", newline="\n")  # LF on every host (#52)
     return out_file
 
 
@@ -285,7 +285,7 @@ DEFAULT_HIERARCHY = str(HIERARCHY_FILE)
 
 def write_jsonl(policies: list[dict], source_dir: Path, out_dir: Path) -> Path:
     out_file = out_dir / f"{source_dir.name.lower().replace(' ', '-')}.jsonl"
-    with out_file.open("w", encoding="utf-8") as fh:
+    with out_file.open("w", encoding="utf-8", newline="\n") as fh:  # LF on every host (#52)
         for p in policies:
             fh.write(json.dumps(p, ensure_ascii=False) + "\n")
     return out_file

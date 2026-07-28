@@ -12,4 +12,4 @@ constant + ``pyproject.toml`` and creates the tag. So the tag and this string al
 agree; ``git describe`` remains the human-facing release marker.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

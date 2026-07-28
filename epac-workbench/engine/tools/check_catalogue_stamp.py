@@ -30,7 +30,7 @@ from shared.hashing import sha256_file, content_hash  # noqa: E402
 from shared.version import __version__ as ENGINE_VERSION  # noqa: E402
 from shared.paths import (  # noqa: E402
     CATALOGUE_DIR, CATALOGUE_FILE, CONFIG_DIR, HIERARCHY_FILE, TIER_RULES_FILE,
-    DEFINITION_GENS_FILE, PROJECT_ROOT,
+    DEFINITION_GENS_FILE, CATEGORY_ABBREV_FILE, PROJECT_ROOT,
 )
 
 CATALOGUE_BUILDER_DIR = PROJECT_ROOT / "engine" / "catalogue_builder"
@@ -46,6 +46,7 @@ FILE_STAMPS = {
     "inputs.hierarchyHash": HIERARCHY_FILE,
     "inputs.tierRulesHash": TIER_RULES_FILE,
     "inputs.definitionGensHash": DEFINITION_GENS_FILE,
+    "inputs.categoryAbbrevHash": CATEGORY_ABBREV_FILE,   # the fourth authored input (#49)
     "tools.extract": CATALOGUE_BUILDER_DIR / "extract_policies.py",
     "tools.enrich": CATALOGUE_BUILDER_DIR / "enrich_policies.py",
     "tools.createInitiatives": CATALOGUE_BUILDER_DIR / "create_initiatives.py",
