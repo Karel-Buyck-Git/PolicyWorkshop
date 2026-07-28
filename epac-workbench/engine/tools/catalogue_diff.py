@@ -323,7 +323,7 @@ def main():
 
     if args.out:
         report = {k: v for k, v in rep.items() if k != "_idx"}
-        Path(args.out).write_text(json.dumps(report, indent=2), encoding="utf-8")
+        Path(args.out).write_text(json.dumps(report, indent=2), encoding="utf-8", newline="\n")
         print(f"\nfull report → {args.out}")
 
 

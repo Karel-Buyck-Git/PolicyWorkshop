@@ -85,7 +85,7 @@ def generate(root: Node, out_dir: Path, variant: str = "both", stem: str = "mgmt
     for name in wanted:
         svg = RENDERERS[name](root)
         path = out_dir / output_name(stem, name)
-        path.write_text(svg, encoding="utf-8")
+        path.write_text(svg, encoding="utf-8", newline="\n")  # LF on every host (#52)
         written.append(path)
     return written
 

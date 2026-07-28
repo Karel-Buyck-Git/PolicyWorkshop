@@ -89,13 +89,15 @@ def _next(version, level):
 
 
 def _write_version(new):
+    # newline="\n" (#52): rewriting these two files must change the version line and
+    # nothing else — without it, a bump run on Windows re-writes the whole file as CRLF.
     VERSION_PY.write_text(
         re.sub(r'__version__\s*=\s*"[^"]+"', f'__version__ = "{new}"',
-               VERSION_PY.read_text(encoding="utf-8")), encoding="utf-8")
+               VERSION_PY.read_text(encoding="utf-8")), encoding="utf-8", newline="\n")
     PYPROJECT.write_text(
         re.sub(r'^version\s*=\s*"[^"]+"', f'version = "{new}"',
                PYPROJECT.read_text(encoding="utf-8"), count=1, flags=re.MULTILINE),
-        encoding="utf-8")
+        encoding="utf-8", newline="\n")
 
 
 def main():
