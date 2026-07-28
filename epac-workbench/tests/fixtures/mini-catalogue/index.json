@@ -1,0 +1,38 @@
+{
+  "catalogueVersion": "0000.00.00-test",
+  "tiers": ["Essential", "Professional", "Enterprise"],
+  "domainMap": {
+    "Demo": "Demo",
+    "Anchored": "Demo"
+  },
+  "groups": [
+    {
+      "domain": "Demo",
+      "tier": "Essential",
+      "category": "Plain",
+      "name": "demo-esn-plain",
+      "dir": "initiatives/demo/essential/plain",
+      "policyCount": 2,
+      "hasRemediation": false
+    },
+    {
+      "domain": "Demo",
+      "tier": "Essential",
+      "category": "Anchored",
+      "name": "demo-esn-anchor",
+      "dir": "initiatives/demo/essential/anchor",
+      "policyCount": 1,
+      "hasRemediation": false,
+      "custom": true
+    },
+    {
+      "domain": "Demo",
+      "tier": "Professional",
+      "category": "Remediating",
+      "name": "demo-pro-remed",
+      "dir": "initiatives/demo/professional/remediating",
+      "policyCount": 1,
+      "hasRemediation": true
+    }
+  ]
+}

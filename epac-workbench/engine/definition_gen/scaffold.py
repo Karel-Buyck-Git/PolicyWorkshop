@@ -98,7 +98,8 @@ def _write_json(path, obj, schema_url=None):
     if schema_url:
         obj = {"$schema": schema_url, **{k: v for k, v in obj.items() if k != "$schema"}}
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n",
+                          encoding="utf-8", newline="\n")  # LF on every host (#52)
 
 
 def _write_definitions(family, definitions):
@@ -219,7 +220,7 @@ def _apply_new_group(overlay, members, version):
     _write_json(group_dir / f"{name}.exemptions.json", _new_group_exemptions(ng, name),
                 SCHEMA_EXEMPTIONS)
     (group_dir / f"{name}.md").write_text(_new_group_md(overlay, members, name, display),
-                                          encoding="utf-8")
+                                          encoding="utf-8", newline="\n")
 
     record = {
         "domain": ng.domain, "tier": ng.tier, "category": ng.category, "name": name,

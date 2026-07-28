@@ -792,9 +792,12 @@ def main() -> None:
     if args.check_only:
         print(json.dumps(report, indent=2, ensure_ascii=False))
     else:
-        NAMING_SAMPLES_FILE.write_text(render_naming_samples(ctx), encoding="utf-8")
-        EPAC_NAMING_DOC.write_text(render_epac_naming_doc(ctx), encoding="utf-8")
-        QC_REPORT_FILE.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        # newline="\n" everywhere (#52): the engine writes LF on every host, so a
+        # regenerated artifact is byte-identical whoever ran the producer.
+        NAMING_SAMPLES_FILE.write_text(render_naming_samples(ctx), encoding="utf-8", newline="\n")
+        EPAC_NAMING_DOC.write_text(render_epac_naming_doc(ctx), encoding="utf-8", newline="\n")
+        QC_REPORT_FILE.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n",
+                                  encoding="utf-8", newline="\n")
         print(f"Wrote {NAMING_SAMPLES_FILE.name}, {EPAC_NAMING_DOC.name}, {QC_REPORT_FILE.name}")
 
     print(f"QC: {summary_line.replace('**', '')}")

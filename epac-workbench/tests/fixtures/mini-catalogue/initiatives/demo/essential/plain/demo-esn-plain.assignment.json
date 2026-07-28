@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/demo/essential/plain/",
+  "assignment": {
+    "name": "demo-esn-plain",
+    "displayName": "Demo Essential — Plain",
+    "description": "Deployment scaffold for 2 policies. Replace all mock references before deploying."
+  },
+  "definitionEntry": {
+    "policySetName": "demo-esn-plain",
+    "displayName": "Demo Essential — Plain"
+  },
+  "parameters": {
+    "demoTagName": "<REPLACE: demoTagName>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

@@ -38,6 +38,12 @@ Enforced by validation, not convention:
 > Scratch `--check` experiments just show as untracked — don't `git add` ones you won't keep.
 > `manifest.template.jsonc` is the committed starting point; it is not overwritten by a run.
 >
+> 🛑 **In *which* repo (#28, decided 2026-07-28):** a filled manifest carries `tenantId`,
+> `deploymentRootScope`, `logAnalyticsWorkspaceId` and `pacOwnerId`. In **this public repo**
+> the only tenant that may appear is our own demo/lab tenant `dlwaemsp.onmicrosoft.com`
+> (CSP-covered, that is what it is for). **A client's manifest belongs in the client's own
+> private deploy repo** — see `../NOTICE.md`.
+>
 > **Worked example:** a filled, buildable reference manifest lives at
 > `examples/contoso/manifests/manifest.example.jsonc` (it produces `examples/contoso/package/`).
 > This `customer/` folder is *your* empty working area — see `customer/NOTICE.md`.

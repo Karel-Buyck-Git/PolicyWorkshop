@@ -80,7 +80,7 @@ def resolve_pac_owner_id(manifest, manifest_path, write_back=True):
                 "(applied in memory for validation; manifest file left untouched)")
     text = Path(manifest_path).read_text(encoding="utf-8")
     if isinstance(val, str) and val in text:
-        Path(manifest_path).write_text(text.replace(val, guid, 1), encoding="utf-8")
+        Path(manifest_path).write_text(text.replace(val, guid, 1), encoding="utf-8", newline="\n")
         return f"generated pacOwnerId {guid} and wrote it back to {manifest_path.name}"
     return f"generated pacOwnerId {guid} (add it to the manifest to keep runs reproducible)"
 
@@ -200,7 +200,8 @@ def _do_expand(args):
     catalogue = Catalogue(cat_dir)
     manifest = expand(json.loads(input_path.read_text(encoding="utf-8")), catalogue)
     out_path = Path(args.out) if args.out else input_path.parent / f"{manifest['customer']}.manifest.jsonc"
-    out_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    out_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+                        encoding="utf-8", newline="\n")
     print(f"[expand] wrote manifest -> {out_path}")
     return 0
 

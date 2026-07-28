@@ -213,7 +213,7 @@ def main() -> None:
         args.md.parent.mkdir(parents=True, exist_ok=True)
         args.md.write_text(
             render_markdown(source, files_seen, overall, per_folder, files_without_category),
-            encoding="utf-8",
+            encoding="utf-8", newline="\n",
         )
         print(f"Wrote markdown report to {args.md}")
     else:

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/demo/essential/anchor/",
+  "assignment": {
+    "name": "demo-esn-anchor",
+    "displayName": "Demo Essential — Anchored",
+    "description": "Deployment scaffold for 1 policy. Replace all mock references before deploying."
+  },
+  "definitionEntry": {
+    "policySetName": "demo-esn-anchor",
+    "displayName": "Demo Essential — Anchored"
+  },
+  "parameters": {
+    "customerAbbreviation": "<REPLACE: customerAbbreviation>"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}

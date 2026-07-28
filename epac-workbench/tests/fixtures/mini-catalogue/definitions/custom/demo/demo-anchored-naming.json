@@ -1,0 +1,31 @@
+{
+  "name": "demo-anchored-naming",
+  "properties": {
+    "displayName": "Demo anchored naming",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Audits that a resource name starts with the customer's naming anchor.",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "allowedValues": ["Audit", "Deny", "Disabled"],
+        "defaultValue": "Audit"
+      },
+      "customerAbbreviation": {
+        "type": "String",
+        "defaultValue": "org"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "not": {
+          "field": "name",
+          "like": "[concat(parameters('customerAbbreviation'), '-*')]"
+        }
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

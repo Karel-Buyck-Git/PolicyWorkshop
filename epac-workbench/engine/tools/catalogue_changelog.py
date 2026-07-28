@@ -121,7 +121,7 @@ def diff_entry(old_root, new_root):
 def prepend(changelog_path, entry_md):
     p = Path(changelog_path)
     if not p.exists():
-        p.write_text(f"{TITLE}\n\n{INTRO}\n\n{entry_md.strip()}\n", encoding="utf-8")
+        p.write_text(f"{TITLE}\n\n{INTRO}\n\n{entry_md.strip()}\n", encoding="utf-8", newline="\n")
         return
     text = p.read_text(encoding="utf-8")
     idx = text.find("\n## ")
@@ -129,7 +129,7 @@ def prepend(changelog_path, entry_md):
         new = text.rstrip() + "\n\n" + entry_md.strip() + "\n"
     else:
         new = text[:idx].rstrip() + "\n\n" + entry_md.strip() + "\n" + text[idx:]
-    p.write_text(new, encoding="utf-8")
+    p.write_text(new, encoding="utf-8", newline="\n")  # LF on every host (#52)
 
 
 def main():

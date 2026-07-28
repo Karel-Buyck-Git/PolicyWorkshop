@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/demo/professional/remediating/",
+  "assignment": {
+    "name": "demo-pro-remed",
+    "displayName": "Demo Professional — Remediating",
+    "description": "Deployment scaffold for 1 policy. A managed identity is required."
+  },
+  "definitionEntry": {
+    "policySetName": "demo-pro-remed",
+    "displayName": "Demo Professional — Remediating"
+  },
+  "parameters": {},
+  "managedIdentityLocations": {
+    "<pac-environment-selector>": "westeurope"
+  },
+  "scope": {
+    "<pac-environment-selector>": [
+      "/providers/Microsoft.Management/managementGroups/<root-mg-id>"
+    ]
+  },
+  "notScopes": []
+}
