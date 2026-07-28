@@ -69,7 +69,19 @@ local working tree out of the critical line.
   to **show its coverage against public benchmarks** — CIS, ISO 27001, the Microsoft Cloud Security
   Benchmark, NIS2 — so we reassure a customer with a report, not a promise.
 - **A durable versioning story** so any package can name exactly which builder and which catalogue
-  produced it — the last thing to settle before this leaves alpha.
+  produced it. **Settled** — every package now carries a provenance stamp naming the engine version,
+  the catalogue version and content hash, and the exact upstream Microsoft commit its policies came
+  from, with a per-release changelog explaining what moved and why.
+
+**What "leaving alpha" now means.** The bar is deliberately about *people*, not features: **any
+DevOps engineer — internal staff, external freelance, or consultant — could take this and use it at
+customer sites for Azure Policy management.** Someone who did not build it, working on someone
+else's tenant, usually under time pressure. Concretely that means the regression gate works on their
+machine, the release procedure is written down rather than remembered, a package can name the engine
+that built it, a break points at a function instead of "some file differs", and — the last one
+outstanding — the package is **proven to deploy against a real tenant**, not merely proven to
+rebuild identically. The tracked criteria live in `actions/backlog.md` (see *ALPHA EXIT*), where the
+rows that gate it are tagged 🚩 **ALPHA GATE**.
 
 The thread through all of it is the reason we started: **one aligned, standardized way to deliver
 Azure Policy across every team and every customer we manage.**
