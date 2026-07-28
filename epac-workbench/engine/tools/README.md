@@ -2,8 +2,10 @@
 
 Standalone helpers for **developing and auditing** the catalogue. They are **not** part of the
 catalogue build and are **not** consumed by clients — nothing in the producer or consumer imports
-them. Run them by hand when you change a producer step or want to inspect a catalogue — with one
-exception: [`check_catalogue_stamp.py`](check_catalogue_stamp.py) also runs in CI on every push.
+them. Run them by hand when you change a producer step or want to inspect a catalogue — with two
+exceptions: [`check_catalogue_stamp.py`](check_catalogue_stamp.py) also runs in CI on every push,
+and [`release.py`](release.py) is the one tool here that **writes tracked source files** (`version.py`,
+`pyproject.toml`) and creates git tags, rather than only reading and reporting.
 Each shares
 the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder rename never breaks them.
 
@@ -16,6 +18,7 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 | [`ab_verify.py`](ab_verify.py) | "was my refactor of step ③ additive-only?" | after changing `create_initiatives.py` |
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
 | [`catalogue_changelog.py`](catalogue_changelog.py) | "record what changed in this release, and why" | at every catalogue release, after phase 5 |
+| [`release.py`](release.py) | "what engine version does this become, and what tags it?" | at every release — **before** regenerating the catalogue |
 | [`check_catalogue_stamp.py`](check_catalogue_stamp.py) | "is the committed catalogue still the one this engine produces?" | **in CI on every push**, and after any producer change |
 | [`summarize_categories.py`](summarize_categories.py) | "what categories exist and how big are they?" | when reviewing the taxonomy |
 | [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
@@ -132,6 +135,32 @@ before stamping ([`../definition_gen/apply_overlays.py`](../definition_gen/apply
 this tool consults it again before writing. `--write` therefore **refuses** (exit 2) to record a
 label already present with a different `contentHash`, and **skips** — rather than duplicating — a
 label already present with the same one.
+
+### [`release.py`](release.py)
+The **engine release helper** — decides the next engine SemVer, writes it to
+[`../shared/version.py`](../shared/version.py) + `pyproject.toml`, and cuts the annotated `v*` tag.
+The number is not hand-picked: it is derived from the Conventional-Commit prefixes since the last
+`v*` tag (`feat!:`/`BREAKING CHANGE` → major, `feat:` → minor, `fix:`/`perf:` → patch;
+`docs`/`chore`/`refactor`/`test` imply no release on their own). The only judgement a human makes is
+*"is this breaking?"* — the `!` you already type in the commit.
+
+```
+python engine/tools/release.py                 # dry-run: analyse and print the proposal
+python engine/tools/release.py --apply         # write version.py + pyproject.toml
+python engine/tools/release.py --apply --tag   # also commit the bump and create v<x.y.z>
+```
+
+> ⚠️ **Run it BEFORE regenerating the catalogue.** `producedByEngine` is stamped into
+> `catalogue.json` during producer phases 3–4, so a bump applied afterwards leaves the catalogue —
+> and every package `lineage.json` built from it — claiming the **previous** engine. That is exactly
+> the under-reporting backlog **#53** was opened for: for three days after `v0.1.0` was cut, the
+> artifacts said `0.1.0` while the engine carried two behavioural commits past the tag. The full
+> ordering lives in **Phase 6** of the `/catalogue-builder-run` runbook.
+
+The tag itself is **not** stamped into any artifact — the `version.py` constant is, deliberately, so
+the stamps are byte-reproducible on any checkout with no runtime `git` call and no CI shallow-clone
+fragility. The tag's two jobs are being the auto-SemVer fencepost (before the first `v*` tag there is
+nothing to measure from) and the public release marker for `git describe`.
 
 ### [`summarize_categories.py`](summarize_categories.py)
 A **taxonomy inspector** — walks every `policies.md` under `catalogue/definitions/`, parses the

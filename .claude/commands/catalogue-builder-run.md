@@ -294,6 +294,100 @@ findings before the run is considered complete. The two markdown files are gener
 deterministic — re-running on an unchanged catalogue is byte-identical apart from `generatedAt`.
 Use `--check-only` to run the validation/report without rewriting the docs.
 
+## Phase 6 — Release the catalogue (backlog #51)
+
+> 🛑 **Phases 1–5 do not leave you with a working repo.** At the end of Phase 5 the catalogue is
+> built and stamped, but **no `CHANGELOG.md` entry records it** and **contoso still pins the
+> previous catalogue** — so `verify.sh` fails and `contoso-epac-build.yml` goes red. Worse, #48's
+> phase-4 collision guard compares the label against `CHANGELOG.md`, and `version_collision`
+> returns `None` for a label the ledger does not contain: **a release that is never recorded is
+> invisible to the guard, and its label can be silently reused later.** That guard is only as
+> strong as this phase. Do not stop at Phase 5.
+
+### 6.0 — Before you start (do this *before* Phase 3)
+
+**Stage the previous catalogue at a SHORT path.** Phase 3 `shutil.rmtree`s `catalogue/initiatives/`
+(the #26 self-clean), so once the pipeline has run the old catalogue is gone — and step 6.2 needs it
+to compute the diff.
+
+```
+cp -r catalogue /c/tmp/cat-prev        # or any SHORT root; see the trap below
+```
+
+> ⚠️ **`MAX_PATH` is a designed-in trap here, not bad luck.** Measured 2026-07-26: the longest
+> catalogue-relative path is **100** chars and the session scratchpad root is **148**, so staging at
+> `…\scratchpad\catalogue` totals **259** — *one* char of headroom — while `…\scratchpad\old\catalogue`
+> is **263** and `…\scratchpad\catalogue-<version>\catalogue` is **280**. **The obvious location and
+> every sane naming convention overflow.** Use a short root like `C:\tmp\cat-prev`. #46 made this
+> fail loudly instead of fabricating history (it used to report the unreadable files as "39 policies
+> added"), but it will still stop your release for a reason that has nothing to do with the release.
+
+### 6.1 — Bump the engine version *before* regenerating (backlog #53)
+
+```
+python engine/tools/release.py                  # dry-run: what does it propose?
+python engine/tools/release.py --apply          # writes version.py + pyproject.toml
+```
+
+> ⚠️ **Order matters.** `producedByEngine` is stamped into `catalogue.json` during **Phases 3–4**, so
+> a bump applied *after* the regeneration leaves the catalogue claiming the **previous** engine —
+> exactly the under-reporting #53 opened. Bump → regenerate → tag the release commit.
+
+If the proposal is "no release-worthy change" (only `docs`/`chore`/`refactor` since the last tag),
+skip the bump — that is a correct answer, not a failure.
+
+### 6.2 — Record the release in the ledger
+
+```
+python engine/tools/check_catalogue_stamp.py                              # 9/9 before recording
+python engine/tools/catalogue_changelog.py --old /c/tmp/cat-prev --write
+```
+
+Then **write the human paragraph** into the new `catalogue/CHANGELOG.md` entry explaining *why* this
+release happened, in the customer's terms — see the `2026.07.24` and `2026.07.26` entries for the
+register. The tool attributes the driver (upstream / taxonomy-curation / engine) and counts the
+deltas; it cannot explain intent.
+
+The writer **refuses** (exit 2) to record a label already released with different content, and
+**skips** an already-recorded identical release rather than duplicating it. Both are correct
+behaviour — read the message, don't work around it.
+
+### 6.3 — Re-pin contoso and rebuild the fixtures
+
+Contoso is the golden fixture *and* the only consumer pinned to the catalogue, so it must move with
+every release. **Both pins**, in `examples/contoso/manifests/manifest.example.jsonc`:
+
+- `source.catalogueVersion` → the new label
+- `source.catalogueContentHash` → the new `contentHash` from `catalogue/catalogue.json` (#48's
+  precise pin; the label alone cannot tell two same-day releases apart)
+
+```
+M=examples/contoso/manifests/manifest.example.jsonc
+python engine/epac_builder/assemble_scaffold.py --manifest $M --only json      --out examples/contoso/package
+python engine/epac_builder/assemble_scaffold.py --manifest $M --only terraform --out examples/contoso/fixtures/terraform
+python engine/epac_builder/assemble_scaffold.py --manifest $M --only bicep     --out examples/contoso/fixtures/bicep
+```
+
+A stale hash here fails CI with a message about *the pin*, not about the release — so if
+`verify.sh` complains about a `contentHash` mismatch, you skipped or mistyped this step.
+
+### 6.4 — Full battery, then tag
+
+```
+bash examples/contoso/verify.sh              # 3 flavours byte-identical + strict gate fires
+bash engine/mcp_server/test_server.sh        # 5/5
+python engine/tools/check_catalogue_stamp.py # 9/9
+python -m unittest discover -s tests         # engine unit tests
+```
+
+Commit (catalogue + changelog + version bump + re-pinned contoso + rebuilt fixtures), then tag the
+release commit and publish:
+
+```
+python engine/tools/release.py --apply --tag   # commits the bump if needed, creates v<x.y.z>
+git push origin v<x.y.z>
+```
+
 ## Done when
 
 All resource category files have been processed — duplicates removed, tier
@@ -314,3 +408,18 @@ carry the `catalogueVersion` stamp.
 The quality-control step has run: `catalogue/naming-samples.md` and `docs/epac-naming-convention.md`
 have been regenerated from the catalogue, `catalogue/quality-control.json` has been written, and the
 validation report shows **no `error`-level findings**.
+
+**And the release is complete (Phase 6)** — this is the half that used to be missing, and without it
+the run is not done, it is merely built:
+
+- `catalogue/CHANGELOG.md` carries an entry for the new label, with the driver attributed **and** the
+  human paragraph explaining why the release happened. Without this the release is invisible to
+  #48's collision guard and its label can be silently reused.
+- The engine version was bumped **before** the regeneration if `release.py` proposed one, so
+  `catalogue.json` `producedByEngine` and every package's `lineage.json` `engineVersion` name the
+  engine that actually built them.
+- Contoso is re-pinned on **both** `catalogueVersion` and `catalogueContentHash`, and all three
+  flavour fixtures have been rebuilt.
+- The full battery is green: `verify.sh`, the MCP smoke test, `check_catalogue_stamp.py` (9/9), and
+  the engine unit tests.
+- The release commit is tagged `v<x.y.z>` and the tag is pushed.
