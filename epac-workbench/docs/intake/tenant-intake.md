@@ -131,10 +131,29 @@ Created, not collected — see [`oidc-checklist.md`](oidc-checklist.md). Record 
 
 ## 7. Handling what you collected
 
-The values above are **customer tenant identifiers**. Backlog **#28** is open precisely
-because this repo's own guidance currently says to commit a filled manifest "for
-provenance" — and a filled manifest carries the tenant GUID, the root MG id, the workspace
-resource id and the `pacOwnerId`.
+The values above are **tenant identifiers** — tenant GUID, root MG id, workspace resource id,
+`pacOwnerId`. Where they may be committed was settled in backlog **#28** (2026-07-28):
 
-**Until #28 is decided, do not commit a completed sheet or a real customer manifest to a
-public repo.** Keep them in the customer's own private deploy repo.
+- **`dlwaemsp.onmicrosoft.com`** — our own demo/lab/sandbox tenant, CSP-covered. Its
+  identifiers **may** live in this public repo; that is what the tenant is for.
+- **Any client tenant** — internal, freelance or consulting — **may not**. The completed
+  sheet, the manifest and the rendered package go in **that client's own private deploy
+  repo**, which is where the package is delivered anyway (per #23 the client receives the
+  rendered package, never this repo).
+
+See `epac-workbench/customer/NOTICE.md` for the full rule. It is **not** enforced by a
+gitignore pattern, deliberately — a pattern cannot tell one tenant's GUID from another's.
+
+## 8. If the tenant is shared
+
+`dlwaemsp` currently also hosts a managed-service hosting PoC, and any lab tenant is liable
+to. **EPAC owns its `deploymentRootScope` and everything beneath it**, so a shared tenant
+turns row 1.3 from important into critical:
+
+- a **dedicated intermediate MG** for EPAC — not the Tenant Root Group, not a branch holding
+  someone else's resources;
+- **`strategy: ownedOnly`** (the default) — `full` proposes deleting policy the other project
+  owns;
+- the other project's subscriptions/MGs in **`notScopes`**;
+- **plan/what-if first**, and actually read the plan. `epac-deploy-verify.yml` emits no deploy
+  step, so this is the default rather than a discipline you have to remember.

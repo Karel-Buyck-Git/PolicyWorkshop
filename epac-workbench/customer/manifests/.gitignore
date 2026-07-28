@@ -7,3 +7,11 @@
 #
 # (This dir previously ignored `*.manifest.jsonc` / `*.manifest.json`; that
 # singled the manifest out from its already-committable siblings and is dropped.)
+#
+# SCOPE (#28, decided 2026-07-28): "committable" is about a PRIVATE deploy repo. A
+# filled manifest carries tenantId, deploymentRootScope, logAnalyticsWorkspaceId and
+# pacOwnerId. In THIS public repo the only tenant permitted is our own demo/lab tenant
+# dlwaemsp.onmicrosoft.com (CSP-covered); a client's manifest goes in the client's own
+# private repo. Not enforced by this file on purpose -- an ignore rule cannot tell one
+# tenant's GUID from another's, and a rule that silently drops files people were told
+# to commit is worse than a rule they can read. See ../NOTICE.md.

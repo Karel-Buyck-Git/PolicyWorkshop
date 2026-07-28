@@ -20,6 +20,27 @@ plan output — `package/Output/` (written by `Build-DeploymentPlans`) is ignore
 The worked **contoso** sample stays in `../examples/contoso/` as the CI golden fixture; a
 package committed here is *your* deploy, not that fixture.
 
+### 🛑 Which repo that rule applies in (decided 2026-07-28, backlog #28)
+
+**Commit-for-provenance is a rule about a _private deploy repo_, not about this one.**
+
+A filled manifest is not inert configuration — it carries the **`tenantId`**, the
+**`deploymentRootScope`** (root management-group id), the **`logAnalyticsWorkspaceId`** and the
+**`pacOwnerId`**. Committing it publishes those.
+
+- **This repo is public.** The only tenant whose identifiers may appear here is
+  **`dlwaemsp.onmicrosoft.com`** — our own demo / lab / sandbox tenant, covered under our CSP
+  agreement, whose entire purpose is being used like this. That is a deliberate, accepted
+  exposure of *our* tenant, not a general licence.
+- **A customer engagement never commits here.** If you are building for a client — internal,
+  freelance or consulting — the input/manifest/package trio belongs in **that customer's own
+  private deploy repo**, which is where the package is delivered anyway (the customer receives
+  the rendered package, never this repo). Publishing a client's tenant GUID and root MG id to a
+  public repo is not yours to do.
+
+The mechanism is unchanged — all three artifacts stay committable and none are gitignored.
+What is scoped is *where*.
+
 ## Where the worked sample is
 
 A complete, buildable reference — the **contoso** sample — lives at

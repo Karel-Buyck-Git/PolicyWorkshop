@@ -12,8 +12,29 @@ actually deploy?** Everything CI proves today is that the package is *correct an
 reproducible*. Whether Azure accepts it is proven by one thing only — a real
 `Build-DeploymentPlans` against a real tenant.
 
-That needs a tenant, and the tenant this project will use is **identified but not yet
-cleared**. So everything that does *not* need one is built and sitting here, ready:
+## The tenant
+
+**`dlwaemsp.onmicrosoft.com`** — our own demo / lab / sandbox tenant, CSP-covered, and the
+**only** tenant whose identifiers may appear in this public repo (backlog #28; a client
+engagement's manifest belongs in that client's private deploy repo).
+
+**It is not free yet.** It is currently hosting another project — a PoC for a managed-service
+hosting environment. That is a scheduling constraint, and a technical one:
+
+> 🛑 **EPAC owns its `deploymentRootScope` and everything beneath it.** In a *shared* tenant
+> that is not a footnote. Three things are non-negotiable when the run happens:
+>
+> 1. **A dedicated intermediate management group** created for EPAC — never the Tenant Root
+>    Group, and never a branch that contains the PoC's resources.
+> 2. **`desiredState.strategy` stays `ownedOnly`** (the package's default). `full` would
+>    propose **deleting** policy objects the PoC owns.
+> 3. **The PoC's subscriptions / MGs go in `notScopes`**, so they are excluded even by
+>    accident.
+>
+> The first run is plan/what-if only in any case — `epac-deploy-verify.yml` emits no deploy
+> step at all. **Read the plan** before anything is allowed near the shared tenant.
+
+So everything that does *not* need the tenant is built and sitting here, ready:
 
 | File | What it does |
 |---|---|
