@@ -1,0 +1,124 @@
+name: epac deploy verify (opt-in)
+
+# Proves the generated package DEPLOYS -- the one thing the contoso byte-diff cannot
+# answer (backlog #14). contoso-epac-build.yml proves the package is correct and
+# reproducible; only a real Build-DeploymentPlans against a real tenant proves Azure
+# accepts it. #20 is the precedent: a consumer's what-if run found two deploy-blocking
+# shape defects that every green CI run had missed.
+#
+# THIS WORKFLOW IS PLAN / WHAT-IF ONLY. It never deploys. Deploy steps belong behind a
+# protected environment with manual approval, and are deliberately not here yet.
+#
+# Manual only (workflow_dispatch) and secrets-gated: the tenant is not cleared yet, so
+# the job SKIPS cleanly when the secrets are absent rather than failing red. That is why
+# it can be committed today -- see epac-workbench/docs/intake/README.md.
+#
+# Prerequisites, in order: epac-workbench/docs/intake/tenant-intake.md ->
+# hierarchy-file.md -> oidc-checklist.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Path to the rendered json package to plan"
+        required: true
+        default: "epac-workbench/examples/contoso/package"
+      pac_selector:
+        description: "pacEnvironment selector to plan against (e.g. epac-dev)"
+        required: true
+        default: "epac-dev"
+
+# OIDC login needs id-token: write. Nothing here writes to the repository.
+permissions:
+  id-token: write
+  contents: read
+
+# One plan at a time per selector: two runs reconciling the same deploymentRootScope
+# race each other, which is the same reasoning as the generated epac.yml's guard.
+concurrency:
+  group: epac-deploy-verify-${{ github.event.inputs.pac_selector }}
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      # Secrets cannot be read in an `if:` at job level, so the gate is a step that
+      # reports rather than fails. Absent secrets = "not wired up yet", which is the
+      # expected state until the tenant clears -- not an error.
+      - name: Are the tenant secrets configured?
+        id: check
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          PLAN_CLIENT_ID: ${{ secrets.PLAN_CLIENT_ID }}
+        run: |
+          if [ -n "$AZURE_TENANT_ID" ] && [ -n "$AZURE_SUBSCRIPTION_ID" ] && [ -n "$PLAN_CLIENT_ID" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "Tenant secrets present - the plan job will run."
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Deploy verify skipped::AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID and PLAN_CLIENT_ID are not all set. This is the expected state until the tenant is cleared - see epac-workbench/docs/intake/README.md."
+          fi
+
+  static-validation:
+    # Always runs: it needs no tenant, and a package that fails its own static checks is
+    # not worth spending a tenant round-trip on.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Package passes its own Tier-1 validator
+        working-directory: ${{ github.event.inputs.package }}
+        run: python validate-package.py
+
+  plan:
+    needs: [preflight, static-validation]
+    if: needs.preflight.outputs.configured == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login (OIDC, no stored secret)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.PLAN_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: Install the EPAC PowerShell module
+        shell: pwsh
+        run: |
+          Install-Module -Name EnterprisePolicyAsCode -Force -Scope CurrentUser -AllowClobber
+          Get-Module -ListAvailable EnterprisePolicyAsCode |
+            Select-Object Name, Version | Format-Table
+
+      - name: Build deployment plan (what-if, no changes)
+        shell: pwsh
+        env:
+          PACKAGE: ${{ github.event.inputs.package }}
+          SELECTOR: ${{ github.event.inputs.pac_selector }}
+        run: |
+          # The plan identity holds Reader only, so this cannot change anything even if
+          # it tried. Failures here are the POINT of #14 - capture them, do not paper
+          # over them.
+          Build-DeploymentPlans `
+            -DefinitionsRootFolder "$env:PACKAGE/Definitions" `
+            -OutputFolder "$env:PACKAGE/Output" `
+            -PacEnvironmentSelector "$env:SELECTOR"
+
+      - name: Publish the plan
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-plan-${{ github.event.inputs.pac_selector }}
+          path: ${{ github.event.inputs.package }}/Output
+          if-no-files-found: warn
+          retention-days: 14
