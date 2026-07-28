@@ -19,6 +19,7 @@ the project paths via [`../shared/paths.py`](../shared/paths.py), so a folder re
 | [`catalogue_diff.py`](catalogue_diff.py) | "what actually changed between two catalogues?" | after a re-run or a built-ins bump |
 | [`catalogue_changelog.py`](catalogue_changelog.py) | "record what changed in this release, and why" | at every catalogue release, after phase 5 |
 | [`release.py`](release.py) | "what engine version does this become, and what tags it?" | at every release — **before** regenerating the catalogue |
+| [`release_catalogue.py`](release_catalogue.py) | "run the whole release sequence for me, in the right order" | to drive a catalogue release end to end (Phase 6) |
 | [`check_catalogue_stamp.py`](check_catalogue_stamp.py) | "is the committed catalogue still the one this engine produces?" | **in CI on every push**, and after any producer change |
 | [`summarize_categories.py`](summarize_categories.py) | "what categories exist and how big are they?" | when reviewing the taxonomy |
 | [`svg-gen/management-groups/`](svg-gen/management-groups/) | "how do I draw my management-group / scope hierarchy?" | when a consumer designs their MG tree |
@@ -161,6 +162,41 @@ The tag itself is **not** stamped into any artifact — the `version.py` constan
 the stamps are byte-reproducible on any checkout with no runtime `git` call and no CI shallow-clone
 fragility. The tag's two jobs are being the auto-SemVer fencepost (before the first `v*` tag there is
 nothing to measure from) and the public release marker for `git describe`.
+
+### [`release_catalogue.py`](release_catalogue.py)
+The **release driver** — runs Phase 6 of the `/catalogue-builder-run` runbook in order:
+stage the previous catalogue, bump the engine, phases 1–5, stamp check, changelog entry,
+re-pin contoso on **both** pins, rebuild all three fixtures, run the full battery.
+
+```
+python engine/tools/release_catalogue.py --version 2026.07.29         # plan only, changes nothing
+python engine/tools/release_catalogue.py --version 2026.07.29 --yes   # execute
+python engine/tools/release_catalogue.py --version 2026.07.29 --yes --from 3   # resume
+```
+
+Writing the procedure down (#51) fixed *"invoked from memory"*. This fixes *"nine steps a
+tired person can skip"* — it exists because the `2026.07.28` release was run by hand and every
+step was a step that could have been missed.
+
+**It handles the two traps rather than documenting them**, and both checks run **before**
+anything is modified — which matters, because phase 3 `rmtree`s `catalogue/initiatives/`, so a
+late failure means the thing you needed to diff against is already gone:
+
+- **staging before the wipe**, at a path you can override with `--stage`; it refuses to
+  silently overwrite an existing staging copy (that copy may be the only record of the
+  catalogue you are diffing against);
+- **`MAX_PATH`** — it measures the deepest path the copy *would* create and refuses up front.
+  Verified against the exact scratchpad location #51 identified as the trap: **270 chars**,
+  refused, catalogue untouched.
+- It also refuses a **version label already in `CHANGELOG.md`** (#48) before doing any work,
+  naming the next free suffix — phase 4 would refuse it anyway, but only after a full
+  regeneration.
+
+**Two things it deliberately will not do.** It does not **commit, tag or push** — reading the
+diff is a human job, and `release.py --apply --tag` is one command. And it does not write the
+changelog's **human paragraph**: the changelog tool attributes the driver and counts the
+deltas, but only a person can say *why* the release happened and what a pinned consumer must
+do. The driver stops and asks for both.
 
 ### [`summarize_categories.py`](summarize_categories.py)
 A **taxonomy inspector** — walks every `policies.md` under `catalogue/definitions/`, parses the

@@ -296,6 +296,16 @@ Use `--check-only` to run the validation/report without rewriting the docs.
 
 ## Phase 6 — Release the catalogue (backlog #51)
 
+> ⚡ **There is a driver for all of this now:**
+> `python engine/tools/release_catalogue.py --version <label>` prints the plan and changes
+> nothing; add `--yes` to run the whole sequence below in order, `--from N` to resume. It
+> enforces the two traps (staging before the wipe, `MAX_PATH`) **before** touching anything,
+> and refuses a label already in `CHANGELOG.md`. It stops short of committing, tagging, and
+> writing the changelog's human paragraph — those stay yours.
+>
+> **Read the rest of this phase anyway.** The driver automates the sequence; it does not
+> remove the judgement, and if it fails you resume by hand from here.
+
 > 🛑 **Phases 1–5 do not leave you with a working repo.** At the end of Phase 5 the catalogue is
 > built and stamped, but **no `CHANGELOG.md` entry records it** and **contoso still pins the
 > previous catalogue** — so `verify.sh` fails and `contoso-epac-build.yml` goes red. Worse, #48's
