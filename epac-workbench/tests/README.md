@@ -65,6 +65,29 @@ selection out of `index.json` at runtime rather than hardcoding group names.
 | `test_render_iac.py` | terraform + bicep shape, HCL escaping | #13, #33/#34 |
 | `test_expand.py` | `input.json` → manifest, against the shipped schemas | **#42**, **#48** |
 | `test_shared.py` | naming limits, tier rules, hierarchy, release ledger | **#48**, Azure hard limits |
+| `test_producer.py` | producer phases 1–3 end to end on a fixture source tree | **#26**, #22, #27 determinism |
+
+## The producer fixture
+
+`fixtures/producer/` ships a **4-policy source tree** and **its own hierarchy**, so phases
+1–3 run hermetically: an edit to `config/azure-domain-hierachy.md` cannot break these tests,
+and a failure in them cannot be mistaken for a taxonomy change. Each policy earns its place —
+a no-default parameter (bubbles to an initiative parameter), a customer-managed-key policy
+(must tier Enterprise), a DeployIfNotExists with `roleDefinitionIds` (remediating, gets
+`.roles.json`), and one whose category is absent from the fixture hierarchy (the `undefined`
+catch-bucket).
+
+These shell out to the three phase scripts and are the slow part of the suite (~1.5s of the
+~1.7s total). They never touch the real `catalogue/`.
+
+> **They found a bug on their first run**, which is the argument for having them: a category
+> with no entry in `config/azure-category-abbreviation.md` kills Phase 3 with a raw `KeyError`
+> traceback *after* the `initiatives/` tree has been wiped, leaving it half-rebuilt. Filed as
+> **#55** — it is on the critical path of the monthly upstream sync, since categories come
+> from Microsoft and the abbreviation map is authored by us.
+>
+> One authored input is still in play here for that reason: `shared/naming.py` reads the
+> abbreviation file from a fixed path, so the fixture cannot override it.
 
 ## A test that cannot fail proves nothing
 
@@ -77,9 +100,13 @@ watching them go green:
 
 Do the same when you add one.
 
-## Still open in #38
+## Coverage now, and what is still uncovered
 
-Producer **phase** tests — `extract_policies`, `enrich_policies`, `create_initiatives`
-end-to-end against a tiny source tree — are **not** here yet. This round covers the whole
-consumer plus `shared/`, which the producer also imports. #38 stays open with that
-remainder named.
+Consumer, `shared/`, and producer phases **1–3** are covered. Still not:
+
+- **Phase 4 (`apply_overlays`)** and **Phase 5 (`quality_control`)** — the overlay/registration
+  step and the QC report. Phase 4 also holds #48's release-collision guard; the *ledger* half
+  of that is covered in `test_shared.py`, the *phase* half is not.
+- **`engine/tools/`** — `catalogue_diff`, `catalogue_changelog`, `check_catalogue_stamp`,
+  `release.py`. `check_catalogue_stamp` runs in CI on the real catalogue every push, which is
+  its own coverage; the others have none.

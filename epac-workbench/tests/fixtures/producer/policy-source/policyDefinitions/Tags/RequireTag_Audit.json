@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "displayName": "Require a tag on resources",
+    "policyType": "BuiltIn",
+    "mode": "Indexed",
+    "description": "Enforces the presence of a tag. Does not modify resource groups.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Tags"
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit"
+      },
+      "tagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Tag Name",
+          "description": "Name of the tag"
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Demo/things"
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  },
+  "id": "/providers/Microsoft.Authorization/policyDefinitions/aaaaaaaa-0000-0000-0000-00000000000a",
+  "name": "aaaaaaaa-0000-0000-0000-00000000000a"
+}

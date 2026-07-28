@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "displayName": "Storage accounts should use customer-managed key for encryption",
+    "policyType": "BuiltIn",
+    "mode": "Indexed",
+    "description": "Secure your storage account with a customer-managed key for encryption at rest.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Storage"
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Audit"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Demo/things"
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  },
+  "id": "/providers/Microsoft.Authorization/policyDefinitions/aaaaaaaa-0000-0000-0000-00000000000b",
+  "name": "aaaaaaaa-0000-0000-0000-00000000000b"
+}
