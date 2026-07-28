@@ -1,0 +1,37 @@
+{
+  "name": "demo-esn-anchor",
+  "properties": {
+    "displayName": "Demo Essential — Anchored",
+    "description": "The #21 shape: a custom member whose naming anchor is bubbled up to an initiative-level customerAbbreviation parameter instead of being baked per-member.",
+    "metadata": {
+      "catalogueVersion": "0000.00.00-test",
+      "hasRemediation": false
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "allowedValues": ["Audit", "Deny", "Disabled"],
+        "defaultValue": "Deny"
+      },
+      "customerAbbreviation": {
+        "type": "String",
+        "defaultValue": "org",
+        "metadata": {
+          "displayName": "Customer abbreviation",
+          "description": "Naming anchor. Bubbled to the initiative (#21) so the initiative can be retargeted per customer from the manifest."
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "demo-custom-anchored",
+        "policyDefinitionName": "demo-anchored-naming",
+        "metadata": { "policyName": "Demo anchored naming" },
+        "parameters": {
+          "effect": { "value": "[parameters('effect')]" },
+          "customerAbbreviation": { "value": "[parameters('customerAbbreviation')]" }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "demo-pro-remed",
+  "properties": {
+    "displayName": "Demo Professional — Remediating",
+    "description": "A DeployIfNotExists member, so the group requires a managed identity and role assignments.",
+    "metadata": {
+      "catalogueVersion": "0000.00.00-test",
+      "hasRemediation": true,
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "allowedValues": ["DeployIfNotExists", "AuditIfNotExists", "Disabled"],
+        "defaultValue": "DeployIfNotExists"
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "demo-dine",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/00000000-0000-0000-0000-00000000000c",
+        "metadata": { "policyName": "Demo deploy-if-not-exists" },
+        "parameters": {
+          "effect": { "value": "[parameters('effect')]" }
+        }
+      }
+    ]
+  }
+}

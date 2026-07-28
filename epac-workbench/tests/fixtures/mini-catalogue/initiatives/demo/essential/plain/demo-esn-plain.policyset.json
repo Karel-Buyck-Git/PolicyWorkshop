@@ -1,0 +1,40 @@
+{
+  "name": "demo-esn-plain",
+  "properties": {
+    "displayName": "Demo Essential — Plain",
+    "description": "Two built-in members; one exposes an effect parameter so the Audit posture has something to soften.",
+    "metadata": {
+      "catalogueVersion": "0000.00.00-test",
+      "hasRemediation": false
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "allowedValues": ["Audit", "Deny", "Disabled"],
+        "defaultValue": "Deny"
+      },
+      "demoTagName": {
+        "type": "String"
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "demo-builtin-one",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/00000000-0000-0000-0000-00000000000a",
+        "metadata": { "policyName": "Demo built-in one" },
+        "parameters": {
+          "effect": { "value": "[parameters('effect')]" },
+          "tagName": { "value": "[parameters('demoTagName')]" }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "demo-builtin-two",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/00000000-0000-0000-0000-00000000000b",
+        "metadata": { "policyName": "Demo built-in two" },
+        "parameters": {
+          "effect": { "value": "Deny" }
+        }
+      }
+    ]
+  }
+}

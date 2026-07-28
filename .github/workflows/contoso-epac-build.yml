@@ -13,7 +13,13 @@ name: contoso epac build
 #     exercises the CONSUMER; a producer script can change with no catalogue regeneration and
 #     every other check stays green (this happened on 2026-07-23, #26). Seconds to run, no
 #     producer invocation. It is a cheap slice of #8, not a replacement for it.
-# Running verify.sh locally covers neither.
+#   - the engine unit tests (epac-workbench/tests/, #38), which localize a break to a
+#     function instead of reporting "some file differs". They also cover error paths the
+#     happy-path fixture cannot reach, and pin two things CI itself is blind to: that the
+#     writers emit LF on every host (#52 — ubuntu CI passes either way, so only this test
+#     stands between the repo and a repeat), and the bubbled customerAbbreviation binding
+#     (#21/#44 — contoso selects no group that declares it).
+# Running verify.sh locally covers none of the three.
 #
 # Fires when either builder changes: the engine (engine/**), the shared catalogue
 # (catalogue/**), the authored producer inputs the catalogue stamps (config/**), the example
@@ -28,6 +34,7 @@ on:
       - "epac-workbench/config/**"
       - "epac-workbench/examples/contoso/**"
       - "epac-workbench/customer/manifests/**"
+      - "epac-workbench/tests/**"
       - ".github/workflows/contoso-epac-build.yml"
   pull_request:
     paths:
@@ -36,6 +43,7 @@ on:
       - "epac-workbench/config/**"
       - "epac-workbench/examples/contoso/**"
       - "epac-workbench/customer/manifests/**"
+      - "epac-workbench/tests/**"
       - ".github/workflows/contoso-epac-build.yml"
 
 jobs:
@@ -59,3 +67,6 @@ jobs:
 
       - name: Catalogue stamp is in sync with the engine
         run: python engine/tools/check_catalogue_stamp.py
+
+      - name: Engine unit tests
+        run: python -m unittest discover -s tests -t tests
