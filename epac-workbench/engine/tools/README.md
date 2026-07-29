@@ -178,6 +178,17 @@ Writing the procedure down (#51) fixed *"invoked from memory"*. This fixes *"nin
 tired person can skip"* — it exists because the `2026.07.28` release was run by hand and every
 step was a step that could have been missed.
 
+**If it fails, fix the driver and re-run — do not finish the release by hand.** A monthly tool
+gets ~12 real executions a year while the engine under it changes weekly; one release
+"just finished manually" is how it stops being used at all. `--from N` resumes a *fixed* run;
+it is not a way to skip steps permanently.
+
+**Its happy path is rehearsed on every push** (`tests/test_release_driver.py`), against a
+scratch workbench rather than the real catalogue, so it cannot rot between releases. The other
+flags exist for that rehearsal and are honest about their cost: `--no-fetch` skips the upstream
+sync (useful offline too), and `--no-battery` skips the final verification — which prints a
+loud **NOT VERIFIED** banner, because a release nothing has verified is not a release.
+
 **It handles the two traps rather than documenting them**, and both checks run **before**
 anything is modified — which matters, because phase 3 `rmtree`s `catalogue/initiatives/`, so a
 late failure means the thing you needed to diff against is already gone:

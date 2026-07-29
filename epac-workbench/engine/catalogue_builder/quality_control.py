@@ -726,6 +726,15 @@ in `config/azure-category-abbreviation.md` (CAF-aligned where the category is a 
 # ---------------------------------------------------------------------------
 
 def main() -> None:
+    # Finding messages name the producer phases with circled digits (①-⑤), which a Windows
+    # console's default cp1252 cannot encode: printing an error-level finding raised
+    # UnicodeEncodeError and buried the finding under a traceback -- precisely when the
+    # operator needed to read it, and precisely when the release driver is watching this
+    # script's output. Degrade the character, never the message.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
     parser = argparse.ArgumentParser(description="Phase 5 — quality-control docs + validation report.")
     parser.add_argument("--catalogue", default=str(CATALOGUE_DIR), help="Catalogue root to read")
     parser.add_argument("--docs", default=str(DOCS_DIR), help="Docs output folder")
