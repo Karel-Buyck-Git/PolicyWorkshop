@@ -296,15 +296,27 @@ Use `--check-only` to run the validation/report without rewriting the docs.
 
 ## Phase 6 — Release the catalogue (backlog #51)
 
-> ⚡ **There is a driver for all of this now:**
+> ⚡ **Drive it, don't perform it:**
 > `python engine/tools/release_catalogue.py --version <label>` prints the plan and changes
-> nothing; add `--yes` to run the whole sequence below in order, `--from N` to resume. It
-> enforces the two traps (staging before the wipe, `MAX_PATH`) **before** touching anything,
-> and refuses a label already in `CHANGELOG.md`. It stops short of committing, tagging, and
+> nothing; add `--yes` to run the sequence below in order, `--from N` to resume. It enforces
+> the two traps (staging before the wipe, `MAX_PATH`) **before** touching anything, and
+> refuses a label already in `CHANGELOG.md`. It stops short of committing, tagging, and
 > writing the changelog's human paragraph — those stay yours.
 >
-> **Read the rest of this phase anyway.** The driver automates the sequence; it does not
-> remove the judgement, and if it fails you resume by hand from here.
+> **The rule that keeps the tool alive: if the driver fails, fix the driver and re-run.**
+> Do **not** finish the release by hand. Hand-running is the escape hatch for when the tool
+> is *wrong about the world*, not for when it is inconvenient — and a release finished by
+> hand is how a monthly tool quietly dies. `--from N` exists to resume a *fixed* run, not to
+> skip steps permanently.
+>
+> **Division of labour between this document and that script.** The **driver owns the
+> sequence** — its step list is the authority for *what runs in what order*, and
+> `tests/test_release_driver.py` fails if a step here and a step there disagree. This phase
+> owns the ***why***: the traps, the reasoning, and what to do when something refuses. Read
+> it once, then drive.
+>
+> The driver's happy path is **rehearsed on every push** against a scratch workbench
+> (`tests/test_release_driver.py`), so it cannot rot between monthly releases.
 
 > 🛑 **Phases 1–5 do not leave you with a working repo.** At the end of Phase 5 the catalogue is
 > built and stamped, but **no `CHANGELOG.md` entry records it** and **contoso still pins the

@@ -66,6 +66,40 @@ selection out of `index.json` at runtime rather than hardcoding group names.
 | `test_expand.py` | `input.json` → manifest, against the shipped schemas | **#42**, **#48** |
 | `test_shared.py` | naming limits, tier rules, hierarchy, release ledger | **#48**, Azure hard limits |
 | `test_producer.py` | producer phases 1–3 end to end on a fixture source tree | **#26**, #22, #27 determinism |
+| `test_producer_finalize.py` | phases 4–5: overlays, the finalize gate, the release guard | **#48**, #22, #26 |
+| `test_release_driver.py` | a whole release, rehearsed against a scratch workbench | **#51** — stops the driver rotting |
+
+## The scratch workbench
+
+[`workbench.py`](workbench.py) assembles a throwaway workbench and points the engine at it
+with `EPAC_WORKBENCH_ROOT`. That override exists for exactly this: `apply_overlays`,
+`quality_control` and the release driver read **fixed paths**, which is why they had no
+coverage — exercising them meant writing to the real `catalogue/`.
+
+It is a real workbench, not a mock: `engine/` and the schemas are copied verbatim, and
+`config/` keeps the **real** hierarchy, tier rules and abbreviation map so classification and
+naming behave as in production. Two deliberate substitutions: the policy source is the
+4-policy fixture (via `AZURE_POLICY_REPO`), and `definition-gens.md` is rewritten per test —
+all generators off by default (the documented built-in-only mode), or just `dlw-az-tagging`
+for the overlay path, because the real naming generator emits 169 definitions and would
+dominate a 4-policy run.
+
+## The release rehearsal
+
+`test_release_driver.py` drives a **complete release** — stage, phases, stamp, changelog,
+re-pin, fixture rebuild — on every push.
+
+It exists because of arithmetic, not distrust: a monthly tool gets ~12 real executions a year
+while the engine underneath it changes weekly, so the driver would otherwise be discovered
+broken *on release day*, which is exactly when hand-running becomes the fast path and the
+tool quietly dies. The rehearsal passes `--no-battery`: the battery's four commands are
+already run directly by CI, and what nothing else covers is the **sequence** — in particular
+that staging happens *before* phase 3 destroys what it stages.
+
+It also enforces the anti-drift contract. The release sequence now lives in two places, the
+driver's `STEPS` and the runbook's Phase 6 prose — the same "written down in one place only"
+failure mode as #51/#53, one level up. `STEPS` is the authority for order; the runbook owns
+the why; `TestRunbookAndDriverAgree` fails if a step exists in one and not the other.
 
 ## The producer fixture
 
@@ -102,11 +136,21 @@ Do the same when you add one.
 
 ## Coverage now, and what is still uncovered
 
-Consumer, `shared/`, and producer phases **1–3** are covered. Still not:
+Consumer, `shared/`, **all five producer phases**, and the release driver are covered.
+Still not:
 
-- **Phase 4 (`apply_overlays`)** and **Phase 5 (`quality_control`)** — the overlay/registration
-  step and the QC report. Phase 4 also holds #48's release-collision guard; the *ledger* half
-  of that is covered in `test_shared.py`, the *phase* half is not.
-- **`engine/tools/`** — `catalogue_diff`, `catalogue_changelog`, `check_catalogue_stamp`,
-  `release.py`. `check_catalogue_stamp` runs in CI on the real catalogue every push, which is
-  its own coverage; the others have none.
+- **`engine/tools/`** as units — `catalogue_diff` and `catalogue_changelog` are exercised
+  *through* the release rehearsal but have no tests of their own (notably `catalogue_diff`'s
+  `_attribute` driver logic and #46's unreadable-catalogue refusal). `check_catalogue_stamp`
+  runs in CI against the real catalogue every push, which is its own coverage.
+- **`engine/mcp_server/`** — covered by its own shell smoke test, not from here.
+
+## Runtime
+
+~18s, most of it the producer and rehearsal suites spawning real phase scripts. The
+consumer + `shared/` tests are still ~0.2s, so `-k` is worth using while iterating:
+
+```
+python -m unittest discover -s tests -t tests -k bind        # fast inner loop
+python -m unittest discover -s tests -t tests -k rehearsal   # just the release drive
+```

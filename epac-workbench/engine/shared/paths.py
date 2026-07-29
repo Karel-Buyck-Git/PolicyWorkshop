@@ -3,13 +3,25 @@
 The catalogue-builder (producer) writes the shared CATALOGUE. Customer packages
 live separately under customer/. Import these constants instead of hardcoding
 folder names, so a future rename is a one-line change here.
+
+``EPAC_WORKBENCH_ROOT`` relocates the whole workbench. Normally the root is derived
+from this file's own location, which is right for every real invocation. Setting the
+variable points the producer at a scratch workbench instead, which is what lets the
+tests exercise the parts of the pipeline that read fixed paths — ``apply_overlays``
+(phase 4), ``quality_control`` (phase 5) and the release driver — without touching the
+real ``catalogue/``. It is a **test/rehearsal hook, not a deployment knob**: a release
+run with it set would stamp and publish the wrong tree.
 """
 import json
 import os
 from pathlib import Path
 
-# shared/paths.py  ->  shared  ->  flows  ->  project root
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+WORKBENCH_ROOT_ENV = "EPAC_WORKBENCH_ROOT"
+
+# shared/paths.py  ->  shared  ->  engine  ->  project root
+_default_root = Path(__file__).resolve().parents[2]
+_override = os.environ.get(WORKBENCH_ROOT_ENV)
+PROJECT_ROOT = Path(_override).resolve() if _override else _default_root
 
 # The external official Azure Policy repo (parameter/schema source of truth).
 # Unlike the constants below, this is NOT derived from PROJECT_ROOT -- it is a

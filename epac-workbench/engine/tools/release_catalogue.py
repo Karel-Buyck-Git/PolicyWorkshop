@@ -39,7 +39,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # engine/ root
 
 from shared.paths import (  # noqa: E402
-    PROJECT_ROOT, CATALOGUE_DIR, CATALOGUE_FILE, MANIFESTS_DIR,
+    PROJECT_ROOT, CATALOGUE_DIR, CATALOGUE_FILE, CHANGELOG_FILE,
 )
 
 WINDOWS_MAX_PATH = 260
@@ -62,6 +62,32 @@ PHASES = {
     4: ("apply overlays", [["engine/definition_gen/apply_overlays.py"]]),
     5: ("quality control", [["engine/catalogue_builder/quality_control.py"]]),
 }
+
+# The sequence, declared as data rather than only as control flow. Three reasons:
+# the plan output is generated from it (so what the driver PRINTS cannot drift from what it
+# DOES); `--from`/`--no-*` annotate it; and each step carries the phrase that must still
+# appear in the runbook, which `tests/test_release_driver.py` enforces.
+#
+# That last one is the anti-drift check. The release sequence now exists in two places -- this
+# list and the runbook's Phase 6 prose -- which is exactly the failure mode #51 and #53 were,
+# one level up. The split: THIS list is the authority for what runs in what order; the runbook
+# owns the why and the traps; the test refuses to let a step live in one and not the other.
+# Markers are commands or headings, not passing turns of phrase, so they break loudly.
+STEPS = [
+    ("stage", "copy the previous catalogue somewhere short, BEFORE phase 3 wipes initiatives/",
+     "stage the previous catalogue"),
+    ("bump", "engine version bump, BEFORE regenerating (producedByEngine is stamped in phases 3-4)",
+     "bump the engine version"),
+    ("phases", "producer phases 1-5", "phase 5"),
+    ("stamp", "check_catalogue_stamp.py — is the catalogue the one this engine produces?",
+     "check_catalogue_stamp.py"),
+    ("changelog", "record the release in CHANGELOG.md, the ledger #48's guard reads",
+     "catalogue_changelog.py"),
+    ("repin", "re-pin contoso on BOTH catalogueVersion and catalogueContentHash",
+     "re-pin contoso"),
+    ("fixtures", "rebuild the json / terraform / bicep fixtures", "assemble_scaffold.py"),
+    ("battery", "verify.sh, MCP smoke test, stamp check, unit tests", "verify.sh"),
+]
 
 
 class ReleaseError(Exception):
@@ -116,10 +142,10 @@ def stage_previous(stage_root, force):
     return prev
 
 
-def check_version_free(version, stage_root):
+def check_version_free(version):
     """Refuse a label the ledger already released for different content (#48), early."""
     from shared.changelog import released_versions, next_free_label
-    released = released_versions(PROJECT_ROOT / "catalogue" / "CHANGELOG.md")
+    released = released_versions(CHANGELOG_FILE)
     if version in released:
         raise ReleaseError(
             f"version label '{version}' is already recorded in CHANGELOG.md. Phase 4 would "
@@ -160,25 +186,34 @@ def battery():
     run(["-m", "unittest", "discover", "-s", "tests", "-t", "tests"], "the unit tests")
 
 
+SKIPPED = "(SKIPPED)"
+
+
+def _step_notes(args, stage_root):
+    """Per-step annotation for the plan, so the plan reflects the flags actually passed."""
+    return {
+        "stage": f"-> {stage_root}",
+        "bump": SKIPPED if args.no_bump else "release.py --apply",
+        "phases": (f"{args.from_phase}-5" + (" · upstream fetch skipped" if args.no_fetch else "")),
+        "changelog": f"--old {stage_root} --write",
+        "battery": SKIPPED if args.no_battery else "",
+    }
+
+
 def plan(args, stage_root):
-    print(f"""
-Catalogue release plan — version {args.version}
-{'=' * 60}
-  0. stage {CATALOGUE_DIR} -> {stage_root}   (BEFORE phase 3 wipes initiatives/)
-     refuse early if the label is already in CHANGELOG.md, or MAX_PATH would bite
-  1. engine bump: release.py --apply        {'(skipped: --no-bump)' if args.no_bump else '(before regenerating!)'}
-  2. phases {args.from_phase}-5
-  3. check_catalogue_stamp.py
-  4. catalogue_changelog.py --old {stage_root} --write
-  5. re-pin contoso (catalogueVersion AND catalogueContentHash)
-  6. rebuild json / terraform / bicep fixtures
-  7. battery: verify.sh, MCP smoke, stamp check, unit tests
-
-Then YOU: write the changelog's human paragraph, read the diff, commit,
-          `release.py --apply --tag`, push the branch and the tag.
-
-Nothing has been changed. Re-run with --yes to execute.
-""".rstrip())
+    notes = _step_notes(args, stage_root)
+    lines = [f"\nCatalogue release plan — version {args.version}", "=" * 60]
+    for i, (name, what, _marker) in enumerate(STEPS):
+        note = notes.get(name, "")
+        lines.append(f"  {i}. {name:<10} {what}" + (f"\n{' ' * 17}{note}" if note else ""))
+    lines += [
+        "",
+        "Then YOU: write the changelog's human paragraph, read the diff, commit,",
+        "          `release.py --apply --tag`, push the branch and the tag.",
+        "",
+        "Nothing has been changed. Re-run with --yes to execute.",
+    ]
+    print("\n".join(lines))
 
 
 def main(argv=None):
@@ -191,6 +226,13 @@ def main(argv=None):
                     help="resume from this phase (see the runbook's which-phase table)")
     ap.add_argument("--no-bump", action="store_true",
                     help="skip the engine version bump (use when release.py proposes none)")
+    ap.add_argument("--no-fetch", action="store_true",
+                    help="skip the upstream fetch in phase 1 (the pinned source is already "
+                         "materialised, or you have no network)")
+    ap.add_argument("--no-battery", action="store_true",
+                    help="skip the final verification battery. The battery is what PROVES the "
+                         "release; skipping it leaves you with an unverified one, and the run "
+                         "says so loudly. Intended for rehearsals, not releases.")
     ap.add_argument("--force", action="store_true", help="overwrite an existing staging path")
     args = ap.parse_args(argv)
 
@@ -200,7 +242,7 @@ def main(argv=None):
         return 0
 
     try:
-        check_version_free(args.version, stage_root)
+        check_version_free(args.version)
         stage_previous(stage_root, args.force)
 
         if not args.no_bump:
@@ -212,6 +254,10 @@ def main(argv=None):
             label, scripts = PHASES[phase]
             print(f"\n=== Phase {phase} — {label} ===")
             for script in scripts:
+                if args.no_fetch and script[0].endswith("fetch_policy_source.py"):
+                    print("[phase 1] upstream fetch skipped (--no-fetch); "
+                          "building against the source already on disk")
+                    continue
                 extra = ["--version", args.version] if phase == 3 else []
                 run(script + extra, f"phase {phase} ({label})")
 
@@ -220,14 +266,22 @@ def main(argv=None):
             "writing the changelog entry")
         repin_contoso()
         rebuild_fixtures()
-        battery()
+        if args.no_battery:
+            print("\n" + "!" * 60)
+            print("BATTERY SKIPPED (--no-battery). This release is NOT VERIFIED: nothing has")
+            print("run verify.sh, the MCP smoke test or the unit tests against it. Do not")
+            print("commit it as a release until you have.")
+            print("!" * 60)
+        else:
+            battery()
     except ReleaseError as exc:
         print(f"\nERROR: {exc}", file=sys.stderr)
         return 2
 
+    verified = "built and recorded, NOT verified" if args.no_battery else "built, recorded and verified"
     print(f"""
 {'=' * 60}
-Release {args.version} is built, recorded and verified. THREE THINGS LEFT, all yours:
+Release {args.version} is {verified}. THREE THINGS LEFT, all yours:
 
   1. Write the "why this release happened" paragraph into catalogue/CHANGELOG.md.
      The tool attributed the driver and counted the deltas; it cannot say why.
